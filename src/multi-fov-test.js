@@ -55,7 +55,7 @@ window.onload = ()=>{
                 fovSetups.push( {
 
                     camera: new PerspectiveCamera( fovDepth, window.innerWidth/window.innerHeight, 0.1,1000 ),
-                    instancer = new MeshInstancer( )
+                    instancer: instancer
 
                 } )
 

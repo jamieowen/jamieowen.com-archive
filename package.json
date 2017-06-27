@@ -8,9 +8,9 @@
     "output": "deploy/replace-me.js"
   },
   "scripts": {
-    "start": "echo 'Run a project using npm run serve --labs:project=src-tests/camera-duplicate.js'",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "echo 'Run a project using npm run serve --labs:input=src-tests/camera-duplicate.js'",
     "deploy": "./deploy.sh",
+    "build-all": "./build.sh",
     "build": "NODE_PATH=./node_modules browserify $npm_package_config_input -t [ babelify --presets [ es2015 ] ] -t glslify  | uglifyjs -cm > $npm_package_config_output",
     "serve": "NODE_PATH=./node_modules budo $npm_package_config_input --dir static --open -- -t [ babelify --presets [ es2015 ] ] -t glslify"
   },
@@ -30,9 +30,12 @@
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
     "budo": "^10.0.3",
-    "glslify": "^6.1.0"
+    "fs-extra": "^3.0.1",
+    "glslify": "^6.1.0",
+    "minimist": "^1.2.0"
   },
   "dependencies": {
+    "dat.gui": "https://github.com/dataarts/dat.gui.git#master",
     "three": "^0.86.0"
   }
 }
