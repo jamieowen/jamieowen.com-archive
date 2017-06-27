@@ -1,0 +1,58 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--<link rel="apple-touch-icon" href="apple-touch-icon.png">!-->
+        <!-- Place favicon.ico in the root directory -->
+
+        <!--<link rel="stylesheet" href="css/main.css">!-->
+
+    </head>
+    <body>
+
+        <style>
+
+            .navigation{
+                position: absolute;
+                top: 0px; left: 0px;
+                width: 220px; height: 100%;
+                background-color: #efefef;
+                padding: 20px;
+            }
+
+            .frame{
+
+                position: absolute;
+                top: 0px; left: 260px;
+                width: calc( 100% - 260px );
+                height: 100%;
+            }
+
+            .link{
+                display: block;
+            }
+
+        </style>
+
+        <div class="navigation">
+            ${links}
+        </div>
+
+        <iframe name="frame" class="frame" frameborder="0">
+        </iframe>
+
+        <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+        <script>
+            window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+            ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
+        </script>
+        <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+    </body>
+
+</html>
