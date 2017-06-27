@@ -38,16 +38,20 @@ var next = function(){
         console.log( 'input:', input );
         console.log( 'output :', outFile );
 
-        var cmd = 'browserify ' + input + ' -t [ babelify --presets [ es2015 ] ] -t glslify  | uglifyjs -cm > ' + outFile;
-        var p = cprocess.exec( 'NODE_PATH=./node_modules ' + cmd, function( error, stdout, stderr ){
+        p = cprocess.spawn( 'sh', [ 'scripts/build-spawn.sh' ], {
+            stdio: 'inherit',
+            env: Object.assign( {}, process.env, {
+                NODE_PATH: './node_modules',
+                INPUT: input,
+                OUTPUT: outFile
+            } )
+        } );
 
-
+        p.on( 'close', function(){
+            console.log( 'DONE' );
+            console.log( '' );
             next();
-
-        });
-
-        p.stdout.pipe( process.stdout );
-        p.stderr.pipe( process.stderr );
+        })
 
 
     }else{
