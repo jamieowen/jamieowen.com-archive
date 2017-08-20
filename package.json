@@ -11,7 +11,7 @@
     "deploy": "./scripts/deploy.sh",
     "copy": "cp -r static/ deploy/",
     "build": "node scripts/build.js --dest deploy --input $npm_package_config_project",
-    "serve": "NODE_PATH=./node_modules budo $npm_package_config_project --dir static --open -- -t [ babelify --presets [ es2015 ] ] -t glslify"
+    "serve": "NODE_PATH=./node_modules budo $npm_package_config_project:bundle.js --dir static --open -- -t [ babelify --presets [ es2015 ] ] -t glslify"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,9 @@
     "fs-extra": "^3.0.1",
     "glob": "^7.1.2",
     "glslify": "^6.1.0",
-    "minimist": "^1.2.0"
+    "lame": "^1.2.4",
+    "minimist": "^1.2.0",
+    "musicmetadata": "^2.0.5"
   },
   "dependencies": {
     "dat.gui": "https://github.com/dataarts/dat.gui.git#master",

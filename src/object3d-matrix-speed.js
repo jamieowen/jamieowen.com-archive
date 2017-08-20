@@ -67,6 +67,8 @@ class Object3DExtended extends Object3D{
         super.updateMatrixWorld( force );
         //console.log( 'update matrix world' );
 
+        //if( )
+        /**
         let child;
         for( let i = 0; i<this.instancedChildren.length; i++ ){
 
@@ -76,7 +78,7 @@ class Object3DExtended extends Object3D{
             // apply matrix4 to scale
             // multiply quaternion to stored quat rotation
 
-        }
+        }**/
 
     }
 
@@ -85,8 +87,8 @@ class Object3DExtended extends Object3D{
 window.onload = ()=>{
 
 
-    let maxChildren = 5;
-    let maxDepth = 3;
+    let maxChildren = 40;
+    let maxDepth = 2;
     let maxInstancedChildren = 10;
 
     let then;
@@ -96,7 +98,9 @@ window.onload = ()=>{
     let endTimer = ( message )=>{
         let now = Date.now();
         let time = now - then;
-        console.log( message + ( time / 1000 ) + 's' );
+        //console.log( message + ( time / 1000 ) + 's' );
+
+        return message + ( time / 1000 ) + 's'
     }
 
     let buildGraph = ( depth, parent, count=0,icount=0 )=>{
@@ -114,8 +118,8 @@ window.onload = ()=>{
             obj.rotation.y = Math.random() * Math.PI * s;
             obj.rotation.z = Math.random() * Math.PI * s;
 
-            obj.createInstancedChildren( maxInstancedChildren );
-            icount += maxInstancedChildren;
+            //obj.createInstancedChildren( maxInstancedChildren );
+            //icount += maxInstancedChildren;
 
             parent.add( obj );
             count++;
@@ -144,6 +148,22 @@ window.onload = ()=>{
     startTimer();
     test.updateMatrixWorld(true);
     endTimer( 'updateMatrixWorldTime : ' );
+
+    let out = document.createElement( 'div' );
+    document.body.appendChild( out );
+
+    let render = ()=>{
+
+        startTimer();
+        test.updateMatrixWorld(true);
+        let msg = endTimer( 'Objects :' +  res.count  + ' :');
+        out.innerText = msg;
+        requestAnimationFrame( render );
+
+    }
+
+    render();
+
 
     console.log( 'built test : ', res );
 
