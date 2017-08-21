@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "config": {
-    "project": ""
+    "project": null
   },
   "scripts": {
     "start": "echo 'Run a project using npm run serve --labs:project=src-tests/camera-duplicate.js'",
     "deploy": "./scripts/deploy.sh",
+    "clean": "rm -r deploy/",
     "copy": "cp -r static/ deploy/",
-    "build": "node scripts/build.js --dest deploy --input $npm_package_config_project",
+    "build": "node scripts/browse.js && node scripts/build.js --dest deploy --input $npm_package_config_project",
     "serve": "NODE_PATH=./node_modules budo $npm_package_config_project:bundle.js --dir static --open -- -t [ babelify --presets [ es2015 ] ] -t glslify"
   },
   "repository": {

@@ -13,11 +13,14 @@ if( !argv.dest ){
 
 var fileList = [];
 
-if( argv.input ){
+
+if( argv.input !== 'null' ){
     fileList.push( argv.input );
 }else{
     fileList = getAllProjects();
 }
+
+console.log( 'File List : ', argv.input, fileList );
 
 var templateHTML = fs.readFileSync( path.join( __dirname, 'templates', 'template.html' ), { encoding: 'utf8' } );
 
