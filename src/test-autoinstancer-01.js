@@ -2,6 +2,8 @@ import Sketch from 'three-toolkit/rendering/Sketch';
 import MaterialModifier from 'three-material-modifier';
 import LightingRig from 'three-toolkit/lighting/LightingRig';
 import AutoInstancer from 'three-toolkit/batching/AutoInstancer';
+import OrbitControls from 'three-toolkit/controls/OrbitControls';
+import InstancedLambertMaterial from 'three-toolkit/materials/InstancedLambertMaterial';
 
 import {
 
@@ -14,7 +16,6 @@ import {
     MeshBasicMaterial,
     MeshLambertMaterial,
     DoubleSide
-
 
 } from 'three';
 
@@ -58,74 +59,20 @@ Sketch( {
         }
     });
 
-    // https://github.com/mattatz/ShibuyaCrowd/blob/master/source/shaders/common/quaternion.glsl
-    let InstancedMaterial = MaterialModifier.extend( 'lambert', {
-        vertexShader: {
-            uniforms: `
 
-                vec4 qmul(vec4 q1, vec4 q2) {
-                	return vec4(
-                		q2.xyz * q1.w + q1.xyz * q2.w + cross(q1.xyz, q2.xyz),
-                		q1.w * q2.w - dot(q1.xyz, q2.xyz)
-                	);
-                }
-
-                vec3 rotate_vector(vec3 v, vec4 r) {
-                	vec4 r_c = r * vec4(-1, -1, -1, 1);
-                	return qmul(r, qmul(vec4(v, 0), r_c)).xyz;
-                }
-
-                mat4 rotationMatrix(vec3 axis, float angle) {
-    			    axis = normalize(axis);
-    			    float s = sin(angle);
-    			    float c = cos(angle);
-    			    float oc = 1.0 - c;
-    			    return mat4(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
-    			                oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
-    			                oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
-    			                0.0,                                0.0,                                0.0,                                1.0
-    			            );
-    			}
-
-
-
-                attribute vec3 translate;
-                attribute vec4 rotation;
-                attribute vec3 scale;
-
-            `,
-            preNormal: `
-                //mat4 rotationMatrix = mat4( elements1,elements2,elements3,elements4 );
-                //objectNormal.xyz = ( vec4( objectNormal.xyz, 1.0 ) * rotationMatrix ).xyz;
-
-                objectNormal.xyz = rotate_vector( objectNormal, rotation );
-            `,
-            preTransform: `
-
-                //transformed = ( vec4( transformed.xyz, 1.0 ) * rotationMatrix ).xyz;
-
-                transformed *= scale;
-                transformed = rotate_vector( transformed, rotation );
-                transformed += translate;
-
-            `
-        }
-    })
-
-    console.log( 'AI : 1 ' );
     let container = new Object3D();
 
     let boxGeometry = new BoxBufferGeometry(1,1,1,1,1,1);
     let sphereGeometry = new SphereBufferGeometry(1,1,1);
     let planeGeometry = new PlaneBufferGeometry(1,1,1,1);
-    let sourceGeometry = planeGeometry;
+    let sourceGeometry = boxGeometry;
 
     let meshes = [];
 
     let useInstancer = true;
 
-    let childCount = 25;
-    let maxDepth = 2;
+    let childCount = 30;
+    let maxDepth = 1;
     let totalObjects = 0;
 
     let buildRecursiveTree = function( parent, depth ){
@@ -136,21 +83,25 @@ Sketch( {
 
             mesh = new Mesh(
                 sourceGeometry,
-                new InstancedMaterial( {color: 0xffffff } )
+                new InstancedLambertMaterial( {color: 0xffffff } )
             );
             mesh.frustumCulled = false;
 
             totalObjects++;
+
+            let rand = Math.random();
             parent.add( mesh );
             mesh.userData.depth = depth;
+            mesh.userData.rand = rand;
+
             let step = depth * ( Math.PI / childCount );
 
             let s = 1 - ( depth / maxDepth );
 
             let n = i / childCount;
             mesh.position.setFromSpherical( {
-                phi: Math.PI * n,
-                theta: Math.PI * 2 * n,
+                phi: Math.PI * n ,
+                theta: Math.PI * 2 * n * rand,
                 radius: ( 35 * s ) + 4
             })
 
@@ -178,7 +129,7 @@ Sketch( {
             {
                 poolCount: totalObjects,
                 geometry: sourceGeometry,
-                material: InstancedMaterial,
+                material: InstancedLambertMaterial,
                 addPivot: false,
                 meshAttributes: {
                 },
@@ -196,63 +147,70 @@ Sketch( {
     });
 
     let paused = false;
+    let renderBoth = false;
+
     window.addEventListener( 'keyup', (ev)=>{
         if( ev.which == 32 ){
             paused = !paused;
+        }else
+        if( ev.which == 86 ){
+            renderBoth = !renderBoth;
         }
     })
 
     let time = 0;
+    let controls = new OrbitControls( manager.domElement, camera );
+
     let update = ()=>{
 
         if( paused ){
             return;
         }
 
+        controls.update();
+
         time += 0.05;
 
-        container.rotation.z += 0.001;
-        container.rotation.x += 0.005;
+        //container.rotation.z += 0.001;
+        //container.rotation.x += 0.005;
 
         let cs = ( Math.sin( time ) * 0.2 ) + 1.0;
-        container.scale.set( cs,cs,cs );
+        //container.scale.set( cs,cs,cs );
 
         let mesh,s,d;
 
         for( let i = 0; i<meshes.length; i++ ){
 
             mesh = meshes[i];
-            mesh.rotation.x += 0.001;
-            mesh.rotation.y += 0.003 * mesh.userData.depth;
 
-            if( mesh.userData.depth > 2 ){
-                mesh.rotation.z += 0.01 * mesh.userData.depth;
-                mesh.rotation.x += 0.02 * mesh.userData.depth;
+            mesh.rotation.x += 0.05 * mesh.userData.rand;
+            mesh.rotation.y += 0.03 * mesh.userData.depth;
+            mesh.rotation.z += 0.05 * mesh.userData.rand;
+
+            if( mesh.userData.depth > 0 ){
+                mesh.rotation.z += 0.05 * mesh.userData.depth * mesh.userData.rand;
+                mesh.rotation.x += 0.3 * mesh.userData.depth;
             }
         }
 
     }
 
+
     let lighting1 = new LightingRig();
     let sceneInstancer = new Scene();
     sceneInstancer.add( lighting1 );
     sceneInstancer.add( autoInstancer );
-    //lighting1.light( 'fill' ).visible = false;
-    //lighting1.light( 'key' ).visible = false;
-
-    window.lighting = lighting1;
-
     let lighting2 = new LightingRig();
     let sceneRegular = new Scene();
-    //lighting2.light( 'key' ).visible = false;
     sceneRegular.add( lighting2 );
     sceneRegular.add( container );
+
+    lighting1.light( 'fill' ).visible = lighting2.light( 'fill' ).visible = false;
+    //lighting1.light( 'key' ).visible = lighting2.light( 'key' ).visible = false;
 
     sceneRegular.overrideMaterial = new MeshLambertMaterial({color:0xffffff })
     let r = manager.renderer;
     r.autoClear = false;
-
-    let renderBoth = false;
 
     let render = ()=>{
 
@@ -264,23 +222,26 @@ Sketch( {
         lighting1.theta+=0.009;
         lighting2.theta+=0.009;
 
+        let w = window.innerWidth;
+        let h = window.innerHeight;
+
         if( renderBoth ){
 
-            let w = window.innerWidth;
-            let h = window.innerHeight;
-
             r.setScissorTest( true );
-
-            r.setViewport( 0,0, w * 0.5, h );
-            r.setScissor( 0,0, w * 0.5, h );
-            r.render( sceneRegular, camera );
 
             r.setViewport( w * 0.5,0, w * 0.5, h );
             r.setScissor( w * 0.5,0, w * 0.5, h );
             r.render( sceneInstancer, camera );
 
+            r.setViewport( 0,0, w * 0.5, h );
+            r.setScissor( 0,0, w * 0.5, h );
+            r.render( sceneRegular, camera );
+
         }else{
 
+            r.setScissorTest( false );
+            r.setViewport( 0,0, w, h );
+            r.setScissor( 0,0, w, h );
             //r.render( sceneRegular, camera );
             r.render( sceneInstancer, camera );
 

@@ -42,6 +42,8 @@ Sketch( {
     // + auto creation of uniform getters / setters.
     // + additional hook commands - convert uniform to attribute, replace:, etc.
 
+    throw new Error( 'Needs fixing based on changes to names of rotate,scale,transform attributes ( see AutoInstancer01 ), Decided to park this route using matrix element updates for now. Seemed that there may be bettwe ways to optimized the matrix decompose route' );
+    
     let ViewShiftMaterial = MaterialModifier.extend( 'lambert', {
         vertexShader: {
             uniforms: `
