@@ -1,8 +1,8 @@
 
-import Sketch from 'three-toolkit/quick-sketch';
-import HudDisplay from 'three-toolkit/rendering/hud-display';
-import LightingRig from 'three-toolkit/objects/lighting-rig';
-import OrbitControls from 'three-toolkit/controls/orbit-controls';
+import Sketch from 'three-toolkit/rendering/Sketch';
+import HudDisplay from 'three-toolkit/rendering/HudDisplay';
+import LightingRig from 'three-toolkit/lighting/LightingRig';
+import OrbitControls from 'three-toolkit/controls/OrbitControls';
 import MaterialModifier from 'three-material-modifier';
 
 
