@@ -8,8 +8,9 @@ import {
     Mesh,
     MeshLambertMaterial,
     MeshPhongMaterial,
-    MeshBasicMaterial,
+    MeshBasicMaterial,    
     PointLight,
+    DirectionalLight,
     PointLightHelper,
     BackSide,
     DoubleSide,
@@ -158,6 +159,10 @@ export default class DomeEnvironment extends Object3D{
         this.time = 0;
         this.radius = 55;
 
+        const dL = new DirectionalLight( 0xffffff - 0x00ff00, 2 );
+        dL.position.set( -1,1,-0.5 );
+        this.add( dL );
+
         var gui = new dat.GUI();
         // gui.add( p2, 'color');
         var p1Folder = gui.addFolder( 'Point Light 1 ' );
@@ -171,6 +176,10 @@ export default class DomeEnvironment extends Object3D{
         p2Folder.add( p2, 'decay', 0,10 );
         p2Folder.add( p2, 'distance', 50,500 );
         p2Folder.add( p2, 'visible' );        
+
+        var dLFolder = gui.addFolder( 'Directional Light' );
+        dLFolder.add( dL, 'intensity', 0,3 );
+        dLFolder.add( dL, 'visible' );      
 
         gui.add( this, 'radius', 5, 100 );
 

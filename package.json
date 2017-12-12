@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "dat.gui": "https://github.com/dataarts/dat.gui.git#master",
+    "seedrandom": "^2.4.3",
     "three": "^0.86.0"
   }
 }
