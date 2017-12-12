@@ -223,6 +223,27 @@ const addPrimitives = ( gui, object, props, args )=>{
     let value,prop;
     let folder,controller;
 
+    // Create wrapper to handle controller updates.
+    const handle = function( object ){
+
+        return function( controller, value, custom ){
+
+            controller.onChange( (res)=>{
+                
+                if( custom ){
+                    custom( value,res );
+                }
+
+                if( object.onGuiChange ){
+                    object.onGuiChange();
+                }
+
+            })
+
+        }
+
+    }( object );
+
     for( let i = 0; i<props.length; i++ ){
         
         prop = props[i];
@@ -232,47 +253,42 @@ const addPrimitives = ( gui, object, props, args )=>{
         if( value instanceof Vector2 ){
 
             folder = gui.addFolder( prop );
-            folder.add( value, 'x' );
-            folder.add( value, 'y' );
+            handle( folder.add( value, 'x' ), value );
+            handle( folder.add( value, 'y' ), value );
 
         }else
         if( value instanceof Vector3 ){
 
             folder = gui.addFolder( prop );
-            folder.add( value, 'x' );
-            folder.add( value, 'y' );
-            folder.add( value, 'z' );
+            handle( folder.add( value, 'x' ), value );
+            handle( folder.add( value, 'y' ), value );
+            handle( folder.add( value, 'z' ), value );
 
         }else
         if( value instanceof Color ){
 
             let colorProxy = {};
             colorProxy[ prop ] = [ value.r * 255, value.g * 255, value.b * 255 ];
-            controller = folder.addColor( colorProxy, prop );
-
-            let handler = function( controller, value ){
-                controller.onChange( (res)=>{
-                    
-                    value.setRGB( res[0]/255,res[1]/255,res[2]/255 );
-    
-                } );
-            }( controller,value );
+            
+            handle( folder.addColor( colorProxy, prop ), value, (val,res)=>{
+                val.setRGB( res[0]/255,res[1]/255,res[2]/255 );
+            } );
 
         }else
         if( value instanceof Euler ){
 
             folder = gui.addFolder( prop );
-            folder.add( value, 'x' );
-            folder.add( value, 'y' );
-            folder.add( value, 'z' );            
+            handle( folder.add( value, 'x' ), value );
+            handle( folder.add( value, 'y' ), value );
+            handle( folder.add( value, 'z' ), value );
 
         }else
         if( value instanceof Spherical ){
 
             folder = gui.addFolder( prop );
-            folder.add( value, 'radius', 0,1000, 0.01 );
-            folder.add( value, 'phi', 0, Math.PI, 0.00001 );
-            folder.add( value, 'theta', -Math.PI, Math.PI, 0.00001 );
+            handle( folder.add( value, 'radius', 0,1000, 0.01 ), value );
+            handle( folder.add( value, 'phi', -Math.PI, Math.PI, 0.00001 ), value );
+            handle( folder.add( value, 'theta', -Math.PI, Math.PI, 0.00001 ), value );
 
         }else{
 

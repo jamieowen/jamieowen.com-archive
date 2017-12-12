@@ -20,18 +20,10 @@ Sketch( {
 }, function( scene, camera, renderManager ){
 
     const dome = new SkyDome({
-        segW: 30,
+        segW: 5,
         segH: 3
     });
     scene.add( dome );
-
-    dome.groundSphere = true;
-    dome.lights[0].position.set( 209,82,0 );
-    dome.lights[0].intensity = 0.6;
-    dome.lights[1].position.set( 21,25,136 );
-    dome.lights[0].intensity = 0.9;
-    dome.lights[2].visible = true;
-    dome.lights[2].position.set( -100,50,10 );
 
     Gui.addObject( 'dome', dome, {
         props: [ 
@@ -39,22 +31,12 @@ Sketch( {
             'groundSphere' ]
     } );
     
-    Gui.addMaterial( 'dome.dome-material', dome.dome.material );
-    Gui.addMaterial( 'dome.ground-material', dome.ground.material );
+    // Gui.addMaterial( 'dome.dome-material', dome.dome.material );
+    // Gui.addMaterial( 'dome.ground-material', dome.ground.material );
 
     dome.lightProperties.addToGui( Gui, 'dome' );
 
-    // Gui.add( 'dome.light-properties', dome.lightProperties, {
-    //     props: [ 
-    //         'autoPosition', 
-    //         'autoColorize',
-    //         'addDomeRadius',
-    //         'phi', 'theta', 'radius'
-    //     ]
-    // } );
-
-
-    Gui.addLight( 'dome.lights', dome.lights );
+    // Gui.addLight( 'dome.lights', dome.lights );
 
 
     const testMesh = new Mesh( 

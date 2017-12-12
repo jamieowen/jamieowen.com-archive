@@ -31,8 +31,9 @@ const defaultOpts = {
     segW: 50,
     segH: 30,
     invertColors: true,
-    groundSphere: false,
-    autoPositionLights: true
+    groundSphere: true,
+    autoPosition: true,
+    autoColorize: true
 
 }
 
@@ -46,12 +47,11 @@ export default class SkyDome extends Object3D{
 
         this.init( opts );
 
+        this.lightProperties = new LightPropertiesManager( this, opts );
+
         this.radius = opts.radius;
         this.invertColors = opts.invertColors;
         this.groundSphere = opts.groundSphere;
-
-        this.lightProperties = new LightPropertiesManager( this, opts );
-
 
     }
 
@@ -104,6 +104,7 @@ export default class SkyDome extends Object3D{
         this._radius = value;
         this.dome.scale.set( 1,1,1 ).multiplyScalar( this._radius );
         this.ground.scale.set( 1,1,1 ).multiplyScalar( this._radius * 1.01 );
+        this.lightProperties.needsUpdate = true;
 
     }
 
@@ -317,7 +318,9 @@ const lightProperties = {
 
 }
 
-const vec3Helper = new Vector3();
+const vecHelper = new Vector3();
+const sphHelper = new Spherical();
+const colorHelper = new Color();
 
 class LightPropertiesManager{
 
@@ -343,19 +346,42 @@ class LightPropertiesManager{
 
             this.needsUpdate = false;
             
-            const pos = {
-                phi: 0,
-                theta: 0,
-                radius: 0
+            if( this.autoPosition ){
+
+                sphHelper.copy( this.start );
+                
+                if( this.addDomeRadius ){
+                    sphHelper.radius += this.skyDome.radius;
+                }
+    
+                vecHelper.set( 0,0,0 );
+    
+                for( let i = 0; i<lights.length; i++ ){
+    
+                    vecHelper.setFromSpherical( sphHelper );
+                    lights[i].position.copy( vecHelper );
+    
+                    sphHelper.radius += this.shift.radius;
+                    sphHelper.theta += this.shift.theta;
+                    sphHelper.phi += this.shift.phi;
+    
+                }
+
             }
 
-            if( this.addDomeRadius ){
-                pos.radius += this.skyDome.radius;
+            if( this.autoColorize ){
+
+                colorHelper.copy( this.colorBase );
+
+                for( let i = 0; i<lights.length; i++ ){
+
+                    lights[i].color.copy( colorHelper );
+                    colorHelper.offsetHSL( this.hueShift,0,0 );
+
+                }
+
             }
 
-            for( let i = 0; i<lights.length; i++ ){
-
-            }
 
         }
 
@@ -383,6 +409,12 @@ class LightPropertiesManager{
             props: [ 'colorBase', 'hueShift', 'hueSeed', 'hueRandomScale' ]
         } );
 
+    }
+
+    // Triggered from gui.
+    onGuiChange(){
+
+        this.needsUpdate = true;
 
     }
 
