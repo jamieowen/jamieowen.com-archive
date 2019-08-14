@@ -1,0 +1,218 @@
+[
+  {
+    "time": 1562198400,
+    "close": 6.1e-7,
+    "high": 6.9e-7,
+    "low": 5.1e-7,
+    "open": 6.8e-7,
+    "volumefrom": 8370264521,
+    "volumeto": 5057.93
+  },
+  {
+    "time": 1562284800,
+    "close": 5.2e-7,
+    "high": 6.4e-7,
+    "low": 5.1e-7,
+    "open": 6.1e-7,
+    "volumefrom": 3115296644,
+    "volumeto": 1761.2
+  },
+  {
+    "time": 1562371200,
+    "close": 5.3e-7,
+    "high": 5.4e-7,
+    "low": 4.5e-7,
+    "open": 5.2e-7,
+    "volumefrom": 2384520123,
+    "volumeto": 1164.06
+  },
+  {
+    "time": 1562457600,
+    "close": 5.5e-7,
+    "high": 5.9e-7,
+    "low": 4.9e-7,
+    "open": 5.3e-7,
+    "volumefrom": 2402434261,
+    "volumeto": 1324.21
+  },
+  {
+    "time": 1562544000,
+    "close": 4.3e-7,
+    "high": 5.5e-7,
+    "low": 4.1e-7,
+    "open": 5.5e-7,
+    "volumefrom": 3316019463,
+    "volumeto": 1557.49
+  },
+  {
+    "time": 1562630400,
+    "close": 3.9e-7,
+    "high": 4.5e-7,
+    "low": 3.7e-7,
+    "open": 4.3e-7,
+    "volumefrom": 3457113537,
+    "volumeto": 1389.16
+  },
+  {
+    "time": 1562716800,
+    "close": 3.9e-7,
+    "high": 4e-7,
+    "low": 3.5e-7,
+    "open": 3.9e-7,
+    "volumefrom": 2730358274,
+    "volumeto": 1010.79
+  },
+  {
+    "time": 1562803200,
+    "close": 3.1e-7,
+    "high": 4e-7,
+    "low": 3e-7,
+    "open": 3.9e-7,
+    "volumefrom": 2055190658,
+    "volumeto": 695.37
+  },
+  {
+    "time": 1562889600,
+    "close": 4.6e-7,
+    "high": 5.2e-7,
+    "low": 3e-7,
+    "open": 3.1e-7,
+    "volumefrom": 15809606773,
+    "volumeto": 6728.53
+  },
+  {
+    "time": 1562976000,
+    "close": 5.5e-7,
+    "high": 6.1e-7,
+    "low": 4.3e-7,
+    "open": 4.6e-7,
+    "volumefrom": 10689856812,
+    "volumeto": 5815.38
+  },
+  {
+    "time": 1563062400,
+    "close": 5.2e-7,
+    "high": 6.6e-7,
+    "low": 4.9e-7,
+    "open": 5.5e-7,
+    "volumefrom": 7545227608,
+    "volumeto": 4360.86
+  },
+  {
+    "time": 1563148800,
+    "close": 4.2e-7,
+    "high": 5.4e-7,
+    "low": 4.1e-7,
+    "open": 5.2e-7,
+    "volumefrom": 3909793701,
+    "volumeto": 1832.63
+  },
+  {
+    "time": 1563235200,
+    "close": 3.8e-7,
+    "high": 4.7e-7,
+    "low": 3.6e-7,
+    "open": 4.2e-7,
+    "volumefrom": 3738798337,
+    "volumeto": 1578.13
+  },
+  {
+    "time": 1563321600,
+    "close": 4.9e-7,
+    "high": 5.1e-7,
+    "low": 3.8e-7,
+    "open": 3.8e-7,
+    "volumefrom": 3004878118,
+    "volumeto": 1347.84
+  },
+  {
+    "time": 1563408000,
+    "close": 4.2e-7,
+    "high": 5.2e-7,
+    "low": 4.2e-7,
+    "open": 4.9e-7,
+    "volumefrom": 2970687005,
+    "volumeto": 1386.45
+  },
+  {
+    "time": 1563494400,
+    "close": 4.1e-7,
+    "high": 4.4e-7,
+    "low": 4e-7,
+    "open": 4.2e-7,
+    "volumefrom": 1362433327,
+    "volumeto": 573.81
+  },
+  {
+    "time": 1563580800,
+    "close": 4.1e-7,
+    "high": 4.5e-7,
+    "low": 4e-7,
+    "open": 4.1e-7,
+    "volumefrom": 1309918678,
+    "volumeto": 557.56
+  },
+  {
+    "time": 1563667200,
+    "close": 4e-7,
+    "high": 4.3e-7,
+    "low": 3.8e-7,
+    "open": 4.1e-7,
+    "volumefrom": 720634771,
+    "volumeto": 293.27
+  },
+  {
+    "time": 1563753600,
+    "close": 3.8e-7,
+    "high": 4e-7,
+    "low": 3.6e-7,
+    "open": 4e-7,
+    "volumefrom": 840718114,
+    "volumeto": 319.53
+  },
+  {
+    "time": 1563840000,
+    "close": 3.6e-7,
+    "high": 3.9e-7,
+    "low": 3.5e-7,
+    "open": 3.8e-7,
+    "volumefrom": 1342391214,
+    "volumeto": 490.08
+  },
+  {
+    "time": 1563926400,
+    "close": 3.7e-7,
+    "high": 4.1e-7,
+    "low": 3.5e-7,
+    "open": 3.6e-7,
+    "volumefrom": 1298315383,
+    "volumeto": 496.85
+  },
+  {
+    "time": 1564012800,
+    "close": 3.7e-7,
+    "high": 4e-7,
+    "low": 3.6e-7,
+    "open": 3.7e-7,
+    "volumefrom": 984478683,
+    "volumeto": 377.15
+  },
+  {
+    "time": 1564099200,
+    "close": 3.7e-7,
+    "high": 3.9e-7,
+    "low": 3.6e-7,
+    "open": 3.7e-7,
+    "volumefrom": 431884592,
+    "volumeto": 163.54
+  },
+  {
+    "time": 1564185600,
+    "close": 3.6e-7,
+    "high": 3.8e-7,
+    "low": 3.5e-7,
+    "open": 3.7e-7,
+    "volumefrom": 522720237,
+    "volumeto": 188.56
+  }
+]

@@ -1,0 +1,353 @@
+[
+  {
+    "time": 1560902400,
+    "close": 1,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 6.11,
+    "volumeto": 6.104
+  },
+  {
+    "time": 1560988800,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 1,
+    "volumefrom": 7.874,
+    "volumeto": 7.867
+  },
+  {
+    "time": 1561075200,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 6.072,
+    "volumeto": 6.068
+  },
+  {
+    "time": 1561161600,
+    "close": 1,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 5.794,
+    "volumeto": 5.793
+  },
+  {
+    "time": 1561248000,
+    "close": 1,
+    "high": 1,
+    "low": 1,
+    "open": 1,
+    "volumefrom": 3.753,
+    "volumeto": 3.753
+  },
+  {
+    "time": 1561334400,
+    "close": 1,
+    "high": 1,
+    "low": 0.999,
+    "open": 1,
+    "volumefrom": 9.545,
+    "volumeto": 9.541
+  },
+  {
+    "time": 1561420800,
+    "close": 1,
+    "high": 1,
+    "low": 0.999,
+    "open": 1,
+    "volumefrom": 5.378,
+    "volumeto": 5.375
+  },
+  {
+    "time": 1561507200,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 1,
+    "volumefrom": 3.55,
+    "volumeto": 3.549
+  },
+  {
+    "time": 1561593600,
+    "close": 1,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 10.41,
+    "volumeto": 10.4
+  },
+  {
+    "time": 1561680000,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 1,
+    "volumefrom": 5.995,
+    "volumeto": 5.993
+  },
+  {
+    "time": 1561766400,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 3.507,
+    "volumeto": 3.506
+  },
+  {
+    "time": 1561852800,
+    "close": 1,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 1.164,
+    "volumeto": 1.164
+  },
+  {
+    "time": 1561939200,
+    "close": 1,
+    "high": 1,
+    "low": 0.999,
+    "open": 1,
+    "volumefrom": 1.591,
+    "volumeto": 1.591
+  },
+  {
+    "time": 1562025600,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 1,
+    "volumefrom": 2.464,
+    "volumeto": 2.463
+  },
+  {
+    "time": 1562112000,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 4.35,
+    "volumeto": 4.348
+  },
+  {
+    "time": 1562198400,
+    "close": 1,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 0.544,
+    "volumeto": 0.5437
+  },
+  {
+    "time": 1562284800,
+    "close": 1,
+    "high": 1,
+    "low": 0.999,
+    "open": 1,
+    "volumefrom": 1.282,
+    "volumeto": 1.282
+  },
+  {
+    "time": 1562371200,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 1,
+    "volumefrom": 1.463,
+    "volumeto": 1.462
+  },
+  {
+    "time": 1562457600,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 0.601,
+    "volumeto": 0.6006
+  },
+  {
+    "time": 1562544000,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 3.124,
+    "volumeto": 3.122
+  },
+  {
+    "time": 1562630400,
+    "close": 0.999,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 2.557,
+    "volumeto": 2.555
+  },
+  {
+    "time": 1562716800,
+    "close": 0.9999,
+    "high": 1,
+    "low": 0.999,
+    "open": 0.999,
+    "volumefrom": 5.231,
+    "volumeto": 5.23
+  },
+  {
+    "time": 1562803200,
+    "close": 0.9999,
+    "high": 1,
+    "low": 0.9999,
+    "open": 0.9999,
+    "volumefrom": 0.893,
+    "volumeto": 0.893
+  },
+  {
+    "time": 1562889600,
+    "close": 0.9999,
+    "high": 1,
+    "low": 0.9999,
+    "open": 0.9999,
+    "volumefrom": 2.091,
+    "volumeto": 2.091
+  },
+  {
+    "time": 1562976000,
+    "close": 0.9999,
+    "high": 1,
+    "low": 0.9999,
+    "open": 0.9999,
+    "volumefrom": 2.058,
+    "volumeto": 2.058
+  },
+  {
+    "time": 1563062400,
+    "close": 0.9999,
+    "high": 1,
+    "low": 0.9999,
+    "open": 0.9999,
+    "volumefrom": 1.926,
+    "volumeto": 1.926
+  },
+  {
+    "time": 1563148800,
+    "close": 1,
+    "high": 1,
+    "low": 0.9999,
+    "open": 0.9999,
+    "volumefrom": 6.213,
+    "volumeto": 6.212
+  },
+  {
+    "time": 1563235200,
+    "close": 1,
+    "high": 1,
+    "low": 0.9999,
+    "open": 1,
+    "volumefrom": 11.6,
+    "volumeto": 11.6
+  },
+  {
+    "time": 1563321600,
+    "close": 1,
+    "high": 1,
+    "low": 0.9999,
+    "open": 1,
+    "volumefrom": 29.34,
+    "volumeto": 29.34
+  },
+  {
+    "time": 1563408000,
+    "close": 1,
+    "high": 1,
+    "low": 0.9999,
+    "open": 1,
+    "volumefrom": 4.407,
+    "volumeto": 4.407
+  },
+  {
+    "time": 1563494400,
+    "close": 1,
+    "high": 1,
+    "low": 0.9999,
+    "open": 1,
+    "volumefrom": 7.572,
+    "volumeto": 7.572
+  },
+  {
+    "time": 1563580800,
+    "close": 1,
+    "high": 1,
+    "low": 0.9999,
+    "open": 1,
+    "volumefrom": 2.913,
+    "volumeto": 2.913
+  },
+  {
+    "time": 1563667200,
+    "close": 1,
+    "high": 1,
+    "low": 0.9999,
+    "open": 1,
+    "volumefrom": 1.228,
+    "volumeto": 1.228
+  },
+  {
+    "time": 1563753600,
+    "close": 0.9999,
+    "high": 1,
+    "low": 0.9999,
+    "open": 1,
+    "volumefrom": 0.111,
+    "volumeto": 0.111
+  },
+  {
+    "time": 1563840000,
+    "close": 0.9999,
+    "high": 1,
+    "low": 0.9999,
+    "open": 0.9999,
+    "volumefrom": 1.347,
+    "volumeto": 1.347
+  },
+  {
+    "time": 1563926400,
+    "close": 1,
+    "high": 1,
+    "low": 0.9999,
+    "open": 0.9999,
+    "volumefrom": 4.269,
+    "volumeto": 4.269
+  },
+  {
+    "time": 1564012800,
+    "close": 1,
+    "high": 1,
+    "low": 0.9999,
+    "open": 1,
+    "volumefrom": 0.549,
+    "volumeto": 0.549
+  },
+  {
+    "time": 1564099200,
+    "close": 1,
+    "high": 1,
+    "low": 0.9999,
+    "open": 1,
+    "volumefrom": 0.179,
+    "volumeto": 0.179
+  },
+  {
+    "time": 1564185600,
+    "close": 0.9999,
+    "high": 1,
+    "low": 0.9999,
+    "open": 1,
+    "volumefrom": 0.356,
+    "volumeto": 0.356
+  }
+]

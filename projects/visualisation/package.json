@@ -10,5 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "d3": "^5.9.7"
+  },
+  "devDependencies": {
+    "cryptocompare": "^1.0.0",
+    "node-fetch": "^2.6.0"
   }
 }
