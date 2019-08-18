@@ -63,9 +63,14 @@ AdaptableLamnertMaterial,
 AdaptablePointMaterial,
 etc...
 
-
 These can form the basis of particle engines and a whole bunch of optized tools for rnedering.
 
+Feedback Interface.
+If updates/feedback are deifned using glsl. and we can operate in both cpu and gpu modes, we need some way to update data and supply relevant
+attribute update logic. This could be provided to the material but may need an additional class to house the logic for shader creation and render/update to logic for feedback. It also gives us options for switching between worker rendering and multi-frame passes on large amounts of data.  Also CPU based rendering gives us the option of using some spatial indexing on positoin data for fast distance queries.
+
+TransformFeedbackUpdate
+( geometry, mat)
 
 
 

@@ -36,18 +36,19 @@ module.exports = ()=>{
         filename: path.basename( entry ),
         path: path.resolve(__dirname, 'build')
       },
+      resolve: {
+        alias: {
+          '@jamieowen/sketch': path.resolve( __dirname, 'projects/visualisation/crypto-charts/sketch' ),
+          '@jamieowen/three-mesh-instancing': path.resolve( __dirname, 'projects/three/lib/mesh-instancing' ),
+          '@jamieowen/three-transform-geometry': path.resolve( __dirname, 'projects/three/lib/transform-geometry' )
+        }
+      },
       module: {
         rules: [
           {
             test: /\.m?js$/,
             exclude: /(node_modules|bower_components)/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env','@babel/preset-react'],
-                plugins: []
-              }
-            }
+            use: [ 'babel-loader' ]
           }
         ]
       },

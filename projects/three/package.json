@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "glsl-transpiler": "^1.8.5",
+    "react-spring": "^8.0.27",
     "react-three-fiber": "^2.2.14",
     "three": "^0.107.0"
   }
