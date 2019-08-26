@@ -3,23 +3,15 @@ import {
 
   // Temp
   Mesh,
-  BoxBufferGeometry,
-  Matrix4,
-  MeshBasicMaterial
+  MeshBasicMaterial,
+  MeshLambertMaterial,
+  MeshPhongMaterial,
+  Vector3
 } from 'three';
 
-let debugGeometry = null;
-const createGeometry = ()=>{
-  if( !debugGeometry ){
-    const s = 0.25;
-    debugGeometry = new BoxBufferGeometry(s,s,s,1,1,1);
-    const transformMatrix = new Matrix4();
-    transformMatrix.makeRotationZ( Math.PI * 0.5 );
-    transformMatrix.makeRotationX( Math.PI * 0.25 );
-    debugGeometry.applyMatrix( transformMatrix );
-  }
-  return debugGeometry;
-}
+
+const vec3Target = new Vector3();
+const vec3 = new Vector3();
 
 class MeshInstance extends Object3D{
 
@@ -27,10 +19,11 @@ class MeshInstance extends Object3D{
     
     super();
 
+    this.geometry = geometry;
     this.material = material;
     this.__parent = null;
     this.__context = null;
-    this.debug();
+    // this.debug();
 
   }
 
@@ -53,6 +46,8 @@ class MeshInstance extends Object3D{
   set parent( value ){
     if( this.__parent !== value ){
       this.__parent = value;
+      // super.parent = value;      
+      // this.parent.add( this._debugMesh );
       const oldContext = this.__context;
       const newContext = this.getContext();
       this.__context = newContext;
@@ -73,14 +68,18 @@ class MeshInstance extends Object3D{
   debug(){
 
     this._debugMesh = new Mesh( 
-      createGeometry(),
-      new MeshBasicMaterial({
+      this.geometry,
+      new MeshLambertMaterial({
+        // color: 'red',
         color: this.material.color,
-        wireframe: true
+        // wireframe: true,
+        // wireframeLinewidth: 0.0001
       })
     )
 
     this.add( this._debugMesh );
+
+    
 
   }
 

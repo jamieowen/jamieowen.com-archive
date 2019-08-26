@@ -6,33 +6,36 @@ import {
   ShaderLib
 } from 'three';
 
-const ROOT = path.resolve( __dirname,'../' );
 const GLSL_OUTPUT = path.resolve( __dirname, '../glsl' );
 const MATERIAL_OUTPUT = path.resolve( __dirname, '../' );
-const GLSL_FILE_SUFFIX = '.gen.glsl.js';
-const MATERIAL_FILE_SUFFIX = '.gen.js';
+const INDEX_OUTPUT = path.resolve( __dirname, '../' );
+const INDEX_NAME = 'index.generated.js';
+
+const VERT_SUFFIX = '_vert';
+const FRAG_SUFFIX = '_frag';
+const GLSL_FILE_SUFFIX = '.glsl.js';
+const MATERIAL_FILE_SUFFIX = '.js';
 
 import generateBaseMaterial from './generateBaseMaterial';
 
-
 /** shaderLibID:[ id,writePath ]*/
 const shaderLibExports = {
-  basic: ['basic-instanced'],
-  lambert: ['lambert-instanced'],
-  phong: ['phong-instanced'],
-  standard: ['standard-instanced'],
-  matcap: ['matcap-instanced'],
-  normal: ['normal-instanced']
+  basic: ['basic_instanced'],
+  lambert: ['lambert_instanced'],
+  phong: ['phong_instanced'],
+  standard: ['standard_instanced'],
+  matcap: ['matcap_instanced'],
+  normal: ['normal_instanced']
 }
 
 /** materialBaseClass:writePath */
 const materialExports = {
-  MeshBasicMaterial: ['MeshInstanceBasicMaterial','basic'],
-  MeshLambertMaterial: ['MeshInstanceLambertMaterial',''],
-  MeshPhongMaterial: ['MeshInstancePhongMaterial'],
-  MeshStandardMaterial: ['MeshInstanceStandardMaterial'],
-  MeshMatcapMaterial: ['MeshInstanceMatcapMaterial'],
-  MeshNormalMaterial: ['MeshInstanceNormalMaterial']
+  MeshBasicMaterial: ['MeshInstanceBasicMaterial','basic_instanced'],
+  MeshLambertMaterial: ['MeshInstanceLambertMaterial','lambert_instanced'],
+  MeshPhongMaterial: ['MeshInstancePhongMaterial','phong_instanced'],
+  MeshStandardMaterial: ['MeshInstanceStandardMaterial','standard_instanced'],
+  MeshMatcapMaterial: ['MeshInstanceMatcapMaterial','matcap_instanced'],
+  MeshNormalMaterial: ['MeshInstanceNormalMaterial','normal_instanced']
 }
 
 const mapKeys = (obj,op)=>{
@@ -45,9 +48,7 @@ const mapKeys = (obj,op)=>{
 const writeSync = (path,contents)=>{
   const header = `
 /** 
- * [ AUTO_GENERATED ]
- * <three.js version: ${REVISION}> 
- * <last-modified: ${new Date().toString()}>
+ * Based on: <three.js version: ${REVISION}> 
  **/
 
 `;
@@ -66,6 +67,7 @@ ${src}
 `
 }
 
+
 /**
  * Write GLSL files.
  */
@@ -73,11 +75,11 @@ mapKeys( shaderLibExports,(key,entry,i)=>{
   const name = entry[0];
   const vertexShader = ShaderLib[key].vertexShader;
   const fragmentShader = ShaderLib[key].fragmentShader;
-  const outVert = path.join(GLSL_OUTPUT,`${name}-vert${GLSL_FILE_SUFFIX}`);
-  const outFrag = path.join(GLSL_OUTPUT,`${name}-frag${GLSL_FILE_SUFFIX}`);
-  
-  writeSync(outVert,wrapGlsl(vertexShader));
-  writeSync(outFrag,wrapGlsl(fragmentShader));
+  const vertexShaderPath = path.join(GLSL_OUTPUT,`${name}${VERT_SUFFIX}${GLSL_FILE_SUFFIX}`);
+  const fragmentShaderPath = path.join(GLSL_OUTPUT,`${name}${FRAG_SUFFIX}${GLSL_FILE_SUFFIX}`);
+
+  writeSync(vertexShaderPath,wrapGlsl(vertexShader));
+  writeSync(fragmentShaderPath,wrapGlsl(fragmentShader));
 
 } )
 
@@ -91,8 +93,15 @@ const indexExports = [];
  */
 mapKeys( materialExports,(key,entry,i)=>{
   const name = entry[0];
-  const res = generateBaseMaterial(key,name,REVISION);
-  const out = path.join(MATERIAL_OUTPUT,name+MATERIAL_FILE_SUFFIX);
+  const glslName = entry[1];
+
+  const out = path.join(MATERIAL_OUTPUT,name+MATERIAL_FILE_SUFFIX);  
+
+  const res = generateBaseMaterial(
+    key,name,
+    `./${path.relative(MATERIAL_OUTPUT,GLSL_OUTPUT)}/${glslName}${VERT_SUFFIX}${GLSL_FILE_SUFFIX.replace('.js','')}`,
+    `./${path.relative(MATERIAL_OUTPUT,GLSL_OUTPUT)}/${glslName}${FRAG_SUFFIX}${GLSL_FILE_SUFFIX.replace('.js','')}`,
+  );  
   writeSync(out,res);
   indexExports.push( out );
 } )
@@ -101,8 +110,8 @@ mapKeys( materialExports,(key,entry,i)=>{
  * Write index.generated.js
  */
 const indexFile = indexExports.map( (file)=>{
-  return `export * from "./${path.relative(ROOT,file)}"`
+  return `export * from "./${path.relative(INDEX_OUTPUT,file)}"`
 }).join('\n')
 
-writeSync( path.join(ROOT,'index.generated.js'), indexFile );
+writeSync( path.join(INDEX_OUTPUT,INDEX_NAME), indexFile );
 

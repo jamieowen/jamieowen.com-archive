@@ -1,6 +1,8 @@
 const generateBaseMaterial = ( 
   BaseClass, 
-  ClassName
+  ClassName,  
+  vertexShaderPath,
+  fragmentShaderPath
 )=>{
 
   return `
@@ -8,15 +10,18 @@ import {
   ${BaseClass} 
 } from 'three';
 
+import vertexShader from '${vertexShaderPath}';
+import fragmentShader from '${fragmentShaderPath}';
+
 class ${ClassName} extends ${BaseClass}{
 
   constructor(opts){
     super(opts);    
-
   }
 
   onBeforeCompile(shader){
-    console.log( 'CUSTOM:${ClassName}->${BaseClass}' );
+    shader.vertexShader = vertexShader;
+    shader.fragmentShader = fragmentShader;
   }
 
 }

@@ -19,6 +19,9 @@ const createMeshClasses = (meshes)=>{
       // Unsure about passing geometry around
       constructor(){
         super(geometry,material.clone());
+
+        this.isMeshInstance = true;
+        this.instanceType = name;
       }
 
     }
@@ -27,6 +30,7 @@ const createMeshClasses = (meshes)=>{
     cls.MAX_INSTANCES = maxInstances;
     cls.GEOMETRY = geometry;
     cls.MATERIAL = material;
+    cls.NAME = name;
 
     classes[ name ] = cls;
 
@@ -45,12 +49,12 @@ class ContextConfig{
     } = config;
 
     this.meshes = meshes;
-    this._meshClasses = createMeshClasses(meshes);
+    this.meshClasses = createMeshClasses(meshes);
 
   }
 
   createMeshClasses(){
-    return this._meshClasses;
+    return this.meshClasses;
   }
 
 }
