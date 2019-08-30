@@ -5,5 +5,6 @@ export default `
   attribute vec4 matrixWorld3;
 
   // attribute vec3 translate;
-  // attribute vec3 scale;  
+  // attribute vec3 scale;
+  
 `

@@ -36,7 +36,7 @@ class MeshInstanceContext extends Object3D{
       const material = cls.MATERIAL;
       const maxInstances = cls.MAX_INSTANCES;
 
-      const renderer = new MeshInstanceRenderer(geometry,material,maxInstances);
+      const renderer = new MeshInstanceRenderer(geometry,material,maxInstances);      
       this.add( renderer );
 
       return {
@@ -55,6 +55,14 @@ class MeshInstanceContext extends Object3D{
       instanceCount: 0
     }
   
+  }
+
+  updateMatrixWorld(force){
+    super.updateMatrixWorld(force);
+    for( let key in this.renderers ){
+      let entry = this.renderers[key];      
+      entry.renderer.updateAttributes();
+    }
   }
   
   onAddInstance(instance){

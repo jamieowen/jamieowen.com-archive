@@ -26,7 +26,7 @@ export default `
 #include <clipping_planes_pars_vertex>
 void main() {
 	#include <uv_vertex>
-	#include <begin_instanced_vertex>
+	#include <instanced_begin_vertex>
 	#include <beginnormal_vertex>
 	#include <morphnormal_vertex>
 	#include <skinbase_vertex>

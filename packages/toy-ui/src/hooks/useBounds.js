@@ -1,7 +1,7 @@
 import {
-  useRef,
   useState,
-  useEffect
+  useEffect,
+  useRef
 } from 'react';
 
 const useBounds = ()=>{
@@ -16,13 +16,17 @@ const useBounds = ()=>{
     if( !ref.current ){
       return;
     }
-    const resize = new ResizeObserver(([item])=>{      
-      const {x,y,width,height,left,right,bottom,top} = item.target.getBoundingClientRect();      
+    const updateBounds = ()=>{
+      const target = ref.current;
+      const {x,y,width,height,left,right,bottom,top} = target.getBoundingClientRect();      
       const bounds = {x,y,width,height,left,right,bottom,top};
       setBounds(bounds);
-    });    
+    }
+    const resize = new ResizeObserver(updateBounds);    
+    window.addEventListener( 'resize',updateBounds); 
     resize.observe(ref.current);
     return ()=>{
+      window.removeEventListener('resize',updateBounds);
       resize.unobserve(ref.current);
     }
   },[ref.current]);
@@ -31,24 +35,4 @@ const useBounds = ()=>{
 
 }
 
-const useDrag = ()=>{
-
-  const [bgBounds,bgRef] = useBounds();
-  const [thumbBounds,thumbRef] = useBounds();
-
-
-  useEffect( ()=>{
-
-    return ()=>{
-
-    }
-  },[] );
-
-  return [ bgRef,thumbRef ];
-
-}
-
-export {
-  useBounds,
-  useDrag
-}
+export { useBounds };

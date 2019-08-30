@@ -21,7 +21,8 @@ import {
   SphereBufferGeometry,
   TorusBufferGeometry,
   ConeBufferGeometry,
-  TetrahedronBufferGeometry
+  TetrahedronBufferGeometry,
+  VertexColors
 } from 'three';
 
 import {
@@ -42,7 +43,7 @@ import {
 } from '@jamieowen/three-mesh-instancing';
 
 const maxInstances = 50;
-const numInstances = 10;
+const numInstances = 50;
 
 const config = new ContextConfig({
   meshes: {
@@ -152,8 +153,6 @@ const factoriesNonInstanced = {
 }
 
 const types = Object.keys( factoriesInstanced );
-// const types = [ 'torus', 'cone', 'sphere' ];
-// const types = [ 'torus', 'box' ];
 
 const createInstances = ( factory )=>{
 
@@ -203,19 +202,32 @@ const Controls = ()=>{
 
 const updateObject = (obj)=>{
 
-  let child;
-  let ox = 1.2;
-  let children = obj.instances ? obj.instances : obj.children;
-  let offset = children.length / 2 * ox;
+  const children = obj.instances ? obj.instances : obj.children;
+  const o = 1.5;
+  const cc = 4;//Math.floor( Math.sqrt(children.length) );
+  const offsetY = ( Math.floor(children.length / cc ) * o ) / 2;
+  const offsetX = ( (cc-1) * o ) / 2;
+
+
+  let child,r,c;
+  
   // console.log( 'updateObject - OFFSET',offset, obj.children.length );
   for( let i = 0; i<children.length; i++ ){
     child = children[i];
-    child.position.y = ( i*ox ) - offset;
+    c = i % cc;
+    r = Math.floor( i / cc );    
+
+    // child.position.y = ( i*ox ) - offset;
+    child.position.x = c * o - offsetX;
+    child.position.y = r * o - offsetY;
+    
     // child.scale.x = Math.sin(i) + 0.4;
     // child.scale.y = child.scale.x;
     // child.scale.z = child.scale.x;
 
     child.rotation.y = Math.PI * i * 0.1;
+    child.rotation.x = Math.PI * i * 0.3;
+    child.rotation.z = Math.PI * i * 0.8;
   }
 
 }
@@ -225,7 +237,10 @@ const UpdateLoop = ({instancedRef,nonInstancedRef})=>{
   useRender(({camera,gl})=>{
     // console.log( 'IN', instancedRef, nonInstancedRef );
     updateObject( instancedRef.current );    
-    updateObject( nonInstancedRef.current ); 
+    if( nonInstancedRef.current ){
+      updateObject( nonInstancedRef.current ); 
+    }
+    
 
   });
 
@@ -260,12 +275,15 @@ Sketch( ()=>{
         <r.scenes>
           <scene name="instanced">
             <Instancing ref={instancedRef}/>
-            <pointLight position={[2,2,2]} intensity={3}/>
+            <pointLight position={[2,2,2]} intensity={1.5}/>
+            <hemisphereLight/>
             {/* <ambientLight intensity={0.2} /> */}            
           </scene>
           <scene name="non-instanced">
+            {/* <Instancing ref={nonInstancedRef}/> */}
             <NonInstancing ref={nonInstancedRef}/>
-            <pointLight position={[2,2,2]} intensity={3}/>
+            <pointLight position={[2,2,2]} intensity={1.5}/>
+            <hemisphereLight/>
             {/* <ambientLight intensity={0.2} /> */}            
           </scene>
         </r.scenes>
@@ -275,14 +293,14 @@ Sketch( ()=>{
             name="instanced" 
             camera="camera1" 
             scene="instanced"
-            backgroundColor="crimson"/> 
+            backgroundColor="hotpink"/> 
           <r.viewport 
             name="non-instanced"
             scene="non-instanced"
             camera="camera1"
             pipeline="bloom"
-            backgroundColor="firebrick"/>
-        </r.viewport>      
+            backgroundColor="firebrick"/>                
+        </r.viewport>               
       </r.renderer>
     </Canvas>
   )

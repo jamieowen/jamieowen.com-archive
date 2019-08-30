@@ -21,7 +21,7 @@ void main() {
 	#include <uv_vertex>
 	#include <uv2_vertex>
 	#include <color_vertex>
-	#include <begin_instanced_vertex>
+	#include <instanced_begin_vertex>
 	#include <skinbase_vertex>
 	#ifdef USE_ENVMAP
 	#include <beginnormal_vertex>

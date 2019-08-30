@@ -1,7 +1,8 @@
 import {
   Mesh,
   InstancedBufferGeometry,
-  InstancedBufferAttribute
+  InstancedBufferAttribute,
+  VertexColors
 } from 'three';
 
 class MeshInstanceRenderer extends Mesh{
@@ -12,21 +13,26 @@ class MeshInstanceRenderer extends Mesh{
     geom.copy( geometry );
     geom.maxInstancedCount = maxInstances;
 
-    const translate = new Float32Array(maxInstances*3).fill(0);
-    const scale = new Float32Array(maxInstances*3).fill(1);
+    // const translate = new Float32Array(maxInstances*3).fill(0);
+    // const scale = new Float32Array(maxInstances*3).fill(1);
 
     const matrixWorld0 = new Float32Array(maxInstances*4).fill(0);
     const matrixWorld1 = new Float32Array(maxInstances*4).fill(0);
     const matrixWorld2 = new Float32Array(maxInstances*4).fill(0);
     const matrixWorld3 = new Float32Array(maxInstances*4).fill(0);
   
-    geom.addAttribute( 'translate', new InstancedBufferAttribute(translate,3) );
-    geom.addAttribute( 'scale', new InstancedBufferAttribute(scale,3) );    
+    // geom.addAttribute( 'translate', new InstancedBufferAttribute(translate,3) );
+    // geom.addAttribute( 'scale', new InstancedBufferAttribute(scale,3) );    
 
     geom.addAttribute( 'matrixWorld0', new InstancedBufferAttribute(matrixWorld0,4) );
     geom.addAttribute( 'matrixWorld1', new InstancedBufferAttribute(matrixWorld1,4) );
     geom.addAttribute( 'matrixWorld2', new InstancedBufferAttribute(matrixWorld2,4) );
     geom.addAttribute( 'matrixWorld3', new InstancedBufferAttribute(matrixWorld3,4) );
+    
+    if( material.type === 'MeshBasicMaterial' ){
+      const diffuse = new Float32Array(maxInstances*3).fill(1);
+      geom.addAttribute( 'diffuse', new InstancedBufferAttribute(diffuse,3) );
+    }
 
     super(geom,material);
 
@@ -37,28 +43,16 @@ class MeshInstanceRenderer extends Mesh{
 
   }
 
-  onBeforeRender(){
-    /**
-     * Would be nice to update geometry onBeforeRender.
-     * but this is delayed by one frame.
-     * So you see the original geometry before attribute data is transferred.
-     */
-    // if( this.time < 2 ){
-    //   console.log( 'Before Render' );
-    // }        
-  }
-
-  updateMatrixWorld(force){
-    
-    super.updateMatrixWorld(force);
+  updateAttributes(){
 
     const { 
-      translate,
-      scale,
+      // translate,
+      // scale,
       matrixWorld0,
       matrixWorld1,
       matrixWorld2,
       matrixWorld3,
+      diffuse
     } = this.geometry.attributes;
 
     let offset3 = 0;
@@ -69,13 +63,19 @@ class MeshInstanceRenderer extends Mesh{
 
       instance = this.collectedInstances[i];
 
-      scale.array[offset3] = instance.scale.x;
-      scale.array[offset3+1] = instance.scale.y;
-      scale.array[offset3+2] = instance.scale.z;
+      // scale.array[offset3] = instance.scale.x;
+      // scale.array[offset3+1] = instance.scale.y;
+      // scale.array[offset3+2] = instance.scale.z;
 
-      translate.array[offset3] = instance.position.x;
-      translate.array[offset3+1] = instance.position.y;
-      translate.array[offset3+2] = instance.position.z;
+      // translate.array[offset3] = instance.position.x;
+      // translate.array[offset3+1] = instance.position.y;
+      // translate.array[offset3+2] = instance.position.z;
+
+      if( diffuse ){        
+        diffuse.array[offset3] = 1;//this.material.color.r;
+        diffuse.array[offset3+1] = 1;//this.material.color.g;
+        diffuse.array[offset3+2] = 1;//this.material.color.b;
+      }
 
       const elements = instance.matrix.elements;
 
@@ -104,8 +104,12 @@ class MeshInstanceRenderer extends Mesh{
 
     }
 
-    scale.needsUpdate = true;
-    translate.needsUpdate = true;
+    // scale.needsUpdate = true;
+    // translate.needsUpdate = true;
+
+    if( diffuse ){
+      diffuse.needsUpdate = true;
+    }
 
     matrixWorld0.needsUpdate = true;
     matrixWorld1.needsUpdate = true;

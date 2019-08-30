@@ -4,7 +4,6 @@ import React,{
 import styled from 'styled-components';
 
 import { 
-  ControlProvider,
   useMetrics
 } from './contexts';
 
@@ -89,6 +88,7 @@ const ControlExtended = ()=>{
 
 const Control = forwardRef(({
   children,
+  control,
   ordinal,
   label="",
   ...props
@@ -105,26 +105,24 @@ const Control = forwardRef(({
 
   // TODO: defer render the settings compo
   return (
-    <ControlProvider>
-      <ControlBase 
-        ref={ref}
-        height={cell} 
-        backgroundColor={bgColor}
-        {...props}
-        >
+    <ControlBase 
+      ref={ref}
+      height={cell} 
+      backgroundColor={bgColor}
+      {...props}
+      >
 
-        <ControlInput cols={colsInput} x="0%">        
-          { children }
-          <ControlLabel padding={padding}>
-            {label}
-          </ControlLabel>           
-        </ControlInput>            
-        <ControlSettings x="100%" cols={colsSettings}>
-          Settings  
-        </ControlSettings>
-       
-      </ControlBase>  
-    </ControlProvider>
+      <ControlInput cols={colsInput} x="0%">        
+        { children }
+        <ControlLabel padding={padding}>
+          {label}
+        </ControlLabel>           
+      </ControlInput>            
+      <ControlSettings x="100%" cols={colsSettings}>
+        Settings  
+      </ControlSettings>
+      
+    </ControlBase>  
   )
 
 });

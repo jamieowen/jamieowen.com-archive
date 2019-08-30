@@ -1,17 +1,6 @@
 import {
-  Object3D,
-
-  // Temp
-  Mesh,
-  MeshBasicMaterial,
-  MeshLambertMaterial,
-  MeshPhongMaterial,
-  Vector3
+  Object3D
 } from 'three';
-
-
-const vec3Target = new Vector3();
-const vec3 = new Vector3();
 
 class MeshInstance extends Object3D{
 
@@ -23,7 +12,6 @@ class MeshInstance extends Object3D{
     this.material = material;
     this.__parent = null;
     this.__context = null;
-    // this.debug();
 
   }
 
@@ -62,24 +50,6 @@ class MeshInstance extends Object3D{
         throw new Error( 'MeshInstances must be added to a descendant of a MeshInstanceContext' );
       }
     }
-
-  }
-
-  debug(){
-
-    this._debugMesh = new Mesh( 
-      this.geometry,
-      new MeshLambertMaterial({
-        // color: 'red',
-        color: this.material.color,
-        // wireframe: true,
-        // wireframeLinewidth: 0.0001
-      })
-    )
-
-    this.add( this._debugMesh );
-
-    
 
   }
 

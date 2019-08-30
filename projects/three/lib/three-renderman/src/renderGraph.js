@@ -216,7 +216,7 @@ const renderGraph = (
   /**
    * Need to look in to this..
    */
-  typeLookup.defaultScene.updateMatrixWorld();
+  // typeLookup.defaultScene.updateMatrixWorld();
 
   for( let i = 0; i<viewports.length; i++ ){
     const vp = viewports[i];
@@ -250,7 +250,7 @@ const renderGraph = (
       camera = typeLookup.defaultCamera;
       // scene = typeLookup.defaultScene;
       
-      scene.updateMatrixWorld();
+      // scene.updateMatrixWorld();
 
       camera.aspect = vb.width/vb.height;
       camera.updateProjectionMatrix();

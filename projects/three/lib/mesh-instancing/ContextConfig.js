@@ -19,7 +19,6 @@ const createMeshClasses = (meshes)=>{
       // Unsure about passing geometry around
       constructor(){
         super(geometry,material.clone());
-
         this.isMeshInstance = true;
         this.instanceType = name;
       }
