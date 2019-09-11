@@ -40,7 +40,7 @@ const Block = styled( animated.div )`
   border-radius: 28px;
 `
 
-import Sketch from '../crypto-charts/sketch';
+import Sketch from '@jamieowen/sketch';
 
 const items = [ 1,2,3,4,5 ];
 

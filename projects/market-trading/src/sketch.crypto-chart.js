@@ -6,9 +6,9 @@ import React, {
 import Sketch from './sketch';
 
 import chartData from './fetch-data/historical/ETH_BTC.json';
-import StockChart from './components/StockChart';
-import DataFittingInfo from './components/DataFittingInfo';
-import { StockChart as StockChart2 } from './components/stock-chart';
+import StockChart from '../crypto-charts/components/StockChart';
+import DataFittingInfo from '../crypto-charts/components/DataFittingInfo';
+import { StockChart as StockChart2 } from '../crypto-charts/components/stock-chart';
 
 console.log( 'STOCK 2 ', StockChart2 );
 Sketch( ()=>{

@@ -267,6 +267,11 @@ iconv-lite@0.4:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
+lightweight-charts@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/lightweight-charts/-/lightweight-charts-1.1.0.tgz#000b1a454053dd8ff9c305c4a590347195795e7b"
+  integrity sha512-bKiEGsneENFsOpKRtT50yBp9Gc5DD0htyC7yfvENzOG8q4LblYZA4eJ92F0nMcm6M5op88kRKGGk/BssW2L/1w==
+
 node-fetch@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"

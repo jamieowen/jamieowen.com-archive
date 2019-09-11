@@ -42,7 +42,7 @@ module.exports = ()=>{
       resolve: {
         alias: {
           'three': path.resolve( __dirname, 'projects/three/node_modules/three' ),
-          '@jamieowen/sketch': path.resolve( __dirname, 'projects/visualisation/crypto-charts/sketch' ),
+          '@jamieowen/sketch': path.resolve( __dirname, 'packages/sketch' ),
           '@jamieowen/three-mesh-instancing': path.resolve( __dirname, 'projects/three/lib/mesh-instancing' ),
           '@jamieowen/three-transform-geometry': path.resolve( __dirname, 'projects/three/lib/transform-geometry' ),
           '@jamieowen/three-renderman': path.resolve( __dirname, 'projects/three/lib/three-renderman' ),

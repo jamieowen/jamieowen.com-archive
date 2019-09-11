@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@storybook/cli": "^5.1.11",
     "eventemitter3": "^4.0.0"
   }
 }
