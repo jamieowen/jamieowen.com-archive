@@ -16,7 +16,6 @@ export default `
 		varying vec3 vBitangent;
 	#endif
 #endif
-#include <instanced_common>
 #include <instanced_pars_vertex>
 #include <uv_pars_vertex>
 #include <displacementmap_pars_vertex>
@@ -44,7 +43,7 @@ void main() {
 	#include <morphtarget_vertex>
 	#include <skinning_vertex>
 	#include <displacementmap_vertex>
-	#include <instanced_vertex>
+	#include <instanced_transform_vertex>
 	#include <project_vertex>
 	#include <logdepthbuf_vertex>
 	#include <clipping_planes_vertex>

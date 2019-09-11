@@ -21,6 +21,12 @@ const createMeshClasses = (meshes)=>{
         super(geometry,material.clone());
         this.isMeshInstance = true;
         this.instanceType = name;
+
+        if( this.material.color ){
+          console.log( 'Set Color' );
+          this.material.color.setRGB( Math.random(), Math.random(), Math.random() );
+        }
+        
       }
 
     }

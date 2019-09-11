@@ -5,8 +5,10 @@
 
 
 export default `
-uniform vec3 diffuse;
-uniform float opacity;
+#define BASIC
+// uniform vec3 diffuse;
+// uniform float opacity;
+#include <instanced_pars_fragment>
 #ifndef FLAT_SHADED
 	varying vec3 vNormal;
 #endif
@@ -24,6 +26,7 @@ uniform float opacity;
 #include <logdepthbuf_pars_fragment>
 #include <clipping_planes_pars_fragment>
 void main() {
+	#include <instanced_varyings_fragment>
 	#include <clipping_planes_fragment>
 	vec4 diffuseColor = vec4( diffuse, opacity );
 	#include <logdepthbuf_fragment>

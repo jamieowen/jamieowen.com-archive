@@ -6,7 +6,8 @@
 
 export default `
 #define NORMAL
-uniform float opacity;
+// uniform float opacity;
+#include <instanced_pars_fragment>
 #if defined( FLAT_SHADED ) || defined( USE_BUMPMAP ) || ( defined( USE_NORMALMAP ) && ! defined( OBJECTSPACE_NORMALMAP ) )
 	varying vec3 vViewPosition;
 #endif
@@ -14,7 +15,7 @@ uniform float opacity;
 	varying vec3 vNormal;
 	#ifdef USE_TANGENT
 		varying vec3 vTangent;
-		varying vec3 vBitangent;
+		varying vec3 vBitangent; 
 	#endif
 #endif
 #include <packing>

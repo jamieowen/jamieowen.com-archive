@@ -6,8 +6,9 @@
 
 export default `
 #define MATCAP
-uniform vec3 diffuse;
-uniform float opacity;
+// uniform vec3 diffuse;
+// uniform float opacity;
+#include <instanced_pars_fragment>
 uniform sampler2D matcap;
 varying vec3 vViewPosition;
 #ifndef FLAT_SHADED

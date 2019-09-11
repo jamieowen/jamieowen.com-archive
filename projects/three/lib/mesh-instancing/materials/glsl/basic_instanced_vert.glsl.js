@@ -5,7 +5,7 @@
 
 
 export default `
-#include <instanced_common>
+#define BASIC
 #include <instanced_pars_vertex>
 #include <common>
 #include <uv_pars_vertex>
@@ -33,7 +33,7 @@ void main() {
 	#include <begin_vertex>
 	#include <morphtarget_vertex>
 	#include <skinning_vertex>
-	#include <instanced_vertex>
+	#include <instanced_transform_vertex>
 	#include <project_vertex>
 	#include <logdepthbuf_vertex>
 	#include <worldpos_vertex>

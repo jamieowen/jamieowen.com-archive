@@ -10,7 +10,6 @@ varying vec3 vViewPosition;
 #ifndef FLAT_SHADED
 	varying vec3 vNormal;
 #endif
-#include <instanced_common>
 #include <instanced_pars_vertex>
 #include <common>
 #include <uv_pars_vertex>
@@ -42,7 +41,7 @@ void main() {
 	#include <morphtarget_vertex>
 	#include <skinning_vertex>
 	#include <displacementmap_vertex>
-	#include <instanced_vertex>
+	#include <instanced_transform_vertex>
 	#include <project_vertex>
 	#include <logdepthbuf_vertex>
 	#include <clipping_planes_vertex>

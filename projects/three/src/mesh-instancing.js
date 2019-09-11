@@ -256,7 +256,7 @@ Sketch( ()=>{
   return (
     <Canvas 
       // invalidateFrameloop
-      camera={{position: [0,0,5]}}
+      camera={{position: [0,0,25]}}
       pixelRatio={2}>      
       
       <Controls/>
@@ -264,8 +264,8 @@ Sketch( ()=>{
       <r.renderer>
 
         <r.cameras>
-          <perspectiveCamera name="camera1" position={[0,0,20]}/>
-          <perspectiveCamera name="camera2" position={[0,0,20]}/>
+          <perspectiveCamera name="camera1" position={[0,0,100]}/>
+          <perspectiveCamera name="camera2" position={[0,0,50]}/>
           <perspectiveCamera name="camera3"/>
           {/* <r.orbitControlsCamera/> */}
         </r.cameras>
@@ -293,7 +293,7 @@ Sketch( ()=>{
             name="instanced" 
             camera="camera1" 
             scene="instanced"
-            backgroundColor="hotpink"/> 
+            backgroundColor="crimson"/> 
           <r.viewport 
             name="non-instanced"
             scene="non-instanced"

@@ -12,7 +12,6 @@ varying vec3 vIndirectFront;
 	varying vec3 vLightBack;
 	varying vec3 vIndirectBack;
 #endif
-#include <instanced_common>
 #include <instanced_pars_vertex>
 #include <common>
 #include <uv_pars_vertex>
@@ -41,7 +40,7 @@ void main() {
 	#include <begin_vertex>
 	#include <morphtarget_vertex>
 	#include <skinning_vertex>
-	#include <instanced_vertex>
+	#include <instanced_transform_vertex>
 	#include <project_vertex>
 	#include <logdepthbuf_vertex>
 	#include <clipping_planes_vertex>

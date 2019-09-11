@@ -2,24 +2,29 @@ import {
   ShaderChunk
 } from 'three';
 
-import instanced_common from '../glsl/chunks/instanced_common.glsl';
-import instanced_pars_vertex from '../glsl/chunks/instanced_pars_vertex.glsl';
-import instanced_begin_vertex from '../glsl/chunks/instanced_begin_vertex.glsl';
-import instanced_normal_vertex from '../glsl/chunks/instanced_normal_vertex.glsl';
 import instanced_vertex from '../glsl/chunks/instanced_vertex.glsl';
+import instanced_fragment from '../glsl/chunks/instanced_fragment.glsl';
 
-import instanced_mat_basic from '../glsl/chunks/instanced_material_basic.glsl';
-
-
-const chunks = {  
-  instanced_common,
-  instanced_pars_vertex,  
+const { 
+  instanced_pars_vertex,
   instanced_begin_vertex,
   instanced_normal_vertex,
-  instanced_vertex,
+  instanced_transform_vertex 
+} = instanced_vertex;
 
-  // instanced_basic_fragment
-  
+const {
+  instanced_pars_fragment,
+  instanced_varyings_fragment
+} = instanced_fragment;
+
+const chunks = {  
+  instanced_pars_vertex,
+  instanced_begin_vertex,
+  instanced_normal_vertex,
+  instanced_transform_vertex,
+
+  instanced_pars_fragment,
+  instanced_varyings_fragment 
 }
 
 let done = false;

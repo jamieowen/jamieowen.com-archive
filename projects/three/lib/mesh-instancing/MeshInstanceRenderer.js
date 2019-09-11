@@ -5,6 +5,56 @@ import {
   VertexColors
 } from 'three';
 
+const attributeFactory = {
+  'diffuse': (maxInstances,geometry)=>{
+    const a_diffuse = new Float32Array(maxInstances*3).fill(1);
+    geometry.addAttribute( 'a_diffuse', new InstancedBufferAttribute(a_diffuse,3) );
+  },
+  'emissive': (maxInstances,geometry)=>{
+    const a_emissive = new Float32Array(maxInstances*3).fill(1);
+    geometry.addAttribute( 'a_emissive', new InstancedBufferAttribute(a_emissive,3) );    
+  },
+  'specular': (maxInstances,geometry)=>{
+    const a_specular = new Float32Array(maxInstances*3).fill(1);
+    geometry.addAttribute( 'a_specular', new InstancedBufferAttribute(a_specular,3) );
+    const a_shininess = new Float32Array(maxInstances).fill(1);
+    geometry.addAttribute( 'a_shininess', new InstancedBufferAttribute(a_shininess,1) );
+  },
+  'physical': (maxInstances,geometry)=>{
+    const a_metalness = new Float32Array(maxInstances).fill(1);
+    geometry.addAttribute( 'a_metalness', new InstancedBufferAttribute(a_metalness,1) );
+    const a_roughness = new Float32Array(maxInstances).fill(1);
+    geometry.addAttribute( 'a_roughness', new InstancedBufferAttribute(a_roughness,1) );
+  },  
+  'clearCoat': (maxInstances,geometry)=>{
+    const a_clearCoat = new Float32Array(maxInstances).fill(1);
+    geometry.addAttribute( 'a_clearCoat', new InstancedBufferAttribute(a_clearCoat,1) );
+    const a_clearCoatRoughness = new Float32Array(maxInstances).fill(1);
+    geometry.addAttribute( 'a_clearCoatRoughness', new InstancedBufferAttribute(a_clearCoatRoughness,1) );
+  }
+}
+
+const materialAttributeMap = {
+  'MeshBasicMaterial': ['diffuse'],
+  'MeshLambertMaterial': [ 'diffuse','emissive' ],
+  'MeshPhongMaterial': ['diffuse','emissive','specular'],
+  'MeshStandardMaterial': ['diffuse','emissive','physical' ],
+  'MeshPhysicalMaterial': ['diffuse','emissive','physical','clearCoat' ]
+}
+
+const createAttributes = ( material,geometry,maxInstances )=>{
+
+  const factories = materialAttributeMap[material.type];
+  if( factories ){
+    factories.forEach((f)=>{
+      const create = attributeFactory[f];
+      create( maxInstances,geometry );
+    })
+  }
+  console.log( 'Create attributes : ', material.type, factories, Object.keys(geometry.attributes) );
+
+}
+
 class MeshInstanceRenderer extends Mesh{
 
   constructor(geometry,material,maxInstances){
@@ -22,20 +72,17 @@ class MeshInstanceRenderer extends Mesh{
     const matrixWorld3 = new Float32Array(maxInstances*4).fill(0);
   
     // geom.addAttribute( 'translate', new InstancedBufferAttribute(translate,3) );
-    // geom.addAttribute( 'scale', new InstancedBufferAttribute(scale,3) );    
+    // geom.addAttribute( 'scale', new InstancedBufferAttribute(scale,3) );
 
     geom.addAttribute( 'matrixWorld0', new InstancedBufferAttribute(matrixWorld0,4) );
     geom.addAttribute( 'matrixWorld1', new InstancedBufferAttribute(matrixWorld1,4) );
     geom.addAttribute( 'matrixWorld2', new InstancedBufferAttribute(matrixWorld2,4) );
     geom.addAttribute( 'matrixWorld3', new InstancedBufferAttribute(matrixWorld3,4) );
-    
-    if( material.type === 'MeshBasicMaterial' ){
-      const diffuse = new Float32Array(maxInstances*3).fill(1);
-      geom.addAttribute( 'diffuse', new InstancedBufferAttribute(diffuse,3) );
-    }
+  
+    createAttributes( material,geom,maxInstances );
 
     super(geom,material);
-
+    
     this.frustumCulled = false;
     this.collectedInstances = [];
 
@@ -52,7 +99,7 @@ class MeshInstanceRenderer extends Mesh{
       matrixWorld1,
       matrixWorld2,
       matrixWorld3,
-      diffuse
+      a_diffuse
     } = this.geometry.attributes;
 
     let offset3 = 0;
@@ -71,10 +118,10 @@ class MeshInstanceRenderer extends Mesh{
       // translate.array[offset3+1] = instance.position.y;
       // translate.array[offset3+2] = instance.position.z;
 
-      if( diffuse ){        
-        diffuse.array[offset3] = 1;//this.material.color.r;
-        diffuse.array[offset3+1] = 1;//this.material.color.g;
-        diffuse.array[offset3+2] = 1;//this.material.color.b;
+      if( a_diffuse ){
+        a_diffuse.array[offset3] = instance.material.color.r;
+        a_diffuse.array[offset3+1] = instance.material.color.g;
+        a_diffuse.array[offset3+2] = instance.material.color.b;
       }
 
       const elements = instance.matrix.elements;
@@ -107,8 +154,8 @@ class MeshInstanceRenderer extends Mesh{
     // scale.needsUpdate = true;
     // translate.needsUpdate = true;
 
-    if( diffuse ){
-      diffuse.needsUpdate = true;
+    if( a_diffuse ){
+      a_diffuse.needsUpdate = true;
     }
 
     matrixWorld0.needsUpdate = true;

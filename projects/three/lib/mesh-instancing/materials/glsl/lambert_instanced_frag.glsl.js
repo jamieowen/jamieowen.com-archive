@@ -5,9 +5,12 @@
 
 
 export default `
-uniform vec3 diffuse;
-uniform vec3 emissive;
-uniform float opacity;
+#define LAMBERT
+// uniform float opacity;
+// uniform vec3 diffuse;
+// uniform vec3 emissive;
+#include <instanced_pars_fragment>
+
 varying vec3 vLightFront;
 varying vec3 vIndirectFront;
 #ifdef DOUBLE_SIDED

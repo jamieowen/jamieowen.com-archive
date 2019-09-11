@@ -6,11 +6,13 @@
 
 export default `
 #define PHONG
-uniform vec3 diffuse;
-uniform vec3 emissive;
-uniform vec3 specular;
-uniform float shininess;
-uniform float opacity;
+// uniform vec3 diffuse;
+// uniform float opacity;
+// uniform vec3 emissive;
+// uniform vec3 specular;
+// uniform float shininess;
+#include <instanced_pars_fragment>
+
 #include <common>
 #include <packing>
 #include <dithering_pars_fragment>

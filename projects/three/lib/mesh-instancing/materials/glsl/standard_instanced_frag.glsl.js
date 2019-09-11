@@ -6,15 +6,19 @@
 
 export default `
 #define PHYSICAL
-uniform vec3 diffuse;
-uniform vec3 emissive;
-uniform float roughness;
-uniform float metalness;
-uniform float opacity;
-#ifndef STANDARD
-	uniform float clearCoat;
-	uniform float clearCoatRoughness;
-#endif
+
+// uniform vec3 diffuse;
+// uniform float opacity;
+// uniform vec3 emissive;
+// uniform float roughness;
+// uniform float metalness;
+// #ifndef STANDARD
+// 	uniform float clearCoat;
+// 	uniform float clearCoatRoughness;
+// #endif
+
+#include <instanced_pars_fragment>
+
 varying vec3 vViewPosition;
 #ifndef FLAT_SHADED
 	varying vec3 vNormal;
