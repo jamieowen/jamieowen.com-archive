@@ -25,10 +25,10 @@ const SliderHitArea = styled.div`
 `
 
 const Slider = ({
-  value,
+  value=0.35,
   min=0,
   max=1,
-  step,
+  step=null,
   onChange=()=>{},
   ...props
 })=>{

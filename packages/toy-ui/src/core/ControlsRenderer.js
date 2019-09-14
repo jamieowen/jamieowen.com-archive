@@ -18,18 +18,23 @@ let renderCount = 0;
  */
 const ControlRenderer = ({
   Renderer,
-  control,
+  control = {},
   ordinal,
   ...props
 })=>{
 
   const [currentValue,setCurrentValue] = useState(value);
   const {setControlValue} = useControls();
+
   const onChange = (value)=>{
-    setCurrentValue(value); // force us to refresh, and update value globally
-    setControlValue(control,value);
+    // force us to refresh, and update value globally
+    setCurrentValue(value); 
+    if( setControlValue ) {
+      // allow operation outside a ContextProvider.
+      setControlValue(control,value);
+    }
   }
-  const value = control.value;
+  const value = control.value || currentValue;
   const label = control.id; 
 
   return (
@@ -77,4 +82,4 @@ const ControlsRenderer = ()=>{
 
 }
 
-export { ControlsRenderer };
+export { ControlRenderer, ControlsRenderer };

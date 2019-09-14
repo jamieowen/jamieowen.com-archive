@@ -6,7 +6,7 @@ import React,{
 
 import { useControlsReducer } from './ControlsApi'
 
-const ControlsContext = createContext(null);
+const ControlsContext = createContext({});
 const useControls = ()=>useContext(ControlsContext);
 
 let refreshCount = 0;

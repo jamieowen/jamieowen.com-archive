@@ -5,7 +5,9 @@
   "license": "MIT",
   "dependencies": {
     "@storybook/cli": "^5.1.11",
-    "eventemitter3": "^4.0.0"
+    "eventemitter3": "^4.0.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",

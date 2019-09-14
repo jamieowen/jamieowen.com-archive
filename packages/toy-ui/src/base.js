@@ -90,7 +90,7 @@ const Control = forwardRef(({
   children,
   control,
   ordinal,
-  label="",
+  label="Label",
   ...props
 },ref )=>{
 
