@@ -27,8 +27,7 @@ storiesOf('Controls', module)
   .add('Vector', () =>{} ) // value = [ 0.2,0.3,0.2 ] ( vec2,vec3,vec4, vecX )
   .add('Button', () =>{} ) // value = ()=>{}
   .add('Color', ()=>{} ) // value = '#efefef' || { r,g,b }, { h,s,l }, { l,a,b }
-  // .add('')
-  
+  // .add('')  
 
 
 // storiesOf('Control Modes', module)
