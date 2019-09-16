@@ -1,0 +1,5 @@
+A personal R&D project to explore the possibilities of rendering Three.js scenes sent from the browser to a raytracing renderer.  
+
+A set of libraries defined custom proxy Materials and Lights that exist in the raytracing renderer, allowing attributes to be set in Javascript and 3D objects to be positioned in space.  Additional Render settings for Global Illumination, sampling, caustics, could also be configured.   Textures, geometry & scene information were encoded into an Scene file( .sc ) then sent to a Node.js server via WebSockets.  The result would then be saved to disk and passed back to the browser.
+
+This would provide some interesting potential for generating on-the-fly baked textures for dynamic 3d scenes or photo-realistic renders in general.  The raytracing renderer used was quite old but the same concept could be used on proprietary renderers such as Octane.

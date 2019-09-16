@@ -1,0 +1,1375 @@
+[
+    {
+        "id": "adidas-verticals",
+        "title": "Verticals",
+        "agency": "de-construct",
+        "client": "Adidas",
+        "tech": [
+            "Actionscript 3.0",
+            "Adobe Flash"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 5,
+        "pageOrder": 21,
+        "images": [
+            {
+                "height": 433,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/adidas-verticals/adidasvert_01.jpg"
+            },
+            {
+                "height": 433,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/adidas-verticals/adidasvert_02.jpg"
+            },
+            {
+                "height": 433,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/adidas-verticals/adidasvert_03.jpg"
+            },
+            {
+                "height": 433,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/adidas-verticals/adidasvert_04.jpg"
+            },
+            {
+                "height": 433,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/adidas-verticals/adidasvert_05.jpg"
+            },
+            {
+                "height": 433,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/adidas-verticals/adidasvert_06.jpg"
+            }
+        ],
+        "thumb": {
+            "width": 250,
+            "height": 250,
+            "type": "png",
+            "url": "./static/selected-work/adidas-verticals/verticals-thumb.png"
+        },
+        "content": "<p>Adidas are one of the world’s most recognised sports brands, they worked with agency de-construct on the launch of thir Predator football boot.</p>\n\n<p>We created a site with the entry navigation focused around an interactive infographic calendar.  3D versions of the football boot deconstructed upon interaction to highlight key technologies of the product.</p>",
+        "contentPath": "./static/selected-work/adidas-verticals/adidas-verticals.md"
+    },
+    {
+        "id": "argos-giftguide",
+        "title": "Gift Guide",
+        "agency": "Razorfish",
+        "client": "Argos",
+        "tech": [
+            "Javascript",
+            "WebGL",
+            "Pixi.js"
+        ],
+        "featured": true,
+        "enabled": true,
+        "order": 9,
+        "pageOrder": 11,
+        "images": [
+            {
+                "height": 1600,
+                "width": 3200,
+                "type": "jpg",
+                "url": "./static/selected-work/argos-giftguide/argos-giftguide_01.jpg"
+            },
+            {
+                "height": 1600,
+                "width": 3200,
+                "type": "jpg",
+                "url": "./static/selected-work/argos-giftguide/argos-giftguide_02.jpg"
+            },
+            {
+                "height": 1600,
+                "width": 3200,
+                "type": "jpg",
+                "url": "./static/selected-work/argos-giftguide/argos-giftguide_03.jpg"
+            }
+        ],
+        "thumb": {
+            "width": 500,
+            "height": 250,
+            "type": "png",
+            "url": "./static/selected-work/argos-giftguide/giftguide-thumb.png"
+        },
+        "content": "<p>Argos is a UK based catalogue retailer operating online and in-store order/pickup services.   They invested heavily in revamping their old store processes for a more digital focused experience.  They contacted Razorfish to design and develop a different approach to visualising and browsing their product catalogue both in-store and online.</p>\n\n<p>We developed a mobile, tablet and desktop enabled WebGL / Canvas based interactive hexagonal grid displaying categories of products in a fun and playful way.   A Gift Selector tool took a heuristics approach to product selection by allowing the user to select products that were relevant to ‘Him’ or ‘Her’. Once a number of products were selected, a number of search results appeared on the grid.  We also added support for the Leap Motion controller as an additional form of interaction.</p>",
+        "contentPath": "./static/selected-work/argos-giftguide/argos.md"
+    },
+    {
+        "id": "blackberry-acalendaroftales",
+        "title": "A Calendar of Tales",
+        "agency": "The Neighbourhood",
+        "client": "Neil Gaimann",
+        "tech": [
+            "Javascript",
+            "Canvas"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 999,
+        "pageOrder": 16,
+        "images": [
+            {
+                "height": 430,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/blackberry-acalendaroftales/bbcalendaroftales_01.jpg"
+            },
+            {
+                "height": 430,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/blackberry-acalendaroftales/bbcalendaroftales_02.jpg"
+            },
+            {
+                "height": 430,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/blackberry-acalendaroftales/bbcalendaroftales_03.jpg"
+            },
+            {
+                "height": 430,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/blackberry-acalendaroftales/bbcalendaroftales_04.jpg"
+            },
+            {
+                "height": 430,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/blackberry-acalendaroftales/bbcalendaroftales_05.jpg"
+            },
+            {
+                "height": 430,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/blackberry-acalendaroftales/bbcalendaroftales_06.jpg"
+            },
+            {
+                "height": 430,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/blackberry-acalendaroftales/bbcalendaroftales_07.jpg"
+            },
+            {
+                "height": 430,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/blackberry-acalendaroftales/bbcalendaroftales_08.jpg"
+            },
+            {
+                "height": 430,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/blackberry-acalendaroftales/bbcalendaroftales_09.jpg"
+            },
+            {
+                "height": 430,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/blackberry-acalendaroftales/bbcalendaroftales_10.jpg"
+            }
+        ],
+        "thumb": {
+            "height": 430,
+            "width": 640,
+            "type": "jpg",
+            "url": "./static/selected-work/blackberry-acalendaroftales/thumb.jpg"
+        },
+        "content": "<p>Neil Gaiman is an English author of popular children’s books such as Coraline, Stardust and The Graveyard Book.  He partnered with Blackberry &amp; design agency The Neighbourhood when working on The Calendar of Tales, a series of monthly short stories inspired by answers to questions posed on Twitter to Gaiman’s followers.  People were invited to submit illustrations and artworks to accompany each story.</p>\n\n<p>We worked with The Neighbourhood to create a heavily illustrated site that displayed artworks and short stories read by Gaiman himself. The site flowed through the seasons for each month, with animations and sound growing and retreating as the seasons changed.</p>",
+        "contentPath": "./static/selected-work/blackberry-acalendaroftales/blackberry-neilg.md"
+    },
+    {
+        "id": "cnn-airwars",
+        "title": "Airwars",
+        "agency": "CNN",
+        "client": "CNN",
+        "tech": [
+            "Javascript",
+            "WebGL",
+            "Three.js",
+            "React"
+        ],
+        "featured": true,
+        "enabled": true,
+        "order": 2,
+        "pageOrder": 6,
+        "images": [
+            {
+                "height": 826,
+                "width": 1440,
+                "type": "jpg",
+                "url": "./static/selected-work/cnn-airwars/cnn-airwars-01.jpg"
+            },
+            {
+                "height": 826,
+                "width": 1440,
+                "type": "jpg",
+                "url": "./static/selected-work/cnn-airwars/cnn-airwars-02.jpg"
+            },
+            {
+                "height": 826,
+                "width": 1440,
+                "type": "jpg",
+                "url": "./static/selected-work/cnn-airwars/cnn-airwars-03.jpg"
+            },
+            {
+                "height": 826,
+                "width": 1440,
+                "type": "jpg",
+                "url": "./static/selected-work/cnn-airwars/cnn-airwars-04.jpg"
+            },
+            {
+                "height": 826,
+                "width": 1440,
+                "type": "jpg",
+                "url": "./static/selected-work/cnn-airwars/cnn-airwars-05.jpg"
+            },
+            {
+                "height": 826,
+                "width": 1440,
+                "type": "jpg",
+                "url": "./static/selected-work/cnn-airwars/cnn-airwars-06.jpg"
+            },
+            {
+                "height": 826,
+                "width": 1440,
+                "type": "jpg",
+                "url": "./static/selected-work/cnn-airwars/cnn-airwars-07.jpg"
+            },
+            {
+                "height": 826,
+                "width": 1440,
+                "type": "jpg",
+                "url": "./static/selected-work/cnn-airwars/cnn-airwars-08.jpg"
+            },
+            {
+                "height": 826,
+                "width": 1440,
+                "type": "jpg",
+                "url": "./static/selected-work/cnn-airwars/cnn-airwars-09.jpg"
+            }
+        ],
+        "thumb": {
+            "width": 500,
+            "height": 250,
+            "type": "png",
+            "url": "./static/selected-work/cnn-airwars/cnn-thumb.png"
+        },
+        "content": "<p>CNN are a worldwide news network owned by Turner Broadcasting System, a division of Time Warner.  They created an interactive article taking on the slightly controversial subject of the logistics and operations involved in conducting the war on ISIS from the air.  Despite any political opinion, the sheer amount of work and technical innovation conducting reconnaissance, transport, refuelling and communication aspects of such activities are pretty impressive.</p>\n\n<p>We worked with design agency c-ll-ct-v-lly  to produce a visualisation of airspace in WebGL and Three.js.  Introducing contextual video and text content using React.</p>",
+        "contentPath": "./static/selected-work/cnn-airwars/cnn-airwars.md"
+    },
+    {
+        "id": "fujitsu-onlinelearning",
+        "title": "Online Learning",
+        "agency": "Signal-Noise",
+        "client": "Fujitsu",
+        "tech": [
+            "Actionscript 3.0",
+            "Adobe Flex"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 999,
+        "pageOrder": 15,
+        "images": [
+            {
+                "height": 414,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/fujitsu-onlinelearning/onlinelearning_01.jpg"
+            },
+            {
+                "height": 414,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/fujitsu-onlinelearning/onlinelearning_02.jpg"
+            },
+            {
+                "height": 414,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/fujitsu-onlinelearning/onlinelearning_03.jpg"
+            },
+            {
+                "height": 414,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/fujitsu-onlinelearning/onlinelearning_04.jpg"
+            },
+            {
+                "height": 414,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/fujitsu-onlinelearning/onlinelearning_05.jpg"
+            }
+        ],
+        "thumb": {
+            "height": 392,
+            "width": 600,
+            "type": "jpg",
+            "url": "./static/selected-work/fujitsu-onlinelearning/thumb.jpg"
+        },
+        "content": "<p>Fujitsu are a multinational information technology company headquartered in Tokyo, Japan.  They contacted Ludic Group &amp; Signal Noise to create a digital online learning platform to educate members of their global workforce.</p>\n\n<p>We created an online learning platform with a narrative based around areas of a 3D virtual office.  Learning content featured rich infographic, interactive &amp; video content modules and multiple choice tests.  Users could login and track their learning progress through a personalised dashboard.  All learning modules and captured user data took advantage of the SCORM e-learning standard.</p>",
+        "contentPath": "./static/selected-work/fujitsu-onlinelearning/fujitsu.md"
+    },
+    {
+        "id": "google-livecase",
+        "title": "Live Case",
+        "client": "Google",
+        "agency": "Rehabstudio",
+        "tech": [
+            "Angular",
+            "Javascript",
+            "WebGL",
+            "Three.js"
+        ],
+        "featured": true,
+        "enabled": true,
+        "order": 4,
+        "pageOrder": 3,
+        "images": [
+            {
+                "width": 2560,
+                "height": 1440,
+                "type": "png",
+                "url": "./static/selected-work/google-livecase/googlelivecase_01.png"
+            },
+            {
+                "width": 2560,
+                "height": 1440,
+                "type": "png",
+                "url": "./static/selected-work/google-livecase/googlelivecase_02.png"
+            },
+            {
+                "width": 2560,
+                "height": 1440,
+                "type": "png",
+                "url": "./static/selected-work/google-livecase/googlelivecase_03.png"
+            },
+            {
+                "width": 2560,
+                "height": 1440,
+                "type": "png",
+                "url": "./static/selected-work/google-livecase/googlelivecase_04.png"
+            },
+            {
+                "width": 2560,
+                "height": 1440,
+                "type": "png",
+                "url": "./static/selected-work/google-livecase/googlelivecase_05.png"
+            },
+            {
+                "width": 2560,
+                "height": 1440,
+                "type": "png",
+                "url": "./static/selected-work/google-livecase/googlelivecase_06.png"
+            },
+            {
+                "width": 2560,
+                "height": 1440,
+                "type": "png",
+                "url": "./static/selected-work/google-livecase/googlelivecase_07.png"
+            }
+        ],
+        "thumb": {
+            "width": 500,
+            "height": 500,
+            "type": "png",
+            "url": "./static/selected-work/google-livecase/livecase-thumb.png"
+        },
+        "content": "<p>As Google get more serious about their hardware products; introducing the Nexus phone back in 2010, with the Pixel phone following in 2016.  They approached Rehabstudios to iterate and prototype a new generative design approach to phone case creation named Live Case.  </p>\n\n<p>Live Case provided a number of predefined design templates with configurable colour, style &amp; filter attributes allowing users to augment their content stored on Google’s software services such as Google Photos or a favourite location from Google Maps. </p>\n\n<p>We worked on a full production ready prototype, creating a WebGL &amp; Three.js based engine for visualising and configuration of design templates   and UI built with Angular JS.   Areas of focus included advanced blending modes of layers, print export, generative colour palettes, facial recognition and algorithms to find ‘best-fit’ photos to ‘fill’ photo regions of design templates based on photo size, template region size and number of faces found in a photo, for example.</p>",
+        "contentPath": "./static/selected-work/google-livecase/google-livecase.md"
+    },
+    {
+        "id": "google-starbucks-installation",
+        "title": "Community Board",
+        "agency": "Rehabstudio",
+        "client": "Google",
+        "tech": [
+            "Javascript",
+            "WebGL",
+            "Three.js",
+            "React"
+        ],
+        "featured": true,
+        "enabled": true,
+        "order": 8,
+        "pageOrder": 9,
+        "images": [
+            {
+                "height": 1066,
+                "width": 1600,
+                "type": "jpg",
+                "url": "./static/selected-work/google-starbucks-installation/googlestarbucks_01.jpg"
+            },
+            {
+                "height": 765,
+                "width": 1600,
+                "type": "jpg",
+                "url": "./static/selected-work/google-starbucks-installation/googlestarbucks_02.jpg"
+            },
+            {
+                "height": 1080,
+                "width": 1920,
+                "type": "jpg",
+                "url": "./static/selected-work/google-starbucks-installation/googlestarbucks_03.jpg"
+            }
+        ],
+        "thumb": {
+            "width": 500,
+            "height": 500,
+            "type": "png",
+            "url": "./static/selected-work/google-starbucks-installation/fiber-thumb.png"
+        },
+        "content": "<p>Google Fiber is Google’s new high speed internet and TV service currently operating in parts of America. They worked with Rehabstudios to create a real-time Community Board of events and attractions around Kansas City. </p>\n\n<p>We created a WebGL based watercolour style version of Google Map’s area around Kansas City.   The piece was written in WebGL and Three.js and was powered by a higher spec GPU allowing us to push WebGL’s capabilities and target a 4K screen.  The scene was populated with low polygon 3d models for buildings, introduced simple spatial indexing for level of detail swapping of higher resolution map textures, camera path animations and a colour palette that shifting in response to the time of day.</p>",
+        "contentPath": "./static/selected-work/google-starbucks-installation/google-fiber.md"
+    },
+    {
+        "id": "itv-rugbyworldcup",
+        "title": "Rugby Worldcup",
+        "agency": "Goodboy Digital",
+        "client": "ITV",
+        "tech": [
+            "Javascript",
+            "WebGL",
+            "Three.js",
+            "Node.js",
+            "Pusher.io"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 999,
+        "pageOrder": 14,
+        "images": [
+            {
+                "height": 680,
+                "width": 1116,
+                "type": "jpg",
+                "url": "./static/selected-work/itv-rugbyworldcup/itv_01.jpg"
+            },
+            {
+                "height": 896,
+                "width": 1594,
+                "type": "jpg",
+                "url": "./static/selected-work/itv-rugbyworldcup/itv_02.jpg"
+            },
+            {
+                "height": 354,
+                "width": 600,
+                "type": "jpg",
+                "url": "./static/selected-work/itv-rugbyworldcup/itv_03.jpg"
+            }
+        ],
+        "content": "<p>ITV are a UK based TV Network and had exclusive rights to show the Rugby World cup in 2015. They contacted Goodboy Digital to create a flick-kick style rugby game on mobile devices that was playable at the exact time of real kicks in the matches.</p>\n\n<p>We developed the game in WebGL &amp; Three.js with a Canvas fallback.  A server application was created and hooked into the Pusher.IO web service for realtime WebSocket communication suitable to deliver &#39;kick-event&#39; messages to 1000’s of connected users at the same time.</p>",
+        "contentPath": "./static/selected-work/itv-rugbyworldcup/itvrugby.md"
+    },
+    {
+        "id": "keithtyson-projects",
+        "title": "Projects",
+        "agency": "de-construct",
+        "client": "Keith Tyson",
+        "tech": [
+            "Actionscript 3.0",
+            "Adobe Flash"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 6,
+        "pageOrder": 18,
+        "images": [
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_01.jpg"
+            },
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_02.jpg"
+            },
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_03.jpg"
+            },
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_04.jpg"
+            },
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_05.jpg"
+            },
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_06.jpg"
+            },
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_07.jpg"
+            },
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_08.jpg"
+            },
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_09.jpg"
+            },
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_10.jpg"
+            },
+            {
+                "height": 422,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/keithtyson-projects/keithtyson_11.jpg"
+            }
+        ],
+        "thumb": {
+            "width": 250,
+            "height": 250,
+            "type": "png",
+            "url": "./static/selected-work/keithtyson-projects/tyson-thumb.png"
+        },
+        "content": "<p>Keith Tyson is a turner prize winning contemporary artist with an interest interest in generative systems. He worked with the agency de-construct to create a digital experience of his award-winning artworks.</p>\n\n<p>We developed an interactive experience centralised around a molecular structure as the main interface with each layer being a section to explore writings, galleries and additional information. Each artwork had an additional Explore section to provide an interactive version of each exhibit.  Interactive included video based content of the creation of Nature Paintings, a navigatable grid of objects for the Large Field Array sculptures; and a custom random number generated downloadable artwork exploring his History Paintings works.</p>",
+        "contentPath": "./static/selected-work/keithtyson-projects/keithtyson.md"
+    },
+    {
+        "id": "madedigital-portfolio",
+        "title": "Web Portfolio",
+        "agency": "Made Digital",
+        "client": "Made Digital",
+        "tech": [
+            "Actionscript 3.0",
+            "Adobe Flash"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 999,
+        "pageOrder": 19,
+        "images": [
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_01.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_02.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_03.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_04.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_05.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_06.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_07.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_08.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_09.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_10.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_11.jpg"
+            },
+            {
+                "height": 425,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/madedigital-portfolio/madedigital_12.jpg"
+            }
+        ],
+        "thumb": {
+            "height": 392,
+            "width": 600,
+            "type": "jpg",
+            "url": "./static/selected-work/madedigital-portfolio/thumb.jpg"
+        },
+        "content": "<p>Madedigital is the site of designer Leigh Hibell, a friend of mine who I worked with at the design agency de-construct.</p>\n\n<p>We worked together on his portfolio site, and created a minimal site with subtle animations focused around a central wheel navigation.  The site was quite popular back in the day.  Developed in Flash and Actionscript 3.</p>",
+        "contentPath": "./static/selected-work/madedigital-portfolio/madedigital.md"
+    },
+    {
+        "id": "magicleap-dotcom",
+        "title": "Dotcom R&D",
+        "agency": "-",
+        "client": "Magic Leap",
+        "tech": [
+            "Javascript",
+            "WebGL",
+            "Three.js",
+            "React",
+            "Next.js"
+        ],
+        "featured": true,
+        "enabled": true,
+        "order": 1,
+        "pageOrder": 1,
+        "images": [
+            {
+                "width": 500,
+                "height": 500,
+                "type": "png",
+                "url": "./static/selected-work/magicleap-dotcom/magicleap-01.png"
+            }
+        ],
+        "thumb": {
+            "width": 500,
+            "height": 500,
+            "type": "png",
+            "url": "./static/selected-work/magicleap-dotcom/magicleap-thumb.png"
+        },
+        "content": "<p>Magic Leap are one of the best known Mixed Reality startups based in Miami, Florida.  Having received a massive 6 billion in funding from the likes of Google, Alibaba and Andreessen Horowitz they are keeping their ground breaking technology under tight security and historically have made very few press releases.</p>\n\n<p>Working with a well known agency in London, we worked on various 3d prototypes for Magic Leap’s new web site and digital marketing experiences.   Luckily we got a full demo of the current Mixed Reality glasses over in Miami, Florida; and caught a glimpse of the areas that they want to push the technology.</p>",
+        "contentPath": "./static/selected-work/magicleap-dotcom/magicleap.md"
+    },
+    {
+        "id": "mcdonalds-40thanniversary",
+        "title": "40th Anniversary",
+        "agency": "Goodboy Digital",
+        "client": "Mcdonald's",
+        "tech": [
+            "Javascript",
+            "WebGL",
+            "Pixi.js",
+            "Natural Language",
+            "Node.js"
+        ],
+        "featured": true,
+        "enabled": true,
+        "order": 7,
+        "pageOrder": 7,
+        "images": [
+            {
+                "height": 720,
+                "width": 1024,
+                "type": "jpg",
+                "url": "./static/selected-work/mcdonalds-40thanniversary/header.jpg"
+            },
+            {
+                "width": 2880,
+                "height": 1800,
+                "type": "png",
+                "url": "./static/selected-work/mcdonalds-40thanniversary/mcdonalds-40th_01.png"
+            },
+            {
+                "width": 2880,
+                "height": 1800,
+                "type": "png",
+                "url": "./static/selected-work/mcdonalds-40thanniversary/mcdonalds-40th_02.png"
+            },
+            {
+                "width": 2880,
+                "height": 1800,
+                "type": "png",
+                "url": "./static/selected-work/mcdonalds-40thanniversary/mcdonalds-40th_03.png"
+            },
+            {
+                "width": 2880,
+                "height": 1800,
+                "type": "png",
+                "url": "./static/selected-work/mcdonalds-40thanniversary/mcdonalds-40th_04.png"
+            },
+            {
+                "width": 2880,
+                "height": 1800,
+                "type": "png",
+                "url": "./static/selected-work/mcdonalds-40thanniversary/mcdonalds-40th_05.png"
+            },
+            {
+                "width": 2880,
+                "height": 1800,
+                "type": "png",
+                "url": "./static/selected-work/mcdonalds-40thanniversary/mcdonalds-40th_06.png"
+            }
+        ],
+        "thumb": {
+            "width": 500,
+            "height": 500,
+            "type": "png",
+            "url": "./static/selected-work/mcdonalds-40thanniversary/40th-thumb.png"
+        },
+        "content": "<p>The wonderful McDonald’s fast food chain, where logistical efficiency converges on unhealthy eating and human tendency to further wrong themselves after a night of heavy drinking, recently had a 40th Anniversary.\nThey contacted Razorfish to help them celebrate this by means of a poster creation tool, that let users record their McDonald’s memories over the years.</p>\n\n<p>Razorfish involved Goodboy Digital for the technical output and together we created a mobile and desktop friendly WebGL / Pixi.js based engine for allowing users to enter their memory and watch as typography unravels as they type.  We created a custom WebGL based grid with physics animations imported from Maya. And a custom in-browser Parts of Speech Analyser to perform correct poster line break formatting, animation and typography selection.</p>\n\n<p>The site was heavily awarded and received a lot of press and social media coverage.</p>",
+        "contentPath": "./static/selected-work/mcdonalds-40thanniversary/mc40th.md"
+    },
+    {
+        "id": "mcdonalds-chickenlegends",
+        "title": "Chicken Legends",
+        "agency": "Goodboy Digital",
+        "client": "Mcdonald's",
+        "tech": [
+            "Javascript",
+            "WebGL",
+            "Pixi.js"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 999,
+        "pageOrder": 12,
+        "images": [
+            {
+                "height": 433,
+                "width": 630,
+                "type": "jpg",
+                "url": "./static/selected-work/mcdonalds-chickenlegends/Legend_01.jpg"
+            },
+            {
+                "height": 433,
+                "width": 630,
+                "type": "jpg",
+                "url": "./static/selected-work/mcdonalds-chickenlegends/Legend_02.jpg"
+            },
+            {
+                "height": 433,
+                "width": 630,
+                "type": "jpg",
+                "url": "./static/selected-work/mcdonalds-chickenlegends/Legend_03.jpg"
+            },
+            {
+                "height": 433,
+                "width": 630,
+                "type": "jpg",
+                "url": "./static/selected-work/mcdonalds-chickenlegends/Legend_04.jpg"
+            }
+        ],
+        "content": "<p>McDonald’s worked with Razorfish on a Guinness book of record style stunt to market their Chicken Legends range of meals.  The stunt involved performing a jump with a radio controlled car over an articulated lorry. The stunt was filmed from various angles including car-mounted and drone footage.</p>\n\n<p>We worked with Goodboy Digital to create an interactive desktop and tablet application to preview the jump in slow motion and from the various angles.  Due to limitations on video playback in the browser the footage was split across a single 4K video allowing switchable synced playback of each angle.  We added additional ‘Fast and the Furious’ style GLSL effects over the top and Web Audio style effects to the soundtrack.</p>",
+        "contentPath": "./static/selected-work/mcdonalds-chickenlegends/chickenlegends.md"
+    },
+    {
+        "id": "mcdonalds-greattasteofamerica",
+        "title": "Great Taste of America",
+        "agency": "Razorfish",
+        "client": "Mcdonald's",
+        "tech": [
+            "Javascript",
+            "WebGL",
+            "Pixi.js"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 999,
+        "pageOrder": 13,
+        "images": [
+            {
+                "width": 958,
+                "height": 612,
+                "type": "png",
+                "url": "./static/selected-work/mcdonalds-greattasteofamerica/mcdonalds-greattaste_01.png"
+            },
+            {
+                "width": 958,
+                "height": 612,
+                "type": "png",
+                "url": "./static/selected-work/mcdonalds-greattasteofamerica/mcdonalds-greattaste_02.png"
+            },
+            {
+                "width": 958,
+                "height": 612,
+                "type": "png",
+                "url": "./static/selected-work/mcdonalds-greattasteofamerica/mcdonalds-greattaste_03.png"
+            }
+        ],
+        "thumb": {
+            "height": 392,
+            "width": 600,
+            "type": "jpg",
+            "url": "./static/selected-work/mcdonalds-greattasteofamerica/thumb.jpg"
+        },
+        "content": "<p>Mcdonald’s worked with Razorfish on another marketing campaign for their Great Taste of America meals.  The campaign allowed users to interact with custom layered soundtracks of popular American music genres.</p>\n\n<p>We developed a WebAudio and WebGL based desktop version featuring audio reactive visualisations that adjusted depending on sound layer selection.  And also a WebAudio mobile version that used accelerometer data to detect the ‘bpm’ of the users footsteps, to allow them to walk to adjust the tempo of the customised sound track.</p>",
+        "contentPath": "./static/selected-work/mcdonalds-greattasteofamerica/mcds-greattaste.md"
+    },
+    {
+        "id": "nordea-messagingmanager",
+        "title": "Messaging Manager",
+        "agency": "Epod & John Ryan",
+        "client": "Nordea",
+        "tech": [
+            "Actionscript 3.0",
+            "Adobe Flash",
+            "Adobe Flex"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 999,
+        "pageOrder": 17,
+        "images": [
+            {
+                "height": 414,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/nordea-messagingmanager/nordea_01.jpg"
+            },
+            {
+                "height": 414,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/nordea-messagingmanager/nordea_02.jpg"
+            },
+            {
+                "width": 640,
+                "height": 414,
+                "type": "png",
+                "url": "./static/selected-work/nordea-messagingmanager/nordea_03.png"
+            },
+            {
+                "width": 640,
+                "height": 414,
+                "type": "png",
+                "url": "./static/selected-work/nordea-messagingmanager/nordea_04.png"
+            },
+            {
+                "width": 640,
+                "height": 414,
+                "type": "png",
+                "url": "./static/selected-work/nordea-messagingmanager/nordea_05.png"
+            },
+            {
+                "width": 640,
+                "height": 414,
+                "type": "png",
+                "url": "./static/selected-work/nordea-messagingmanager/nordea_06.png"
+            },
+            {
+                "width": 640,
+                "height": 414,
+                "type": "png",
+                "url": "./static/selected-work/nordea-messagingmanager/nordea_07.png"
+            },
+            {
+                "width": 640,
+                "height": 414,
+                "type": "png",
+                "url": "./static/selected-work/nordea-messagingmanager/nordea_08.png"
+            }
+        ],
+        "content": "<p>John Ryan are a large digital advertising company operating in the retail and banking sectors. Their digital signage platform manages the largest bank &amp; retail signage networks in the US and Europe. With clients including Nordea, Bank of America and Walmart.</p>\n\n<p>John Ryan worked with agency Epod to design and develop their new enterprise scale digital signage platform which covered every aspect digital signage from network management, digital display output, scheduling, content creation, POS-style hardware input, user data feedback and data visualisation.  The system was built over a number of years and was written in Adobe Flex, Flash and C# .NET.  Digital displays were powered by bespoke Cisco hardware running a mixture of C/C++/Mozilla Browser for Flash content playback.</p>",
+        "contentPath": "./static/selected-work/nordea-messagingmanager/nordea.md"
+    },
+    {
+        "id": "nexus-tiltbrush",
+        "title": "Tiltbrush Web Toolkit R&D",
+        "agency": "Nexus Interactive Arts",
+        "client": "Nexus Interactive Arts",
+        "tech": [
+            "Javascript",
+            "WebGL",
+            "Three.js",
+            "Node.js",
+            "Python"
+        ],
+        "featured": true,
+        "enabled": true,
+        "order": 5,
+        "pageOrder": 2,
+        "images": [
+            {
+                "width": 750,
+                "height": 500,
+                "type": "png",
+                "url": "./static/selected-work/nexus-tiltbrush/tiltbrush-01.png"
+            }
+        ],
+        "thumb": {
+            "width": 750,
+            "height": 500,
+            "type": "png",
+            "url": "./static/selected-work/nexus-tiltbrush/tiltbrush-thumb.png"
+        },
+        "content": "<p>Google Tiltbrush is Google’s Virtual Reality based painting tool on the HTC Vive and Oculus Rift.   It enables users to create artworks by painting in 3D space; giving them access to a variety of effects, colours, 3d models and both static and physics-driven brushes.  </p>\n\n<p>Nexus wanted to leverage this unique way of artistic expression on a number of web-based client projects.   We used the Unity SDK and Python libraries to read brush size, pressure and point &amp; orientation data from Tilt Brush and wrote a custom web-based renderer in WebGL and Three.js.  Rendering code was heavily optimised for mobile device to provide WebVR capabilities.  Various Node.js scripts were created to reduce mesh data with point simplification and compression techniques.</p>",
+        "contentPath": "./static/selected-work/nexus-tiltbrush/nexus-tiltbrush.md"
+    },
+    {
+        "id": "osa-architects",
+        "title": "Architekten",
+        "agency": "de-construct",
+        "client": "OSA",
+        "tech": [
+            "Actionscript 3.0",
+            "Adobe Flash"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 3,
+        "pageOrder": 20,
+        "images": [
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_01.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_02.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_03.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_04.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_05.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_06.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_07.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_08.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_09.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_10.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_11.jpg"
+            },
+            {
+                "height": 424,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/osa-architects/osa_12.jpg"
+            }
+        ],
+        "thumb": {
+            "width": 250,
+            "height": 250,
+            "type": "png",
+            "url": "./static/selected-work/osa-architects/osa-thumb.png"
+        },
+        "content": "<p>OSA are a german architecture firm who approached the agency de-construct for a redesign and development of their existing website.  De-construct created a D&amp;AD award winning site showcasing OSA’s architectural design process.</p>\n\n<p>We created a collapsable &amp; expandable menu system that adhered to a tight grid system that gave order &amp; structure to a huge amount of content.  </p>",
+        "contentPath": "./static/selected-work/osa-architects/osa.md"
+    },
+    {
+        "id": "pbs-gamesapp",
+        "title": "Games Portal",
+        "agency": "Goodboy Digital",
+        "client": "PBS Kids",
+        "tech": [
+            "Javascript",
+            "Apache Cordova",
+            "WebGL",
+            "Pixi.js",
+            "React"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 1,
+        "pageOrder": 4,
+        "images": [
+            {
+                "height": 750,
+                "width": 1334,
+                "type": "jpg",
+                "url": "./static/selected-work/pbs-gamesapp/pbs-gamesapp_01.jpg"
+            },
+            {
+                "height": 750,
+                "width": 1334,
+                "type": "jpg",
+                "url": "./static/selected-work/pbs-gamesapp/pbs-gamesapp_02.jpg"
+            },
+            {
+                "height": 750,
+                "width": 1334,
+                "type": "jpg",
+                "url": "./static/selected-work/pbs-gamesapp/pbs-gamesapp_03.jpg"
+            },
+            {
+                "height": 750,
+                "width": 1334,
+                "type": "jpg",
+                "url": "./static/selected-work/pbs-gamesapp/pbs-gamesapp_04.jpg"
+            },
+            {
+                "height": 750,
+                "width": 1334,
+                "type": "jpg",
+                "url": "./static/selected-work/pbs-gamesapp/pbs-gamesapp_05.jpg"
+            },
+            {
+                "height": 750,
+                "width": 1334,
+                "type": "jpg",
+                "url": "./static/selected-work/pbs-gamesapp/pbs-gamesapp_06.jpg"
+            },
+            {
+                "height": 750,
+                "width": 1334,
+                "type": "jpg",
+                "url": "./static/selected-work/pbs-gamesapp/pbs-gamesapp_07.jpg"
+            }
+        ],
+        "thumb": {
+            "width": 250,
+            "height": 250,
+            "type": "png",
+            "url": "./static/selected-work/pbs-gamesapp/pbs-thumb.png"
+        },
+        "content": "<p>PBS Kids is the children’s brand of the Public Broadcasting Service of the United States.  They are responsible for output of the children’s TV programmes and have also developed up to 500 online learning games focused at children learning through narratives around their TV show characters.  </p>\n\n<p>PBS Kids contacted Goodboy Digital to help develop the user interface for their new centralised  tablet and mobile Games Portal on Android and iOS.  The Games Portal would gradually transition existing online games onto a new Game development framework that integrated into their new learning analytics platform and parental control panel.</p>\n\n<p>We developed an Apache Cordova driven iOS and Android application allowing playback of games and delivery of learning analytics data to their backend system.  We worked extensively with their team in Washington DC and performed a period of day-to-day adjustments to the user interface based on user testing feedback.   The application featured a ‘springy’ physics based WebGL and Pixi.js user interface with HTML overlays at near-native performance and it has received 5 million+ downloads.</p>",
+        "contentPath": "./static/selected-work/pbs-gamesapp/pbskids.md"
+    },
+    {
+        "id": "peugeot-rczpeepshow",
+        "title": "RCZ Peepshow",
+        "agency": "Signal-Noise",
+        "client": "Peugeot",
+        "tech": [
+            "C++",
+            "Openframeworks"
+        ],
+        "featured": true,
+        "enabled": true,
+        "order": 6,
+        "pageOrder": 10,
+        "images": [
+            {
+                "height": 360,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/peugeot-rczpeepshow/rcz_00.jpg"
+            },
+            {
+                "height": 360,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/peugeot-rczpeepshow/rcz_01.jpg"
+            },
+            {
+                "height": 360,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/peugeot-rczpeepshow/rcz_02.jpg"
+            },
+            {
+                "height": 360,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/peugeot-rczpeepshow/rcz_03.jpg"
+            },
+            {
+                "height": 360,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/peugeot-rczpeepshow/rcz_04.jpg"
+            },
+            {
+                "height": 360,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/peugeot-rczpeepshow/rcz_05.jpg"
+            },
+            {
+                "height": 360,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/peugeot-rczpeepshow/rcz_06.jpg"
+            }
+        ],
+        "thumb": {
+            "width": 500,
+            "height": 250,
+            "type": "png",
+            "url": "./static/selected-work/peugeot-rczpeepshow/rcz-thumb.png"
+        },
+        "content": "<p>Peugeot launched their new RCZ car and worked with agency Signal Noise to develop an interactive installation to be installed around various large shopping complexes in the UK.</p>\n\n<p>We created a ‘Peepshow’ style unit which contained a number of ‘eye slits’ with LED monitors positioned behind.  Each monitor displayed  an interactive visualisation written in OpenFrameworks.  The visualisation was a series of layered videos and 360 degree stills of a 3D rendered RCZ car.  An additional realtime particle system layer gave additional depth, and interaction via 2 Griffin Powermate controls allowed rotation of the car and selection of key hot spots.  </p>",
+        "contentPath": "./static/selected-work/peugeot-rczpeepshow/peugeot-rcz.md"
+    },
+    {
+        "id": "serpentine-galleries",
+        "title": "Digital Experience",
+        "agency": "AllofUs",
+        "client": "Serpentine Galleries",
+        "tech": [
+            "Javascript",
+            "Node.js",
+            "Contentful"
+        ],
+        "featured": true,
+        "enabled": true,
+        "order": 3,
+        "pageOrder": 8,
+        "images": [
+            {
+                "height": 637,
+                "width": 1132,
+                "type": "jpg",
+                "url": "./static/selected-work/serpentine-galleries/serp_01.jpg"
+            },
+            {
+                "height": 407,
+                "width": 724,
+                "type": "jpg",
+                "url": "./static/selected-work/serpentine-galleries/serp_02.jpg"
+            },
+            {
+                "height": 407,
+                "width": 724,
+                "type": "jpg",
+                "url": "./static/selected-work/serpentine-galleries/serp_03.jpg"
+            },
+            {
+                "height": 407,
+                "width": 724,
+                "type": "jpg",
+                "url": "./static/selected-work/serpentine-galleries/serp_04.jpg"
+            }
+        ],
+        "thumb": {
+            "width": 500,
+            "height": 250,
+            "type": "png",
+            "url": "./static/selected-work/serpentine-galleries/serpentine-thumb.png"
+        },
+        "content": "<p>The Serpentine Galleries is one of London’s contemporary galleries situated in Hyde Park attracting 1.2 million visitors per year.  It has exhibited works from the likes of Jean-Michel Basquiat, Andy Warhol and Damien Hirst.  </p>\n\n<p>With funding from Bloomberg Philanthropies, they contacted design agency AllOfUs to design and develop a new digital experience available to users of the galleries WiFi network and visible on digital screens throughout the gallery.</p>\n\n<p>We developed a mobile web-application featuring interactive Text, Image, Video and Audio content cards that were curatable for each exhibition.   Content was edited and delivered with the Contentful headless CMS.</p>",
+        "contentPath": "./static/selected-work/serpentine-galleries/serpentine.md"
+    },
+    {
+        "id": "threeflow-renderer",
+        "title": "Threeflow",
+        "agency": "Personal R&D",
+        "client": "Personal R&D",
+        "tech": [
+            "Javascript",
+            "WebGL",
+            "Three.js",
+            "Node.js",
+            "Sunflow"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 2,
+        "pageOrder": 5,
+        "images": [
+            {
+                "width": 800,
+                "height": 600,
+                "type": "png",
+                "url": "./static/selected-work/threeflow-renderer/threeflow_01.png"
+            },
+            {
+                "height": 1200,
+                "width": 1920,
+                "type": "jpg",
+                "url": "./static/selected-work/threeflow-renderer/threeflow_02.jpg"
+            },
+            {
+                "width": 800,
+                "height": 600,
+                "type": "png",
+                "url": "./static/selected-work/threeflow-renderer/threeflow_03.png"
+            }
+        ],
+        "thumb": {
+            "width": 250,
+            "height": 250,
+            "type": "png",
+            "url": "./static/selected-work/threeflow-renderer/threeflow-thumb.png"
+        },
+        "content": "<p>A personal R&amp;D project to explore the possibilities of rendering Three.js scenes sent from the browser to a raytracing renderer.  </p>\n\n<p>A set of libraries defined custom proxy Materials and Lights that exist in the raytracing renderer, allowing attributes to be set in Javascript and 3D objects to be positioned in space.  Additional Render settings for Global Illumination, sampling, caustics, could also be configured.   Textures, geometry &amp; scene information were encoded into an Scene file( .sc ) then sent to a Node.js server via WebSockets.  The result would then be saved to disk and passed back to the browser.</p>\n\n<p>This would provide some interesting potential for generating on-the-fly baked textures for dynamic 3d scenes or photo-realistic renders in general.  The raytracing renderer used was quite old but the same concept could be used on proprietary renderers such as Octane.</p>",
+        "contentPath": "./static/selected-work/threeflow-renderer/threeflow.md"
+    },
+    {
+        "id": "toyota-toyotasafety",
+        "title": "Toyota Safety",
+        "agency": "de-construct",
+        "client": "Toyota",
+        "tech": [
+            "Actionscript 3.0",
+            "Adobe Flash"
+        ],
+        "featured": false,
+        "enabled": true,
+        "order": 4,
+        "pageOrder": 22,
+        "images": [
+            {
+                "height": 392,
+                "width": 600,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/old.__jpg.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_01.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_02.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_03.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_04.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_05.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_06.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_07.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_08.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_09.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_10.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_11.jpg"
+            },
+            {
+                "height": 418,
+                "width": 640,
+                "type": "jpg",
+                "url": "./static/selected-work/toyota-toyotasafety/toyota_20.jpg"
+            }
+        ],
+        "thumb": {
+            "width": 250,
+            "height": 250,
+            "type": "png",
+            "url": "./static/selected-work/toyota-toyotasafety/toyota-thumb.png"
+        },
+        "content": "<p>Toyota are a Japanese automotive manufacturing company who’ve been consistent leaders in the move to electric vehicles.  They released a vision of a futuristic concept car back in 2008 along with the latest model Prius, and worked with agency de-construct to explain their vision of an environmentally conscious world that takes advantage of electric cars and solar energy. </p>\n\n<p>We created a richly illustrated and animated scene of that vision allowing the user to switch between ‘Today’ and ‘Tomorrow’ with the background scene animating between these states accordingly.  Vignette animations detailed a daily routine for a typical family, and additional technical content layered on top showed 3D renders of the latest safety features of the Toyota Prius.</p>",
+        "contentPath": "./static/selected-work/toyota-toyotasafety/toyota.md"
+    }
+]

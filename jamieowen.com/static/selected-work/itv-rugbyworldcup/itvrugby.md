@@ -1,0 +1,3 @@
+ITV are a UK based TV Network and had exclusive rights to show the Rugby World cup in 2015. They contacted Goodboy Digital to create a flick-kick style rugby game on mobile devices that was playable at the exact time of real kicks in the matches.
+
+We developed the game in WebGL & Three.js with a Canvas fallback.  A server application was created and hooked into the Pusher.IO web service for realtime WebSocket communication suitable to deliver 'kick-event' messages to 1000’s of connected users at the same time.

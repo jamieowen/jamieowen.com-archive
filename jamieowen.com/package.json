@@ -1,0 +1,49 @@
+{
+  "name": "jamieowen.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server"
+  },
+  "babel": {
+    "presets": [
+      "next/babel"
+    ],
+    "plugins": [
+      "inline-react-svg"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamieowen/jamieowen.com.git"
+  },
+  "author": "Jamie Owen <hello@jamieowen.com> (=)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamieowen/jamieowen.com/issues"
+  },
+  "homepage": "https://github.com/jamieowen/jamieowen.com#readme",
+  "dependencies": {
+    "bowser": "^1.9.2",
+    "eventemitter3": "^3.0.1",
+    "express": "^4.16.2",
+    "glob": "^7.1.2",
+    "gsap": "^1.20.4",
+    "next": "^4.2.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-addons-transition-group": "^15.6.2",
+    "react-dom": "^16.2.0",
+    "react-fastclick": "^3.0.2",
+    "react-ga": "^2.4.1"
+  },
+  "devDependencies": {
+    "babel-plugin-inline-react-svg": "^0.5.2",
+    "image-size": "^0.6.2",
+    "markdown": "^0.5.0",
+    "nodemon": "^1.17.2"
+  }
+}

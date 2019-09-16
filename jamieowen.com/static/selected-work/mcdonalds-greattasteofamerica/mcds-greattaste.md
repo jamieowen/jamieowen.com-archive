@@ -1,0 +1,3 @@
+Mcdonald’s worked with Razorfish on another marketing campaign for their Great Taste of America meals.  The campaign allowed users to interact with custom layered soundtracks of popular American music genres.
+
+We developed a WebAudio and WebGL based desktop version featuring audio reactive visualisations that adjusted depending on sound layer selection.  And also a WebAudio mobile version that used accelerometer data to detect the ‘bpm’ of the users footsteps, to allow them to walk to adjust the tempo of the customised sound track.
