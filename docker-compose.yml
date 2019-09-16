@@ -13,7 +13,13 @@ services:
       - traefik.port=8080
       - traefik.frontend.rule=Host:admin.localhost,admin.jamieowen.com
       - traefik.frontend.rule=PathPrefixStrip:/proxy
-  labs: 
+  jamieowen.com: 
+    image: jamieowen.com:latest
+    restart: always
+    labels:
+      - traefik.port=3000
+      - traefik.frontend.rule=Host:docker.localhost,localhost,jamieowen.com,www.jamieowen.com
+  labs.jamieowen.com: 
     image: labs.jamieowen.com:latest
     restart: always
     labels:
