@@ -1,0 +1,24 @@
+version: '3'
+
+services: 
+  traefik:
+    image: traefik:latest
+    restart: always
+    command: --api --docker # Enables the web UI and tells Traefik to listen to docker
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - traefik.port=8080
+      - traefik.frontend.rule=Host:admin.localhost,admin.jamieowen.com
+      - traefik.frontend.rule=PathPrefixStrip:/proxy
+  labs: 
+    image: labs.jamieowen.com:latest
+    restart: always
+    labels:
+      - traefik.port=80
+      - traefik.frontend.rule=Host:labs.localhost,labs.jamieowen.com
+      
+
+    
