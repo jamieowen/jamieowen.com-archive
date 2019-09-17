@@ -1,25 +1,20 @@
-debug = false
-
-logLevel = "ERROR"
-defaultEntryPoints = ["https","http"]
+defaultEntryPoints = ["http", "https"]
 
 [entryPoints]
   [entryPoints.http]
   address = ":80"
   [entryPoints.https]
   address = ":443"
-    [entryPoints.https.tl[retry]
+    [entryPoints.https.tls]
+
+[acme]
+entryPoint = "https"
+storage = "/etc/traefik/acme/acme.json"
+onHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
 domain = "jamieowen.com"
-watch = true
 exposedByDefault = false
-
-[acme]
-email = "hello@jamieowen.com"
-storage = "acme.json"
-entryPoint = "https"
-onHostRule = true
-[acme.httpChallenge]
-entryPoint = "http"
