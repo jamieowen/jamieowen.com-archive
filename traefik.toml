@@ -1,5 +1,6 @@
 debug = true
 
+#logLevel DEBUG, INFO, WARN, ERROR, FATAL, PANIC
 logLevel = "INFO"
 defaultEntryPoints = ["https","http"]
 
@@ -16,10 +17,14 @@ defaultEntryPoints = ["https","http"]
 
 [docker]
 exposedByDefault = false
+endpoint = "unix:///var/run/docker.sock"
+domain = "jamieowen.com"
+watch = true
 
 [acme]
 email = "hello@jamieowen.com"
 storage = "acme/certs.json"
+acmeLogging=true
 entryPoint = "https"
 onHostRule = true
 [acme.httpChallenge]
