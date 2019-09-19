@@ -16,7 +16,7 @@ services:
       --entrypoints='Name:https Address::443 TLS'
       --acme
       --acme.email=hello@jamieowen.com
-      --acme.storage="traefik/acme/account"
+      --acme.storage="/etc/traefik/acme/acme.json"
       --acme.entryPoint=https
       --acme.httpChallenge.entryPoint=http
       --acme.onhostrule=true
@@ -29,8 +29,7 @@ services:
       - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      # - $PWD/traefik.toml:/etc/traefik/traefik.toml
-      # - $PWD/acme.json:/etc/traefik/acme/acme.json
+      - $PWD/acme.json:/etc/traefik/acme/acme.json
     networks:
       - web
     labels:
