@@ -7,8 +7,8 @@ defaultEntryPoints = ["https","http"]
 [entryPoints]
   [entryPoints.http]
   address = ":80"
-    [entryPoints.http.redirect]
-    entryPoint = "https"
+    # [entryPoints.http.redirect]
+    # entryPoint = "https"
   [entryPoints.https]
   address = ":443"
   [entryPoints.https.tls]
@@ -27,5 +27,6 @@ storage = "acme/certs.json"
 acmeLogging=true
 entryPoint = "https"
 onHostRule = true
+onDemand = false
 [acme.httpChallenge]
 entryPoint = "http"
