@@ -5,31 +5,18 @@ networks:
     external: true
 
 services: 
-  traefik:
-    image: traefik:latest
-    restart: always
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - $PWD/traefik.toml:/etc/traefik/traefik.toml
-      - $PWD/acme.json:/etc/traefik/acme/acme.json
-    networks:
-      - web
-    labels:
-      - traefik.port=8080
-      - traefik.frontend.rule=Host:admin.localhost,admin.jamieowen.com
-      - traefik.frontend.rule=PathPrefixStrip:/proxy
+        
   jamieowen.com: 
-    image: jamieowen.com:latest
+    container_name: jamieowen_com
     restart: always
     networks:
       - web    
     labels:
       - traefik.port=3000
       - traefik.frontend.rule=Host:docker.localhost,localhost,jamieowen.com,www.jamieowen.com
+  
   labs.jamieowen.com: 
+    container_name: jamieowen_labs
     image: labs.jamieowen.com:latest
     restart: always
     networks:
