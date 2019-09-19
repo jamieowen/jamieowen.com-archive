@@ -8,7 +8,7 @@ services:
 
   traefik:
     container_name: jamieowen_traefik
-    image: traefik:latest
+    image: traefik:v1.7
     restart: always
     command: --api
     ports:
