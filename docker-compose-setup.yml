@@ -10,26 +10,14 @@ services:
     container_name: jamieowen_traefik
     image: traefik:latest
     restart: always
-    command: 
-      --docker
-      --entrypoints='Name:http Address::80'
-      --entrypoints='Name:https Address::443 TLS'
-      --acme
-      --acme.email=hello@jamieowen.com
-      --acme.storage="/etc/traefik/acme/acme.json"
-      --acme.entryPoint=https
-      --acme.httpChallenge.entryPoint=http
-      --acme.onhostrule=true
-      --acme.acmelogging=true
-      --logLevel=INFO
-      --accessLog
-      --api
+    command: --api
     ports:
       - 80:80
       - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - $PWD/acme.json:/etc/traefik/acme/acme.json
+      - ./acme:/acme
+      - ./traefik/traefik.toml:/traefik.toml
     networks:
       - web
     labels:
