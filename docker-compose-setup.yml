@@ -17,7 +17,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./acme:/acme
-      - ./traefik/traefik.toml:/traefik.toml
+      - ./traefik.toml:/traefik.toml
     networks:
       - web
     labels:
