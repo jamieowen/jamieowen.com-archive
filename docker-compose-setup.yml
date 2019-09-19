@@ -11,6 +11,7 @@ services:
     image: traefik:v1.7
     restart: always
     command: --api
+    domainname: jamieowen.com
     ports:
       - 80:80
       - 443:443
@@ -22,6 +23,7 @@ services:
       - web
     labels:
       - traefik.port=8080
+      - traefik.docker.network=web
       - traefik.frontend.rule=Host:admin.localhost,admin.jamieowen.com
       - traefik.frontend.rule=PathPrefixStrip:/proxy
       
