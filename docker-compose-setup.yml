@@ -10,7 +10,7 @@ services:
     container_name: jamieowen_traefik
     image: traefik:latest
     restart: always
-    command: --api
+    #command: --api
     ports:
       - 80:80
       - 443:443
