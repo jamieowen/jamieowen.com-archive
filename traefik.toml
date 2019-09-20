@@ -34,6 +34,8 @@ provider = "digitalocean"
 delayBeforeCheck = 0
 [[acme.domains]]
 main = "*.jamieowen.com"
+[[acme.domains]]
+main = "jamieowen.com"
 
 # [acme]
 # email = "hello@jamieowen.com"
