@@ -24,9 +24,9 @@ services:
     networks:
       - web
     labels:
+      - traefik.enable=true
       - traefik.port=8080      
       - traefik.docker.network=web
-      - traefik.frontend.entryPoints="http,https"
       - traefik.frontend.rule=Host:admin.localhost,admin.jamieowen.com
       - traefik.frontend.rule=PathPrefixStrip:/proxy
       

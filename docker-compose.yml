@@ -13,8 +13,8 @@ services:
     networks:
       - web    
     labels:
+      - traefik.enable=true
       - traefik.port=3000
-      - traefik.frontend.entryPoints="http,https"
       - traefik.frontend.rule=Host:docker.localhost,localhost,jamieowen.com,www.jamieowen.com      
   
   labs.jamieowen.com: 
@@ -24,8 +24,8 @@ services:
     networks:
       - web    
     labels:
+      - traefik.enable=true
       - traefik.port=80
-      - traefik.frontend.entryPoints="http,https"
       - traefik.frontend.rule=Host:labs.localhost,labs.jamieowen.com
       
 
