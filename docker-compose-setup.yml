@@ -24,20 +24,11 @@ services:
     networks:
       - web
     labels:
-      - traefik.port=8080
-      - traefik.protocol=https
+      - traefik.port=8080      
       - traefik.docker.network=web
+      - traefik.frontend.entryPoints=http,https
       - traefik.frontend.rule=Host:admin.localhost,admin.jamieowen.com
       - traefik.frontend.rule=PathPrefixStrip:/proxy
-      - traefik.frontend.headers.SSLRedirect=true
-      - traefik.frontend.headers.STSSeconds=315360000
-      - traefik.frontend.headers.browserXSSFilter=true
-      - traefik.frontend.headers.contentTypeNosniff=true
-      - traefik.frontend.headers.forceSTSHeader=true
-      - traefik.frontend.headers.SSLHost=navinet.work
-      - traefik.frontend.headers.STSIncludeSubdomains=true
-      - traefik.frontend.headers.STSPreload=true
-      - traefik.frontend.headers.frameDeny=true   
       
 
     

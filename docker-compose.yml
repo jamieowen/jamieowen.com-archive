@@ -14,7 +14,7 @@ services:
       - web    
     labels:
       - traefik.port=3000
-      - traefik.default.protocol=http
+      - traefik.frontend.entryPoints=http,https
       - traefik.frontend.rule=Host:docker.localhost,localhost,jamieowen.com,www.jamieowen.com      
   
   labs.jamieowen.com: 
@@ -25,7 +25,7 @@ services:
       - web    
     labels:
       - traefik.port=80
-      - traefik.protocol=https
+      - traefik.frontend.entryPoints=http,https
       - traefik.frontend.rule=Host:labs.localhost,labs.jamieowen.com
       
 
