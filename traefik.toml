@@ -26,6 +26,7 @@ watch = true
 [acme]
 email = "hello@jamieowen.com"
 storage = "acme/certs.json"
+entryPoint = "https"
 [acme.dnsChallenge]
 provider = "digitalocean"
 delayBeforeCheck = 0
