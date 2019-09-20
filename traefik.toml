@@ -25,13 +25,14 @@ watch = true
 
 [acme]
 email = "hello@jamieowen.com"
+storage = "acme/certs.json"
 [acme.dnsChallenge]
 provider = "digitalocean"
 delayBeforeCheck = 0
 
 # [acme]
 # email = "hello@jamieowen.com"
-# storage = "acme/certs.json"
+
 # acmeLogging=true
 # entryPoint = "https"
 # onHostRule = true
