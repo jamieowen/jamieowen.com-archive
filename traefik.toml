@@ -1,6 +1,14 @@
 debug = true
 
 
+# FUCK, FUCK, FUCK, FUCK, FUCK, FUCK, FUCK ME.
+# THE MOST PAIN IN THE ARSE FUCKING BULLSHIT TO FIND A CENTRAL SOURCE OF TRUTH ON.
+# TOML FORMAT IS ALL OVER THE PLACE, TRAFEIK DOCS ARE SHITE, ETC, ETC, 
+# I DON'T KNOW IF NO DOCUMENTATION IS WORSE THAN BAD DOCUMENTATION.
+
+# Here's some rnadom urls ;
+# https://www.reddit.com/r/selfhosted/comments/d5mbd6/traefik_issue_field_not_found/
+
 #logLevel DEBUG, INFO, WARN, ERROR, FATAL, PANIC
 logLevel = "INFO"
 defaultEntryPoints = ["https","http"]
@@ -38,13 +46,3 @@ delayBeforeCheck = 0
 main = "*.jamieowen.com"
 [[acme.domains]]
 main = "jamieowen.com"
-
-# [acme]
-# email = "hello@jamieowen.com"
-
-
-# entryPoint = "https"
-# onHostRule = true
-# onDemand = false
-# [acme.httpChallenge]
-# entryPoint = "http"
