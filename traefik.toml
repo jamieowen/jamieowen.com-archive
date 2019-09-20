@@ -15,18 +15,20 @@ defaultEntryPoints = ["https","http"]
 
 [retry]
 
+[api]
+
 [docker]
-exposedByDefault = false
+#exposedByDefault = false
 endpoint = "unix:///var/run/docker.sock"
-domain = "jamieowen.com"
+#domain = "jamieowen.com"
 watch = true
 
-[acme]
-email = "hello@jamieowen.com"
-storage = "acme/certs.json"
-acmeLogging=true
-entryPoint = "https"
-onHostRule = true
-onDemand = false
-[acme.httpChallenge]
-entryPoint = "http"
+# [acme]
+# email = "hello@jamieowen.com"
+# storage = "acme/certs.json"
+# acmeLogging=true
+# entryPoint = "https"
+# onHostRule = true
+# onDemand = false
+# [acme.httpChallenge]
+# entryPoint = "http"

@@ -10,14 +10,14 @@ services:
     container_name: jamieowen_traefik
     image: traefik:v1.7
     restart: always
-    command: --api
+    #command: --api --docker
     domainname: jamieowen.com
     ports:
       - 80:80
       - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./acme:/acme
+      # - ./acme:/acme
       - ./traefik.toml:/traefik.toml
     networks:
       - web
@@ -26,15 +26,15 @@ services:
       - traefik.docker.network=web
       - traefik.frontend.rule=Host:admin.localhost,admin.jamieowen.com
       - traefik.frontend.rule=PathPrefixStrip:/proxy
-      - "traefik.frontend.headers.SSLRedirect=true"
-      - "traefik.frontend.headers.STSSeconds=315360000"
-      - "traefik.frontend.headers.browserXSSFilter=true"
-      - "traefik.frontend.headers.contentTypeNosniff=true"
-      - "traefik.frontend.headers.forceSTSHeader=true"
-      - "traefik.frontend.headers.SSLHost=navinet.work"
-      - "traefik.frontend.headers.STSIncludeSubdomains=true"
-      - "traefik.frontend.headers.STSPreload=true"
-      - "traefik.frontend.headers.frameDeny=true"      
+      # - "traefik.frontend.headers.SSLRedirect=true"
+      # - "traefik.frontend.headers.STSSeconds=315360000"
+      # - "traefik.frontend.headers.browserXSSFilter=true"
+      # - "traefik.frontend.headers.contentTypeNosniff=true"
+      # - "traefik.frontend.headers.forceSTSHeader=true"
+      # - "traefik.frontend.headers.SSLHost=navinet.work"
+      # - "traefik.frontend.headers.STSIncludeSubdomains=true"
+      # - "traefik.frontend.headers.STSPreload=true"
+      # - "traefik.frontend.headers.frameDeny=true"      
       
 
     

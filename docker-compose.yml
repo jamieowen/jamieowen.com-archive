@@ -8,16 +8,17 @@ services:
         
   jamieowen.com: 
     container_name: jamieowen_com
+    build: ./jamieowen.com
     restart: always
     networks:
       - web    
     labels:
       - traefik.port=3000
-      - traefik.frontend.rule=Host:docker.localhost,localhost,jamieowen.com,www.jamieowen.com
+      - traefik.frontend.rule=Host:docker.localhost,localhost,jamieowen.com,www.jamieowen.com      
   
   labs.jamieowen.com: 
     container_name: jamieowen_labs
-    image: labs.jamieowen.com:latest
+    build: ./labs.jamieowen.com
     restart: always
     networks:
       - web    
