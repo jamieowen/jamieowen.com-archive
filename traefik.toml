@@ -1,5 +1,6 @@
 debug = true
 
+
 #logLevel DEBUG, INFO, WARN, ERROR, FATAL, PANIC
 logLevel = "INFO"
 defaultEntryPoints = ["https","http"]
@@ -7,8 +8,8 @@ defaultEntryPoints = ["https","http"]
 [entryPoints]
   [entryPoints.http]
   address = ":80"
-    # [entryPoints.http.redirect]
-    # entryPoint = "https"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
   [entryPoints.https]
   address = ":443"
   [entryPoints.https.tls]
@@ -17,6 +18,7 @@ defaultEntryPoints = ["https","http"]
 
 [api]
 
+# https://docs.traefik.io/providers/docker/
 [docker]
 exposedByDefault = false
 endpoint = "unix:///var/run/docker.sock"
