@@ -18,10 +18,16 @@ defaultEntryPoints = ["https","http"]
 [api]
 
 [docker]
-#exposedByDefault = false
+exposedByDefault = false
 endpoint = "unix:///var/run/docker.sock"
 #domain = "jamieowen.com"
 watch = true
+
+[acme]
+email = "hello@jamieowen.com"
+[acme.dnsChallenge]
+provider = "digitalocean"
+delayBeforeCheck = 0
 
 # [acme]
 # email = "hello@jamieowen.com"
