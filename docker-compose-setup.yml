@@ -12,6 +12,8 @@ services:
     restart: always
     #command: --api --docker
     domainname: jamieowen.com
+    environment: 
+      - DO_AUTH_TOKEN=2a4bc437228bd27fa8d902683de22c7cb333eae290772334123191d544f35e26
     ports:
       - 80:80
       - 443:443
