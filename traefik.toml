@@ -6,6 +6,8 @@ debug = true
 # TOML FORMAT IS ALL OVER THE PLACE, TRAFEIK DOCS ARE SHITE, ETC, ETC, 
 # I DON'T KNOW IF NO DOCUMENTATION IS WORSE THAN BAD DOCUMENTATION.
 
+# https://docs.bytemark.co.uk/article/introduction-to-traefik-a-reverse-proxy-for-docker-containers/
+
 # Here's some rnadom urls ;
 # https://www.reddit.com/r/selfhosted/comments/d5mbd6/traefik_issue_field_not_found/
 
