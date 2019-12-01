@@ -22,7 +22,7 @@ const exchangeReducer = (state,action)=>{
   let newState = null;
 
   switch( action.type ){
-    case 
+    case '':
       break;
   }
 

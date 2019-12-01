@@ -14,7 +14,7 @@ module.exports = ()=>{
       if( argv.sketch ){
         ignore.push( `!(**/*${argv.sketch}*)` );
       }
-      return glob.sync( '**/*.js', {
+      return glob.sync( '**/*.(js|ts)', {
         ignore: ignore
       });
     }
@@ -32,6 +32,7 @@ module.exports = ()=>{
 
     return {
       entry: path.join( __dirname, entry ),
+      devtool: 'inline-source-map',
       output: {
         filename: path.basename( entry ),
         path: path.resolve(__dirname, 'build')
@@ -46,7 +47,8 @@ module.exports = ()=>{
           '@jamieowen/three-transform-geometry': path.resolve( __dirname, 'packages/three-transform-geometry' ),
           '@jamieowen/three-renderman': path.resolve( __dirname, 'packages/three-renderman/src' ),
           '@jamieowen/toy.gui': path.resolve( __dirname, 'packages/toy-ui' )
-        }
+        },
+        extensions: [ '.tsx', '.ts', '.js', '.jsx' ],
       },
       module: {
         rules: [
@@ -54,6 +56,11 @@ module.exports = ()=>{
             test: /\.m?js$/,
             exclude: /(node_modules|bower_components)/,
             use: [ 'babel-loader' ]
+          },
+          {
+            test: /\.tsx?$/,
+            use: 'ts-loader', 
+            exclude: /node_modules/,
           }
         ]
       },
