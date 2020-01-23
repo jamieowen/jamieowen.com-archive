@@ -11,38 +11,58 @@ import {
   MeshBasicMaterial
 } from 'three';
 
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+
+/**
+ * Helpers
+ */
 const boxGeometry = new BoxBufferGeometry(1,1,1,1,1,1);
 const createBox = (matParams)=>{
   const material = new MeshBasicMaterial(matParams);
   return new Mesh(boxGeometry,material);
 }
 
+/**
+ * Setup
+ */
 const renderer = new Renderer();
 document.body.appendChild(renderer.domElement);
 
 const scene = new Scene();
 const camera = new PerspectiveCamera(45,1,0.1,100);
 camera.position.z = 10;
+
+const controls = new OrbitControls(camera,renderer.domElement);
+
+renderer.scenes.add( scene );
+renderer.cameras.add( camera );
+
+const bgLayer = renderer.layers.add('background');
+const maskLayer = renderer.layers.add('mask');
+const fgLayer = renderer.layers.add('foreground');
+
+renderer.passes.add( { layers:[ 'background' ], mask:['mask'] } );
+renderer.passes.add( { layers:[ 'foreground' ] } );
+
+/**
+ * Objects
+ */
 const box1 = createBox({color:'blue'});
 const box2 = createBox({color:'red'});
+
+box1.layers.set(bgLayer);
+box2.layers.set(fgLayer);
 
 scene.add(box1);
 box1.position.x = -2;
 scene.add(box2);
 
-renderer.scenes.add( scene );
-renderer.cameras.add( camera );
-
-renderer.layers.add('background');
-renderer.layers.add('foreground');
-
-renderer.passes.add( { layers:[ 'background' ] } );
-renderer.passes.add( { layers:[ 'foreground' ] } );
-
 renderer.setSize(400,300);
-renderer.render();
+renderer.start(()=>{
+  controls.update();
+});
 
-console.log( renderer );
+//console.log( renderer );
 
 // const renderer = new Renderer();
 // console.log( renderer );

@@ -20,8 +20,9 @@ class Collection<T> extends Array<T>{
   static create<T>(): Collection<T> {
       return Object.create(Collection.prototype);
   }
-  public add(item:T){
+  public add(item:T):number{
     this.push(item);
+    return this.length-1;
   }
   /** Need to extend properly and dispatch update events. */
 }
@@ -68,13 +69,16 @@ class Renderer{
   public cameras:Collection<Camera> = Collection.create<Camera>();
   public passes:Collection<Pass> = Collection.create<Pass>();
   public effects:Collection<EffectPipeline> = Collection.create<EffectPipeline>();
-  public controls:Collection<Object3D> = Collection.create<Object3D>();
+  // public controls:Collection<Object3D> = Collection.create<Object3D>();
 
   private defaultCamera:Camera = new PerspectiveCamera(75,1/1,0.1,100);
   private defaultScene:Scene = new Scene();
-  private defaultControls:OrbitControls;
+  // private defaultControls:OrbitControls;
+
+  private resizeObserver:any; // ResizeObserver TS defs missing?
   
-  private isRunning:boolean = false;
+  public isRunning:boolean = false;  
+  public isMounted:boolean = false;
 
   constructor(params?:WebGLRendererParameters){
     
@@ -87,46 +91,53 @@ class Renderer{
     });
     this.domElement.appendChild(this.renderer.domElement);
     this.bounds.setFromArray([0,0,0,0,0,0]).expandByScalar(50);
-    this.defaultControls = new OrbitControls(this.defaultCamera,this.domElement);
+    // this.defaultControls = new OrbitControls(this.defaultCamera,this.domElement);
 
   }
 
-  public start():void{
+  public start(update?:Function):void{
     if( !this.isRunning ){
       this.isRunning = true;
-      this.render();
+      this.render(update);
     }
   }
 
-  private resolveScene(name:String):Scene{
+  private resolveScene(name?:String):Scene{
     let res:Scene = null;
-    this.scenes.forEach((scene)=>{
-      if( scene.name === name ){
-        res = scene;
-      }
-    })
+    if( name ){
+      this.scenes.forEach((scene)=>{
+        if( scene.name === name ){
+          res = scene;
+        }
+      })
+    } 
     return res || this.scenes.length > 0 ? this.scenes[0] : this.defaultScene;
   }
 
-  private resolveCamera(name:string):Camera{
+  private resolveCamera(name?:string):Camera{
     let res:Camera = null;
-    this.cameras.forEach((camera)=>{
-      if( camera.name === name ){
-        res = camera;
-      }
-    })
+    if( name ){
+      this.cameras.forEach((camera)=>{
+        if( camera.name === name ){
+          res = camera;
+        }
+      })
+    }
     return res || this.cameras.length > 0 ? this.cameras[0] : this.defaultCamera;
   }  
 
-  private render(){
+  private render(update?:Function){
 
+    if( update ){
+      update();
+    }
     const {
-      passes,renderer
+      passes,renderer,layers
     } = this;
 
     if( passes.length === 0 ){
-      const scene = this.resolveScene('');
-      const camera = this.resolveCamera('');
+      const scene = this.resolveScene();
+      const camera = this.resolveCamera();
       renderer.autoClear = true;
       renderer.render(scene,camera);
     }else{
@@ -137,10 +148,20 @@ class Renderer{
 
         const scene = this.resolveScene(<string>pass.scene);
         const camera = this.resolveCamera(<string>pass.camera);
+
+        if( pass.layers ){
+          camera.layers.disableAll();
+          pass.layers.forEach((layer)=>{
+            const idx = layers.indexOf(layer);
+            camera.layers.enable(idx);
+          })
+        }else{
+          camera.layers.enableAll();
+        }
         
-        console.log( 'Render',scene,camera );
-        console.log( 'isDefaultCamera:', camera === this.defaultCamera );
-        console.log( 'isDefaultScene', scene === this.defaultScene );
+        // console.log( 'Render',scene,camera );
+        // console.log( 'isDefaultCamera:', camera === this.defaultCamera );
+        // console.log( 'isDefaultScene', scene === this.defaultScene );
         // const scene:Scene = pass.scene instanceof String ? this.findScene(pass.scene) : pass.scene || defaultScene;
         
         renderer.render(scene,camera);
@@ -152,11 +173,20 @@ class Renderer{
     }
 
     if( this.isRunning ){
-      requestAnimationFrame(this.render);
+      requestAnimationFrame(()=>{
+        this.render(update);
+      });
     }
 
   }
 
+  /**
+   * 
+   * Set the size of the renderer and containing dom elements.
+   * 
+   * @param w 
+   * @param h 
+   */
   public setSize(w:number=400,h:number=300){
 
     this.renderer.setSize(w,h);
@@ -175,6 +205,46 @@ class Renderer{
         cam.updateProjectionMatrix();
       }
     })
+
+  }
+
+  public mount(ele:HTMLElement,autoResize=true){    
+
+    if( !this.isMounted ){
+
+      if( autoResize ){
+        // @ts-ignore
+        this.resizeObserver = new ResizeObserver((entries)=>{
+          const e = entries[0];
+          this.setSize(
+            e.contentRect.width,
+            e.contentRect.height
+          );
+        });
+        
+        this.domElement.style.backgroundColor = 'blue';
+        this.domElement.style.width = '100%';
+        this.domElement.style.height = '100%';
+        this.domElement.style.position = 'absolute';
+
+        ele.appendChild(this.domElement);
+        this.resizeObserver.observe(this.domElement);
+        this.isMounted = true;
+      }
+    }
+
+  }
+
+  public unmount(ele:HTMLElement){
+
+    if(this.isMounted && ele.contains(this.domElement)){
+      if( this.resizeObserver ){
+        this.resizeObserver.disconnect();
+        this.resizeObserver = null;
+      }
+      ele.removeChild(this.domElement);
+      this.isMounted = false;      
+    }
 
   }
 
