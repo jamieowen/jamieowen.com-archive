@@ -77,7 +77,7 @@ class Renderer{
 
   private resizeObserver:any; // ResizeObserver TS defs missing?
   
-  public isRunning:boolean = false;  
+  public isRunning:boolean = false;
   public isMounted:boolean = false;
 
   constructor(params?:WebGLRendererParameters){
@@ -85,12 +85,14 @@ class Renderer{
     this.renderer = new WebGLRenderer(
       Object.assign({},defaultParams,params)
     )
+    this.renderer.setPixelRatio(2);
     this.domElement = createDomElement('div',{
       margin: '0px',
       padding: '0px'
     });
     this.domElement.appendChild(this.renderer.domElement);
     this.bounds.setFromArray([0,0,0,0,0,0]).expandByScalar(50);
+    this.defaultCamera.position.z = 25;
     // this.defaultControls = new OrbitControls(this.defaultCamera,this.domElement);
 
   }
