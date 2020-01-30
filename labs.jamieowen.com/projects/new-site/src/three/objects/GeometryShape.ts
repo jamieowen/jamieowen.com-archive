@@ -1,13 +1,14 @@
 import {
   Mesh,
   MeshBasicMaterial,
-  BoxBufferGeometry
+  BoxBufferGeometry,
+  MeshLambertMaterial
 } from 'three';
 
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
 
 const geometry = new BoxBufferGeometry(10,10,10);
-const material = new MeshBasicMaterial({
+const material = new MeshLambertMaterial({
   color: 'crimson'
 });
 

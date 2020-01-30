@@ -24,7 +24,7 @@ class Renderer{
     domElement.appendChild( this.renderer.domElement );    
 
     this.controls = new OrbitControls(this.camera,this.renderer.domElement);
-    this.camera.position.z = 100;
+    this.camera.position.z = 300;
 
     window.addEventListener( 'resize',this.onResize );
     this.onResize();

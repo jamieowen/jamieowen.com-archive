@@ -27,6 +27,25 @@ services:
       - traefik.enable=true
       - traefik.port=80
       - traefik.frontend.rule=Host:labs.localhost,labs.jamieowen.com
+  
+  jupyter.jamieowen.com:
+    container_name: jamieowen_jupyter
+    build: ./jupyter.jamieowen.com
+    restart: always
+    networks:
+      - web
+    labels:
+      - traefik.enable=true
+      - traefik.port=8888
+      - traefik.frontend.rule=Host:jupyter.localhost,jupyter.jamieowen.com
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    volumes:
+      - ./jupyter.jamieowen.com/container-data:/home/jovyan
+      - ./jupyter.jamieowen.com/notebooks:/home/jovyan/notebooks
+
+
+
       
 
     
