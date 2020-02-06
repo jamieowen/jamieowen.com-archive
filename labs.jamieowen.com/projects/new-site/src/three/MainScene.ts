@@ -1,16 +1,19 @@
 import {
-  Scene, Box3, Vector3, Mesh, BoxBufferGeometry, MeshBasicMaterial, Matrix4, HemisphereLight
+  Scene, Box3, Vector3, Mesh, BoxBufferGeometry, MeshBasicMaterial, Matrix4, HemisphereLight, Color, MeshLambertMaterial
 } from 'three';
 
+import { 
+  GUI,GUIController 
+} from 'dat-gui';
+
 import { GeometryShape } from './objects/GeometryShape';
+import { Cameras } from './objects/Cameras';
+import { Bounds } from './objects/Bounds';
 
-
-const randomPoints = (numPoints:number,bounds:Box3,itemHandler:Function=null)=>{
+const randomPoints = (numPoints:number,bounds:Box3,itemHandler:Function=null):Array<any>=>{
 
   const points:Array<object> = [];
   const size:Vector3 = bounds.getSize(new Vector3());
-  console.log( 'Size', size );
-  console.log( 'Bounds Min', bounds.min );
   let insert:Function;
   if( itemHandler ){
     insert = (i:number,x:number,y:number,z:number)=>{
@@ -36,6 +39,28 @@ const randomPoints = (numPoints:number,bounds:Box3,itemHandler:Function=null)=>{
 
 }
 
+const generateColorPalette = ( color1:Color, computeComplementary:boolean, steps:number=20 ):Array<Color>=>{
+
+  const color2:Color = color1.clone();
+  if( computeComplementary ){
+    color2.offsetHSL( 0.5,0,0 );
+  }else{
+    color2.offsetHSL(0,0,1);
+  }
+  const colors:Array<Color> = [];
+  for( let i:number = 0; i<steps; i++ ){
+
+   const c = color1.clone();
+   const amount = ( 1 / (steps-1) ) * i;
+   c.lerpHSL(color2,amount);
+   colors.push(c);
+
+  }
+
+  return colors;
+
+}
+
 
 class MainScene extends Scene{
 
@@ -47,41 +72,39 @@ class MainScene extends Scene{
 
     super();
 
+    this.background = new Color('white');
+
     this.onBeforeRender = ()=>{
       // console.log( 'Render Scene' );
     }
 
     // Bounds    
-    const bounds = new Box3();    
-    bounds.min.set(-20,0,-10);
-    bounds.max.set(20,100,10);
+    const bounds = new Bounds();
+    this.add(bounds);
 
-    // Bounds Mesh
-    const offsetMatrix = new Matrix4().makeTranslation(0,-0.5,0);
-    const boundsMesh = new Mesh(
-      new BoxBufferGeometry(1,1,1).applyMatrix(offsetMatrix),
-      new MeshBasicMaterial({
-        color: 'red',
-        wireframe: true
-      })
-    );
-    this.add( boundsMesh );
-    bounds.getSize( boundsMesh.scale );
-    
     // Boxes
-    const points = randomPoints(MainScene.COUNT, bounds, (i:number,x:number,y:number,z:number)=>{
-      const shape = new GeometryShape();
+    const colors = generateColorPalette( new Color('blue'),true );    
+
+    const points = randomPoints(MainScene.COUNT, bounds.sceneBounds, (i:number,x:number,y:number,z:number)=>{
+
+      const shape:GeometryShape = new GeometryShape();
+      shape.material.color.set(colors[i%colors.length]);
       shape.position.set(x,y,z);
       shape.rotation.x = Math.PI * Math.random();
       shape.rotation.y = Math.PI * Math.random();
       shape.rotation.z = Math.PI * Math.random();
       this.add( shape );
       return shape;
+
     } );
 
     // Lights
     const hemLight = new HemisphereLight(0xffffff,0x444444);
     this.add(hemLight);
+
+    // Cameras
+    const cameras:Cameras = new Cameras();
+    this.add( cameras );
 
   }
 

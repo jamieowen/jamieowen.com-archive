@@ -34,7 +34,7 @@ module.exports = ()=>{
       entry: path.join( __dirname, entry ),
       devtool: 'inline-source-map',
       output: {
-        filename: path.basename( entry ),
+        filename: 'bundle.js',//path.basename( entry ),
         path: path.resolve(__dirname, 'build')
       },
       devServer: {
@@ -53,15 +53,16 @@ module.exports = ()=>{
       module: {
         rules: [
           {
-            test: /\.m?js$/,
+            // test: /\.m?js$/,
+            test: /\.tsx?$/,
             exclude: /(node_modules|bower_components)/,
             use: [ 'babel-loader' ]
           },
-          {
-            test: /\.tsx?$/,
-            use: 'ts-loader', 
-            exclude: /node_modules/,
-          }
+          // { //
+          //   test: /\.tsx?$/,
+          //   use: 'ts-loader', 
+          //   exclude: /node_ modules/,
+          // }
         ]
       },
       plugins: [

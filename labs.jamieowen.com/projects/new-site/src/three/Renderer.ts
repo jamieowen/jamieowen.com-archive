@@ -10,7 +10,7 @@ class Renderer{
   public renderer:WebGLRenderer;
 
   public controls:OrbitControls;
-  public camera:PerspectiveCamera = new PerspectiveCamera(45,1/1,0.1,1000);  
+  public camera:PerspectiveCamera = new PerspectiveCamera(45,1/1,1,10000);  
 
   constructor(domElement:HTMLElement){
   
@@ -19,7 +19,6 @@ class Renderer{
     });
 
     this.renderer.setPixelRatio(2);
-    this.renderer.setClearColor('white');
 
     domElement.appendChild( this.renderer.domElement );    
 
