@@ -35,6 +35,11 @@ class DomResize extends SystemStateComponent{
 
 // }
 
+type DomSystemParams = {
+  domElement:HTMLElement,
+  scrollElement:HTMLElement
+}
+
 class DomSystem extends System{
 
   static queries = {
@@ -42,18 +47,36 @@ class DomSystem extends System{
     scroll: { components: [ DomScroll ] },
   }
 
-  private resizeObserver:any;
-  
-  getState(q:string,comp:object):any{
-    return this.queries[q].results[0].getComponent(comp);
-  }
-
-  getMutableState(q:string,comp:object):any{
-    return this.queries[q].results[0].getMutableComponent(comp);
-  }
+  resizeObserver:any;
 
   init(){
     
+
+  }
+
+  postinit(params:DomSystemParams){
+    
+    console.group( 'Reg Params', params );
+    const world:World = this.world;
+    const domContainer:HTMLElement = document.createElement('div');
+
+    domContainer.style.width = '100%';
+    domContainer.style.height = '100%';
+    domContainer.style.backgroundColor = 'blue';
+    domContainer.style.position = 'absolute';
+  
+    params.domElement.appendChild( domContainer )
+  
+    world.registerComponent(DomScroll);
+    world.registerComponent(DomResize);
+      
+    world.createEntity() // State
+      .addComponent( DomScroll,new DomScroll(params.scrollElement) )
+      .addComponent( DomResize,new DomResize(domContainer) )
+
+
+    // Rejig...
+
     const resize:DomResize = this.getState('resize',DomResize);
     const scroll:DomScroll = this.getState('scroll',DomScroll);
     console.log( 'Init DomSystem',resize);
@@ -70,44 +93,26 @@ class DomSystem extends System{
 
     if( scroll.target ){
 
-    }
+    }    
 
-  }
+
+  }  
 
   execute( delta:number,time:number ){
 
   }
 
-}
+  getState(q:string,comp:object):any{
+    return this.queries[q].results[0].getComponent(comp);
+  }
 
-const registerDomSystem =(
-  world:World,
-  domElement:HTMLElement,
-  scrollElement:HTMLElement = null
-)=>{
-
-  const domContainer:HTMLElement = document.createElement('div');
-
-  domContainer.style.width = '100%';
-  domContainer.style.height = '100%';
-  domContainer.style.backgroundColor = 'blue';
-  domContainer.style.position = 'absolute';
-
-  domElement.appendChild( domContainer )
-
-  world.registerComponent(DomScroll);
-  world.registerComponent(DomResize);
-    
-  world.createEntity() // State
-    .addComponent( DomScroll,new DomScroll(scrollElement) )
-    .addComponent( DomResize,new DomResize(domContainer) )
-  
-  world.registerSystem( DomSystem );
+  getMutableState(q:string,comp:object):any{
+    return this.queries[q].results[0].getMutableComponent(comp);
+  }  
 
 }
 
 export {
-  registerDomSystem,
   DomSystem,
   DomScroll,
   DomResize

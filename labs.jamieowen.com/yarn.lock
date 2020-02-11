@@ -1125,6 +1125,11 @@
   resolved "https://registry.yarnpkg.com/@types/dat-gui/-/dat-gui-0.6.3.tgz#2285a22ee28fbed05f3932dda9144d18c9903b5d"
   integrity sha512-N0JUd1/jrKQ00w0lz6uyx/4XhJ+qQb9Ir05DEzP4YS5N+vQUyKtcyVBG/u+NF7EkAkHHYDyzpvYf0AMS89R2OQ==
 
+"@types/dat.gui@^0.7.5":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@types/dat.gui/-/dat.gui-0.7.5.tgz#8f4f87300ae553a57b246a7bf1b9fe5e13ca8b79"
+  integrity sha512-5AqLThlTiuDSOZA7XZFogRj/UdGKn/iIfdFPuh37kY4s7TjTt+YUOlUmcCrY6wAYFFyThtt2z8qZlYcdkhJZ5w==
+
 "@types/events@*":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"

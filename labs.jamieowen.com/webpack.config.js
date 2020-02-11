@@ -58,6 +58,11 @@ module.exports = ()=>{
             exclude: /(node_modules|bower_components)/,
             use: [ 'babel-loader' ]
           },
+          {
+            test: /\.m?js$/,
+            exclude: /(node_modules|bower_components)/,
+            use: [ 'babel-loader' ]
+          }          
           // { //
           //   test: /\.tsx?$/,
           //   use: 'ts-loader', 

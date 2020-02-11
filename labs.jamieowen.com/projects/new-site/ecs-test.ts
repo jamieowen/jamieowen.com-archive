@@ -1,108 +1,73 @@
-import { Renderer } from "./src/three/Renderer"
-// import { ECSScene, EntityObject3D } from "./src/ecs/objects";
-import { Object3D, Vector3, Scene, Mesh } from "three";
-import { World, System, Component, Entity } from "ecsy";
-import { TransformComponent, GeometryComponent, MaterialColorComponent } from "./src/ecs/components";
+import { Scene, PerspectiveCamera, BoxBufferGeometry, Mesh, MeshBasicMaterial, MeshLambertMaterial, HemisphereLight, Camera, EventDispatcher } from "three";
 import { Application } from "./src/ecs/Application";
 
-interface IPhysicsComponent{
-  mass:number,
-  position:Vector3
+
+class PhysicsMesh extends Mesh{
+  // static components = [ PhysicsComponent, InteractiveComponent ];
+  // public physics:PhysicsComponen;
 }
 
-class PhysicsComponent extends Component implements IPhysicsComponent{
+class MyMesh extends Mesh{
 
-  public mass:number = 1;
-  public position:Vector3;
+  constructor(geometry,material){
+    super(geomety,material);
 
-  reset(){
-    this.mass = 1;
-  }
+    this.addEventListener( 'addedToScene', ()=>{
 
-}
-
-class PhysicsObject extends Object3D implements IPhysicsComponent{
-  public mass:number = 10;
-}
-
-class RenderSystem extends System{
-
-  static queries = {
-    physics: { components: [ PhysicsComponent ] },
-    transform: { components: [ TransformComponent ] }
-  }
-
-  init(){
-    // console.log( 'Hello System', this );
-  }
-
-  execute(delta:number,time:number){
-    console.log( 'exe',this)
-    const { physics,transform } = this.queries;
-
-    physics.results.forEach((e)=>{
-      const comp = e.getComponent(PhysicsComponent);
-      console.log( comp );
     })
 
-    transform.results.forEach((e)=>{
-      const comp = e.getComponent(TransformComponent);
-      console.log( comp );
-    })    
+  }
+
+
+  removedFromScene(){
+
+  }
+
+  update(){
 
   }
 
 }
-
-const addMeshEntity = (world:World,mesh:Mesh):Entity =>{
-
-    return world.createEntity()
-      .addComponent(TransformComponent,mesh)
-      .addComponent(GeometryComponent,mesh)
-      .addComponent(MaterialColorComponent,mesh)
-    
-}
-
-const addPhysicsEntity = (world:World,obj:PhysicsObject):Entity =>{
-
-  return world.createEntity()
-    .addComponent(TransformComponent,obj)
-    .addComponent(PhysicsObject,obj)  
-  
-}
-
-const addSceneEntities = (world:World,scene:Scene):Array<Entity> =>{
-
-  const entities:Array<Entity> = [];
-  console.log( 'Traverse' ); 
-  scene.traverse((obj:Object3D)=>{
-
-    let entity:Entity;
-    if( obj instanceof Mesh ){      
-      entity = addMeshEntity(world,obj);
-      console.log( 'Add Mesh Entity', entity, obj );
-    }else
-    if( obj instanceof PhysicsObject ){
-      entity = addPhysicsEntity(world,obj);
-    }
-
-    if( entity ){
-      entities.push(entity);
-    }    
-
-  })
-
-  return entities;
-}
-
 
 class App extends Application{
 
+  setup( s:Scene, c:Camera ){   
 
-  init(){   
+    // this.registerSystem( DomScrollSystem, { tension: 1, track: 2, scrollElement:} );
+    // this.registerSystem( DebugSystem );
+
+    // interactionSystem.addComponents( mesh.entity );
+    // physicsSystem.addPhysics( mesh );
+
+    // this.add
     const scene = new Scene();
-    console.log( 'INIT');
-  }  
+    const camera = new PerspectiveCamera(45,1/1,0.1,1000);
+    const geometry = new BoxBufferGeometry(1,1,1,1,1,1);
+    const material = new MeshLambertMaterial({color:'crimson'});
+    const hemLight = new HemisphereLight();
+
+    let mesh:Mesh;
+    for( let i = 0; i<20; i++ ){
+      mesh = new Mesh(geometry,material);      
+      mesh.position.x = ( i * 1 ) + ( i * 0.1 );
+      mesh.userData.components = [
+        // [ PhysicsComponent, { mass: 0, tension: 1 } ],
+        // [ InteractiveComponent ], { interactive:true } ]
+      ]
+      scene.add( mesh );
+      
+    }
+    
+    camera.position.z = 100;
+
+    scene.add( camera );
+    scene.add( hemLight );
+
+    this.registerScene(scene);
+    // this.getObject3DEntity(camera).addComponent( ActiveTag )
+    // const camera = s
+
+  } 
 
 }
 
@@ -115,41 +80,4 @@ window.onload = ()=>{
 
   const app = new App();
 
-  // const domElement = document.body;
-  // const renderer:Renderer = new Renderer(domElement);
-
-  // const world = new World();
-  // world.registerComponent(PhysicsComponent);
-  // world.registerComponent(TransformComponent);  
-  // world.registerSystem(RenderSystem);
-
-  // const scene = new Scene();
-  // const obj = new PhysicsObject();
-  // 
-  // scene.add( obj );
-
-  // addSceneEntities(world,scene);
-  
-  // // const e1 = world.createEntity().addComponent(PhysicsComponent);
-  // // const e2 = world.createEntity().addComponent(PhysicsComponent, new PhysicsObject() );
-
-  // // console.log( e1,e2 );
-
-  // world.execute(0,0);
-
-
 }
-
-
-// interface IPhysicsComponent{
-//   mass:number;
-// }
-
-// class CustomObject extends Object3D implements IPhysicsComponent{
-
-//   public mass:number;
-
-//   constructor(){
-//     super();
-//   }
-// }
