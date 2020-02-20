@@ -1,4 +1,4 @@
-import { EventDispatcher, Camera, Scene } from "three";
+import { EventDispatcher, Camera, Scene, Box3 } from "three";
 import { DomManager } from "./DomManager";
 import { RenderManager } from "./RenderManager";
 import { ObjectManager } from "./ObjectManager";
@@ -7,11 +7,20 @@ import { DebugManager } from "./DebugManager";
 type EngineParams = {
   domElement:HTMLElement,
   scrollElement:HTMLElement,
+  renderOnce:boolean,
+  autoResize:boolean
+}
+
+const defaultParams:EngineParams = {
+  domElement:null,
+  scrollElement:null,
   renderOnce:false,
   autoResize:true
 }
 
 class Engine extends EventDispatcher{
+
+  public worldBounds:Box3 = new Box3(); // a general world space to use for scale
 
   public dom:DomManager;
   public renderer:RenderManager;
@@ -19,7 +28,7 @@ class Engine extends EventDispatcher{
   public debug:DebugManager; // Should be an optinal include
   public running:boolean = false;
 
-  private customRender:Function;
+  private renderOverride:Function;
 
   constructor(params:EngineParams){
 
@@ -30,14 +39,37 @@ class Engine extends EventDispatcher{
     this.debug = new DebugManager(this,params); // Should be an optional include
     this.renderer = new RenderManager(this,params);
 
-    this.dom.initialise();
-    this.objects.initialise();    
-    this.renderer.initialise();    
-
+    /**
+     * TODO: This initialisation order needs looking at.
+     * During the setup() function, custom objects can be added to 
+     * the objects manager.
+     * 
+     * The key thing is we need to ensure that all objects are registered
+     * before we dispatch key manager events ( resize, scroll, etc )
+     * 
+     * Also,if objects are added/removed post setup - this would cause
+     */
+    this.objects.initialise();
     this.debug.initialise();
+    this.setup(this.objects.defaultScene,this.objects.defaultCamera);
 
+    this.dom.initialise();     
+    this.renderer.initialise();    
+    
+    
     this.start();
 
+  }
+
+  /**
+   * 
+   * Override in sub class to setup default scene and register any objects.
+   * 
+   * @param scene 
+   * @param camera 
+   */  
+  public setup(scene:Scene,camera:Camera){
+    throw new Error('Override setup function in base class.');
   }
 
   public start(){
@@ -59,8 +91,8 @@ class Engine extends EventDispatcher{
     this.debug.update();
     this.objects.update();    
 
-    if( this.customRender ){
-      this.customRender( this.renderer,scene,camera );
+    if( this.renderOverride ){
+      this.renderOverride( this.renderer,scene,camera );
     }else{
       this.renderer.render( scene,camera );
     }
@@ -71,8 +103,8 @@ class Engine extends EventDispatcher{
 
   }
 
-  public setCustomRender( render:Function ){    
-    this.customRender = render;
+  public setRenderOverride( render:Function ){    
+    this.renderOverride = render;
   }
 
 }

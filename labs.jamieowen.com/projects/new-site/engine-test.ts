@@ -1,45 +1,56 @@
 import { Engine, EngineParams } from "./src/engine/Engine";
-import { BoxBufferGeometry, Mesh, MeshBasicMaterial, Scene } from "three";
-
+import { Scene, PerspectiveCamera } from "three";
+import { GUI, GUIController } from "dat.gui";
+import { TestPathsScene } from "./src/scenes/TestPathsScene";
+import { TestScrollScene } from './src/scenes/TestScrollScene';
+import { PageScrollScene } from "./src/scenes/PageScrollScene";
+import { VectorTestScene } from "./src/scenes/VectorTestScene";
 
 class App extends Engine{
-  constructor(){
 
-    const target = document.body;
-    target.style.margin = '0px';
+  public setup(scene:Scene,camera:PerspectiveCamera){
 
-    super(<EngineParams>{
-      domElement:target
-    });
+    const testPathsScene:TestPathsScene = new TestPathsScene();
+    this.objects.addScene(testPathsScene);
 
-    const boxGeometry = new BoxBufferGeometry(1,1,1);
-    const box = new Mesh(
-      boxGeometry,
-      new MeshBasicMaterial({
-        color: 'crimson'
-      })
-    );
+    const testScrollScene:TestScrollScene = new TestScrollScene();
+    this.objects.addScene(testScrollScene);
 
-    const box2 = new Mesh(
-      boxGeometry,
-      new MeshBasicMaterial({
-        color: 'blue'
-      })
-    );    
+    const pageScrollScene:PageScrollScene = new PageScrollScene();
+    this.objects.addScene(pageScrollScene);
     
-    const scene2 = new Scene();
-    scene2.add( box2 );
-
-    const scene  = this.objects.defaultScene;
-    const camera = this.objects.defaultCamera;
-
-    scene.add( box );
-
-    this.objects.addScene(scene2);
+    const vectorTestScene:VectorTestScene = new VectorTestScene();
+    this.objects.addScene(vectorTestScene);
 
     this.debug.setEnabled(true);
+    this.objects.setActiveScene(vectorTestScene);
+    
+    // this.objects.setActiveScene(pageScrollScene);
+    // this.objects.setActiveCamera(pageScrollScene.domScrollCamera);
+
   }
 
 }
 
-const app = new App();
+const target = document.body;
+target.style.margin = '0px';
+
+const scrollTarget = document.createElement('div');
+scrollTarget.style.position = 'fixed';
+scrollTarget.style.width = '10%';
+scrollTarget.style.left = '0px';
+scrollTarget.style.height = '100%';
+scrollTarget.style.overflow = 'scroll';
+scrollTarget.style.backgroundColor = 'rgba(0,0,0,0.03)';
+const scrollContent = document.createElement('div');
+scrollContent.style.width = '100%';
+scrollContent.style.height = '400%';
+scrollTarget.appendChild( scrollContent );
+
+const params:EngineParams = {
+  domElement:target,
+  scrollElement:scrollTarget
+}
+const app = new App(params);
+
+target.appendChild(scrollTarget);

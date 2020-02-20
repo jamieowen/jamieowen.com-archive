@@ -35,12 +35,18 @@ class DebugManager{
     
     this.engine = engine;
     this.orbitCamera = new PerspectiveCamera(45,1/1,0.1,10000);
-    this.orbitCamera.position.z = 10;
+    this.orbitCamera.position.z = 100;
     this.orbitCamera.name = 'orbit-cam';
     this.debugOutput = createOutput();
-    // this.gui = new GUI({
-    //   width: 350
-    // });
+
+    this.gui = new GUI();
+
+    const temp = {
+      value: 10,
+      message: 'Hello'
+    }
+    this.gui.add(temp,'value');
+    this.gui.add(temp,'message');
 
   }
 
@@ -49,13 +55,8 @@ class DebugManager{
     const element:HTMLElement = this.getDomElement();
     this.orbitControls = new OrbitControls(this.orbitCamera,element);
     this.orbitControls.enabled = false;
-    element.addEventListener('mouseup',()=>{
-      console.log( 'mouseup' );
-    });
-
     this.engine.objects.addCamera(this.orbitCamera);
 
-    // this.orbitCamera.cop
   }
 
   public update(){
@@ -63,6 +64,7 @@ class DebugManager{
     if( this.enabled ){
       this.orbitControls.update();
     }
+
   }
 
 
@@ -114,13 +116,25 @@ class DebugManager{
     // const numUpdatables:number = this.engine.objects.cameras.length;
     this.debugOutput.innerHTML = `
       <b style='color:white'>SWITCH SCENES (S), SWITCH CAMERA (C), <b><br/>
-      <b>SCENES :</b><span> ${numScenes} ( ${activeScene.name || 'Scene'} )</span><br/>
-      <b>CAMERAS :</b><span> ${numCameras} ( ${activeCamera.name || 'Cam'} )</span><br/>   
+      <b>SCENES :</b><span> ${numScenes} ( ${activeScene.name || 'unnamed-scene'} )</span><br/>
+      <b>CAMERAS :</b><span> ${numCameras} ( ${activeCamera.name || 'unnamed-camera'} )</span><br/>   
     `;
+    
   }
 
-  private onEngineEvent = ()=>{
+  private onEngineEvent = (ev:any)=>{
+
     this.updateOutput();
+
+    switch( ev.type ){
+      
+      case EngineEvent.ACTIVE_CAMERA_CHANGED:
+        const camera = ev.camera;
+        this.orbitControls.enabled = camera === this.orbitCamera;
+        console.log( 'SET ENABLED :', this.orbitControls );
+        break;
+    }
+
   }
 
   public setEnabled( enable:boolean ){
@@ -131,7 +145,7 @@ class DebugManager{
 
       this.enabled = true;      
       this.addListeners();
-      this.updateOutput();
+      this.updateOutput();      
       this.orbitControls.enabled = true;
       this.engine.objects.setActiveCamera(this.orbitCamera);
       element.appendChild( this.debugOutput );

@@ -5,7 +5,7 @@ import {
   MeshLambertMaterial
 } from 'three';
 
-import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
+// import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
 
 const geometry = new BoxBufferGeometry(10,10,10);
 
@@ -18,6 +18,7 @@ class GeometryShape extends Mesh{
       color: 'crimson'
     });
     super(geometry,material);
+
   }
 
 

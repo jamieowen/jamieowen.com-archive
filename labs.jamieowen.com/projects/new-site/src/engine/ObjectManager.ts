@@ -1,6 +1,7 @@
 import { EngineParams, Engine } from "./Engine";
-import { Scene, PerspectiveCamera, Camera, OrthographicCamera } from "three";
+import { Scene, PerspectiveCamera, Camera, OrthographicCamera, Object3D } from "three";
 import { EngineEvent } from "./EngineEvent";
+import { instanceOfIEngineUpdatable, IEngineUpdatable } from './IEngineUpdatable';
 
 class ObjectManager{
 
@@ -13,7 +14,8 @@ class ObjectManager{
 
   public scenes:Array<Scene> = [];
   public cameras:Array<Camera> = [];
-  public layers:Array<string> = [];  
+  public layers:Array<string> = [];
+  public updatables:Array<IEngineUpdatable> = [];
 
   constructor(engine:Engine,params:EngineParams){
 
@@ -40,11 +42,18 @@ class ObjectManager{
 
   public update(){
     
+    for( let i:number = 0; i<this.updatables.length; i++ ){
+      this.updatables[i].engineUpdate(this.engine);
+    }
+
   }  
 
   public addScene( scene:Scene ){
-    this.scenes.push( scene );
-    this.engine.dispatchEvent( {type:EngineEvent.SCENE_ADDED,scene:scene} );
+    if( this.scenes.indexOf(scene) === -1 ){
+      this.scenes.push( scene );
+      this.traverseSceneObjects( scene );
+      this.engine.dispatchEvent( {type:EngineEvent.SCENE_ADDED,scene:scene} );
+    }
   }
 
   public addCamera( camera:Camera ){
@@ -94,6 +103,8 @@ class ObjectManager{
 
     const aspect = width/height;
 
+    console.log( 'updateCameras' );
+
     this.defaultCamera.aspect = aspect;
     this.defaultCamera.updateProjectionMatrix();
 
@@ -111,20 +122,56 @@ class ObjectManager{
 
   }
 
-  private onEngineEvent = (event:Event)=>{
+  /**
+   * 
+   * Traverse and add objects implementing compatible interfaces 
+   * to the ObjectManager.
+   * 
+   * i.e. 
+   * IEngineUpdateable
+   * 
+   * @param scene 
+   */
+  private traverseSceneObjects(scene:Scene){
 
-    switch( event.type ){
-      case EngineEvent.DOM_RESIZE:
-        const {width,height} = <any>event;
-        console.log( 'Cam update') ;        
-        this.updateCameras(width,height);
-        break;
+    scene.traverse( (obj:Object3D)=>{ 
+      
+      // @ts-ignore
+      if( instanceOfIEngineUpdatable(obj) ){
+        // @ts-ignore
+        this.addUpdatable(obj);
+        
+      }
+      if( obj instanceof Camera ){
+        this.addCamera( obj );
+      }
 
+    })
+    
+  }
 
+  public addUpdatable(obj:IEngineUpdatable){
+
+    if( this.updatables.indexOf(obj) === -1 ){
+      this.updatables.push(obj);
+      obj.engineAdded(this.engine);
     }
 
   }
-  
+
+  private onEngineEvent = (event:Event)=>{
+
+    switch( event.type ){
+
+      case EngineEvent.DOM_RESIZE:
+        const {width,height} = <any>event;
+        console.log('Cam update');        
+        this.updateCameras(width,height);
+        break;
+
+    }
+
+  }  
 
 }
 

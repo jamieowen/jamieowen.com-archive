@@ -1,5 +1,6 @@
 import { Engine, EngineParams } from "./Engine";
 import { EngineEvent } from "./EngineEvent";
+import { Box2 } from "three";
 
 const createContainer = (parent:HTMLElement):HTMLElement => {
 
@@ -28,9 +29,15 @@ class DomManager{
   // @ts-ignore // not supported yet??
   private resizeObserver:ResizeObserver;
 
-  public domContainer:HTMLElement;
-  public domElement:HTMLElement;
-  public scrollElement:HTMLElement;
+  public domSize:Box2 = new Box2(); // the size of the dom/root container
+  public domContainer:HTMLElement; // The internally created container 
+  public domElement:HTMLElement; // The supplied dom Element ( may be rename root? )
+  public scrollElement:HTMLElement; // the scroll element to listen to scroll events ( optional )
+
+  public scrollBounds:Box2 = new Box2(); // Current scroll position
+  public scrollPageBounds:Box2 = new Box2(); // Total inner scroll area
+  public scrollWorldScaling:number = 0.04;
+  
 
   constructor(engine:Engine,params:EngineParams){
 
@@ -39,17 +46,23 @@ class DomManager{
     this.domElement = params.domElement;
     this.domContainer = createContainer(this.domElement);
     this.domElement.appendChild(this.domContainer);
-    this.scrollElement = params.scrollElement;    
+    this.scrollElement = params.scrollElement;
 
     // @ts-ignore
     this.resizeObserver = new ResizeObserver((entries)=>{
       const e = entries[0];
+      this.domSize.min.set(0,0);
+      this.domSize.max.set(e.contentRect.width,e.contentRect.height);
       const ev = {
         type:EngineEvent.DOM_RESIZE,
-        width:e.contentRect.width,
-        height:e.contentRect.height
+        width:this.domSize.max.x,
+        height:this.domSize.max.y
       }
-      this.engine.dispatchEvent(ev);  
+      this.engine.dispatchEvent(ev);
+
+      if( this.scrollElement ){
+        this.onScroll(null);
+      }
     });
 
   }
@@ -64,8 +77,36 @@ class DomManager{
 
   }
 
-  private onScroll = (ev:Event)=>{
+  private onScroll = (event:Event)=>{
+    
+    this.scrollPageBounds.min.set(0,0);
+    this.scrollPageBounds.max.set(
+      this.scrollElement.scrollWidth,
+      this.scrollElement.scrollHeight
+    );
 
+    this.scrollBounds.min.set( 
+      this.scrollElement.scrollLeft,
+      this.scrollElement.scrollTop
+    )
+    this.scrollBounds.max.set( 
+      this.scrollElement.scrollLeft + this.domSize.max.x,
+      this.scrollElement.scrollTop + this.domSize.max.y      
+    )
+
+    this.scrollBounds.min.multiplyScalar(this.scrollWorldScaling);
+    this.scrollBounds.max.multiplyScalar(this.scrollWorldScaling);
+
+    this.scrollPageBounds.min.multiplyScalar(this.scrollWorldScaling);
+    this.scrollPageBounds.max.multiplyScalar(this.scrollWorldScaling);      
+
+    const ev = {
+      type:EngineEvent.DOM_SCROLL,  
+      scrollBounds:this.scrollBounds,
+      scrollPageBounds:this.scrollPageBounds
+    }
+
+    this.engine.dispatchEvent(ev);    
 
   }
 

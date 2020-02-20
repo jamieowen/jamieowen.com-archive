@@ -13,7 +13,7 @@ class RenderManager{
     this.renderer = new WebGLRenderer({
       antialias:true
     });
-    
+    this.renderer.setPixelRatio(2);
     engine.addEventListener( EngineEvent.DOM_RESIZE, this.onEngineEvent );
 
   }
