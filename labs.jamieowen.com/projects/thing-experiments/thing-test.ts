@@ -1,100 +1,77 @@
-import { NumberKeyframeTrack } from "three";
-
-
-/**
- * Transducers 101
- */
-
- const multiply = (x:number,factor:number)=>x*factor;
-
- const m10 = (x:number)=>multiply(x,10);
-
- const createMultiply = (factor:number) => (x:number)=>x*factor;
-
- const m2 = createMultiply(2);
-
-
-const gridRows = (rows:number,spacing:number) => (idx:number)=> [ idx % rows * spacing, Math.floor(idx/rows) * spacing ]
-
-const gridPos = gridRows( 10,10 );
-
-const arrayFill = (initial:number,inc:number ) => (count:number)=> new Array(count).fill(0).map((x,i)=>(i+initial)*inc );
-const createArrayAscending = arrayFill(1,1);
-const arrayBlank = arrayFill(0,0);
-
-const items100 = createArrayAscending(100);
-
-const items100_m = items100.map( m10 );
-
-
-const sourceString = 'Hello there, this is a string to be a counted by frequencies used in this';
-
-const wordHistogram = sourceString
-  .split(' ')
-  .reduce((acc:any,w:any)=>{
-    acc[w] ? acc[w]++ : acc[w] = 1;
-    return acc;
-  },{})
-
-console.log( 'history', wordHistogram );
-
-const pascalsTriangle = (height:number)=>{
-
-  const cells = [];
-  
-  for( let y:number = 0; y<height; y++ ){
-    
-    const row = new Array(y+1);
-    cells.push( row );
-
-    for( let x:number = 0; x<row.length; x++ ){
-      if( x === 0 || x === row.length-1 ){
-        cells[y][x] = 1;
-      }else{
-        cells[y][x] = cells[y-1][x] + cells[y-1][x-1];
-      }
-    }
-
-  }
-
-  return cells;
-
-}
-
-console.log( pascalsTriangle(7) );
-
-console.log( multiply(10,2) );
-console.log( m10(2) );
-console.log( m2(33) );
-console.log( items100 );
-console.log( items100_m );
-
-
-const customMap = (src,func) => src.reduce( (acc,x)=>{
-  acc.push(func(x));
-  return acc;
-},[] )
-
-const customFilter = (src,func) => src.reduce( (acc,x)=>{
-  func(x) ? acc.push(x) : null;
-  return acc;
-},[]);
-
-console.log( 'Custom Map', customMap( createArrayAscending(30), (x)=>x*2 ) );
-console.log( 'Custom Filter', customFilter( createArrayAscending(30), (x)=>x%2===0 ) );
 
 
 import * as svg from '@thi.ng/hiccup-svg'
 import * as hiccup from '@thi.ng/hiccup';
+import * as tx from '@thi.ng/transducers';
+import * as geom from '@thi.ng/geom';
 
-console.log( svg );
 
+const arrayFill = (initial:number,inc:number ) => (count:number)=> new Array(count).fill(0).map((x,i)=>(i+initial)*inc );
+const createArrayAscending = arrayFill(1,1);
+
+const xform = tx.comp(
+  tx.filter((x:number)=>x%2===1),
+  // tx.distinct(),
+  // tx.
+  tx.map((x)=>x*1)
+)
+
+// const res = tx.transduce( xform, tx.push(), createArrayAscending(30) );
+
+const it = tx.iterator( xform, [1,2,3,4,5] );
+
+const size:number = 500;
 const render = hiccup.serialize( svg.svg(
-  { width: 100, height: 100 },
-  svg.circle( [10,10], 5, { fill: 'blue' } )
+  { width: size, height: size, style: { 'background-color':'crimson' } },
+  svg.circle( [0,0], 20, { fill: 'blue' } )
 ) );
 
-console.log( render );
-// svg.
+document.write(render);
 
+// Hermite Interpolation
+const values = [5, 10];
+
+// interpolate values and transform into 2D points
+// const vertices = [...tx.iterator(
+//     tx.comp(
+//         tx.interpolateHermite(10),
+//         tx.mapIndexed((x, y) => [x, y])
+//     ),
+//     // duplicate first & last vals (1x LHS / 2x RHS)
+//     // this is only needed for hermite interpolation
+//     // (see doc string for `interpolateHermite`)
+//     tx.extendSides(values, 1, 2)
+// )];
+
+// console.log( vertices );
+
+
+
+const source = [ 0,3,5,9 ];
+const xform2 = tx.comp( 
+  tx.mapIndexed((i,x)=>[x,i])
+)
+const dest = new Array();
+const res = tx.transduce(xform2,tx.fill(dest),source);
+console.log( 'Test 1 ', res );
+
+
+// generate SVG
+const geomSvgDoc = geom.svgDoc(
+  { width: 800, height: 200, "stroke-width": 0.1, viewBox:"0 800 0 200" },
+  // interpolated points as polyline
+  geom.rect([0,0],1 ),
+  // original values as dots
+  // ...values.map((y, x) => geom.circle([x * 10, y], 0.2)),
+);
+
+console.log( geom.rect([0,0],1 ) );
+const rect = geom.rect([0,0],1 );
+console.log( rect, rect.toHiccup() );
+
+console.log( 'Geom SVG DOC', geomSvgDoc );
+const geomSvg = geom.asSvg( geomSvgDoc );
+
+// console.log( geomSvg );
+document.write(geomSvg);
 

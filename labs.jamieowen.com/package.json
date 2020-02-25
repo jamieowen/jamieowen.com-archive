@@ -41,8 +41,10 @@
     "yargs": "^13.3.0"
   },
   "dependencies": {
+    "@thi.ng/geom": "^1.7.10",
     "@thi.ng/hiccup": "^3.2.9",
     "@thi.ng/hiccup-svg": "^3.4.1",
+    "@thi.ng/iterators": "^5.1.9",
     "@thi.ng/transducers": "^6.2.1",
     "cannon": "^0.6.2",
     "ecsy": "^0.2.2",
