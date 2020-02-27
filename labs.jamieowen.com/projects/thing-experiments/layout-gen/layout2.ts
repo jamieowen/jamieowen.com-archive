@@ -1,6 +1,5 @@
 import * as tx from '@thi.ng/transducers';
 
-
 type NodeIterable = Iterable<Node>;
 type XFormArray = Array<tx.TxLike<any,any>>;
 
@@ -9,6 +8,7 @@ export class Node implements NodeIterable{ // Correct Typescript interface??
   public xform:XFormArray;
   public iterable:any; // ( 2d iterable type? )
   public isBranch:boolean = false;
+  public attributes:Map<string,any> = new Map();
 
   constructor(  
     xform?:XFormArray,
@@ -17,27 +17,7 @@ export class Node implements NodeIterable{ // Correct Typescript interface??
     this.xform = xform;
     this.iterable = iterable;
     this.isBranch = iterable !== undefined;
-  } 
-
-  // [Symbol.iterator] = ():NodeIterable=>{
-
-  //   if( this.isBranch && this.xform ){
-
-  //     // why 2 types for iterator?
-  //     if( this.xform ){
-  //       return tx.iterator<NodeIterable>(
-  //         tx.comp.apply(this,this.xform ),
-  //         this.iterable
-  //       )
-  //     }else{
-  //       return this.iterable;
-  //     }
-  
-  //   }else{
-  //     return this.iterable
-  //   }
-
-  // }
+  }
 
   *[Symbol.iterator](){
 
@@ -58,7 +38,6 @@ export class Node implements NodeIterable{ // Correct Typescript interface??
       const nn = reduce([],n)[0];
       // console.log( nn );
       if( nn.isBranch ){
-        console.log( 'NN Branch' ); 
         yield n; // yield actual container branch
         yield* nn;
       }else{
@@ -89,6 +68,9 @@ export const makeBranchNode = (count:number)=> tx.map((node:Node):Node=>{
 })
 
 type RfnNodeIndex = (i:number,node:Node)=>{}
+type RfnGetSet = (i:number,value:any)=>{}
+
+
 export const tagNodeIndexed = ( rfn:RfnNodeIndex ) => tx.mapIndexed((i:number,node:Node)=>{
   node.tag = rfn(i,node);
   return node;
@@ -100,6 +82,57 @@ export const points = ( count:number, xform?:XFormArray ) =>{
   return new Node( xform,iterable );
 }
 
+export const setAttribute = (name:string,rfn:RfnNodeIndex)=>tx.mapIndexed(
+  (i:number,node:Node)=>{
+    node.attributes.set(name,rfn(i,node) || null );
+    return node;
+  });
+
+  export const getSetAttribute = (name:string,rfn:RfnGetSet)=>tx.mapIndexed(
+    (i:number,node:Node)=>{
+      const value = node.attributes.get(name);
+      const res = rfn(i,value) || null;
+      console.log( 'set res', res );
+      node.attributes.set(name,res);
+      return node;
+    });  
+
+// export const getAttribute = (name:string,rfn:RfnInde)
+
+export const position = (rfn:RfnNodeIndex)=> setAttribute(
+  'position', (i:number,node:Node)=>rfn(i,node)
+);
+
+type RfnAttribute = (i:number,current:any,node:Node) => any;
+type VecAttributeApi = {
+  set:(rfn:RfnAttribute)=>{},
+  scaleScalar:(rfn:RfnAttribute)=>{},  
+}
+function createVecAttributeAPI(name:string):VecAttributeApi{
+
+  return {
+    set:(rfn:RfnAttribute)=>tx.mapIndexed((i:number,node:Node)=>{
+      const current = node.attributes.get(name);
+      const changed = rfn(i,current,node);
+      node.attributes.set(name,changed);
+    }),
+    scaleScalar:(rfn:RfnAttribute)=>tx.mapIndexed((i:number,node:Node)=>{
+      const current = node.attributes.get(name);
+      const scale:number = rfn(i,current,node);
+      current[0]*=scale; current[1]*=scale;
+      node.attributes.set(name,current);
+    })    
+  }
+
+    // l.position.scale(()=>3), // .set, .offset, .rotate(), .scale()
+    // l.position.set(l.ODD(()=>10)), // .set, .offset, .rotate(), .scale()
+}
+
+export const pos:VecAttributeApi = createVecAttributeAPI('position');
+
+export const scale = (scale:any)=> getSetAttribute(
+  'position',(i:number,current:any)=>(current[0]*=scale,current[1]*=scale,current) 
+);
 
 export const makeNodeIterable = ( iterable:Iterable<any> ):NodeIterable =>{
   return tx.iterator(
