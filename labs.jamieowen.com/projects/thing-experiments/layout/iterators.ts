@@ -1,4 +1,4 @@
-import { range,range2d } from '@thi.ng/transducers';
+import * as tx from ''
 
 const grid = ()=>{
   // range2d()
