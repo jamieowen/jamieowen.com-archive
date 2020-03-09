@@ -92,7 +92,7 @@ export const setAttribute = (name:string,rfn:RfnNodeIndex)=>tx.mapIndexed(
     (i:number,node:Node)=>{
       const value = node.attributes.get(name);
       const res = rfn(i,value) || null;
-      console.log( 'set res', res );
+      // console.log( 'set res', res );
       node.attributes.set(name,res);
       return node;
     });  
