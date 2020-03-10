@@ -6,7 +6,7 @@ import {
   GUI,GUIController 
 } from 'dat-gui';
 
-import { DrawContext } from '../engine/DrawContext';
+import { DrawContext } from '../../../../packages/three-drawcontext/DrawContext';
 // import { GeometryShape } from './objects/GeometryShape';
 // import { Cameras } from './objects/Cameras';
 // import { Bounds } from './objects/Bounds';

@@ -11,5 +11,8 @@
     // "esModuleInterop": true,
     // "jsx": "react",
     // "allowJs": false
-  }
+    "paths":{
+      "@jamieowen/three-drawcontext":["./packages/three-drawcontext"]
+    }
+  },
 }

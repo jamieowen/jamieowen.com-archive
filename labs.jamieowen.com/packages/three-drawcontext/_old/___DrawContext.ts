@@ -56,6 +56,10 @@ class ObjectPool<T>{
 
   }
 
+  public singleton(args:Array<any> | Object):T{
+    
+  }
+
   public reset(){
     this.index = 0;
   }

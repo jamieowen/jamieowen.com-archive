@@ -38,7 +38,7 @@ module.exports = ()=>{
         path: path.resolve(__dirname, 'build')
       },
       devServer: {
-        hot: false        
+        hot: false
       },
       resolve: {
         alias: {
@@ -46,7 +46,8 @@ module.exports = ()=>{
           '@jamieowen/three-mesh-instancing': path.resolve( __dirname, 'packages/three-mesh-instancing' ),
           '@jamieowen/three-transform-geometry': path.resolve( __dirname, 'packages/three-transform-geometry' ),
           '@jamieowen/three-renderman': path.resolve( __dirname, 'packages/three-renderman/src' ),
-          '@jamieowen/toy.gui': path.resolve( __dirname, 'packages/toy-ui' )
+          '@jamieowen/toy.gui': path.resolve( __dirname, 'packages/toy-ui' ),
+          '@jamieowen/three-drawcontext': path.resolve( __dirname, 'packages/three-drawcontext' )
         },
         extensions: [ '.tsx', '.ts', '.js', '.jsx' ],
       },

@@ -6,7 +6,7 @@ import {
   GUI,GUIController 
 } from 'dat-gui';
 
-import { DrawContext } from '../engine/DrawContext';
+import { DrawContext } from '../../../../packages/three-drawcontext/DrawContext';
 import { generateColorPalette } from './utils/generateColorPalette';
 import { gridPoints } from './utils/gridPoints';
 import { DomScrollCamera } from '../objects/DomScrollCamera';
