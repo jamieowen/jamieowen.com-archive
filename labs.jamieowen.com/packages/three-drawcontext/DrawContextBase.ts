@@ -25,7 +25,7 @@ export class DrawContextBase{
 
     this.begin();
     update( this,this.clock.getElapsedTime(),this.clock.getDelta());
-    this.end();    
+    this.end();
 
   }
 
@@ -74,6 +74,13 @@ export class DrawContextBase{
   }
 
   /**
+   * Draw point with gl points.
+   */
+  point(){
+    this.drawPoint();
+  }
+
+  /**
    * Set the texture by image/canvas.
    */
   texture(){
@@ -86,10 +93,24 @@ export class DrawContextBase{
   drawMesh(){
     this.state.drawMesh();
   }
+
+  drawPoint(){
+    this.state.drawPoint();
+  }
   
   /**
    * Transform & Material Attributes.
    */
+  position(x:number,y:number,z:number){
+    this.state.position.set(x,y,z);
+  }
 
+  scale(x:number,y:number,z:number){
+    this.state.scale.set(x,y,z);
+  }
+
+  color(name:string){
+    this.state.color.set(name);
+  }
 
 }

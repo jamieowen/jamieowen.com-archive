@@ -4,7 +4,8 @@ import { Geometries,Materials } from './constants';
 
 export interface DrawCommand{
 
-  idx:number
+  idx:number,
+  type: 'mesh' | 'point',
   // geometry:BufferGeometry,
   // material:Material,
   // mesh:Mesh,
@@ -13,9 +14,13 @@ export interface DrawCommand{
 }
 
 export interface DrawMeshCommand extends DrawCommand{
-
   mesh:Mesh
+}
 
+export interface DrawPointCommand extends DrawCommand{
+  position:number[],
+  color:number[],
+  scale:number
 }
 
 export class DrawState{
@@ -25,7 +30,7 @@ export class DrawState{
   position:Vector3 = new Vector3();
   scale:Vector3 = new Vector3();
   color:Color = new Color();
-  ambient:Color = new Color();
+  ambient:Color = new Color(); // Probably should be emissive?
 
   material:string = Materials.BASIC;
   geometry:string = Geometries.BOX;
@@ -58,8 +63,8 @@ export class DrawState{
   drawMesh(){
 
     const mesh = this.objects.createMesh();
-    const material = this.objects.getMaterial(this.material);
-    const geometry = this.objects.getGeometry(this.geometry);
+    const material = this.objects.createMaterial(this.material);
+    const geometry = this.objects.createGeometry(this.geometry);
 
     mesh.geometry = geometry;
     mesh.material = material;
@@ -70,15 +75,29 @@ export class DrawState{
     material['color'].copy( this.color );
 
     const command:DrawMeshCommand = {
-      idx: this.drawCommands.length+1,
+      idx: this.drawCommands.length,
+      type: 'mesh',
       mesh: mesh
     }
-    
+
     this.drawCommands.push(command);
 
   }
 
   drawInstance(){
+
+  }
+
+  drawPoint(){
+
+    const command:DrawPointCommand = {
+      idx:this.drawCommands.length,
+      type: 'point',
+      position:this.position.toArray(),
+      color:this.color.toArray(),
+      scale:this.scale.x
+    }    
+    this.drawCommands.push(command);
 
   }
 

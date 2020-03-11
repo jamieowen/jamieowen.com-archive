@@ -27,7 +27,7 @@ const create = ()=>{
 
   const camera:PerspectiveCamera = new PerspectiveCamera(45,4/3,0.1,1000);
   const scene:Scene = basicsExample();
-  camera.position.z = 5;
+  camera.position.z = 10;
 
   renderer.render( scene,camera );
 

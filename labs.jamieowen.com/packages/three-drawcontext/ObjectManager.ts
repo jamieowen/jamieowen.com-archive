@@ -6,7 +6,7 @@ const registerGeometries = (om:ObjectManager)=>{
     return new BoxBufferGeometry(1,1,1,1,1,1);
   });
   om.registerGeometry( Geometries.SPHERE, ()=>{
-    return new SphereBufferGeometry(1,10,10)
+    return new SphereBufferGeometry(0.5,10,10)
   });
 }
 

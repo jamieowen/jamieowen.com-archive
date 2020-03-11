@@ -18,4 +18,12 @@ export class DrawContext extends DrawContextBase{
     this.drawMesh();
   }    
 
+  basicMaterial(){
+    this.state.setMaterial( Materials.BASIC );
+  }  
+
+  lambertMaterial(){
+    this.state.setMaterial( Materials.LAMBERT );
+  }   
+
 }

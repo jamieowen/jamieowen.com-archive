@@ -1,5 +1,5 @@
 import { DrawContext } from '../DrawContext';
-import { Scene, PerspectiveCamera } from 'three';
+import { Scene, PerspectiveCamera, AmbientLight, HemisphereLight } from 'three';
 
 export const basicsExample = ()=>{
 
@@ -7,33 +7,37 @@ export const basicsExample = ()=>{
   const scene:Scene = new Scene();
   const context:DrawContext = new DrawContext(scene);
           
+  const light:HemisphereLight = new HemisphereLight(0xffffff,0x444444);
+  scene.add(light);
+
+  // const points = Point
+
   context.drawOnce((c:DrawContext,t:number,d:number)=>{
 
     console.log( 'Draw Once' );
 
-    // c.position(1,0,0);
+    c.position(1,1,0);
+    c.lambertMaterial();
+    c.color('blue');
     c.box();
 
-    // for( let i = 0; i<points.length; i++ ){
-    // let s = 2;
-    // let p = points[i];
-    // c.lambertMaterial();
-    
-    // c.position(p[0],p[1],p[2]);        
-    // c.scale(s,s,s);
-    // // c.color(0xff00ff);
-    // c.color(colors[i%colors.length].getHex());
-    // c.box();
-    // }
+    c.color('red');
+    c.basicMaterial();
+    c.position(0,0,0);   
+    // c.scale(2,1,1);
+    c.sphere();
 
-    // c.scale(1,1,1);
-    // c.lambertMaterial();
-    // c.color(0xffff00);
-    // c.position(0,10,0);
-    // c.sphere();
-    // c.color(0x00ffff);
-    // c.position(0,20,0);
-    // c.plane();
+    c.color('crimson');
+    c.position(0,1,0);
+    c.point();
+
+    c.color('hotpink');
+    c.position(-1,1,0);   
+    c.point();
+    
+    c.color('gold');
+    c.position(-2,1,0);   
+    c.point();
 
   });
 
