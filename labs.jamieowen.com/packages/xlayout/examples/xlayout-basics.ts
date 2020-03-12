@@ -1,7 +1,7 @@
-import * as l from './layout-gen/layout2';
+// import * as l from './layout-gen/layout2';
 import { Smush32 } from '@thi.ng/random';
-import * as ll from './layout';
-
+import * as ll from '../src';
+import * as tx from '@thi.ng/transducers';
 
 const rand = new Smush32();
 const dims = 200;
@@ -10,7 +10,7 @@ const dims = 200;
 // l.tagNode(10),
 // l.tagNodeIndexed((i:number)=>i>3 ? 20 : 1),
 
-const gNodes = ll.grid(5,5,[
+const gNodes = ll.grid(2,2,[
   ll.position.fromSeed(),
   ll.position.scale((i)=>[40,40]),
   ll.position.offset((i)=>[20,20])
@@ -23,23 +23,7 @@ canvas.style.height = `${dims}px`;
 document.body.appendChild(canvas);
 const ctx:CanvasRenderingContext2D = canvas.getContext('2d');
 
-const sliderX:HTMLInputElement = document.createElement('input');
-const sliderY:HTMLInputElement = document.createElement('input');
-sliderX.type = sliderY.type = 'range';
-sliderX.min = sliderY.min = '0';
-sliderX.max = sliderY.max = '100';
-sliderX.value = sliderY.value = '0';
-
-sliderX.oninput = sliderY.oninput = ()=>{
-  console.log( 'ok',sliderX.value, sliderY.value );
-  // console.log(pointsNode);
-  render(gNodes);
-}
-
-document.body.appendChild(sliderX);
-document.body.appendChild(sliderY);
-
-const render = (node:l.Node)=>{
+const render = (node:any)=>{
 
   let count = 0;
   
@@ -66,10 +50,47 @@ const render = (node:l.Node)=>{
 
 }
 
-render(gNodes);
+// render(gNodes);
 
 
+import * as gen from '../src/generators';
+
+// let out = gen.group([0,0],[
+//   gen.group([0,0],[
+//     gen.group()
+//   ])
+// ])
+
+let out = gen.points2(1,[
+  gen.group2(),
+  gen.group2([
+    gen.grid2(2,2)
+  ]),
+  gen.group2([
+    gen.grid2(2,2,[
+      gen.points2(5)
+    ])
+  ])
+]);
+
+// console.log( '--OUT--', out, typeof out );
+const genResult = tx.transduce(
+  out,
+  tx.push(),
+  [1]
+)
+console.log( 'GEN RESULT',genResult[0] );
 
 
+// const xform = tx.comp(
+//   tx.map((x)=>x*2),
+//   tx.mapcat((x)=>[x,x,x]),
+// )
 
+// const res = tx.transduce(
+//   xform,
+//   tx.push(),
+//   [0,1,2,3]
+// )
 
+// console.log( 'RES :', res );
