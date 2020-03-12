@@ -10,8 +10,6 @@ export const basicsExample = ()=>{
   const light:HemisphereLight = new HemisphereLight(0xffffff,0x444444);
   scene.add(light);
 
-  // const points = Point
-
   context.drawOnce((c:DrawContext,t:number,d:number)=>{
 
     console.log( 'Draw Once' );

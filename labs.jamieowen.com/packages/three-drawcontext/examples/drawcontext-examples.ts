@@ -1,4 +1,4 @@
-import { WebGLRenderer, PerspectiveCamera, Scene, SphericalReflectionMapping } from 'three';
+import { WebGLRenderer, PerspectiveCamera, Scene, SphericalReflectionMapping, Color } from 'three';
 import { basicsExample } from './dc-basics';
 
 const create = ()=>{

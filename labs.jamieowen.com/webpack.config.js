@@ -14,7 +14,7 @@ module.exports = ()=>{
       if( argv.sketch ){
         ignore.push( `!(**/*${argv.sketch}*)` );
       }
-      return glob.sync( '**/*.(js|ts)', {
+      return glob.sync( '**/*.(js|ts|tsx)', {
         ignore: ignore
       });
     }
@@ -54,6 +54,25 @@ module.exports = ()=>{
       module: {
         rules: [
           {
+            test: /\.css$/,
+            use: [
+              'style-loader',
+              'css-loader'
+            ],
+          },
+          {
+            test: /\.(png|svg|jpg|gif)$/,
+            use: [
+              'file-loader',
+            ],
+          },
+          {
+            test: /\.(woff|woff2|eot|ttf|otf)$/,
+            use: [
+              'file-loader',
+            ],
+          },          
+          {
             // test: /\.m?js$/,
             test: /\.tsx?$/,
             exclude: /(node_modules|bower_components)/,
@@ -63,12 +82,7 @@ module.exports = ()=>{
             test: /\.m?js$/,
             exclude: /(node_modules|bower_components)/,
             use: [ 'babel-loader' ]
-          }          
-          // { //
-          //   test: /\.tsx?$/,
-          //   use: 'ts-loader', 
-          //   exclude: /node_ modules/,
-          // }
+          },
         ]
       },
       plugins: [
