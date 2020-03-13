@@ -1,96 +1,86 @@
-// import * as l from './layout-gen/layout2';
-import { Smush32 } from '@thi.ng/random';
-import * as ll from '../src';
 import * as tx from '@thi.ng/transducers';
 
-const rand = new Smush32();
-const dims = 200;
-
-// Add Tagging
-// l.tagNode(10),
-// l.tagNodeIndexed((i:number)=>i>3 ? 20 : 1),
-
-const gNodes = ll.grid(2,2,[
-  ll.position.fromSeed(),
-  ll.position.scale((i)=>[40,40]),
-  ll.position.offset((i)=>[20,20])
-]);
-
-const canvas:HTMLCanvasElement = document.createElement('canvas');
-canvas.width = canvas.height = dims * 2;
-canvas.style.width = `${dims}px`;
-canvas.style.height = `${dims}px`;
-document.body.appendChild(canvas);
-const ctx:CanvasRenderingContext2D = canvas.getContext('2d');
-
-const render = (node:any)=>{
-
-  let count = 0;
-  
-  ctx.scale(2,2);
-
-  ctx.fillStyle = '#efefef';
-  ctx.fillRect(0,0,dims,dims);
-  ctx.fillStyle = 'black';
-
-  // @ts-ignore
-  for( let node:l.Node of gNodes ){
-    const position = node.attributes.get('position');
-    // console.log( 'node', position );
-    if( position ){
-      ctx.beginPath();
-      ctx.arc( position[0],position[1],3,0,Math.PI*2 );
-      ctx.fill();
-    }
-    count++;
-  }
-
-  // console.log( rand.float(),rand.float(),rand.float() );
-  console.log( 'Count:', count );
-
-}
-
-// render(gNodes);
-
-
 import * as gen from '../src/generators';
+import { Node } from '../src/nodes';
 
-// let out = gen.group([0,0],[
-//   gen.group([0,0],[
-//     gen.group()
-//   ])
-// ])
+import { circle,rect,asPolygon } from '@thi.ng/geom';
 
-let out = gen.points2(1,[
-  gen.group2(),
-  gen.group2([
-    gen.grid2(2,2)
+import * as hiccupSvg from '@thi.ng/hiccup-svg';
+import * as hiccup from '@thi.ng/hiccup';
+
+const scl = 15;
+let graphX = gen.bounds(100,100,[
+  gen.group([
+    gen.grid(4,4,[
+      tx.map((n:Node)=>(n.translate[0]*=scl,n.translate[1]*=scl,n)),
+      gen.rect(3,3)
+    ])
   ]),
-  gen.group2([
-    gen.grid2(2,2,[
-      gen.points2(5)
+  gen.group([
+    gen.grid(2,2,[      
+      gen.points(5)
     ])
   ])
 ]);
 
-// console.log( '--OUT--', out, typeof out );
-const genResult = tx.transduce(
-  out,
-  tx.push(),
-  [1]
-)
-console.log( 'GEN RESULT',genResult[0] );
+const createGraph = ( xform )=>{
+  const res = tx.transduce(
+    xform,
+    tx.push(),
+    [1]
+  );
+  return res[0][0];
+}
+
+const graph = createGraph(graphX);
+graph.update(); // update matrices
+console.log( 'Graph Root :', graph );
 
 
-// const xform = tx.comp(
-//   tx.map((x)=>x*2),
-//   tx.mapcat((x)=>[x,x,x]),
-// )
+const renderSvg = ( root:Node )=>{
+  const c = hiccupSvg.circle([50,50],40,{fill:'#f0f'});
+  // console.log( c );
+  const a = { width:100,height:100 };
 
-// const res = tx.transduce(
-//   xform,
-//   tx.push(),
-//   [0,1,2,3]
-// )
+  // Scenegraph toHiccup function is working. As the thi.ng demo
+  // Uses this when rendering using hdom-canvas....
+  // Accept - toHiccup() Does not expand recursively.
+  // https://github.com/thi-ng/umbrella/blob/feaf8d3f8c1dd3e9141a151b4e473423a6f62242/examples/scenegraph/src/index.ts#L163
 
-// console.log( 'RES :', res );
+  console.log( 'HICCUP:', root.toHiccup() );
+  
+  const conv = hiccupSvg.convertTree(root);
+  console.log( 'CONVERT:',conv );
+
+  return hiccupSvg.svg(a,
+    hiccupSvg.rect([0,0],a.width,a.height,{fill:'#333'}),c,conv
+  );
+}
+
+const hsvg:any = renderSvg(graph); // hiccup format svg ( so nested arrays )
+const svgString:string = hiccup.serialize(hsvg);
+
+function addSvg(str:string){
+  const ele = document.createElement('div');
+  ele.innerHTML = svgString;
+  document.body.appendChild(ele);
+}
+
+addSvg(svgString);
+addSvg(svgString);
+addSvg(svgString);
+addSvg(svgString);
+addSvg(svgString);
+
+// console.log( 'Graph Result:',graph );
+
+// console.log( graph.toHiccup() );
+
+const r = rect([0,0],[10,10],{ fill:"#eff"} );
+console.log( r.toHiccup() );
+
+// const circ = circle(0.5,{fill:'#f0f'});
+// const poly = asPolygon(circle(0.5, { fill: "#f0f" }), 3)
+
+// console.log( circ,poly,r );
+// console.log( poly.toHiccup() );
