@@ -6,7 +6,9 @@ export class Node extends Node2D{
 
   attributes:object = {};
   inited:boolean = false;
+  depth:number = 0;
   body:IShape;
+  type:string = 'node';
 
   constructor(
     id:string,
@@ -17,7 +19,7 @@ export class Node extends Node2D{
     // scale:number = 1
   ){
     super(
-      id,
+      'node---me',
       parent,
       translate,
       rotate,
@@ -39,22 +41,36 @@ export class Node extends Node2D{
   updateBody(){}
 
   toHiccup(){
-    // console.log( 'toHiccup' );
-    return this.enabled && this.display
-    ? this.children.length
-        ? [
-              "g",
-              {},
-              this.body
-                  ? ["g", { transform: this.mat }, this.body]
-                  : ["g", { transform: this.mat } ], // did return undefined.. but causes convertTree to fail.
-              ...this.children
-          ]
-        : this.body
-        ? ["g", { transform: this.mat }, this.body]
-        : ["g", { transform: this.mat } ] // did return undefined.. but causes convertTree to fail.
-    : undefined;    
+    if( this.body ){
+      const res = this.body.toHiccup();
+      res[1].transform = this.mat;
+      res[1].type = this.type;
+      return res;
+    }else{
+      return [
+        'g',
+        { type: this.type },        
+        // { transform:this.mat, type: this.type },
+        ...this.children
+      ]
+    }
+    // return this.enabled && this.display
+    // ? this.children.length
+    //     ? [
+    //           "g",
+    //           {},
+    //           this.body
+    //               ? ["g", { transform: this.mat, type:this.type }, this.body]
+    //               : ["g", { transform: this.mat, type:this.type } ], // did return undefined.. but causes convertTree to fail.
+    //           ...this.children
+    //       ]
+    //     : this.body
+    //     ? ["g", { transform: this.mat, type:this.type }, this.body]
+    //     : ["g", { transform: this.mat, type:this.type } ] // did return undefined.. but causes convertTree to fail.
+    // : undefined;    
   }
+
+
 
 
 

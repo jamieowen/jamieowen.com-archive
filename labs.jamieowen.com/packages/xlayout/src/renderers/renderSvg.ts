@@ -32,12 +32,12 @@ export const renderSvg = (node:any,opts?:SvgRenderOpts):SVGElement | string=>{
   }
 
   const svgHic = hiccupSvg.convertTree(node);
+  // console.log( 'CONVERT : ', svgHic );
   const svgHic1 = hiccupSvg.svg(
     attributes,
-    // hiccupSvg.rect([0,0],attributes.width,attributes.height,{fill:'#333'}),
-    // hiccupSvg.circle([50,50],35,{fill:'#f0f'}),
     svgHic
   );
+  // console.log( 'SVG HIC :', svgHic1 );
   const svgStr = hiccup.serialize(svgHic1);
 
   if( opts.asString ){

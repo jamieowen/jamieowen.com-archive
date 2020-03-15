@@ -22,10 +22,44 @@ export class XLayout{
     this.runOpts = arguments.length === 2 ? arguments[0] : {};
   }
 
+  // MOVE ALL OPS TO THIS CONTEXT.>
+  // FOR SEED AND NODE CREATION??
+
+  private branchOp(){
+
+  }
+
+  transduce( 
+    NodeType,
+    apiOps,
+    internalOps,
+    seedIterable?    
+  ){
+
+    seedIterable = !seedIterable ? [0] : seedIterable;
+    const ops1 = tx.comp.apply(this,internalOps);
+    const ops2 = tx.comp.apply(this,apiOps);
+
+    const res = tx.transduce(
+      tx.comp(
+        tx.map(seed=>{
+          // create type with factory, etc...
+        }),
+        ops1,
+        ops2
+      ),
+      tx.push(),
+      seedIterable
+    )
+
+    
+  }
+
   generate(params:any={}):Node{
 
     const xform = this.xformFunc(params);
 
+    // Create A Generate Pass Object.
     const res = tx.transduce(
       xform,
       tx.push(),
