@@ -1,8 +1,25 @@
 import { mapIndexed,map } from '@thi.ng/transducers';
 import { Vec } from '@thi.ng/vectors';
 import { Node, BoundsNode, RectNode, CircleNode } from '../nodes';
+import * as xlayout from '../XLayout';
+
+
+// xlayout.createNodeOp((i,n:Node)=>(n.bounds[0]=w,n.bounds[1]=h))
+
+export type NodeOpSet = (i:number) => any;
+export const position1 = ( rfn:NodeOpSet ) => xlayout.createNodeOp((i,n)=>n.translate = rfn(i) );
+export const scale1 = ( rfn:NodeOpSet ) => xlayout.createNodeOp((i,n)=>n.scale = rfn(i) );
+export const attribute1 = ( name:string,rfn:NodeOpSet ) => xlayout.createNodeOp((i,n)=>n.attributes[name]=rfn(i) );
+
+
 
 export type OpRfn = (i:number,value:any,node:Node) => any;
+
+export const mapNode = ()=> mapIndexed((i:number,context:XLayout)=>{
+
+});
+
+
 
 export const position = ( rfn:OpRfn ) => mapIndexed((i:number,n:Node)=>{
   n.translate = rfn(i,n.translate,n);

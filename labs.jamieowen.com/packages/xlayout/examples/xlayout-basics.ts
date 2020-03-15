@@ -124,10 +124,12 @@ for( let i = 0; i<count; i++ ){
 
   const s = 1 / ( count-i );
 
+  
   const xGraphNew = layout.generate({
     width:230*s,
     height:300*s
   });
+
   xGraphNew.update();
   
   const ele = <SVGElement>renderSvg2(xGraphNew);

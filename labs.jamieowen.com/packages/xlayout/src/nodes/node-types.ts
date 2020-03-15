@@ -7,6 +7,13 @@ export class GroupNode extends Node{
   type:string = 'group-node';
 }
 
+/**
+ * To represent a branching op - which may not be needed... WIP..
+ */
+export class BranchNode extends Node{
+  type:string = 'branch-node';
+}
+
 export class PointNode extends Node{
   type:string = 'point-node';  
 }
