@@ -2,6 +2,18 @@ import * as gen from '../src/generators';
 import * as ops from '../src/operators';
 
 
+const uniformRandom2 = (s=1,min=1) => (i)=>{
+  const r = (Math.random()*s)+min;
+  return [r,r];
+}
+const colors = [
+  '#f10','#f0f'
+]
+const cycle = (source) => (i)=>{
+  return source[i % source.length];
+}
+
+
 export const circleAndRect = (params:any)=>{
 
   const {
@@ -27,18 +39,6 @@ export const randomPoints = (params:any)=>{
     width,height
   } = params;
 
-  const uniformRandom2 = (s=1,min=1) => (i)=>{
-    const r = (Math.random()*s)+min;
-    return [r,r];
-  }
-
-  const colors = [
-    '#f10','#f0f'
-  ]
-  const cycle = (source) => (i)=>{
-    return source[i % source.length];
-  }
-
   return gen.bounds(width,height,[
     gen.rect(width,height,[
       ops.position1(i=>[width/2,height/2]),
@@ -54,3 +54,17 @@ export const randomPoints = (params:any)=>{
   ])
 
 }
+
+const test = ()=>{
+
+  // return gen.bounds( 10,10,i=>[
+  //   gen.rect(10,10,i=>[
+  //     ops.position( ),
+  //     opts.
+  //   ])
+  // ])
+
+}
+
+// const op = (n) => n.something = 
+// an op should have no i???

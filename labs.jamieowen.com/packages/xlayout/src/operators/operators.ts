@@ -13,6 +13,18 @@ export const attribute1 = ( name:string,rfn:NodeOpSet ) => xlayout.createNodeOp(
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 export type OpRfn = (i:number,value:any,node:Node) => any;
 
 export const mapNode = ()=> mapIndexed((i:number,context:XLayout)=>{
