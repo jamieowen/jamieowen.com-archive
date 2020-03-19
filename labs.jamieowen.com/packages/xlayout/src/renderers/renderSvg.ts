@@ -35,6 +35,7 @@ export const renderSvg = (node:any,opts?:SvgRenderOpts):SVGElement | string=>{
   // console.log( 'CONVERT : ', svgHic );
   const svgHic1 = hiccupSvg.svg(
     attributes,
+    hiccupSvg.rect([0,0],opts.size[0],opts.size[1],{fill:'#eee'}),
     svgHic
   );
   // console.log( 'SVG HIC :', svgHic1 );

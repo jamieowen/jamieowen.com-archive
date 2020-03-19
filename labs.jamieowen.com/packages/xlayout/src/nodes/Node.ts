@@ -19,7 +19,7 @@ export class Node extends Node2D{
     // scale:number = 1
   ){
     super(
-      'node---me',
+      'node',
       parent,
       translate,
       rotate,

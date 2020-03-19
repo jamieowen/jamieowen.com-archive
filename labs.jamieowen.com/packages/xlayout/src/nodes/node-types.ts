@@ -14,6 +14,10 @@ export class BranchNode extends Node{
   type:string = 'branch-node';
 }
 
+export class SubDivideNode extends Node{
+  type:string = 'subdivide-node';
+}
+
 export class PointNode extends Node{
   type:string = 'point-node';  
 }
@@ -29,15 +33,18 @@ export class CircleNode extends Node{
   type:string = 'circle-node';
   updateBody(){
     this.body.r = this.radius;
+    this.body.pos[0] = this.radius;
+    this.body.pos[1] = this.radius;
   }
 }
 
 export class RectNode extends Node{
-  size:Vec = [1,1];
+  size:Vec = [10,10];
   body:Rect = new Rect([0,0],this.size,this.attributes);
   type:string = 'rect-node';
   updateBody(){
-    this.body.pos[0] = -this.size[0]*0.5;
-    this.body.pos[1] = -this.size[1]*0.5;
+    // this.body.pos[0] = -this.size[0]*0.5;
+    // this.body.pos[1] = -this.size[1]*0.5;
+    this.body.size = this.size;
   }
 }

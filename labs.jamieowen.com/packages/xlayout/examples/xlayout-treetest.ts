@@ -1,101 +1,128 @@
+import * as gen from '../src/generators/generators2';
+import * as ops from '../src/operators/operators2';
 
-class NodeDecl{
+import { DeferredNodeDecl,breadthFirstIterator } from '../src/decl';
+import { renderSvg } from '../src/renderers/renderSvg';
+import { Node } from '../src';
 
-  constructor(
-    public childRfn:Function,
-    public NodeType:Function=Node,
-    public depth:number = 0,
-    public children:Array<NodeDecl>,
-    public parent:NodeDecl = null
-    // public thisOps?, 
-    // public childOps?
-  ){
-  }
+
+
+// This is on option about receiving the current iteration step vs
+// NOT receiving the iteration step.
+// I think the issue - is we are increasing the complexity of each statement when
+// not entirely needed.
+// WE MAY OR MAY NOT need to use i to switch parameters.
+// BUT IT IS DEFINITELY A REQUIREMENT.
+// gen(
+  // parameters as object 
+  // ops as array, ops as func receiving i
+  // children as array, children as func receiving i
+// )
+// A CLEANER OPTION IS TO USE CLOSURES to provide the iteration to that 
+// portion of the tree when needed.
+// the closre is a group that passes definied children to the parent..
+// gen.bounds({w,h},[
+//   gen.rect({fill:'#fff'},[
+//     ops.sizeToBounds()
+//   ]),
+//   seed.step(i=>[
+//     gen.rect({})
+//   ]),
+//   seed.depth(d=>[
+
+//   ]),
+//   gen.seed(s=>[
+
+//   ])
+// ]);
+
+// gen.bounds([
+//   ops.center(),
+//   ops.sizeToNearestBounds()
+// ],i=>[
+
+// ])
+// // Could also be shortened
+
+// const centerAndSize = [
+//   ops.center(),
+//   ops.sizeToNearestBounds()
+// ]
+
+// gen.bounds([ops.size(100,100)],i=>
+//   gen.group(centerAndSize,i=>[
   
-  getIndex(){
-    if(this.parent ){
-      return this.parent.children.indexOf(this);
-    }else{
-      return 0;
-    }
-  }
-
-  expand(){
-    // Causes the node to request the children at the current 'i'.
-    // i.e. gen.points(i=>[])
-    // or, gen.grid(10,10,i=>[])
-    // or this could be hidden entirely:
-    // gen.rect([])
-    // But key thing is the request for the array does not happen until
-    // 'i' for the parent is given.
-    if( !this.children ){   
-      const index = this.getIndex();
-      this.children = this.childRfn(index);
-      this.children.forEach((node:NodeDecl)=>{
-        node.parent = this;
-        node.depth = this.depth+1;
-      })
-    }
-  }
-
-  getChildren(){
-    this.expand();
-    return this.children;
-  }
-
-}
-
-function* depthFirstIterator( graph:NodeDecl ){
-
-  function* traverse( node:NodeDecl ){
-    yield node;
-    for( let child of node.getChildren() ){
-      yield* traverse(child);
-    }
-  }  
-  yield* traverse( graph );
-
-}
+//   ])
+// ])
 
 
-function* breadthFirstIterator( graph:NodeDecl ){
+// gen.seed( s=>[
+//   gen.
+// ])
 
-  let toExplore = [graph];
 
-  while( toExplore.length ){
-    const toYield = toExplore;
-    toExplore = [];
-    for( let node of toYield ){
-      toExplore = toExplore.concat( node.getChildren() );
-    }
-    yield *toYield;
-  }  
-
-}
-
-const branch = (childRfn) => new NodeDecl(childRfn)
-const root = (children) => branch(i=>children);
-const group = ( childRfn ) => new NodeDecl(childRfn,Node);
-
-const graph = root([
-  group(i=>[]),
-  group(i=>[]),
-  group(i=>[
-    group(i=>[]),
-    group(i=>[
-      group(i=>[]),
-    ]),
+const defGraph = gen.root([
+  gen.group(i=>[
+    // This is only specifying children.
+    // What happend to ops on any node??
   ]),
-  group(i=>[])
+  // gen.group([
+  //   ops.position([10,10])
+  // ],[
+  //   // children
+  // ]),  
+  // gen.points({
+  //   // points here, is being initialised with an object.
+  //   // if this wanted to be varied depending on some value.
+  //   // we can vary by i....
+  //   count:10
+  // },i=>[
+  //   // i applies to each point
+  //   // which implies we don't need to receive in ops. ( as it would be the same )
+  //   ops.position([0,0])
+  // ]),
+  gen.subdivide({width:2,height:2},i=>(
+    gen.group()
+  )),
+  gen.group(i=>[
+    gen.group(),
+    gen.rect(i=>[
+      // ops.attrib('fill',{}),
+      console.log('>>', i),
+      ops.position([10,10])
+    ])    
+  ])    
 ])
 
-// console.log( 'Depth First :' );
-// for( let item of depthFirstIterator(graph) ){
-//   console.log( 'depth:', item.depth );
-// }
+const graphMap:Map<DeferredNodeDecl,Node> = new Map();
+let root = null;
+let id = 0;
 
-console.log( '' );
-console.log( 'Breadth First :' );
-for( let item of breadthFirstIterator(graph) ){
-  console.log( 'depth:', item.depth, item );
+for( let n of breadthFirstIterator(defGraph) ){
+  
+  let node:DeferredNodeDecl = n;
+    
+  let depth = node.depth;
+  const parent:Node = graphMap.get(node.parent); // if exists...
+  
+  const current:Node = new node.NodeType(id++,parent);
+  current.attributes['id'] = id;
+  graphMap.set(node,current);
+
+  if( !root ){
+    root = current;
+  }
+
+  if( node.lastDepth && depth ===1 ){
+    // break;
+  }
+
 }
+
+root.update();
+
+const ele = <SVGElement>renderSvg(root);
+document.body.appendChild(ele);
+ele.style.margin = '1px';
+
+console.log( root );
