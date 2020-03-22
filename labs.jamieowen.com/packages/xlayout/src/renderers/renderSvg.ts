@@ -14,7 +14,7 @@ const defaultOpts:SvgRenderOpts = {
   size:null
 }
 
-export const renderSvg = (node:any,opts?:SvgRenderOpts):SVGElement | string=>{
+export function renderSvg(node:any,opts?:SvgRenderOpts):SVGElement | string{
 
   opts = Object.assign({},defaultOpts,opts);
 
@@ -35,7 +35,6 @@ export const renderSvg = (node:any,opts?:SvgRenderOpts):SVGElement | string=>{
   // console.log( 'CONVERT : ', svgHic );
   const svgHic1 = hiccupSvg.svg(
     attributes,
-    hiccupSvg.rect([0,0],opts.size[0],opts.size[1],{fill:'#eee'}),
     svgHic
   );
   // console.log( 'SVG HIC :', svgHic1 );
