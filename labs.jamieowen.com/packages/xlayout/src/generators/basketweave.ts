@@ -4,7 +4,6 @@ import { GridOpts } from './grid';
 import { CreateChild } from './subdivide';
 import { repeater } from './repeater';
 
-
 export function basketweave(parent:Node,opts?:GridOpts,create?:CreateChild){  
 
   // vertically stacked.

@@ -8,10 +8,12 @@ import { subdivide,BoundsInfo } from '../src/generators/subdivide';
 import { subdivideOnCondition } from '../src/generators/subdivideOnCondition'
 import { grid,gridOffset } from '../src/generators/grid';
 import { basketweave } from '../src/generators/basketweave';
-
+import { matrixRepeater } from '../src/generators/matrixRepeater';
 
 import { GUI, GUIController } from 'dat.gui';
 import { windmill } from '../src/generators/windmill';
+import { herringbone } from '../src/generators/herringbone';
+import { hopscotch } from '../src/generators/hopscotch';
 
 const createBounds = (i:number,x:BoundsInfo,p:Node)=>{
   const node = new BoundsNode('',p);
@@ -48,9 +50,6 @@ const createCircle = (i:number,x:BoundsInfo,p:Node)=>{
   return node;
 }
 
-
-
-
 const dims = 400;
 const root = new BoundsNode('');
 root.bounds = [dims,dims];
@@ -61,7 +60,7 @@ const options = {
   paperSize: 'A4',
   dpi: 72,
   orientation:'portrait',
-  tiling:'windmill',
+  tiling:'herringbone',
   tilingWidth: 4,
   tilingHeight: 4,
   subdivision:'none',
@@ -179,6 +178,12 @@ const render = ()=>{
     case 'windmill':
       iterator = windmill(container,gridOpts,createNode);
       break;
+    case 'herringbone':
+      iterator = herringbone(container,gridOpts,createNode);
+      break;
+    case 'hopscotch':
+      iterator = hopscotch(container,gridOpts,createNode);
+      break;
     default:
       iterator = subTileTemp();
       console.warn('No iterator for tiling type.');
@@ -221,8 +226,8 @@ gui.add(options,'dpi',[72,150,300]);
 gui.add(options,'orientation', ['portrait','landscape']);
 
 gui.add(options,'tiling',['none','grid','offsetGrid','herringbone','basketweave','windmill','hopscotch'] );
-gui.add(options,'tilingWidth',0,20,1);
-gui.add(options,'tilingHeight',0,20,1);
+gui.add(options,'tilingWidth',1,20,1);
+gui.add(options,'tilingHeight',1,20,1);
 
 gui.add(options,'numImages',0,1000,1); 
 gui.add(options,'maxLarge',0,100,1); 
