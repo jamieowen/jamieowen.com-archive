@@ -2,8 +2,6 @@ import * as tx from '@thi.ng/transducers';
 import { GridOpts } from './grid';
 import { CreateChild,createBounds, BoundsInfo } from './subdivide';
 
-
-
 type PatternAcc = {
   w:number,
   h:number,
@@ -65,7 +63,7 @@ function findJoined(rMatrix):PatternAcc[]{
 
     results.push(res);      
     continue;
-    
+
     // Skip this constraint for now...
     if( res.minX === res.maxX || res.minY === res.maxY ){
       // ensure alignment on one axis ( e.g. no 'L' shapes )
