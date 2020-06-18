@@ -15,7 +15,7 @@ export const AppNavigation = (props)=>{
         </Link>        
         <Link to="/ui-tests">
           <Button>UI Tests</Button>
-        </Link>         
+        </Link>
       </Toolbar>
     </AppBar>
   )

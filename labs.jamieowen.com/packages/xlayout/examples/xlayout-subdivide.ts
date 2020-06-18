@@ -5,17 +5,16 @@ import allPaperSizes from '@5no/paper-sizes/compiled/iso';
 import getPaperSize from '@5no/paper-sizes';
 import { Smush32 } from '@thi.ng/random';
 
-import { subdivide,BoundsInfo } from '../src/generators/subdivide';
-import { subdivideOnCondition } from '../src/generators/subdivideOnCondition'
-import { grid,gridOffset } from '../src/generators/grid';
-import { basketweave } from '../src/generators/basketweave';
-import { matrixRepeater } from '../src/generators/matrixRepeater';
+import { subdivide,BoundsInfo } from '../src/layouts/subdivide';
+import { subdivideOnCondition } from '../src/layouts/subdivideOnCondition'
+import { grid,gridOffset } from '../src/layouts/grid';
+import { basketweave } from '../src/layouts/basketweave';
+import { matrixRepeater } from '../src/layouts/matrixRepeater';
 
 import { GUI, GUIController } from 'dat.gui';
-import { windmill } from '../src/generators/windmill';
-import { herringbone } from '../src/generators/herringbone';
-import { hopscotch } from '../src/generators/hopscotch';
-import { dedupe } from '@thi.ng/transducers';
+import { windmill } from '../src/layouts/windmill';
+import { herringbone } from '../src/layouts/herringbone';
+import { hopscotch } from '../src/layouts/hopscotch';
 
 const createBounds = (i:number,x:BoundsInfo,p:Node)=>{
   const node = new BoundsNode('',p);

@@ -1,4 +1,4 @@
-import { circle, rect, Rect, Circle } from '@thi.ng/geom';
+import { Rect, Circle } from '@thi.ng/geom';
 import { Node } from './Node';
 import { Vec } from '@thi.ng/vectors';
 import { IShape } from '@thi.ng/geom-api';
@@ -47,4 +47,8 @@ export class RectNode extends Node{
     // this.body.pos[1] = -this.size[1]*0.5;
     this.body.size = this.size;
   }
+}
+
+export class ShapeNode extends Node{
+  
 }

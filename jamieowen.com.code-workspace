@@ -2,6 +2,18 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "labs.jamieowen.com"
+		},
+		{
+			"path": "jamieowen.com"
+		},
+		{
+			"path": "jupyter.jamieowen.com"
+		},
+		{
+			"path": "/Users/jamieowen/Workspace/thing-umbrella"
 		}
 	]
 }

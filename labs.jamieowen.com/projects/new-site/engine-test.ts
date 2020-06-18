@@ -5,6 +5,7 @@ import { TestPathsScene } from "./src/scenes/TestPathsScene";
 import { TestScrollScene } from './src/scenes/TestScrollScene';
 import { PageScrollScene } from "./src/scenes/PageScrollScene";
 import { VectorTestScene } from "./src/scenes/VectorTestScene";
+import { GridScene } from "./src/scenes/GridScene";
 
 class App extends Engine{
 
@@ -22,8 +23,11 @@ class App extends Engine{
     const vectorTestScene:VectorTestScene = new VectorTestScene();
     this.objects.addScene(vectorTestScene);
 
+    const gridScene:GridScene = new GridScene();
+    this.objects.addScene(gridScene);    
+
     this.debug.setEnabled(true);
-    this.objects.setActiveScene(vectorTestScene);
+    this.objects.setActiveScene(gridScene);
     
     // this.objects.setActiveScene(pageScrollScene);
     // this.objects.setActiveCamera(pageScrollScene.domScrollCamera);
