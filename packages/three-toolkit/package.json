@@ -1,0 +1,17 @@
+{
+  "name": "@jamieowen/three-toolkit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "three": "^0.118.3"
+  },
+  "devDependencies": {
+    "@types/resize-observer-browser": "^0.1.3"
+  }
+}

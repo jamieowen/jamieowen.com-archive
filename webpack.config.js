@@ -4,6 +4,7 @@ const glob = require('fast-glob');
 const inquirer = require('inquirer');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+console.log( glob.sync( "**/*trails.ts") );
 module.exports = ()=>{
 
   return inquirer.prompt([{
@@ -11,12 +12,24 @@ module.exports = ()=>{
     name: 'fileSelect',
     choices: ()=>{
       const ignore = [ 'node_modules/**', '**/node_modules/**' ];
+      // if( argv.sketch ){
+      //   ignore.unshift( `!(**/*${argv.sketch}*)` );
+      // }
+
       if( argv.sketch ){
-        ignore.push( `!(**/*${argv.sketch}*)` );
+        return glob.sync( `**/*${argv.sketch}*.(js|ts|tsx)`, {
+          ignore: ignore
+        });
+      }else{
+        return glob.sync( '**/*.(js|ts|tsx)', {
+          ignore: ignore
+        });        
       }
-      return glob.sync( '**/*.(js|ts|tsx)', {
-        ignore: ignore
-      });
+      // console.log( glob.sync( '**/*.(js|ts|tsx)', {
+      //   ignore: ignore
+      // }) );
+      
+
     }
   }]).then( (res)=>{
 
@@ -47,7 +60,9 @@ module.exports = ()=>{
           '@jamieowen/three-transform-geometry': path.resolve( __dirname, 'packages/three-transform-geometry' ),
           '@jamieowen/three-renderman': path.resolve( __dirname, 'packages/three-renderman/src' ),
           '@jamieowen/toy.gui': path.resolve( __dirname, 'packages/toy-ui' ),
-          '@jamieowen/three-drawcontext': path.resolve( __dirname, 'packages/three-drawcontext' )
+          '@jamieowen/three-drawcontext': path.resolve( __dirname, 'packages/three-drawcontext' ),
+          '@jamieowen/three-toolkit': path.resolve( __dirname, 'packages/three-toolkit/src' )
+
         },
         extensions: [ '.tsx', '.ts', '.js', '.jsx' ],
       },

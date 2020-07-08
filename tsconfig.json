@@ -1,18 +1,33 @@
 {
-  "compilerOptions": {
-    // "outDir": "./build/",
-    // "noImplicitAny": true,
-    // "sourceMap": true,
-
-    // "module": "es6", ---
-
-
-    // "target": "es6",
-    "esModuleInterop": true, // import * as X from X; i.e.a common js format allowing import X from X ( es6 style );
-    "jsx": "react",
-    // "allowJs": false
-    // "paths":{
-    //   "@jamieowen/three-drawcontext":["./packages/three-drawcontext"]
-    // }
+  "compilerOptions": {  
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "baseUrl": ".",
+    "paths":{
+      "@jamieowen/three-toolkit":[ "./packages/three-toolkit/src" ]
+    },    
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
   },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]  
 }
+

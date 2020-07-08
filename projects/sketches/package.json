@@ -1,0 +1,17 @@
+{
+  "name": "@jamieowen/sketches",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@thi.ng/rstream": "^4.4.1",
+    "@thi.ng/rstream-gestures": "^2.0.25",
+    "@thi.ng/transducers": "^7.1.1",
+    "three": "^0.118.3"
+  }
+}
