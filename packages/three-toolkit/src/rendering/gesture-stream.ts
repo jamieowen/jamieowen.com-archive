@@ -1,64 +1,69 @@
 import { GestureType, GestureEvent, gestureStream, GestureStreamOpts } from '@thi.ng/rstream-gestures';
 import { trace, ISubscriber, Stream } from "@thi.ng/rstream";
 import * as tx from '@thi.ng/transducers';
+import { PerspectiveCamera, Raycaster, Ray, Vector2, Plane, Scene } from 'three';
 
+
+export type GestureStream2dOpts = Partial<GestureStreamOpts>;
 export type GestureStream3dOpts = {
 
-} & GestureStreamOpts;
+} & GestureStream2dOpts;
 
 export type GestureEvent3D = {
 
 } & GestureEvent;
 
-export function gestureStream3D( 
-  element:HTMLElement, 
-  opts: GestureStream3dOpts
+
+/**
+ * 
+ * GestureStream2d
+ * 
+ * @param domElement 
+ * @param opts 
+ */
+export function gestureStream2d( 
+  domElement:HTMLElement,
+  opts?:GestureStreamOpts 
 ){
-  const gestures = gestureStream(element,opts)
-  return gestures.transform<GestureEvent3D>(
+  return gestureStream(domElement,opts)
+}
+
+/**
+ * 
+ * GestureStream3d
+ * 
+ * @param domElement 
+ * @param camera 
+ * @param opts 
+ */
+export function gestureStream3d( 
+  domElement:HTMLElement,
+  cameraStream: any,
+  sceneStream: any,
+  opts?: GestureStream3dOpts,
+){
+
+  const gestures2d = gestureStream2d(domElement,opts);
+  const raycaster = new Raycaster();
+  const mouse = new Vector2();
+  const plane = new Plane();
+
+  console.log( raycaster );
+  // raycaster.setFromCamera( mouse, camera );
+  // raycaster.ray.intersectPlane()
+
+
+  const gestures3d = gestures2d.transform<GestureEvent3D>(
     tx.comp(
-      tx.map(e=>e),
-      tx.trace('message')
+      tx.take(100),
+      tx.sideEffect((e)=>{
+
+        // const rect = // we need resize / dome size for mouse...
+      }),
+      tx.trace('gesture3d')
     )
   );
 
+  return gestures3d;
+
 }
-
-
-// const sub:ISubscriber<GestureEvent> = {
-//   next:(e:GestureEvent)=>{
-//     console.log( 'e',e );
-//   }
-// };
-
-// gestures.subscribe(sub,
-//   comp( 
-//     filter((e:GestureEvent)=>e.type==GestureType.DRAG)
-//   )
-// );
-
-// gestures.subscribe(
-//   trace("distance1"),
-//   comp(
-//     filter((e:GestureEvent) => e.type === GestureType.DRAG),
-//     map((e:GestureEvent)=>({
-//       distance:'i',e
-//     }))
-//     // map((e:GestureEvent)=>e)
-//   )
-// );
-
-
-// gestures.subscribe((e:GestureEvent)=>({
-//   next:()=>{
-//     console.log( 'ok' );
-//   }
-// }))
-
-
-// import { GestureType,GestureEvent,gestureStream } from '@thi.ng/rstream-gestures';
-// import { trace, ISubscriber } from "@thi.ng/rstream";
-// import { comp, dedupe, filter, map, pluck } from '@thi.ng/transducers';
-// import * as tx from '@thi.ng/transducers';
-
-// import * as rx from '@thi.ng/rstream';
