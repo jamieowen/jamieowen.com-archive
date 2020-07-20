@@ -1,4 +1,4 @@
-import { rendererStream, renderStream, update, render, resizeCamera, resize, resizeRenderer, setup, gestureStream3d, GestureEvent3D } from '@jamieowen/three-toolkit';
+import { rendererStream, renderStream, update, render, resizeCamera, resize, resizeRenderer, setup, gestureStream3d, GestureEvent3D, IntersectionHelper } from '@jamieowen/three-toolkit';
 import * as tx from '@thi.ng/transducers';
 import { GestureEvent, gestureStream } from '@thi.ng/rstream-gestures';
 
@@ -17,13 +17,10 @@ import { Group } from 'three';
 import { HemisphereLight } from 'three';
 import { DirectionalLight } from 'three';
 import { MeshLambertMaterial } from 'three';
-import { count } from 'yargs';
-import { fill } from '@thi.ng/transducers';
-import { transduce } from '@thi.ng/transducers';
-import { iterate } from '@thi.ng/transducers';
 
 const element = document.createElement('div');
 document.body.appendChild(element);
+document.body.style.margin = '0px';
 element.style.margin = '0px';
 element.style.position = 'absolute';
 element.style.width = '100%';
@@ -44,6 +41,15 @@ const plane = new Mesh(
   new PlaneBufferGeometry(1, 1),
   new MeshBasicMaterial({ color: 'white' })
 );
+
+
+const pxy = new Mesh(
+  mesh.geometry,
+  new MeshLambertMaterial({ color: 'hotpink' })
+)
+// pxy.scale.multiplyScalar(0.2);
+container.add(pxy);
+pxy.position.set(3,0,3);
 
 const light = new HemisphereLight(0xffffff,0xaaaaaa);
 container.add(light);
@@ -75,10 +81,20 @@ renderStream(element).transform(
     scene.add(container);
 
   }),
-  update(({gestures}) => {
+  update(({gestures,intersect}) => {
 
     const g:GestureEvent3D = gestures;
     controls.update();
+
+    // if( g.intersects && g.intersects.length ){
+    //   console.log( g.intersects );
+    // }
+    // console.log( intersect );
+    const i:IntersectionHelper = intersect;
+    // console.log( i.xy.position );
+    // pxy.position.copy(i.xy.position);
+    pxy.position.copy( i.xy.position );
+    // pxy.position.multiplyScalar(0.3);
 
   }),
   render()

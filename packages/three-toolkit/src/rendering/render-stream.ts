@@ -1,15 +1,15 @@
 import { Stream, sync, merge } from '@thi.ng/rstream';
-import { WebGLRenderer, Scene, PerspectiveCamera, WebGLRendererParameters, Raycaster } from 'three';
-import { gestureStream2d, gestureStream3d } from './gesture-stream';
+import { WebGLRenderer, Scene, PerspectiveCamera, WebGLRendererParameters, Raycaster, Camera, Vector2, Plane, Vector3 } from 'three';
 import { tickStream, TickEvent } from  './tick-stream';
-import { resizeObserverStream } from './resize-stream';
+import { resizeObserverStream, ResizeEvent } from './resize-stream';
 import { perspectiveCameraStream, sceneStream } from './object-stream';
 import { addToDom, resizeRenderer, resizeCamera } from './render-ops';
-import { gestureStream } from '@thi.ng/rstream-gestures';
+import { gestureStream, GestureEvent } from '@thi.ng/rstream-gestures';
+import { map } from '@thi.ng/transducers';
+import { IntersectionHelper } from './IntersectionHelper';
 
-
-export function rendererStream<WebGLRenderer>(opts:WebGLRendererParameters = {}){
-  return new Stream((stream)=>{
+export function rendererStream(opts:WebGLRendererParameters = {}){
+  return new Stream<WebGLRenderer>((stream)=>{
     const _opts:WebGLRendererParameters = {
       antialias: true,
       ...opts
@@ -23,6 +23,9 @@ export function rendererStream<WebGLRenderer>(opts:WebGLRendererParameters = {})
 type RenderEvent = {
   tick: TickEvent,
   renderer: WebGLRenderer,  
+  camera: PerspectiveCamera,
+  scene: Scene,
+  resize: ResizeEvent
 }
 
 type RenderOpts = {
@@ -40,9 +43,8 @@ export function renderStream(
   const resize = resizeObserverStream(domElement);
   const camera = perspectiveCameraStream( opts.camera );
   const scene = sceneStream( opts.scene );  
-  const gestures = gestureStream3d(domElement);
   
-  const stream = sync({
+  const stream = sync<any,RenderEvent>({
     src: { 
       tick,
       renderer,
@@ -50,23 +52,62 @@ export function renderStream(
       scene,
       camera
     }
-  }).transform(
+  }).transform<RenderEvent>(
     addToDom(),
     resizeRenderer(),
     resizeCamera()
-  )
+  );
 
+  // const raycaster = new Raycaster();
+  // const mouse = new Vector2();
+  // const planes = {
+  //   xy: new Plane( new Vector3(0,1,0) ),
+  //   xz: new Plane( new Vector3(0,0,1) ),
+  //   yz: new Plane( new Vector3(1,0,0) )
+  // }
+  // const 
 
-  const gstream = sync({  
-    src: {
-      // gestures
+  const intersect = new IntersectionHelper();
+  
+  const gestures = gestureStream(domElement,{
+    preventDefault:false,
+    eventOpts: {
+      capture: false
     }
-  })
+  });
+  let gevent = null;
+  gestures.transform(
+    map(e=>gevent=e)
+  );
 
+  return stream.transform( 
+    map( (e:RenderEvent)=>{
+      
+      if( gevent && gevent.pos ){
+        const [x,y] = gevent.pos;
+        const {width,height} = e.resize;
+        const mx = ( x / width ) * 2.0 - 1.0;
+        const my = ( ( y / height ) * 2.0 ) - 1.0;
 
-  console.log( stream );
+        intersect.setFromCamera( mx,-my,e.camera );
+        const intersects = intersect.raycaster.intersectObjects(e.scene.children,true);
+        // console.log( mx, my, y, height, intersects );
+        if( intersects.length ){
+          console.log( 'IN:', intersects );
+        }
+      }else{
+        // console.log( ge );
+      }
+      
+      // return e;
 
-  return stream;   
+      return {
+        ...e,
+        intersect,
+        gestures: gevent
+      }
+    })
+  ) 
 
 }
 

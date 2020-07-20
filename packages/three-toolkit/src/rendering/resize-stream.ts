@@ -1,6 +1,6 @@
 import { Stream } from '@thi.ng/rstream';
 
-type ResizeEvent = {
+export type ResizeEvent = {
   entry: ResizeObserverEntry,
   domElement: HTMLElement,
   width: number,
