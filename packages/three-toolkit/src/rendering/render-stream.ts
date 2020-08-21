@@ -2,7 +2,7 @@ import { Stream, sync, merge } from '@thi.ng/rstream';
 import { WebGLRenderer, Scene, PerspectiveCamera, WebGLRendererParameters, Raycaster, Camera, Vector2, Plane, Vector3 } from 'three';
 import { tickStream, TickEvent } from  './tick-stream';
 import { resizeObserverStream, ResizeEvent } from './resize-stream';
-import { perspectiveCameraStream, sceneStream } from './object-stream';
+import { perspectiveCameraStream, sceneStream } from './__old/object-stream';
 import { addToDom, resizeRenderer, resizeCamera } from './render-ops';
 import { gestureStream, GestureEvent } from '@thi.ng/rstream-gestures';
 import { map } from '@thi.ng/transducers';

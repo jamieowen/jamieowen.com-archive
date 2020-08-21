@@ -51,7 +51,9 @@ module.exports = ()=>{
         path: path.resolve(__dirname, 'build')
       },
       devServer: {
-        hot: false
+        hot: false,
+        host: '0.0.0.0',
+        // useLocalIp: true
       },
       resolve: {
         alias: {
