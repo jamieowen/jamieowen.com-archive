@@ -1,5 +1,5 @@
 {
   "files.exclude": {
-      "archive/": false
+      "archive/": true
   }
 }
