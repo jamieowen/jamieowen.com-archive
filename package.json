@@ -7,11 +7,12 @@
     "test": "jest --watch",
     "clean-node-modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
   },
-  "private":"true",
-  "workspaces":[
+  "private": "true",
+  "workspaces": [
     "apps/*",
     "packages/*",
-    "projects/*"
+    "projects/*",
+    "sketches/*"
   ],
   "repository": {
     "type": "git",
