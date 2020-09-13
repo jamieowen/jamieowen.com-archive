@@ -1,27 +1,30 @@
-// type CreateSketch = params;
+import { Stream } from "@thi.ng/rstream";
+import { ResizeEvent } from "../streams";
 
-type SketchParams = {
+export interface Sketch {
+  container: HTMLElement;
+  raf: Stream<number>;
+  resize: Stream<ResizeEvent>;
+}
+
+export type SketchParams = {
   container?: undefined | string | HTMLElement;
+  dimensions: [number, number];
 };
 
-type SketchHooks = {
-  render: () => {};
+export const defaultSketchParams = (
+  init: Partial<SketchParams> = {}
+): SketchParams => {
+  return {
+    dimensions: [800, 600],
+    ...init,
+  };
 };
 
-// sketch(({scene,camera}}=>{
+export type SketchRender = () => void;
 
-// // declare vars
+export type SketchHooks = {
+  render: SketchRender;
+};
 
-//   return (delta,mouseDown,etc)=>{
-//
-//   }
-
-// or
-
-//   return (delta,mouseDown,etc)=>{
-//
-//   }
-
-// });
-
-// Renderer
+export type SketchSetup = (sketch: Sketch) => SketchHooks | SketchRender;

@@ -4,10 +4,10 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": ".",
     "paths": {
-      "~*": ["./*"],
+      "~*": ["./*"]
       // aliases defined in package.json for parcel..
       // also defined here for VSCode autocompletion.
-      "@jamieowen/three-toolkit": ["./packages/three-toolkit/src"]
+      // "@jamieowen/three-toolkit": ["./packages/three-toolkit/src"]
     },
     "allowJs": true,
     "skipLibCheck": true,
