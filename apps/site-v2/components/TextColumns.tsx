@@ -1,28 +1,27 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { FC } from 'react';
-import { Grid, Box, Flex } from 'theme-ui';
+import { jsx } from "theme-ui";
+import { FC } from "react";
+import { Grid, Box, Flex } from "theme-ui";
 
 type TextColumnProps = {
-  heading:string,
-  body:string | string[]
-}
+  heading: string;
+  body: string | string[];
+};
 
 const sxColumnFlex = {
-  minHeight: '50vh',
-  alignItems: 'center'
-}
+  minHeight: "50vh",
+  alignItems: "center",
+};
 
 const sxGrid = {
-  width: '100%'
-}
+  width: "100%",
+};
 
-export const TextColumnLeft:FC<TextColumnProps> = ({
+export const TextColumnLeft: FC<TextColumnProps> = ({
   heading,
   body,
   ...children
-})=>{
-
+}) => {
   return (
     <Flex sx={sxColumnFlex}>
       <Grid columns="2fr 1fr" sx={sxGrid}>
@@ -30,20 +29,17 @@ export const TextColumnLeft:FC<TextColumnProps> = ({
           <h1>{heading.toString()}</h1>
           <p>{body.toString()}</p>
         </Box>
-        <Box>        
-        </Box>      
+        <Box></Box>
       </Grid>
     </Flex>
-  )
+  );
+};
 
-}
-
-export const TextColumnRight:FC<TextColumnProps> = ({
+export const TextColumnRight: FC<TextColumnProps> = ({
   heading,
   body,
   ...children
-})=>{
-
+}) => {
   return (
     <Flex sx={sxColumnFlex}>
       <Grid columns="1fr 2fr" sx={sxGrid}>
@@ -54,7 +50,5 @@ export const TextColumnRight:FC<TextColumnProps> = ({
         </Box>
       </Grid>
     </Flex>
-
-  )
-
-}
+  );
+};

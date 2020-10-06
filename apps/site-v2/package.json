@@ -10,9 +10,17 @@
   "dependencies": {
     "@mdx-js/loader": "^1.6.16",
     "@next/mdx": "^9.5.2",
+    "matter-js": "^0.14.2",
     "next": "9.5.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "theme-ui": "^0.3.1"
+    "theme-ui": "^0.3.1",
+    "three": "^0.121.1"
+  },
+  "devDependencies": {
+    "@types/matter-js": "^0.14.5",
+    "@types/theme-ui": "^0.3.7",
+    "next-transpile-modules": "^4.1.0",
+    "three": "^0.121.1"
   }
 }
