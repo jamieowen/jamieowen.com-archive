@@ -1,6 +1,6 @@
 import { $compile, $list } from "@thi.ng/rdom";
 import { reactive, sync } from "@thi.ng/rstream";
-import { mapcat, take, map } from "@thi.ng/transducers";
+import { mapcat, take, map } from "../src/__old2/layouts/@thi.ng/transducers";
 import { compilePattern, Tile } from "../src/core/compile-pattern";
 import { patternIterator } from "../src/core/pattern-iterator";
 import {

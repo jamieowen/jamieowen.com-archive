@@ -1,8 +1,8 @@
 import React, { FC, Fragment, forwardRef } from "react";
-import { MatterBody } from "../components/physics/MatterBody";
-import { MatterProvider } from "../components/physics/MatterContext";
-import { MatterRenderer } from "../components/physics/MatterRenderer";
-import { TextColumnLeft, TextColumnRight } from "../components/TextColumns";
+// import { MatterBody } from "../components/physics/MatterBody";
+// import { MatterProvider } from "../components/physics/MatterContext";
+// import { MatterRenderer } from "../components/physics/MatterRenderer";
+// import { TextColumnLeft, TextColumnRight } from "../components/TextColumns";
 import { ThreeRenderer } from "../components/three/ThreeRenderer";
 
 const Inline = forwardRef((props, ref) => {
@@ -12,12 +12,13 @@ const Inline = forwardRef((props, ref) => {
     </span>
   );
 });
-export default function Home() {
+export default function Home(props) {
+  console.log("HOME PROPS :", props);
   return (
     <div style={{ position: "relative" }}>
       {/* <MatterRenderer /> */}
       <ThreeRenderer />
-      <MatterBody>
+      {/* <MatterBody>
         <Inline>Hello Matter</Inline>
       </MatterBody>
 
@@ -29,9 +30,9 @@ export default function Home() {
         body="I'm Jamie, a Creative Dev based in London"
       />
 
-      <TextColumnRight heading="I Build" body="alskdasdas" />
+      <TextColumnRight heading="Hello" body="alskdasdas" />
 
-      <TextColumnLeft heading="Build" body="4342323" />
+      <TextColumnLeft heading="Build" body="4342323" /> */}
 
       <h1>Heading 1</h1>
       <h2>Heading 2</h2>

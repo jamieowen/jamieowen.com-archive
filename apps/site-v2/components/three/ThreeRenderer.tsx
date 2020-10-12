@@ -5,7 +5,10 @@ import {
   resizeObserverStream,
   tickStream,
   basicLightingSetup,
+  renderViewportGrid,
 } from "@jamieowen/three-toolkit";
+import {} from "@jamieowen/xlayout";
+
 import { MeshLambertMaterial, SphereBufferGeometry, Mesh } from "three";
 
 const sxBox = {
@@ -39,10 +42,17 @@ const createRenderer = (ele: HTMLDivElement) => {
   scene.add(mesh);
   const lights = basicLightingSetup();
   scene.add(lights);
+  renderer.autoClear = false;
 
   const render = () => {
     mesh.rotation.y += 0.02;
-    renderer.render(scene, camera);
+    // renderer.render(scene, camera);
+    renderViewportGrid(renderer, {
+      grid: [2, 2],
+      render: () => {
+        renderer.render(scene, camera);
+      },
+    });
   };
 
   tick.subscribe({

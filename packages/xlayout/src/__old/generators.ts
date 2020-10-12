@@ -1,7 +1,14 @@
-import { Node, GroupNode, PointNode, BoundsNode, CircleNode, RectNode } from '../nodes';
-import * as tx from '@thi.ng/transducers';
-import * as xlayout from '../XLayout';
-import * as ops from '../operators';
+import {
+  Node,
+  GroupNode,
+  PointNode,
+  BoundsNode,
+  CircleNode,
+  RectNode,
+} from "../nodes";
+import * as tx from "../__old2/layouts/@thi.ng/transducers";
+import * as xlayout from "../XLayout";
+import * as ops from "../operators";
 
 // export type RectOpts = {
 //   w:number,
@@ -9,35 +16,37 @@ import * as ops from '../operators';
 // }
 // const defaultRectOpts:RectOpts = { w:10,h:10 };
 
-export const rect = (w:number,h:number,nodeOps?)=>{
+export const rect = (w: number, h: number, nodeOps?) => {
   const initOps = [
-    xlayout.createNodeOp((i,n:RectNode)=>(n.size[0]=w,n.size[1]=h))
-  ]
-  return xlayout.createGeneratorOp(RectNode,nodeOps,initOps);
-}
+    xlayout.createNodeOp(
+      (i, n: RectNode) => ((n.size[0] = w), (n.size[1] = h))
+    ),
+  ];
+  return xlayout.createGeneratorOp(RectNode, nodeOps, initOps);
+};
 
-export const circle = (r:number,nodeOps?)=>{
-  const initOps = [
-    xlayout.createNodeOp((i,n:CircleNode)=>(n.radius=r))
-  ]
-  return xlayout.createGeneratorOp(CircleNode,nodeOps,initOps);
-}
+export const circle = (r: number, nodeOps?) => {
+  const initOps = [xlayout.createNodeOp((i, n: CircleNode) => (n.radius = r))];
+  return xlayout.createGeneratorOp(CircleNode, nodeOps, initOps);
+};
 
-export const group = (nodeOps?) => xlayout.createGeneratorOp(GroupNode,nodeOps);
-export const points = (count:number=10,nodeOps?)=>{
+export const group = (nodeOps?) =>
+  xlayout.createGeneratorOp(GroupNode, nodeOps);
+export const points = (count: number = 10, nodeOps?) => {
   const seed = tx.range(count);
-  return xlayout.createGeneratorOp(PointNode,nodeOps,null,seed);
-}
+  return xlayout.createGeneratorOp(PointNode, nodeOps, null, seed);
+};
 
-export const bounds = (w:number,h:number,nodeOps?)=>{
+export const bounds = (w: number, h: number, nodeOps?) => {
   const initOps = [
-    xlayout.createNodeOp((i,n:BoundsNode)=>(n.bounds[0]=w,n.bounds[1]=h))
-  ]
-  return xlayout.createGeneratorOp(BoundsNode,nodeOps,initOps);
-}
+    xlayout.createNodeOp(
+      (i, n: BoundsNode) => ((n.bounds[0] = w), (n.bounds[1] = h))
+    ),
+  ];
+  return xlayout.createGeneratorOp(BoundsNode, nodeOps, initOps);
+};
 
 export const branch1 = xlayout.createBranchOp;
-
 
 // type GenOps = Array<any>;
 
@@ -55,16 +64,16 @@ export const branch1 = xlayout.createBranchOp;
 // const noop = tx.map(x=>x);
 
 // /**
-//  * 
+//  *
 //  * The core transducer function to create and add nodes to each other.
 //  * Nodes are created by iterating over a 'seed' iterable, mapping
-//  * each value to an instantiated NodeType. Then performing a 
+//  * each value to an instantiated NodeType. Then performing a
 //  * series of custom ops ( functions ) to the result.
-//  * 
-//  * @param NodeType 
-//  * @param genops 
-//  * @param seedIterable 
-//  * @param nodeInit 
+//  *
+//  * @param NodeType
+//  * @param genops
+//  * @param seedIterable
+//  * @param nodeInit
 //  */
 // export function createGenerator( NodeType,genops,seedIterable,nodeInit){
 
@@ -101,9 +110,6 @@ export const branch1 = xlayout.createBranchOp;
 //   });
 
 // }
-
-
-
 
 // export function group( genops? ){
 //   return createGenerator( GroupNode,genops,null,()=>{} );
@@ -152,7 +158,6 @@ export const branch1 = xlayout.createBranchOp;
 
 // }
 
-
 // const weightsToPositions = (weights)=>{
 //   return weights.reduce((acc,x,i)=>{
 //     acc.length === 0 ? acc.push(0) : acc.push(x + acc[i-1]);
@@ -164,7 +169,7 @@ export const branch1 = xlayout.createBranchOp;
 
 //   const x = Math.max(1,w);
 //   const y = Math.max(1,h);
-  
+
 //   const xWeights = new Array(x).fill(1/x); // todo, custom weights.
 //   const yWeights = new Array(y).fill(1/y);
 
@@ -172,7 +177,7 @@ export const branch1 = xlayout.createBranchOp;
 //   const yPos = weightsToPositions(yWeights);
 
 //   return createGenerator( BoundsNode, genops,
-//     tx.range2d(x,y),(seed:any,node:BoundsNode)=>{      
+//     tx.range2d(x,y),(seed:any,node:BoundsNode)=>{
 
 //       const p:BoundsNode = node.parent;
 //       const pw = p.bounds[0];
@@ -185,8 +190,8 @@ export const branch1 = xlayout.createBranchOp;
 
 //       node.translate[0] = pw*xPos[sx];
 //       node.translate[1] = ph*yPos[sy];
-      
+
 //     }
 //   )
-  
+
 // }

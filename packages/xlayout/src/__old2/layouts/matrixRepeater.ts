@@ -1,4 +1,4 @@
-import * as tx from "@thi.ng/transducers";
+import * as tx from "./@thi.ng/transducers";
 import { GridOpts } from "./grid";
 import { CreateChild, createBounds, BoundsInfo } from "./subdivide";
 
