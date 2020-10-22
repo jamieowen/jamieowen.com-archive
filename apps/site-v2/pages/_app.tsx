@@ -3,24 +3,31 @@ import { PageRoot } from "../components/PageRoot";
 import { Heading } from "theme-ui";
 import { writing } from "../services/require-pages";
 import { NextPageContext } from "next";
+import App from "next/app";
+import { fetchPages } from "../services/fetch-pages";
+import { Navigation } from "../components/navigation";
 
-const App: FC<any> = ({ Component, pageProps, ...rest }) => {
-  console.log("Writing :", writing);
+const MyApp: FC<any> = ({ Component, pages, router }) => {
   return (
     <PageRoot>
-      <Heading as="h1">A Title for Everyone!</Heading>
-      <Component {...pageProps} />
+      <Navigation items={pages.pages} />
+      <Component />
     </PageRoot>
   );
 };
 
 // @ts-ignore
-App.getInitialProps = (ctx: NextPageContext) => {
-  if (ctx.req) {
-  }
+MyApp.getInitialProps = async (appContext) => {
+  // calls page's `getInitialProps` and fills `appProps.pageProps`
+  const appProps = await App.getInitialProps(appContext);
+  const pages = await fetchPages();
+  return {
+    ...appProps,
+    pages,
+  };
 };
 
-export default App;
+export default MyApp;
 
 /**
  *

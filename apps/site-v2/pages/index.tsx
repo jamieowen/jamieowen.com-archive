@@ -1,78 +1,85 @@
 import React, { FC, Fragment, forwardRef } from "react";
+import { Motion, AnimatePropsFactory } from "../components/motion";
+import { Flex, Box } from "theme-ui";
+
 // import { MatterBody } from "../components/physics/MatterBody";
 // import { MatterProvider } from "../components/physics/MatterContext";
 // import { MatterRenderer } from "../components/physics/MatterRenderer";
 // import { TextColumnLeft, TextColumnRight } from "../components/TextColumns";
 import { ThreeRenderer } from "../components/three/ThreeRenderer";
+import { fetchPages, PageItem } from "../services/fetch-pages";
+import { lorumIpsum } from "../components/helpers/lorumIpsum";
 
-const Inline = forwardRef((props, ref) => {
-  return (
-    <span ref={ref} style={{ display: "inline-block" }}>
-      {props.children}
-    </span>
-  );
+type PageProps = {
+  pages: PageItem[];
+};
+
+const ipsum = lorumIpsum();
+const paragraphs = ipsum.generateParagraphs(7).split("\n");
+
+const isectProps: AnimatePropsFactory = (ratio: number) => ({
+  opacity: ratio === 1 ? 1 : 0,
 });
-export default function Home(props) {
-  console.log("HOME PROPS :", props);
+
+export const Home: FC<PageProps> = ({ pages, ...props }) => {
   return (
-    <div style={{ position: "relative" }}>
-      {/* <MatterRenderer /> */}
-      <ThreeRenderer />
-      {/* <MatterBody>
-        <Inline>Hello Matter</Inline>
-      </MatterBody>
+    <Flex
+      sx={{ width: "100%", alignItems: "center", justifyContent: "center" }}
+    >
+      <Box sx={{ width: "40%" }}>
+        <Motion>
+          <h1>Heading 1</h1>
+        </Motion>
+        <Motion>
+          <h2>Heading 2</h2>
+        </Motion>
+        <Motion>
+          <h3>Heading 3</h3>
+        </Motion>
+        <Motion>
+          <h4>Heading 4</h4>
+        </Motion>
+        <Motion>
+          <h5>Heading 5</h5>
+        </Motion>
 
-      <MatterBody>
-        <Inline>Hello There</Inline>
-      </MatterBody>
-      <TextColumnLeft
-        heading="Hello"
-        body="I'm Jamie, a Creative Dev based in London"
-      />
-
-      <TextColumnRight heading="Hello" body="alskdasdas" />
-
-      <TextColumnLeft heading="Build" body="4342323" /> */}
-
-      <h1>Heading 1</h1>
-      <h2>Heading 2</h2>
-      <h3>Heading 3</h3>
-      <h4>Heading 4</h4>
-      <h5>Heading 5</h5>
-
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        convallis consectetur tortor, ut ultricies elit commodo at. Donec
-        imperdiet interdum nulla, ultricies laoreet tellus volutpat rutrum.
-        Proin eget efficitur velit, at condimentum quam. Sed ornare, eros at
-        consequat tempus, arcu nunc venenatis sapien, eget luctus augue odio
-        imperdiet urna. Fusce porta metus gravida, tincidunt mi ut, fermentum
-        tellus.{" "}
-      </p>
-
-      <p>
-        Nulla malesuada <em>laoreet nisi</em>, nec <b>molestie</b> ipsum laoreet
-        in. Sed nibh purus, <strong>porttitor</strong> eu ligula vitae, finibus
-        tempus felis. Donec imperdiet quam nec magna commodo, non cursus ex
-        semper. Duis euismod nunc a lacinia scelerisque. Interdum et malesuada
-        fames ac ante ipsum primis in faucibus.
-      </p>
-
-      <p>
-        Donec sodales id orci at tempus. Nunc sit amet lectus quis velit finibus
-        facilisis at a urna. Integer sit amet eros sollicitudin, efficitur augue
-        posuere, ornare mauris. Donec suscipit diam eu auctor fringilla.
-        Curabitur et vestibulum nibh, elementum aliquam tellus.
-      </p>
-
-      <p>
-        Pellentesque hendrerit, mi fringilla rhoncus luctus, sem ex dignissim
-        felis, in vestibulum quam sapien in tellus. Quisque sit amet ex eu magna
-        ornare commodo eget sit amet turpis. Aliquam vitae magna eros. Mauris
-        condimentum dapibus mollis. In nibh sapien, ultrices eu ex at, porta
-        tristique neque. Morbi ullamcorper turpis diam, sed dignissim mauris
-        lacinia sit amet.
-      </p>
-    </div>
+        {paragraphs.map((p, i) => (
+          <Motion key={i}>
+            <p>{p}</p>
+          </Motion>
+        ))}
+        <Motion>
+          <h1>Heading End</h1>
+        </Motion>
+      </Box>
+    </Flex>
   );
-}
+};
+
+export default Home;
+
+// const Inline = forwardRef((props, ref) => {
+//   return (
+//     <span ref={ref} style={{ display: "inline-block" }}>
+//       {props.children}
+//     </span>
+//   );
+// });
+
+//   {/* <MatterRenderer /> */}
+//   {/* <ThreeRenderer /> */}
+//   {/* <MatterBody>
+//   <Inline>Hello Matter</Inline>
+// </MatterBody>
+
+// <MatterBody>
+//   <Inline>Hello There</Inline>
+// </MatterBody>
+// <TextColumnLeft
+//   heading="Hello"
+//   body="I'm Jamie, a Creative Dev based in London"
+// />
+
+// <TextColumnRight heading="Hello" body="alskdasdas" />
+
+// <TextColumnLeft heading="Build" body="4342323" /> */}

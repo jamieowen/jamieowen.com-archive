@@ -3,6 +3,7 @@ import Head from "next/head";
 import theme from "./theme";
 import { ThemeProvider } from "theme-ui";
 import { MatterProvider } from "./physics/MatterContext";
+import { IntersectionProvider } from "./motion/IntersectionContext";
 /**
  * Wraps the top level next.js _app component.
  * So defines the top level HOC across all pages.
@@ -16,9 +17,11 @@ export const PageRoot: FC<any> = ({ children }) => {
         <title>Page Root</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MatterProvider>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
-      </MatterProvider>
+      <IntersectionProvider>
+        <MatterProvider>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </MatterProvider>
+      </IntersectionProvider>
     </Fragment>
   );
 };
