@@ -9,6 +9,9 @@ import { Flex, Box } from "theme-ui";
 import { ThreeRenderer } from "../components/three/ThreeRenderer";
 import { fetchPages, PageItem } from "../services/fetch-pages";
 import { lorumIpsum } from "../components/helpers/lorumIpsum";
+import { MyObj } from "../components/test-decorators";
+
+const myObj = new MyObj();
 
 type PageProps = {
   pages: PageItem[];
