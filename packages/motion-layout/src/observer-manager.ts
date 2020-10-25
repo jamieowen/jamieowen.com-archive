@@ -24,7 +24,6 @@ export type ObserverObject = {
 };
 
 export const createObject = (ref, domRef, onStateChange): ObserverObject => {
-  console.log("Create Object");
   return {
     ref,
     domRef,
@@ -44,6 +43,7 @@ export class ObserverManager implements IObserverContextState {
   observer: IntersectionObserver;
   objects: ObserverObject[] = [];
   observed: WeakMap<Element, ObserverObject> = new WeakMap();
+  changed: ObserverObject[] = [];
 
   constructor() {
     this.observer = new IntersectionObserver(this.onObserverCallback, {
@@ -53,6 +53,7 @@ export class ObserverManager implements IObserverContextState {
     });
   }
   private onObserverCallback = (entries: IntersectionObserverEntry[]) => {
+    console.log("On Observer CallBack");
     for (let i = 0; i < entries.length; i++) {
       const entry = entries[i];
       const item = this.observed.get(entry.target);
@@ -69,10 +70,17 @@ export class ObserverManager implements IObserverContextState {
 
         item.ratio = entry.intersectionRatio;
 
-        item.onChange(item);
+        this.changed.push(item);
       }
     }
   };
+
+  tick() {
+    // check changed.
+  }
+
+  schedule() {}
+
   add(obj: ObserverObject) {
     this.objects.push(obj);
   }

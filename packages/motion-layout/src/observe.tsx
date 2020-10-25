@@ -1,17 +1,16 @@
-import { render } from "@testing-library/react";
 import React, { CSSProperties, FC, useState } from "react";
-import { useObserverRef } from "./observer-context";
+import { useObserver } from "./use-observer";
 import { ObserverObject } from "./observer-manager";
 
 export const Observe: FC<any> = ({ children }) => {
   const [state, setState] = useState({});
-  const { ref, domRef } = useObserverRef(() => {
+  const { ref, domRef, item } = useObserver(() => {
     // setUpdated({ id: updated.id + 1 });
-    console.log("Observe changed...", ref.current.state);
+    // console.log("Observe changed...", ref.current.state);
     setState({ ratio: ref.current?.ratio, state: ref.current?.state });
   });
-  console.log("Re-render");
-  return children({ ref, domRef });
+  // console.log("Re-render");
+  return children({ ref, domRef, item });
 };
 
 const debugStyle: CSSProperties = {
@@ -27,6 +26,7 @@ const textStyle: CSSProperties = {
   top: "0x",
   right: "0px",
   fontSize: "8px",
+  letterSpacing: 0.7,
   textTransform: "uppercase",
 };
 
