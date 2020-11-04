@@ -1,6 +1,6 @@
 import React, { CSSProperties, FC, useState } from "react";
 import { useObserver } from "./use-observer";
-import { ObserverObject } from "./observer-manager";
+import { ObserverObject } from "./___observer-manager";
 
 export const Observe: FC<any> = ({ children }) => {
   const [state, setState] = useState({});

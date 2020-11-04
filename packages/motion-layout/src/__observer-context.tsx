@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useEffect } from "react";
-import { IObserverContextState, ObserverManager } from "./observer-manager";
+import { IObserverContextState, ObserverManager } from "./___observer-manager";
 
 export const ObserverContext = createContext<IObserverContextState>(null);
 

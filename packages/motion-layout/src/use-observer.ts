@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { ObserverObject, createObject } from "./observer-manager";
+import { ObserverObject, createObject } from "./___observer-manager";
 import { useObserverContext } from "./observer";
 import { useSchedulerItem } from "./scheduler-item";
 import { useSchedulerContext } from "./scheduler";
