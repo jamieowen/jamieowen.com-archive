@@ -101,12 +101,17 @@ export const ObserverProvider: FC<ObserverProviderProps> = ({
   dispatchRef.current = dispatch;
 
   // Notify scheduler of changedItems
+  // This happens when any observed items trigger an
+  // event on the IntersectionObserver.
   const scheduler = useSchedulerContext();
   useEffect(() => {
+    console.log("notify scheduler..");
     if (state.changedItems.length > 0) {
       scheduler.updateItems(state.changedItems);
     }
   }, [state.changedItems]);
+
+  console.log("update observer context");
 
   // Render
   return (

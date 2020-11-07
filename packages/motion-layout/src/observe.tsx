@@ -1,6 +1,6 @@
 import React, { CSSProperties, FC, useState } from "react";
+import { SchedulerItem } from "./scheduler-item";
 import { useObserver } from "./use-observer";
-import { ObserverObject } from "./___observer-manager";
 
 export const Observe: FC<any> = ({ children }) => {
   const [state, setState] = useState({});
@@ -9,7 +9,7 @@ export const Observe: FC<any> = ({ children }) => {
     // console.log("Observe changed...", ref.current.state);
     setState({ ratio: ref.current?.ratio, state: ref.current?.state });
   });
-  // console.log("Re-render");
+  console.log("observe....re-render");
   return children({ ref, domRef, item });
 };
 
@@ -30,7 +30,7 @@ const textStyle: CSSProperties = {
   textTransform: "uppercase",
 };
 
-export const Debug: FC<{ item: ObserverObject }> = ({ item, children }) => {
+export const Debug: FC<{ item: SchedulerItem }> = ({ item, children }) => {
   return (
     <span style={debugStyle}>
       <div style={textStyle}>{item.state || "no-state"}</div>

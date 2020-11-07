@@ -28,29 +28,5 @@ export const useObserver = (
     };
   }, []);
 
-  // OLD....
-
-  // Create the intersection object
-  // const object: ObserverObject = ref.current
-  //   ? ref.current
-  //   : (ref.current = createObject(ref, domRef, onStateChange));
-
-  // // need a better way to update callback
-  // // perhaps event listener on item object?
-  // object.onChange = onStateChange;
-
-  // // Register the intersection requests on startup.
-  // useEffect(() => {
-  //   manager.add(object);
-  //   return () => {
-  //     manager.remove(object);
-  //   };
-  // }, [manager, object]);
-
-  // // Register the dom ref when a change is detected to the dom ref.
-  // useEffect(() => {
-  //   manager.updateDomRef(object);
-  // }, [domRef.current]);
-
   return { domRef, item };
 };

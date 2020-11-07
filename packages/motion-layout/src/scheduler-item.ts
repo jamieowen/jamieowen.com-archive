@@ -7,7 +7,7 @@ export type BoundsInfo = {
 export type SchedulerItemOwner = any;
 
 export type SchedulerItem = {
-  // The component that requested/created the item.
+  // The component that requested/created the item. ( an observer context )
   owner: SchedulerItemOwner;
   // Target dom element.
   domRef: MutableRefObject<Element>;
@@ -47,3 +47,41 @@ export const useSchedulerItem = (
   }
   return itemRef.current;
 };
+
+/** Old Observer Object.
+export type ObserverObject = {
+  ref: MutableRefObject<ObserverObject>;
+  domRef: MutableRefObject<Element>;
+  state: "initialise" | "hidden" | "visible";
+  sortOrder: number;
+  onChange: (obj: ObserverObject) => void;
+  entry: IntersectionObserverEntry;
+  bottom: boolean;
+  top: boolean;
+  left: boolean;
+  right: boolean;
+  ratio: number;
+};
+ */
+
+/** Observer interseciotn
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
+      const item = this.observed.get(entry.target);
+      const root = entry.rootBounds;
+      const rect = entry.intersectionRect;
+
+      if (item && root) {
+        item.entry = entry;
+
+        item.bottom = rect.bottom === root.bottom;
+        item.top = rect.top === root.top;
+        item.left = rect.left === root.left;
+        item.right = rect.right === root.right;
+
+        item.ratio = entry.intersectionRatio;
+
+        this.changed.push(item);
+      }
+    }
+  */

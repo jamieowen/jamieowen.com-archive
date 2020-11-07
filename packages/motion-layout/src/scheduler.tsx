@@ -67,7 +67,33 @@ export const SchedulerProvider: FC<SchedulerProviderProps> = ({ children }) => {
 
   // Run Scheduler.
   useEffect(() => {
-    console.log("Run Scheduler...");
+    console.log("Run Scheduler...", state);
+    // state.items[0].
+
+    // Scheduler running..
+    // Some item changes need evaluting at the reducer.
+    // items are only added & removed, then changed when either the bounds intersection changes.
+    // or.. internal state changes, delay props change, etc.
+
+    // instead of using timer functions. we'll keep a scheudler loop,
+    // and save timestamps on items when they come into view or
+    // delays can be applied based on those values??
+
+    // ALL state changes ( inc adding delays ) should happen in the reducer.
+    //
+    // here... is only a 'tick' function that checks delays and
+    // update
+
+    // check which items are visible, and within view.
+    // if none visible, they are automatically set to hidden state.
+    // no delay is used.
+    // for visible objects, they need to be queued
+    //
+    for (let item of state.items) {
+      item.state = "scheduled";
+    }
+
+    // Updating items will ( via api )
   }, [state]);
 
   // Render
@@ -116,6 +142,7 @@ const schedulerReducer: Reducer<SchedulerState, SchedulerAction> = (
 
 /**
  * Scheduler API.
+ * Observer Contexts create scheduler items and add to the scheduler via this API.
  */
 const schedulerApi = (
   state: SchedulerState,
