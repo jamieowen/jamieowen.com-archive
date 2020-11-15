@@ -1,23 +1,26 @@
 import React, { CSSProperties, FC, useState } from "react";
-import { SchedulerItem } from "./scheduler-item";
+import { useObservable } from "./observe2";
+import { SchedulerItem } from "./scheduler-api";
 import { useObserver } from "./use-observer";
 
 export const Observe: FC<any> = ({ children }) => {
-  const [state, setState] = useState({});
-  const { ref, domRef, item } = useObserver(() => {
-    // setUpdated({ id: updated.id + 1 });
-    // console.log("Observe changed...", ref.current.state);
-    setState({ ratio: ref.current?.ratio, state: ref.current?.state });
-  });
-  console.log("observe....re-render");
-  return children({ ref, domRef, item });
+  // const [state, setState] = useState({});
+  // const { ref, domRef, item } = useObserver(() => {
+  // setUpdated({ id: updated.id + 1 });
+  // console.log("Observe changed...", ref.current.state);
+  // setState({ ratio: ref.current?.ratio, state: ref.current?.state });
+  // });
+  console.log("<Observe> - Render");
+  const { domRef, component } = useObservable();
+  // Passing item???
+  return children({ domRef, item: component });
 };
 
 const debugStyle: CSSProperties = {
-  backgroundColor: "rgba(0,0,0,0.1)",
+  // backgroundColor: "rgba(0,0,0,0.1)",
   display: "inline-block",
-  border: "1px solid white",
-  boxSizing: "border-box",
+  // border: "1px solid white",
+  // boxSizing: "border-box",
   position: "relative",
 };
 
@@ -30,10 +33,14 @@ const textStyle: CSSProperties = {
   textTransform: "uppercase",
 };
 
-export const Debug: FC<{ item: SchedulerItem }> = ({ item, children }) => {
+export const Debug: FC<{ item: SchedulerItem | any }> = ({
+  item,
+  children,
+}) => {
+  // item = { state: "nnono" };
   return (
     <span style={debugStyle}>
-      <div style={textStyle}>{item.state || "no-state"}</div>
+      <div style={textStyle}>{item.intersectionRatio}</div>
       {children}
     </span>
   );

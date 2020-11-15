@@ -22,5 +22,7 @@
     "react-test-renderer": "^17.0.1",
     "ts-jest": "^26.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@thi.ng/rstream": "^5.0.7"
+  }
 }

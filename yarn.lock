@@ -3902,6 +3902,21 @@
     "@thi.ng/transducers" "^7.4.0"
     tslib "^2.0.1"
 
+"@thi.ng/associative@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@thi.ng/associative/-/associative-5.0.8.tgz#4cf3fbc30d4da288ee39d1a3c5d34a5d380f72ba"
+  integrity sha512-PM9VyjClRKkGISeOzWb7tjRPhy2m+U8zhszv4oN+Zwss65/hJQQdM0zSf6fk5wE8IV00RtuNAwzSVAzaTXH79A==
+  dependencies:
+    "@thi.ng/api" "^6.13.1"
+    "@thi.ng/binary" "^2.0.16"
+    "@thi.ng/checks" "^2.7.9"
+    "@thi.ng/compare" "^1.3.17"
+    "@thi.ng/dcons" "^2.3.0"
+    "@thi.ng/equiv" "^1.0.32"
+    "@thi.ng/errors" "^1.2.22"
+    "@thi.ng/transducers" "^7.4.0"
+    tslib "^2.0.1"
+
 "@thi.ng/atom@^4.1.11":
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/@thi.ng/atom/-/atom-4.1.11.tgz#42f7eab27c12fb9c9028d70409522860a77c00e0"
@@ -4126,6 +4141,19 @@
   version "2.2.32"
   resolved "https://registry.yarnpkg.com/@thi.ng/dcons/-/dcons-2.2.32.tgz#c001ccb6bd391f4e4d7108d6aa97788859fbc3af"
   integrity sha512-XXCpVQpzpUGR9ZI7uCpBexUrDfpXC2b2vCHc1jSGZWTzjUWF6vQxZMzckBFcaBTEVV5Tj0WfttwxSB7h65fCPQ==
+  dependencies:
+    "@thi.ng/api" "^6.13.1"
+    "@thi.ng/checks" "^2.7.9"
+    "@thi.ng/compare" "^1.3.17"
+    "@thi.ng/equiv" "^1.0.32"
+    "@thi.ng/errors" "^1.2.22"
+    "@thi.ng/random" "^2.0.2"
+    "@thi.ng/transducers" "^7.4.0"
+
+"@thi.ng/dcons@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@thi.ng/dcons/-/dcons-2.3.0.tgz#b92524ed35a98a08628087e03b43d0c2f0f9f9dc"
+  integrity sha512-tBtYNh9ULsBjNRUoCo8NsmK09EiQFmu08sMuchwdz1iyo+VnqduvC+7oJHCqTt2L/DkSaAbfQqAsbTe37aTcrw==
   dependencies:
     "@thi.ng/api" "^6.13.1"
     "@thi.ng/checks" "^2.7.9"
@@ -4703,6 +4731,19 @@
     "@thi.ng/api" "^6.13.1"
     "@thi.ng/arrays" "^0.8.1"
     "@thi.ng/associative" "^5.0.7"
+    "@thi.ng/atom" "^4.1.21"
+    "@thi.ng/checks" "^2.7.9"
+    "@thi.ng/errors" "^1.2.22"
+    "@thi.ng/transducers" "^7.4.0"
+
+"@thi.ng/rstream@^5.0.7":
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/@thi.ng/rstream/-/rstream-5.0.7.tgz#25ae990cd5e6aa5a1972c0358cc6328c73877dc5"
+  integrity sha512-6/a+fCLeBkC7FU8rBjhxSJbt/Rauc5N2IH4lBbs0hhLZElYrmzYdZ5v3ubPK8x98iNthMSpsODWHDRjSJzSN0g==
+  dependencies:
+    "@thi.ng/api" "^6.13.1"
+    "@thi.ng/arrays" "^0.8.1"
+    "@thi.ng/associative" "^5.0.8"
     "@thi.ng/atom" "^4.1.21"
     "@thi.ng/checks" "^2.7.9"
     "@thi.ng/errors" "^1.2.22"
@@ -17774,15 +17815,6 @@ react-dom@16.13.1, react-dom@^16.2.0, react-dom@^16.8.3, react-dom@^16.9.0:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.19.1"
-
-react-dom@^17.0.1:
-  version "17.0.1"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.1.tgz#1de2560474ec9f0e334285662ede52dbc5426fc6"
-  integrity sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    scheduler "^0.20.1"
 
 react-draggable@^4.0.3:
   version "4.4.3"

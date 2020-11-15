@@ -10,8 +10,8 @@ import React, {
   MutableRefObject,
   useEffect,
 } from "react";
-import { useSchedulerContext } from "./scheduler";
-import { SchedulerItem } from "./scheduler-item";
+import { useSchedulerContext } from "./scheduler-context";
+import { SchedulerItem } from "./scheduler-api";
 
 /**
  * Types
@@ -62,7 +62,7 @@ type ObserverAction =
   | IObserverIntersectAction
   | IObserverSetObserverAction;
 
-type ObserverProviderProps = {
+export type ObserverProviderProps = {
   threshold?: number[];
   rootMargin?: string;
   root?: Element;
@@ -111,7 +111,7 @@ export const ObserverProvider: FC<ObserverProviderProps> = ({
     }
   }, [state.changedItems]);
 
-  console.log("update observer context");
+  console.log("Render Observer Provider ( old )");
 
   // Render
   return (

@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react";
 import { ObserverObject, createObject } from "./___observer-manager";
 import { useObserverContext } from "./observer";
-import { useSchedulerItem } from "./scheduler-item";
-import { useSchedulerContext } from "./scheduler";
+import { useSchedulerItem } from "./scheduler-state";
+import { useSchedulerContext } from "./scheduler-context";
 
 export const useObserver = (
   // State change handler will be called when the intersection object is manipulated.
@@ -16,7 +16,7 @@ export const useObserver = (
 
   // Register item with both the scheduler & observer context.
   useEffect(() => {
-    console.log("useObserver() Register", domRef.current);
+    // console.log("useObserver() Register", domRef.current);
     if (!domRef.current || !(domRef.current! instanceof Element)) {
       throw new Error("Assign the supplied ref to a dom element.");
     }

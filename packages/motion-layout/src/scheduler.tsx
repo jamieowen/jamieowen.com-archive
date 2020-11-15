@@ -1,175 +1,321 @@
 import React, {
-  FC,
+  Component,
+  ContextType,
   createContext,
-  useContext,
-  useReducer,
-  useMemo,
-  Reducer,
-  Dispatch,
-  useEffect,
+  createRef,
+  ReactNode,
+  RefObject,
 } from "react";
-import { SchedulerItem } from "./scheduler-item";
+
+// Types
+interface SchedulerProps {
+  children: ReactNode;
+}
+
+interface RegisterComponent<C = Observable> {
+  register(component: C): void;
+  unregister(component: C): void;
+}
+
+interface NotifyObservableChange {
+  notifyChange(events: ObservableChangeEvent[]): void;
+}
+
+interface ObservableChangeEvent {
+  entry: IntersectionObserverEntry;
+  component: Observable;
+}
+
+type SchedulerContextApi = RegisterComponent<Observable | Observer> &
+  NotifyObservableChange;
+
+interface ObserverProps {
+  children?: ReactNode | ((name: string) => ReactNode);
+}
+
+type ObserverContextApi = RegisterComponent & NotifyObservableChange;
+
+interface ObservableProps {
+  children: (domRef: RefObject<Element>, state: ObservableState) => ReactNode;
+  delay?: number;
+}
+
+type TransitionState =
+  | "initialise"
+  | "queued"
+  | "entered"
+  | "idle"
+  | "exited"
+  | "focus"
+  | "defocus";
+
+type IntersectionState = "pending" | "in-view" | "out-of-view";
+interface ObservableState {
+  intersectionState: IntersectionState;
+  transitionState: TransitionState;
+  intersectionRatio: number;
+}
+
+const SchedulerContext = createContext<SchedulerContextApi>(null!);
 
 /**
- * Types
+ *
+ * --
+ * Scheduler
+ * --
+ *
  */
-type SchedulerState = {
-  items: SchedulerItem[];
-};
 
-type SchedulerApi = {
-  state: SchedulerState;
-  add: (item: SchedulerItem) => void;
-  remove: (item: SchedulerItem) => void;
-  updateItems: (items: SchedulerItem[]) => void;
-};
+export class Scheduler extends Component<SchedulerProps, {}> {
+  private observers: Set<Observer> = new Set();
 
-enum SchedulerActionType {
-  Add = "add",
-  Remove = "remove",
-  UpdateItems = "update-items",
+  private observables: Set<Observable> = new Set();
+
+  private observablesChanged: ObservableChangeEvent[] = [];
+
+  private invalidated: boolean = false;
+
+  addObserver(component: Observer) {
+    this.observers.add(component);
+  }
+
+  removeObserver(component: Observer) {
+    this.observers.delete(component);
+  }
+
+  addObservable(observable: Observable) {
+    this.observables.add(observable);
+  }
+
+  removeObservable(observable: Observable) {
+    this.observables.add(observable);
+  }
+
+  contextApiValue: SchedulerContextApi = {
+    register: (component) => {
+      if (component instanceof Observer) {
+        this.addObserver(component);
+      } else {
+        this.addObservable(component);
+      }
+    },
+    unregister: (component) => {
+      if (component instanceof Observer) {
+        this.removeObserver(component);
+      } else {
+        this.removeObservable(component);
+      }
+    },
+    notifyChange: (events) => {
+      this.observablesChanged = [...this.observablesChanged, ...events];
+      this.invalidate();
+    },
+  };
+
+  componentDidMount() {
+    console.log("<Scheduler> did mount", this.observables, this.observers);
+  }
+  componentDidUpdate() {
+    console.log("Scheduler Updated. ", this.observables, this.observers);
+  }
+
+  shouldComponentUpdate() {
+    return true;
+  }
+
+  invalidate() {
+    if (!this.invalidated) {
+      this.invalidated = true;
+      requestAnimationFrame(this.tick);
+    }
+  }
+
+  private tick: FrameRequestCallback = (time: number) => {
+    console.log("Tick");
+    this.invalidated = false;
+    if (this.observablesChanged.length > 0) {
+      this.commitObservableChanges();
+    }
+  };
+
+  commitObservableChanges() {
+    // Update changed observables to their new state.
+    this.observablesChanged.forEach((ev) => {
+      if (!ev.component) {
+        console.warn("hot loading? fails... ");
+        return;
+      }
+      const { isIntersecting, intersectionRatio } = ev.entry;
+      let intersectionState: IntersectionState;
+      let transitionState: TransitionState;
+
+      if (isIntersecting) {
+        intersectionState = "in-view";
+      } else {
+        intersectionState = "out-of-view";
+      }
+      ev.component.setState({
+        intersectionState,
+        intersectionRatio,
+      });
+    });
+    this.observablesChanged = [];
+  }
+
+  render() {
+    const { children } = this.props;
+    console.log(">> Render New, New Scheduler!");
+
+    return (
+      <SchedulerContext.Provider value={this.contextApiValue}>
+        <Observer>{children}</Observer>
+      </SchedulerContext.Provider>
+    );
+  }
 }
-
-interface ISchedulerAddAction {
-  type: SchedulerActionType.Add;
-  item: SchedulerItem;
-}
-
-interface ISchedulerRemoveAction {
-  type: SchedulerActionType.Remove;
-  item: SchedulerItem;
-}
-
-interface ISchedulerUpdateItemsAction {
-  type: SchedulerActionType.UpdateItems;
-  items: SchedulerItem[];
-}
-
-type SchedulerAction =
-  | ISchedulerAddAction
-  | ISchedulerRemoveAction
-  | ISchedulerUpdateItemsAction;
-
-type SchedulerProviderProps = {};
-
-// Context
-const SchedulerContext = createContext<SchedulerApi>(null!);
-export const useSchedulerContext = () => useContext(SchedulerContext);
 
 /**
- * Scheduler Provider
+ *
+ * --
+ * Observer
+ * --
+ *
  */
-export const SchedulerProvider: FC<SchedulerProviderProps> = ({ children }) => {
-  // Setup
-  const initialState = useMemo(() => initialSchedulerState(), []);
-  const [state, dispatch] = useReducer(schedulerReducer, initialState);
-  const api = useMemo(() => schedulerApi(state, dispatch), [state, dispatch]);
 
-  // Run Scheduler.
-  useEffect(() => {
-    console.log("Run Scheduler...", state);
-    // state.items[0].
+const ObserverContext = createContext<ObserverContextApi>(null!);
 
-    // Scheduler running..
-    // Some item changes need evaluting at the reducer.
-    // items are only added & removed, then changed when either the bounds intersection changes.
-    // or.. internal state changes, delay props change, etc.
+export class Observer extends Component<ObserverProps, {}> {
+  static contextType = SchedulerContext;
+  context!: ContextType<typeof SchedulerContext>;
 
-    // instead of using timer functions. we'll keep a scheudler loop,
-    // and save timestamps on items when they come into view or
-    // delays can be applied based on those values??
+  domRef: RefObject<Element> = createRef();
 
-    // ALL state changes ( inc adding delays ) should happen in the reducer.
-    //
-    // here... is only a 'tick' function that checks delays and
-    // update
+  observer!: IntersectionObserver;
 
-    // check which items are visible, and within view.
-    // if none visible, they are automatically set to hidden state.
-    // no delay is used.
-    // for visible objects, they need to be queued
-    //
-    for (let item of state.items) {
-      item.state = "scheduled";
+  observablesByEle: Map<Element, Observable> = new Map();
+
+  /**
+   * Exposes methods accessible by Observables.
+   */
+  contextApiValue: ObserverContextApi = {
+    register: (component: Observable) => {
+      if (!component.domRef.current) {
+        throw new Error("Observables must have a domRef set.");
+      }
+      this.observablesByEle.set(component.domRef.current, component);
+      this.context.register(component);
+    },
+    unregister: (component: Observable) => {
+      this.observablesByEle.delete(component.domRef.current!);
+      this.context.unregister(component);
+    },
+    notifyChange: (events) => {
+      this.context.notifyChange(events);
+    },
+  };
+
+  /**
+   * Create the Observer object and subscribe any pending
+   * observables created during startup.
+   */
+  componentDidMount() {
+    console.log("observer register...");
+
+    this.observer = new IntersectionObserver(this.onObserverCallback, {
+      root: this.domRef.current,
+      rootMargin: "-25%",
+      threshold: [0, 0.5, 1],
+    });
+
+    // Add observables registered during mount
+    for (let ele of this.observablesByEle.keys()) {
+      this.observer.observe(ele);
     }
 
-    // Updating items will ( via api )
-  }, [state]);
-
-  // Render
-  return (
-    <SchedulerContext.Provider value={api}>
-      {children}
-    </SchedulerContext.Provider>
-  );
-};
-
-/**
- * Initial Scheduler State
- */
-const initialSchedulerState = (): SchedulerState => {
-  return {
-    items: [],
-  };
-};
-
-/**
- * Scheduler Reducer
- */
-const schedulerReducer: Reducer<SchedulerState, SchedulerAction> = (
-  state,
-  action
-) => {
-  switch (action.type) {
-    case SchedulerActionType.Add:
-      state.items.push(action.item);
-      return {
-        ...state,
-      };
-    case SchedulerActionType.Remove:
-      const idx = state.items.indexOf(action.item);
-      state.items.splice(idx, 1);
-      return {
-        ...state,
-      };
-    case SchedulerActionType.UpdateItems:
-      console.log("Scheduler update item bounds", action.items.length);
-      return {
-        ...state,
-      };
+    this.context.register(this);
   }
-};
+
+  componentWillUnmount() {
+    this.context.unregister(this);
+  }
+
+  onObserverCallback: IntersectionObserverCallback = (entries) => {
+    const events = entries.map(
+      (entry): ObservableChangeEvent => {
+        return {
+          component: this.observablesByEle.get(entry.target)!,
+          entry,
+        };
+      }
+    );
+    this.context.notifyChange(events);
+  };
+
+  render() {
+    const { children } = this.props;
+
+    let _children;
+    if (typeof children === "function") {
+      _children = children("");
+    } else {
+      _children = children;
+    }
+
+    return (
+      <ObserverContext.Provider value={this.contextApiValue}>
+        {_children}
+      </ObserverContext.Provider>
+    );
+  }
+}
 
 /**
- * Scheduler API.
- * Observer Contexts create scheduler items and add to the scheduler via this API.
+ *
+ * --
+ * Observable
+ * --
+ *
  */
-const schedulerApi = (
-  state: SchedulerState,
-  dispatch: Dispatch<SchedulerAction>
-): SchedulerApi => {
-  return {
-    state,
-    add: (item: SchedulerItem) => {
-      item.onBoundsChanged = () => {
-        console.log("on bounds changed");
-      };
-      dispatch({
-        type: SchedulerActionType.Add,
-        item,
-      });
-    },
-    remove: (item: SchedulerItem) => {
-      dispatch({
-        type: SchedulerActionType.Remove,
-        item,
-      });
-    },
-    updateItems: (items: SchedulerItem[]) => {
-      dispatch({
-        type: SchedulerActionType.UpdateItems,
-        items,
-      });
-    },
+
+export class Observable extends Component<ObservableProps, ObservableState> {
+  static contextType = ObserverContext;
+
+  context!: ContextType<typeof ObserverContext>;
+
+  domRef: RefObject<HTMLElement> = createRef();
+
+  state: ObservableState = {
+    intersectionRatio: 0,
+    intersectionState: "pending",
+    transitionState: "initialise",
   };
-};
+
+  componentDidMount() {
+    console.log("observable register...");
+    this.context.register(this);
+  }
+
+  componentWillUnmount() {
+    this.context.unregister(this);
+  }
+
+  layoutUpdate(state: Partial<ObservableState>) {
+    // update bounds,
+    // intersectino
+    // state
+    // delta
+    this.setState(state);
+  }
+
+  render() {
+    const {
+      intersectionState,
+      transitionState,
+      intersectionRatio,
+    } = this.state;
+    // const item = { state: intersectionState };
+    const item = { state: intersectionRatio };
+    const { children } = this.props;
+    return children(this.domRef, this.state);
+  }
+}

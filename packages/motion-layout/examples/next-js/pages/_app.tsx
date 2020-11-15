@@ -1,13 +1,13 @@
 import "../styles/globals.css";
-import { ObserverProvider, SchedulerProvider } from "@jamieowen/motion-layout";
+import { Scheduler, SchedulerProvider } from "@jamieowen/motion-layout";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <SchedulerProvider>
-      <ObserverProvider>
-        <Component {...pageProps} />
-      </ObserverProvider>
-    </SchedulerProvider>
+    // <SchedulerProvider>
+    <Scheduler>
+      <Component {...pageProps} />
+    </Scheduler>
+    // </SchedulerProvider>
   );
 }
 
