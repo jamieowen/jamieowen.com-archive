@@ -22,7 +22,7 @@ export default function Home() {
                       ref={domRef}
                       className={styles.textline}
                       animate={{ opacity: state.intersectionRatio }}
-                      transition={{ duration: 0.3 }}
+                      // transition={{ duration: 0.3 }}
                     >
                       {t + " "}
                     </motion.span>

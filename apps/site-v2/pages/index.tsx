@@ -30,30 +30,16 @@ export const Home: FC<PageProps> = ({ pages, ...props }) => {
       sx={{ width: "100%", alignItems: "center", justifyContent: "center" }}
     >
       <Box sx={{ width: "40%" }}>
-        <Motion>
-          <h1>Heading 1</h1>
-        </Motion>
-        <Motion>
-          <h2>Heading 2</h2>
-        </Motion>
-        <Motion>
-          <h3>Heading 3</h3>
-        </Motion>
-        <Motion>
-          <h4>Heading 4</h4>
-        </Motion>
-        <Motion>
-          <h5>Heading 5</h5>
-        </Motion>
+        <h1>Heading 1</h1>
+        <h2>Heading 2</h2>
+        <h3>Heading 3</h3>
+        <h4>Heading 4</h4>
+        <h5>Heading 5</h5>
 
         {paragraphs.map((p, i) => (
-          <Motion key={i}>
-            <p>{p}</p>
-          </Motion>
+          <p>{p}</p>
         ))}
-        <Motion>
-          <h1>Heading End</h1>
-        </Motion>
+        <h1>Heading End</h1>
       </Box>
     </Flex>
   );

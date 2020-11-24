@@ -8,12 +8,26 @@
     "clean-node-modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
   },
   "private": "true",
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "projects/*",
-    "sketches/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*",
+      "projects/*",
+      "sketches/*"
+    ],
+    "nohoist": [
+      "**/**",
+      "**",
+      "theme-ui",
+      "@theme-ui/**",
+      "react",
+      "react-dom",
+      "next",
+      "@next/**",
+      "@mdx/**",
+      "@mdx-js/**"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jamieowen/labs.jamieowen.com.git"
