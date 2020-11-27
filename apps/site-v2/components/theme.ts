@@ -1,4 +1,6 @@
-export default {
+import { Theme } from "theme-ui";
+
+const theme: Theme = {
   /** Theme UI Config */
   /** Theme Spec : https://theme-ui.com/theme-spec/  */
 
@@ -9,20 +11,17 @@ export default {
 
   /** Font Settings */
   fonts: {
-    body: "Arial, sans-serif",
-    heading: '"Avenir Next", sans-serif',
+    body: "Oscine Trial, sans-serif",
+    heading: '"Oscine Trial", sans-serif',
     monospace: "Menlo, monospace",
   },
   fontSizes: [
     /** These are not tied to html elements ( see theme spec doc ) */
-    12,
-    14,
-    16,
-    20,
-    24,
-    32,
-    48,
-    64,
+    12, // h5
+    14, // h4
+    16, // h3
+    20, // h2
+    58, // h1
   ],
   fontWeights: {
     body: 400,
@@ -31,7 +30,7 @@ export default {
   },
   lineHeights: {
     body: 1.5,
-    heading: 1.125,
+    heading: "6rem",
   },
   letterSpacings: {
     body: "normal",
@@ -42,7 +41,7 @@ export default {
   colors: {
     /** key colour names within theme ui config. **/
     text: "#efefef",
-    background: "#181818",
+    background: "white",
     primary: "#33e",
     secondary: "crimson",
     accent: "hotpink",
@@ -62,6 +61,10 @@ export default {
     headline: {
       // etc
     },
+    heading: {
+      // fontSize: 4,
+      lineHeight: "heading",
+    },
   },
   buttons: {
     primary: {
@@ -76,13 +79,16 @@ export default {
     /** Body Styles. */
     root: {
       fontFamily: "body",
-      fontSize: "1em",
-      margin: "3em",
+      fontSize: "16px",
+      margin: "0rem",
     },
 
     h1: {
       color: "secondary",
       fontFamily: "heading",
+      fontSize: 4,
     },
   },
 };
+
+export default theme;
