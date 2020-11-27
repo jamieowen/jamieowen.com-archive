@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@jamieowen/motion-layout": ["../../src"]
+      "@jamieowen/motion-layout": ["../src"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

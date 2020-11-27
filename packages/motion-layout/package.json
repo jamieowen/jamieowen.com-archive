@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --no-cache",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "dev": "next dev"
   },
   "peerDependencies": {
     "framer-motion": "^2.9.4",
@@ -18,7 +19,10 @@
     "@testing-library/react-hooks": "^3.4.2",
     "@types/jest": "^26.0.15",
     "jest": "^26.6.0",
+    "next": "^10.0.3",
     "parcel-bundler": "^1.12.4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-test-renderer": "^17.0.1",
     "ts-jest": "^26.4.1"
   },
