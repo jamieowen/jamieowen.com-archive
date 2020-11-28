@@ -3,18 +3,18 @@ import { useObservable } from "./observe2";
 import { SchedulerItem } from "./scheduler-api";
 import { useObserver } from "./use-observer";
 
-export const Observe: FC<any> = ({ children }) => {
-  // const [state, setState] = useState({});
-  // const { ref, domRef, item } = useObserver(() => {
-  // setUpdated({ id: updated.id + 1 });
-  // console.log("Observe changed...", ref.current.state);
-  // setState({ ratio: ref.current?.ratio, state: ref.current?.state });
-  // });
-  console.log("<Observe> - Render");
-  const { domRef, component } = useObservable();
-  // Passing item???
-  return children({ domRef, item: component });
-};
+// export const Observe: FC<any> = ({ children }) => {
+//   // const [state, setState] = useState({});
+//   // const { ref, domRef, item } = useObserver(() => {
+//   // setUpdated({ id: updated.id + 1 });
+//   // console.log("Observe changed...", ref.current.state);
+//   // setState({ ratio: ref.current?.ratio, state: ref.current?.state });
+//   // });
+//   console.log("<Observe> - Render");
+//   const { domRef, component } = useObservable();
+//   // Passing item???
+//   return children({ domRef, item: component });
+// };
 
 const debugStyle: CSSProperties = {
   // backgroundColor: "rgba(0,0,0,0.1)",
