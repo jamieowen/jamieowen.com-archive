@@ -1,54 +1,87 @@
 import React, { FC, Fragment, forwardRef } from "react";
-import { Motion, AnimatePropsFactory } from "../components/motion";
-import { Flex, Box, Heading, Grid } from "theme-ui";
+import { Flex, Box, Heading, Grid, Styled, Container, Text } from "theme-ui";
 import { fetchPages, PageItem } from "../services/fetch-pages";
-import { lorumIpsum } from "../components/helpers/lorumIpsum";
-import { MyObj } from "../components/test-decorators";
-import { GridDOMRender } from "../components/generative-grid";
-import { GridGLRender } from "../components/generative-grid/GridGLRender";
-
-const myObj = new MyObj();
 
 type PageProps = {
   pages: PageItem[];
 };
 
-const ipsum = lorumIpsum();
-const paragraphs = ipsum.generateParagraphs(7).split("\n");
+const Slide: FC<{
+  bgColor?: string;
+  column?: number;
+  title?: string;
+  textColor?: string;
+}> = ({
+  children,
+  bgColor = "slide_1_bg",
+  textColor = "slide_1_text",
+  title = "Subtitle",
+  column = 0,
+}) => {
+  const columns = new Array(4).fill(0).map((v, i) => {
+    return (
+      <Box key={i}>
+        {i == column ? (
+          <Text as="h1" variant="subtitle_heading">
+            {title}
+          </Text>
+        ) : (
+          <Text as="p" variant="subtitle_heading">{`0${i + 1}`}</Text>
+        )}
+        {i == column ? <Text variant="body_title">{children}</Text> : null}
+      </Box>
+    );
+  });
 
-const isectProps: AnimatePropsFactory = (ratio: number) => ({
-  opacity: ratio === 1 ? 1 : 0,
-});
+  return (
+    <Container as="section" variant="home_slide" bg={bgColor} color={textColor}>
+      <Container variant="content_center" data-info="center">
+        <Grid variant="primary">{columns}</Grid>
+      </Container>
+    </Container>
+  );
+};
 
 export const Home: FC<PageProps> = ({ pages, ...props }) => {
   return (
     <Fragment>
-      <GridGLRender />
-      <Box
-        sx={{ width: "64rem", position: "absolute", top: "0rem", left: "0rem" }}
+      <Slide
+        bgColor="slide_1_bg"
+        textColor="slide_1_text"
+        column={0}
+        title="Intro"
       >
-        <GridDOMRender sx={{ marginLeft: "-512px" }} />
-        <Grid columns={[2, "1fr 1fr"]} gap="2rem">
-          <Box bg="primary"></Box>
-          <Box bg="primary">
-            <Heading as="h1">
-              I build tangible things with code; using web technologies & ideas.
-            </Heading>
-          </Box>
-        </Grid>
-      </Box>
+        Hello, my name is <Styled.em>Jamie Owen,</Styled.em> I am a software
+        engineer & creative technologist.
+      </Slide>
+      <Slide
+        bgColor="slide_2_bg"
+        textColor="slide_2_text"
+        column={1}
+        title="About"
+      >
+        I like to build software, installations with code. I build{" "}
+        <Styled.em>tangible</Styled.em> things with code; using web
+        technologies.
+      </Slide>
+      <Slide
+        bgColor="slide_3_bg"
+        textColor="slide_3_text"
+        column={2}
+        title="Tech"
+      >
+        I build tangible things with code; using web technologies & ideas.
+      </Slide>
+      <Slide
+        bgColor="slide_4_bg"
+        textColor="slide_4_text"
+        column={3}
+        title="Get in Touch"
+      >
+        I build tangible things with code; using web technologies & ideas.
+      </Slide>
     </Fragment>
   );
 };
 
 export default Home;
-
-{
-  /* <Flex
-        sx={{ width: "100%", alignItems: "center", justifyContent: "center" }}
-      >
-        <Box sx={{ width: "1024px" }}>
-          <Heading>Heading 1</Heading>
-        </Box>
-      </Flex> */
-}

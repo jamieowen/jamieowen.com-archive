@@ -1,18 +1,38 @@
-import { FC, useContext } from "react";
-import { PageRoot } from "../components/PageRoot";
-import { Heading } from "theme-ui";
-import { writing } from "../services/require-pages";
-import { NextPageContext } from "next";
+import { FC, Fragment } from "react";
 import App from "next/app";
 import { fetchPages } from "../services/fetch-pages";
 import { Navigation } from "../components/navigation";
+import Head from "next/head";
+import theme from "../components/theme";
+import { ThemeProvider } from "theme-ui";
+// import { MatterProvider } from "../components/physics/MatterContext";
+// import { IntersectionProvider } from "../components//motion/IntersectionContext";
+// import { GenerativeGridProvider } from "../components/generative-grid";
 
-const MyApp: FC<any> = ({ Component, pages, router }) => {
+const Fonts = () => {
   return (
-    <PageRoot>
-      <Navigation items={pages.pages} />
-      <Component />
-    </PageRoot>
+    <Fragment>
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Work+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </Fragment>
+  );
+};
+const MyApp: FC<any> = ({ Component, pages, router, children }) => {
+  return (
+    <Fragment>
+      <Head>
+        <title>Page Root</title>
+        <link rel="icon" href="/favicon.ico" />
+        <Fonts />
+      </Head>
+      <ThemeProvider theme={theme}>
+        <Navigation items={pages.pages} />
+        <Component />
+      </ThemeProvider>
+    </Fragment>
   );
 };
 
