@@ -1,9 +1,8 @@
 import { FC, Fragment } from "react";
-import App from "next/app";
-import { fetchPages } from "../services/fetch-pages";
-import { Navigation } from "../components/navigation";
+import App, { AppProps } from "next/app";
 import Head from "next/head";
 import theme from "../components/theme";
+import { Footer, Navigation } from "../components/common";
 import { ThemeProvider } from "theme-ui";
 // import { MatterProvider } from "../components/physics/MatterContext";
 // import { IntersectionProvider } from "../components//motion/IntersectionContext";
@@ -20,7 +19,8 @@ const Fonts = () => {
     </Fragment>
   );
 };
-const MyApp: FC<any> = ({ Component, pages, router, children }) => {
+
+const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
   return (
     <Fragment>
       <Head>
@@ -29,8 +29,9 @@ const MyApp: FC<any> = ({ Component, pages, router, children }) => {
         <Fonts />
       </Head>
       <ThemeProvider theme={theme}>
-        <Navigation items={pages.pages} />
-        <Component />
+        <Navigation />
+        <Component {...pageProps} />
+        <Footer />
       </ThemeProvider>
     </Fragment>
   );
@@ -40,7 +41,7 @@ const MyApp: FC<any> = ({ Component, pages, router, children }) => {
 MyApp.getInitialProps = async (appContext) => {
   // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext);
-  const pages = await fetchPages();
+  const pages = []; //await fetchPages();
   return {
     ...appProps,
     pages,

@@ -15,6 +15,8 @@
     "ts-jest": "^26.4.0"
   },
   "dependencies": {
+    "@thi.ng/api": "^6.13.3",
+    "@thi.ng/associative": "^5.0.10",
     "@thi.ng/memoize": "^2.0.16",
     "@thi.ng/rstream": "^4.6.3",
     "@thi.ng/rstream-gestures": "^2.0.31",
@@ -22,6 +24,7 @@
     "@thi.ng/shader-ast-glsl": "^0.2.10",
     "@thi.ng/shader-ast-stdlib": "^0.5.2",
     "@thi.ng/transducers": "^7.1.6",
+    "@thi.ng/vectors": "^4.8.1",
     "@thi.ng/webgl": "^3.3.3",
     "three": "0.120.1"
   }

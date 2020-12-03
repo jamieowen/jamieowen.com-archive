@@ -1,85 +1,54 @@
-import React, { FC, Fragment, forwardRef } from "react";
-import { Flex, Box, Heading, Grid, Styled, Container, Text } from "theme-ui";
-import { fetchPages, PageItem } from "../services/fetch-pages";
+import React, { FC, Fragment } from "react";
+import { Grid, Styled, Text } from "theme-ui";
+import { MediaGrid } from "../components/media-grid";
+import {
+  ContentContainer,
+  HeroContainer,
+  HeroHeader,
+  HeroType,
+} from "../components/common";
 
-type PageProps = {
-  pages: PageItem[];
-};
-
-const Slide: FC<{
-  bgColor?: string;
-  column?: number;
-  title?: string;
-  textColor?: string;
-}> = ({
-  children,
-  bgColor = "slide_1_bg",
-  textColor = "slide_1_text",
-  title = "Subtitle",
-  column = 0,
-}) => {
-  const columns = new Array(4).fill(0).map((v, i) => {
-    return (
-      <Box key={i}>
-        {i == column ? (
-          <Text as="h1" variant="subtitle_heading">
-            {title}
-          </Text>
-        ) : (
-          <Text as="p" variant="subtitle_heading">{`0${i + 1}`}</Text>
-        )}
-        {i == column ? <Text variant="body_title">{children}</Text> : null}
-      </Box>
-    );
-  });
-
-  return (
-    <Container as="section" variant="home_slide" bg={bgColor} color={textColor}>
-      <Container variant="content_center" data-info="center">
-        <Grid variant="primary">{columns}</Grid>
-      </Container>
-    </Container>
-  );
-};
-
-export const Home: FC<PageProps> = ({ pages, ...props }) => {
+export const Home: FC<any> = ({}) => {
   return (
     <Fragment>
-      <Slide
-        bgColor="slide_1_bg"
-        textColor="slide_1_text"
-        column={0}
-        title="Intro"
-      >
-        Hello, my name is <Styled.em>Jamie Owen,</Styled.em> I am a software
-        engineer & creative technologist.
-      </Slide>
-      <Slide
-        bgColor="slide_2_bg"
-        textColor="slide_2_text"
-        column={1}
-        title="About"
-      >
-        I like to build software, installations with code. I build{" "}
-        <Styled.em>tangible</Styled.em> things with code; using web
-        technologies.
-      </Slide>
-      <Slide
-        bgColor="slide_3_bg"
-        textColor="slide_3_text"
-        column={2}
-        title="Tech"
-      >
-        I build tangible things with code; using web technologies & ideas.
-      </Slide>
-      <Slide
-        bgColor="slide_4_bg"
-        textColor="slide_4_text"
-        column={3}
-        title="Get in Touch"
-      >
-        I build tangible things with code; using web technologies & ideas.
-      </Slide>
+      <HeroHeader bgColor="slide_1_bg" textColor="slide_1_text">
+        <HeroType column={0} title="Intro">
+          Hello, my name is <Styled.em>Jamie Owen,</Styled.em> I am a software
+          engineer & creative technologist.
+        </HeroType>
+      </HeroHeader>
+      <HeroContainer bgColor="slide_2_bg" textColor="slide_2_text">
+        <HeroType column={0} title="Intro">
+          Hello, my name is <Styled.em>Jamie Owen,</Styled.em> I am a software
+          engineer & creative technologist.
+        </HeroType>
+      </HeroContainer>
+      <HeroContainer bgColor="slide_3_bg" textColor="slide_3_text">
+        <HeroType column={0} title="Intro">
+          Hello, my name is <Styled.em>Jamie Owen,</Styled.em> I am a software
+          engineer & creative technologist.
+        </HeroType>
+      </HeroContainer>
+      <HeroContainer bgColor="slide_4_bg" textColor="slide_4_text">
+        <HeroType column={0} title="Intro">
+          Hello, my name is <Styled.em>Jamie Owen,</Styled.em> I am a software
+          engineer & creative technologist.
+        </HeroType>
+      </HeroContainer>
+
+      {/** Selected Work */}
+      <ContentContainer>
+        <Text as="h1" variant="subtitle_heading">
+          Selected Work
+        </Text>
+        <Grid variant="primary">
+          <Text variant="body_title">
+            Have a browse of some fairly recent projects
+          </Text>
+          {/* <Box>Some extra big content</Box> */}
+        </Grid>
+        <MediaGrid />
+      </ContentContainer>
     </Fragment>
   );
 };

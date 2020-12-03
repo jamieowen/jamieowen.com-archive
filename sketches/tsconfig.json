@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "../",
+    "paths": {
+      "@jamieowen/three-toolkit": ["./packages/three-toolkit/src"],
+      "@jamieowen/xlayout": ["./packages/xlayout/src"]
+    },
+
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "downlevelIteration": true,
+    "skipLibCheck": false,
+    "module": "esnext",
+    "lib": ["es5", "es6", "es7", "es2017", "dom", "dom.iterable", "esnext"],
+    "moduleResolution": "node",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true
+  }
+}
