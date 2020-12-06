@@ -1,17 +1,17 @@
 import {
   WebGLRenderer,
-  SphereBufferGeometry,
   PerspectiveCamera,
   Scene,
+  Mesh,
+  SphereBufferGeometry,
   MeshBasicMaterial,
-  Object3D,
 } from "three";
 import {
   color,
   drawContext,
-  pointLightHelper,
   position,
   sphere,
+  DrawContext,
 } from "@jamieowen/three-toolkit";
 import { iterator, range3d, sideEffect } from "@thi.ng/transducers";
 
@@ -28,64 +28,32 @@ const camera = new PerspectiveCamera(45, width / height);
 camera.position.z = 10;
 camera.updateProjectionMatrix();
 const scene = new Scene();
+const mesh = new Mesh(new SphereBufferGeometry(), new MeshBasicMaterial());
+scene.add(mesh);
 
-renderer.render(scene, camera);
-const geometries = {
-  sphere: new SphereBufferGeometry(1, 3, 3),
-};
+const ctx = new DrawContext(renderer);
+console.log("CTX", ctx);
 
-const material = new MeshBasicMaterial({
-  color: "white",
-});
+const render = () => {
+  ctx.color("blue");
+  ctx.basicMaterial();
 
-// const object = new Object3D();
-// renderer.renderBufferDirect(
-//   camera,
-//   scene,
-//   geometries.sphere,
-//   material,
-//   object,
-//   {}
-// );
-
-const state = {};
-// const loadedGeom = defineGeometry((params)=>{
-
-// });
-
-// const defineMaterial = defineMaterial(
-
-// renderLoop(()=>{
-//   drawContext(scene, () => {
-//     // pushRenderTarget();
-//     position(0, 0, 0);
-//     lambert();
-//     sphere();
-
-//     pointStyle()
-//     points([...])
-//     vectorStyle()
-//     vectors([...])
-//   });
-
-// });
-
-// const lights = ()=>{
-//   pointLight()
-//   spotLight()
-// }
-
-const geometry = sphereGeom(10);
-console.log(sphereGeom());
-drawContext(scene, () => {
-  color("white");
   [
     ...iterator(
       sideEffect(([x, y, z]) => {
-        position([x * 10, y * 10 - 10, z * 10]);
-        sphere();
+        ctx.position([x * 10, y * 10 - 10, z * 10]);
+        ctx.sphere();
       }),
       range3d(3, 3, 3)
     ),
   ];
-});
+};
+render();
+
+renderer.render(scene, camera);
+
+// new DrawContext();
+// ctx.sphere()
+// ctc.position
+
+// })

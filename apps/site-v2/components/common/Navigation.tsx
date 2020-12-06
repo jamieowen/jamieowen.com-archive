@@ -2,6 +2,9 @@ import React, { DependencyList, FC, useEffect, useState } from "react";
 import Link from "next/link";
 import { Box, Button, Container, Grid, CSSProperties, Text } from "theme-ui";
 import { motion, TargetAndTransition, Variants, Variant } from "framer-motion";
+import { Weather, Time } from "./Weather";
+import { useRouter } from "next/router";
+import { Styled } from "theme-ui";
 
 enum Mode {
   Hidden = "hidden",
@@ -26,6 +29,20 @@ const toggleMode = (mode: Mode): Mode => {
   const idx = modes.indexOf(mode);
   return modes[(idx + 1) % modes.length];
 };
+
+const NavigationLink: FC<{ href: string }> = ({ children, href }) => {
+  const router = useRouter();
+  const style =
+    href !== "/" && router.pathname === href
+      ? { textDecoration: "underline" }
+      : {};
+  return (
+    <Text variant="navigation_link" sx={style}>
+      <Link href={href}>{children}</Link>
+    </Text>
+  );
+};
+
 export const Navigation: FC<any> = () => {
   const [mode, setMode] = useState<Mode>(Mode.Maximised);
   useKey("a", () => setMode(toggleMode(mode)), [mode, setMode]);
@@ -40,25 +57,24 @@ export const Navigation: FC<any> = () => {
         <Container variant="content_center">
           <Grid variant="navigation">
             <Box>
-              <Link href="/">
-                <Text variant="navigation" sx={{ textAlign: "left" }}>
-                  London 20<sup>c</sup> 103:40
-                </Text>
-              </Link>
+              <Text variant="navigation" sx={{ textAlign: "left" }}>
+                <NavigationLink href="/">London, UK</NavigationLink>
+                <Weather />
+                <Time />
+              </Text>
             </Box>
             <Box>
               <Text variant="navigation" sx={{ textAlign: "center" }}>
-                Get in Touch
+                <Styled.em>Get in Touch</Styled.em>
               </Text>
             </Box>
             <Box>
               <Text variant="navigation" sx={{ textAlign: "right" }}>
-                <Link href="/">Hom</Link>
-                <Link href="/about">About</Link>
-                <Link href="/selected-work">Work</Link>
+                <NavigationLink href="/about">About</NavigationLink>
+                <NavigationLink href="/selected-work">Work</NavigationLink>
                 {/* <Link href="/archived-work">Ae</Link> */}
                 {/* <Link href="/writing">Writing</Link> */}
-                <Link href="/about">Play</Link>
+                {/* <NavigationLink href="/about">Play</NavigationLink> */}
               </Text>
             </Box>
           </Grid>
@@ -81,24 +97,3 @@ const useKey = (key: string, action: () => void, dep?: DependencyList) => {
     };
   }, dep);
 };
-
-// import React, { FC } from "react";
-// import Link from "next/link";
-// import { PageItem } from "../services/fetch-pages";
-
-// type NavigationProps = {
-//   items: PageItem[];
-// };
-// export const Navigation: FC<NavigationProps> = ({ items = [] }) => {
-//   return (
-//     <div>
-//       {items.map((item, i) => {
-//         return (
-//           <Link key={i} href={item.url}>
-//             <div>{item.url}</div>
-//           </Link>
-//         );
-//       })}
-//     </div>
-//   );
-// };

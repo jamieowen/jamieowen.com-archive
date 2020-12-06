@@ -91,7 +91,7 @@ export const SelectedWork: FC<SelectedWorkProps> = ({
 
   return (
     <Fragment>
-      <ContentContainer swatch="secondary">
+      <ContentContainer swatch="secondary" header>
         <LargeParagraphHeading subtitle="Selected Work" align="left">
           Various bits of work from installations, mobile & web apps.
         </LargeParagraphHeading>

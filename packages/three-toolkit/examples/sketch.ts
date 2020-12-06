@@ -1,4 +1,4 @@
-import { sketch, lambertMaterial } from "../src/rendering/sketch";
+import { sketch, lambertMaterial } from "../src/render/sketch";
 import { Scene, PerspectiveCamera } from "three";
 
 const scene = new Scene();

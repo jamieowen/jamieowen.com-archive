@@ -4,6 +4,7 @@ import {
   Color,
   PointLightHelper,
   DirectionalLightHelper,
+  GridHelper,
   DirectionalLight,
   Group,
   PerspectiveCamera,
@@ -61,3 +62,10 @@ export const directionalLightHelper = (
 ) => {
   return new DirectionalLightHelper(light, size, color);
 };
+
+export const createGridHelper = (
+  size: number = 10,
+  divisions: number = 10,
+  color1: Color | string | number = "yellow",
+  color2: Color | string | number = "blue"
+) => new GridHelper(size, divisions, color1, color2);

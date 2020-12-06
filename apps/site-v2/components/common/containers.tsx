@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import { Flex, Box, Heading, Grid, Styled, Container, Text } from "theme-ui";
 
 /**
+ *
+ * PHASE OUT....
  * Hero container with customisable full with outer container.
  * Along with inner center column content container.
  * @param param0
@@ -30,20 +32,27 @@ export const HeroContainer: FC<{
 /**
  *
  */
-export const ContentContainer: FC<{ swatch?: string }> = ({
+export const ContentContainer: FC<{ swatch?: string; header?: boolean }> = ({
   children,
+  header = false,
   swatch = null,
 }) => {
   const text = swatch ? `${swatch}_text` : null;
   const bg = swatch ? `${swatch}_bg` : null;
+  const element = header ? "header" : "section";
+  const variant = header ? "content_stretch_header" : "content_stretch";
   return (
-    <Container as="section" variant="content_stretch" bg={bg} color={text}>
+    <Container as={element} variant={variant} bg={bg} color={text}>
       <Container variant="content_center">{children}</Container>
     </Container>
   );
 };
 
 /**
+ *
+ * // PHASE THIS OUT
+ *
+ *
  * Hero style type for use on home page.
  * @param param0
  */

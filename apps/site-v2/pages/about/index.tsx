@@ -8,7 +8,7 @@ import {
 export const About: FC<any> = () => {
   return (
     <Fragment>
-      <ContentContainer swatch="primary">
+      <ContentContainer swatch="primary" header>
         <LargeParagraphHeading subtitle="Sapient Razorfish" align="left">
           Creative technologist & software engineer and all round nice chap.
           Hello.

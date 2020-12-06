@@ -6,8 +6,24 @@ export const text: Pick<Theme, "text"> = {
     navigation: {
       fontSize: 2,
       fontFamily: "worksans",
-      fontWeight: "bold",
+      fontWeight: "regular",
       color: "navigation_text",
+      "> * + *": {
+        marginLeft: "1rem !important",
+      },
+    },
+    navigation_link: {
+      fontWeight: "bold",
+      color: "inherit",
+      display: "inline-block",
+      "a:hover, a:link, a:visited": {
+        color: "inherit",
+        textDecoration: "none",
+      },
+      ":hover": {
+        opacity: 0.4,
+        cursor: "pointer",
+      },
     },
     /** Typical Heading */
     heading: {

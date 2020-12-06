@@ -1,6 +1,6 @@
 import { Theme } from "theme-ui";
 
-export const text: Pick<Theme, "styles"> = {
+export const styles: Pick<Theme, "styles"> = {
   /** Styles **/
   /** Styles object is a kind of global css styles. Used for MDX rendering. */
   /** Can be used with Styled.h1 />
@@ -22,7 +22,7 @@ export const text: Pick<Theme, "styles"> = {
       lineHeight: "2rem",
     },
     em: {
-      fontWeight: "light",
+      fontWeight: "bold",
       fontStyle: "normal",
     },
   },

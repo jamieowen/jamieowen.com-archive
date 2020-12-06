@@ -42,13 +42,20 @@ export const layout: Pick<Theme, "layout"> = {
     },
 
     /**
-     * All Page Blocks are wrapped in this.
-     * Giving access to a colored background & text combination
-     * customisable via a swatch.
+     * All content blocks ( an area  of content stretching edge to edge of the browser )
+     * are wrapped in one of content_stretch or content_stretch_header.
+     *
+     * They are used by the ContentContainer component which applies bg and text colors.
      **/
-    /** Center column content & add padding **/
     content_stretch: {
       width: "100%",
+      // height: "calc(33vh - 2rem)",
+      minHeight: "512px",
+    },
+
+    content_stretch_header: {
+      width: "100%",
+      paddingTop: "10rem",
       // height: "calc(33vh - 2rem)",
       minHeight: "512px",
     },

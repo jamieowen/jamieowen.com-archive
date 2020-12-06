@@ -51,7 +51,7 @@ export const Project: FC<ProjectProps> = ({ project, ...props }) => {
   });
   return (
     <Fragment>
-      <ContentContainer swatch="primary">
+      <ContentContainer swatch="primary" header>
         <LargeParagraphHeading subtitle="Sapient Razorfish" align="left">
           Argos Christmas Gift Guide, Sapient Razorfish
         </LargeParagraphHeading>
