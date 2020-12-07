@@ -1,4 +1,3 @@
-import { stream, sync } from "@thi.ng/rstream";
 import {
   GestureType,
   GestureEvent,

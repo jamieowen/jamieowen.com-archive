@@ -3298,6 +3298,20 @@
     "@thi.ng/errors" "^1.2.24"
     "@thi.ng/shader-ast" "^0.7.5"
 
+"@thi.ng/shader-ast-js@^0.5.11":
+  version "0.5.11"
+  resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast-js/-/shader-ast-js-0.5.11.tgz#3b6a31dd8b40491fc398c6b60e94e28dbfb1cd2d"
+  integrity sha512-yh7KGx1P7xoxYoMey/jHYIWlGA9bxM+3yxKuIFJ8sMSg2SdMA1eT4M7aJnkeRjeob7wwKbvGILUbj50zQAs++A==
+  dependencies:
+    "@thi.ng/api" "^6.13.3"
+    "@thi.ng/checks" "^2.7.11"
+    "@thi.ng/errors" "^1.2.24"
+    "@thi.ng/math" "^2.2.1"
+    "@thi.ng/matrices" "^0.6.36"
+    "@thi.ng/pixel" "^0.4.8"
+    "@thi.ng/shader-ast" "^0.7.5"
+    "@thi.ng/vectors" "^4.8.1"
+
 "@thi.ng/shader-ast-stdlib@^0.5.5":
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast-stdlib/-/shader-ast-stdlib-0.5.5.tgz#fb2c3018180a7da37d16c0983560a4d2c5ded8b9"

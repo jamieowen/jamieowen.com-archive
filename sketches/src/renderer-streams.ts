@@ -2,10 +2,8 @@ import {
   sketch,
   createGridHelper,
   createGeometryFactory,
-  GeometryAlignment,
 } from "@jamieowen/three-toolkit";
-import { sphere } from "packages/three-drawcontext/decl-test/sphere";
-import { Mesh, SphereBufferGeometry, MeshBasicMaterial } from "three";
+import { Mesh, MeshBasicMaterial } from "three";
 
 sketch(({ render, scene, camera, configure, gestures }) => {
   const grid = createGridHelper();
@@ -18,6 +16,14 @@ sketch(({ render, scene, camera, configure, gestures }) => {
   const point = new Mesh(sphere, new MeshBasicMaterial({ color: "yellow" }));
   point.scale.multiplyScalar(0.1);
   scene.add(point);
+
+  // particles..
+  // definition of array buffers. using iterators / generators
+  // iterate over buffers.
+  // multiplex and workers.
+  // keep as parallel as possible
+  // add components, position, velocity, color, age, maxage
+  // what about events? how to determine
 
   configure({
     width: "800px",

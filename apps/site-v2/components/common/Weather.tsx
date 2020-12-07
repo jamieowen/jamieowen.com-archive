@@ -19,7 +19,7 @@ export const Weather: FC<any> = () => {
   return (
     <Text sx={{ display: "inline-block" }}>
       {weather}
-      <WiDayRainMix />
+      {/* <WiDayRainMix /> */}
     </Text>
   );
 };
