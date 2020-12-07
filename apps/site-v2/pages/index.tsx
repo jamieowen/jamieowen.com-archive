@@ -47,7 +47,7 @@ export const Home: FC<any> = ({}) => {
           </Text>
           {/* <Box>Some extra big content</Box> */}
         </Grid>
-        <MediaGrid />
+        <MediaGrid media={[]} />
       </ContentContainer>
     </Fragment>
   );

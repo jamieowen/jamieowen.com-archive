@@ -38,15 +38,15 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
 };
 
 // @ts-ignore
-MyApp.getInitialProps = async (appContext) => {
-  // calls page's `getInitialProps` and fills `appProps.pageProps`
-  const appProps = await App.getInitialProps(appContext);
-  const pages = []; //await fetchPages();
-  return {
-    ...appProps,
-    pages,
-  };
-};
+// MyApp.getInitialProps = async (appContext) => {
+//   // calls page's `getInitialProps` and fills `appProps.pageProps`
+//   const appProps = await App.getInitialProps(appContext);
+//   const pages = []; //await fetchPages();
+//   return {
+//     ...appProps,
+//     pages,
+//   };
+// };
 
 export default MyApp;
 
