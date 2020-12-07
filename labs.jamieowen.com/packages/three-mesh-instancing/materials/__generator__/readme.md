@@ -1,3 +1,0 @@
-# Code Generator
-
-Quer
