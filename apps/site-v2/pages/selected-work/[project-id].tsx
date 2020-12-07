@@ -43,12 +43,14 @@ interface ProjectProps {
 }
 
 export const Project: FC<ProjectProps> = ({ project, ...props }) => {
-  const images = project.images.map((image, i) => {
-    return {
-      title: `0${i + 1}`.slice(-2),
-      ...image,
-    };
-  });
+  const images = project
+    ? project.images.map((image, i) => {
+        return {
+          title: `0${i + 1}`.slice(-2),
+          ...image,
+        };
+      })
+    : [];
   return (
     <Fragment>
       <ContentContainer swatch="primary" header>

@@ -1,10 +1,6 @@
 import React, { FC, Fragment } from "react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import {
-  ContentContainer,
-  HeaderTitle,
-  PageHeader,
-} from "../../components/common";
+import { ContentContainer, PageHeader } from "../../components/common";
 import { MediaGrid } from "../../components/media-grid";
 import { readArchivedWork } from "../../services";
 
