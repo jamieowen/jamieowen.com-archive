@@ -1,6 +1,6 @@
 import React, { FC, createContext } from "react";
 
-interface GroupInfo {
+export interface GroupInfo {
   groupName: string;
 }
 

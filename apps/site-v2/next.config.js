@@ -6,6 +6,7 @@ const withMDX = require("@next/mdx")({
 
 const withTM = require("next-transpile-modules")([
   path.resolve("../../packages/three-toolkit/src"),
+  path.resolve("../../packages/motion-layout/src"),
   path.resolve("../../packages/xlayout/src"),
 ]);
 

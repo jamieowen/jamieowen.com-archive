@@ -1,14 +1,34 @@
 import React, { ContextType, Component, ReactNode } from "react";
 import { SchedulerContext } from "./types";
-import { createMachine, interpret, Interpreter, MachineConfig } from "xstate";
+import {
+  createMachine,
+  interpret,
+  Interpreter,
+  MachineConfig,
+  StateValue,
+} from "xstate";
 import { IScheduledComponent } from "./Scheduler";
-import { GroupContext } from "./Group";
+import { GroupContext, GroupInfo } from "./Group";
 
+/** React State & Props Definitions */
 interface ScheduleProps {
   defer?: boolean;
-  children: (state: any) => ReactNode;
+  children: (state: RenderChildState) => ReactNode;
 }
 
+/** Regular React State */
+interface ScheduleState {
+  xstate: StateValue;
+}
+
+/** Render State passed to render child. */
+interface RenderChildState {
+  state: string;
+  group: string;
+  onComplete: () => void;
+}
+
+/** XState Definitions */
 export interface ScheduleStateContext {}
 
 export interface ScheduleStateSchema {
@@ -44,6 +64,7 @@ const scheduleMachine: MachineConfig<
     },
     queued: {
       after: {
+        // delay to move to the mount state - delay time passed by Scheduler xstate event.
         SCHEDULED_DELAY: "mount",
       },
     },
@@ -65,7 +86,7 @@ const scheduleMachine: MachineConfig<
 };
 
 export class Schedule
-  extends Component<ScheduleProps>
+  extends Component<ScheduleProps, ScheduleState>
   implements IScheduledComponent {
   static contextType = SchedulerContext;
   context!: ContextType<typeof SchedulerContext>;
@@ -84,7 +105,7 @@ export class Schedule
       createMachine(scheduleMachine, {
         delays: {
           SCHEDULED_DELAY: (context, event) => {
-            console.log(" DELAY ", event);
+            // console.log(" DELAY ", event);
             if (event.type === "QUEUE") {
               return event.delay;
             } else {
@@ -95,12 +116,13 @@ export class Schedule
       })
     );
 
-    this.fsm.onTransition((state, event) => {
-      this.setState({ fsm: state.value });
+    // Update our internal state when ever
+    this.fsm.onTransition((state) => {
+      this.setState({ xstate: state.value });
     });
 
     this.state = {
-      fsm: this.fsm.initialState.value,
+      xstate: this.fsm.initialState.value,
     };
   }
 
@@ -122,14 +144,21 @@ export class Schedule
     );
   }
 
-  renderWithGroup(group) {
+  renderWithGroup(group: GroupInfo) {
     const { children, defer = false } = this.props;
-    const state = this.state.fsm + " " + group.groupName;
+    const renderState: RenderChildState = {
+      state: this.state.xstate as string,
+      group: group.groupName,
+      onComplete: () => {},
+      // potentially?
+      // mounted or ready as boolean
+    };
+    console.log("Render Schedule", renderState);
     if (defer) {
       // defer mount until mount state is entered.
       // this is not always desirable, as would prevent DOM layout on elements.
     } else {
-      return children(state);
+      return children(renderState);
     }
   }
 }

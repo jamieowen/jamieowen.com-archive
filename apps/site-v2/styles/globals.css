@@ -14,3 +14,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.hidden {
+  transition: opacity 500ms ease-out;
+  opacity: 0 !important;
+}
+
+.visible {
+  transition: opacity 500ms ease-in;
+  opacity: 1 !important;
+}

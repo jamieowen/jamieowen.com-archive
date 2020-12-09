@@ -1,16 +1,5 @@
 import React, { Component } from "react";
-import {
-  IntersectionState,
-  Observable,
-  TransitionState,
-} from "../observable/Observable";
-import { Observer } from "../observable/Observer";
-import {
-  ObservableChangeEvent,
-  SchedulerContextApi,
-  SchedulerProps,
-  SchedulerContext,
-} from "./types";
+import { SchedulerContextApi, SchedulerProps, SchedulerContext } from "./types";
 import { Interpreter, EventObject } from "xstate";
 import { Group } from "./Group";
 import {
@@ -43,10 +32,12 @@ export class Scheduler extends Component<SchedulerProps, {}> {
 
   contextApiValue: SchedulerContextApi = {
     register: (child: IScheduledComponent) => {
+      console.log("Register Schedule child");
       this.children.add(child);
       this.changed.push(child);
     },
     unregister: (child: IScheduledComponent) => {
+      console.log("Unregister Schedule child");
       this.children.delete(child);
     },
     notifyChange: (events) => {
@@ -60,7 +51,8 @@ export class Scheduler extends Component<SchedulerProps, {}> {
     this.invalidate();
   }
   componentDidUpdate() {
-    console.log("Scheduler Updated. ");
+    console.log("Scheduler Updated. ", this.changed.length);
+    this.invalidate();
   }
 
   shouldComponentUpdate() {
@@ -81,19 +73,21 @@ export class Scheduler extends Component<SchedulerProps, {}> {
     // groups, and notified to transition to their next state.
     // this needs to
     this.changed.forEach((comp, i) => {
+      console.log("Delay Service :", this.changed.length);
       const service = comp.getService();
+      // service.state.
       service.send({ type: "QUEUE", timestamp: time, delay: i * 200 });
     });
+    this.invalidated = false;
     this.changed = [];
   };
 
   render() {
     const { children } = this.props;
-    console.log(">> Render New, New Scheduler!");
+    console.log(">> Render Scheduler!!!");
 
     return (
       <SchedulerContext.Provider value={this.contextApiValue}>
-        {/* <Observer>{children}</Observer> */}
         <Group>{children}</Group>
       </SchedulerContext.Provider>
     );

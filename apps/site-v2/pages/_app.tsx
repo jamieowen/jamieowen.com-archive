@@ -4,9 +4,12 @@ import Head from "next/head";
 import theme from "../components/theme";
 import { Footer, Navigation } from "../components/common";
 import { ThemeProvider } from "theme-ui";
+import { Scheduler } from "@jamieowen/motion-layout";
 // import { MatterProvider } from "../components/physics/MatterContext";
 // import { IntersectionProvider } from "../components//motion/IntersectionContext";
 // import { GenerativeGridProvider } from "../components/generative-grid";
+
+import "styles/globals.css";
 
 const Fonts = () => {
   return (
@@ -33,9 +36,11 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
         <Fonts />
       </Head>
       <ThemeProvider theme={theme}>
-        <Navigation />
-        <Component {...pageProps} />
-        <Footer />
+        <Scheduler>
+          <Navigation />
+          <Component {...pageProps} />
+          <Footer />
+        </Scheduler>
       </ThemeProvider>
     </Fragment>
   );

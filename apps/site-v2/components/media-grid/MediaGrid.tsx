@@ -1,4 +1,11 @@
-import React, { FC, Fragment, ReactNode } from "react";
+import React, {
+  FC,
+  Fragment,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Container, Grid, Text, Box } from "theme-ui";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +29,7 @@ type MediaGridProps = {
   media: Media[];
   rowStyle?: RowStyle[];
   limitHeight?: boolean;
+  archive?: boolean;
 };
 
 export type RowStyle = [
@@ -81,10 +89,51 @@ const mapRowStyle = (media: Media[], rowStyle: RowStyle[], mapRfn: MapRfn) => {
   return rows;
 };
 
+export const SizedImageContainer: FC<any> = ({
+  children,
+  maxHeight,
+  width,
+  height,
+}) => {
+  const [calcHeight, setCalcHeight] = useState(height);
+  const ref = useRef();
+  useEffect(() => {
+    const resize = new ResizeObserver((entries) => {
+      const bounds = entries[0].contentRect;
+
+      const scale = bounds.width / width;
+      // console.log("RESIZE", bounds.width, scale, height, height * scale);
+      setCalcHeight(height * scale);
+    });
+    resize.observe(ref.current);
+    return () => {
+      resize.disconnect();
+    };
+  }, []);
+
+  return (
+    <Container
+      ref={ref}
+      sx={{
+        width: "100%",
+        height: calcHeight + "px",
+        // mixBlendMode: "saturation",
+        // height: height * (item.width / item.height),
+        backgroundColor: "blue",
+        maxHeight: maxHeight,
+        overflow: "hidden",
+      }}
+    >
+      {children}
+    </Container>
+  );
+};
+
 export const MediaGrid: FC<MediaGridProps> = ({
   media = [],
   rowStyle = WORK_ROW_STYLE,
   limitHeight = true,
+  archive = false,
 }) => {
   const rows = mapRowStyle(media, rowStyle, {
     mapRow: (children: ReactNode[], fr, height, i) => (
@@ -107,17 +156,22 @@ export const MediaGrid: FC<MediaGridProps> = ({
           // objectFit="cover"
         />
       );
+      const scale = item.width / item.height;
+      console.log(scale, height);
       return (
         <Container key={i} data-id="media-grid-cell">
-          <Container
-            sx={{
-              maxHeight: limitHeight ? height : undefined,
-              overflow: "hidden",
-            }}
+          <SizedImageContainer
+            width={item.width}
+            height={item.height}
+            maxHeight={limitHeight ? height : undefined}
           >
             {item.href ? <Link href={item.href}>{image}</Link> : image}
-          </Container>
-          <Text variant="mediagrid_title">{item.title}</Text>
+          </SizedImageContainer>
+          <Text
+            variant={archive ? "mediagrid_title_archive" : "mediagrid_title"}
+          >
+            {item.title}
+          </Text>
         </Container>
       );
     },

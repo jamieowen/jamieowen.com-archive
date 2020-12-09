@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react";
 import { Box, Grid, Text } from "theme-ui";
 import { BoxColumn } from "./containers";
-// import {} from "@jamieowen/motion-layout";
+import { Schedule } from "@jamieowen/motion-layout";
 type Align = "left" | "right";
 export const GridAlign: FC<{ align: Align }> = ({
   children,
@@ -28,6 +28,25 @@ export const GridAlign: FC<{ align: Align }> = ({
   );
 };
 
+// Extend Text.
+export const ScheduledText: FC<any> = ({
+  children,
+  as = "h1",
+  variant = "subtitle_heading",
+}) => (
+  <Schedule>
+    {({ state }) => (
+      <Text
+        as={as}
+        className={state === "mount" ? "visible" : "hidden"}
+        variant={variant}
+      >
+        {children}
+      </Text>
+    )}
+  </Schedule>
+);
+
 export const LargeParagraphHeading: FC<{ subtitle: string; align: Align }> = ({
   children,
   subtitle,
@@ -35,12 +54,12 @@ export const LargeParagraphHeading: FC<{ subtitle: string; align: Align }> = ({
 }) => {
   return (
     <GridAlign align={align}>
-      <Text as="h1" variant="subtitle_heading">
+      <ScheduledText as="h1" variant="subtitle_heading">
         {subtitle}
-      </Text>
-      <Text as="p" variant="body_title">
+      </ScheduledText>
+      <ScheduledText as="p" variant="body_title">
         {children}
-      </Text>
+      </ScheduledText>
     </GridAlign>
   );
 };
@@ -52,12 +71,12 @@ export const SmallParagraphHeading: FC<{ subtitle: string; align: Align }> = ({
 }) => {
   return (
     <GridAlign align={align}>
-      <Text as="h1" variant="subtitle_heading">
+      <ScheduledText as="h1" variant="subtitle_heading">
         {subtitle}
-      </Text>
-      <Text as="p" variant="body_normal">
+      </ScheduledText>
+      <ScheduledText as="p" variant="body_normal">
         {children}
-      </Text>
+      </ScheduledText>
     </GridAlign>
   );
 };
