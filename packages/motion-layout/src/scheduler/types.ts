@@ -1,5 +1,5 @@
 import { createContext, ReactNode } from "react";
-import { Observable, Observer } from "../observable";
+// import { Observable, Observer } from "../observable";
 import { IScheduledComponent } from "./Scheduler";
 
 export interface RegisterComponent {
@@ -13,7 +13,7 @@ export interface NotifyObservableChange {
 
 export interface ObservableChangeEvent {
   entry: IntersectionObserverEntry;
-  component: Observable;
+  // component: Observable;
 }
 
 export interface SchedulerProps {
@@ -22,5 +22,4 @@ export interface SchedulerProps {
 
 export const SchedulerContext = createContext<SchedulerContextApi>(null!);
 
-export type SchedulerContextApi = RegisterComponent<Observable | Observer> &
-  NotifyObservableChange;
+export type SchedulerContextApi = RegisterComponent & NotifyObservableChange;
