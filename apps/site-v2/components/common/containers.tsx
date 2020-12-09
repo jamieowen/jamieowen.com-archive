@@ -32,20 +32,35 @@ export const HeroContainer: FC<{
 /**
  *
  */
-export const ContentContainer: FC<{ swatch?: string; header?: boolean }> = ({
-  children,
-  header = false,
-  swatch = null,
-}) => {
+export const ContentContainer: FC<{
+  swatch?: string;
+  header?: boolean;
+  footer?: boolean;
+}> = ({ children, header = false, footer = false, swatch = null }) => {
   const text = swatch ? `${swatch}_text` : null;
   const bg = swatch ? `${swatch}_bg` : null;
-  const element = header ? "header" : "section";
+  const element = header ? "header" : footer ? "footer" : "section";
   const variant = header ? "content_stretch_header" : "content_stretch";
   return (
-    <Container as={element} variant={variant} bg={bg} color={text}>
-      <Container variant="content_center">{children}</Container>
+    <Container
+      as={element}
+      variant={variant}
+      bg={bg}
+      color={text}
+      data-id="content"
+    >
+      <Container variant="content_center" data-id="content-center">
+        {children}
+      </Container>
     </Container>
   );
+};
+
+/**
+ * Used within some heading containers to act as a grid column and limit text width.
+ */
+export const BoxColumn: FC<any> = ({ children }) => {
+  return <Box sx={{ maxWidth: "450px" }}>{children}</Box>;
 };
 
 /**

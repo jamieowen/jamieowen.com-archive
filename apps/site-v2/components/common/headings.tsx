@@ -1,6 +1,7 @@
 import { FC, Fragment } from "react";
 import { Box, Grid, Text } from "theme-ui";
-
+import { BoxColumn } from "./containers";
+// import {} from "@jamieowen/motion-layout";
 type Align = "left" | "right";
 export const GridAlign: FC<{ align: Align }> = ({
   children,
@@ -9,19 +10,19 @@ export const GridAlign: FC<{ align: Align }> = ({
   const cols =
     align === "left" ? (
       <Fragment>
-        <Box>{children}</Box>
-        <Box></Box>
-        <Box></Box>
+        <BoxColumn>{children}</BoxColumn>
+        <BoxColumn></BoxColumn>
+        {/* <BoxColumn></BoxColumn> */}
       </Fragment>
     ) : (
       <Fragment>
-        <Box></Box>
-        <Box></Box>
-        <Box>{children}</Box>
+        {/* <BoxColumn></BoxColumn> */}
+        <BoxColumn></BoxColumn>
+        <BoxColumn>{children}</BoxColumn>
       </Fragment>
     );
   return (
-    <Grid variant="grid_3" sx={{}}>
+    <Grid variant="grid_2" sx={{}}>
       {cols}
     </Grid>
   );

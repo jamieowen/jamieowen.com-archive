@@ -14,6 +14,7 @@ export const text: Pick<Theme, "text"> = {
     },
     navigation_link: {
       fontWeight: "bold",
+      fontFamily: "worksans",
       color: "inherit",
       display: "inline-block",
       "a:hover, a:link, a:visited": {
@@ -34,7 +35,7 @@ export const text: Pick<Theme, "text"> = {
     subtitle_heading: {
       fontFamily: "roboto",
       fontSize: 0,
-      letterSpacing: "0.1em",
+      letterSpacing: "0.2em",
       opacity: 0.45,
       textTransform: "uppercase",
       marginBottom: "3rem",
@@ -42,7 +43,8 @@ export const text: Pick<Theme, "text"> = {
 
     mediagrid_title: {
       position: "relative",
-      fontFamily: "roboto",
+      // fontFamily: "roboto",
+      fontFamily: "worksans",
       textTransform: "uppercase",
       fontSize: 1,
       lineHeight: "4rem",
@@ -52,8 +54,8 @@ export const text: Pick<Theme, "text"> = {
     body_title: {
       fontFamily: "worksans",
       fontWeight: "semibold",
-      lineHeight: "2rem",
-      fontSize: 3,
+      lineHeight: "2.5rem",
+      fontSize: 4,
     },
     body_normal: {
       fontFamily: "roboto",

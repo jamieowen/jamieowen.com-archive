@@ -60,11 +60,15 @@ export const layout: Pick<Theme, "layout"> = {
       minHeight: "512px",
     },
 
+    // centers the column
     content_center: {
-      width: "80%", // main column content
-      minWidth: "640px",
+      width: ["100%", "90%", "80%"],
+      // minWidth: "640px",
       maxWidth: "1024px",
-      padding: "4rem 0rem",
+      padding: ["12rem 2rem", "12rem 0rem", "12rem 0rem"],
+      "> * + *": {
+        marginTop: "4rem !important",
+      },
     },
 
     /** full stretched content */

@@ -12,7 +12,7 @@ export enum GeometryAlignment {
   BACK = "back",
 }
 
-export type GeometryId = "plane" | "sphere" | "box";
+export type GeometryId = "plane" | "sphere" | "box" | "circle";
 
 type FactoryFn = Fn0<BufferGeometry>;
 type Factory = {

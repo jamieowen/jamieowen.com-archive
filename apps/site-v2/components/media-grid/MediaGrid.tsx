@@ -122,5 +122,9 @@ export const MediaGrid: FC<MediaGridProps> = ({
       );
     },
   });
-  return <Fragment>{rows}</Fragment>;
+  return (
+    <Fragment>
+      <Container>{rows}</Container>
+    </Fragment>
+  );
 };

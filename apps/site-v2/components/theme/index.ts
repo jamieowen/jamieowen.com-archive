@@ -7,7 +7,7 @@ import { text } from "./text";
 import { styles } from "./styles";
 
 export default <Theme>{
-  breakpoints: ["40em", "56em", "64em"],
+  breakpoints: ["768px", "1024px"],
   ...colors,
   ...fonts,
   ...text,

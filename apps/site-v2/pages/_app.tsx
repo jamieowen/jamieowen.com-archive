@@ -26,6 +26,10 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
       <Head>
         <title>Page Root</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width=device-width, user-scalable=yes, minimum-scale=1.0, maximum-scale=1.0"
+        ></meta>
         <Fonts />
       </Head>
       <ThemeProvider theme={theme}>
