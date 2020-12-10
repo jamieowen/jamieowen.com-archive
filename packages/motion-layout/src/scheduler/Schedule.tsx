@@ -13,7 +13,7 @@ import { GroupContext, GroupInfo } from "./Group";
 /** React State & Props Definitions */
 interface ScheduleProps {
   defer?: boolean;
-  children: (state: RenderChildState) => ReactNode;
+  children: (state: ScheduleRenderChildState) => ReactNode;
 }
 
 /** Regular React State */
@@ -22,7 +22,7 @@ interface ScheduleState {
 }
 
 /** Render State passed to render child. */
-interface RenderChildState {
+export interface ScheduleRenderChildState {
   state: string;
   group: string;
   onComplete: () => void;
@@ -146,7 +146,7 @@ export class Schedule
 
   renderWithGroup(group: GroupInfo) {
     const { children, defer = false } = this.props;
-    const renderState: RenderChildState = {
+    const renderState: ScheduleRenderChildState = {
       state: this.state.xstate as string,
       group: group.groupName,
       onComplete: () => {},

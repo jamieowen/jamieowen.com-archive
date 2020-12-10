@@ -15,10 +15,10 @@ const createPoints = () => {
     iter: 10,
     // jitter: 1,
     density: (p) => {
-      console.log("PNT", p);
-      const dis2 = fit01(Math.pow(dist(p, [s2, s2]) / s2, 2), 1, 4);
+      // console.log("PNT", p);
+      const dis2 = fit01(Math.pow(dist(p, [s2, s2]) / s2, 2), 0.2, 6);
       const dis = Math.random();
-      console.log("PNT : ", p, dis2);
+      // console.log("PNT : ", p, dis2);
       return dis2;
     },
     // density: ([x, y]) => {
@@ -26,7 +26,7 @@ const createPoints = () => {
     //   // return x / 10;
     //   return 0.9 + Math.min(Math.random() * 0.1, 0.1);
     // },
-    max: 100,
+    max: 1000,
   });
 
   return {
@@ -46,7 +46,7 @@ sketch(({ render, configure, scene }) => {
     );
     mesh.position.set(pnt[0], pnt[1], 0);
     const nearest = index.queryKeys(pnt, 10, 2);
-    console.log("nearest :", nearest);
+    // console.log("nearest :", nearest);
     const radius = dist(pnt, nearest[1]) / 2;
     mesh.scale.multiplyScalar(radius);
 

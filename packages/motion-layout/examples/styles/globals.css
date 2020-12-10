@@ -24,3 +24,8 @@ a {
   transition: opacity 450ms ease-in;
   opacity: 1;
 }
+
+.large-text {
+  font-size: 72px;
+  font-family: Arial, Helvetica, sans-serif;
+}

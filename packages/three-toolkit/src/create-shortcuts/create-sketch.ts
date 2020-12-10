@@ -78,6 +78,7 @@ export function createSketch(
   });
 
   const configure = (config: Partial<SketchConfigure>) => {
+    // resize observer will trigger a renderer resize
     domElement.style.width = config.width.toString();
     domElement.style.height = config.height.toString();
   };
