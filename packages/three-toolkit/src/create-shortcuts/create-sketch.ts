@@ -29,7 +29,7 @@ type SketchRender = {
 };
 
 type FnSketchSetup = Fn<SketchSetup, void>;
-type FnSketchRender = Fn<SketchRender, void>;
+type FnSketchRender = Fn<SketchRender, boolean | void>;
 
 export function createSketch(
   setup: FnSketchSetup,
@@ -56,12 +56,16 @@ export function createSketch(
   clock.subscribe({
     next: ({ delta, frame, time }) => {
       if (userRender) {
-        userRender({
+        const autoRender = userRender({
           delta,
           frame,
           time,
         });
-        renderer.render(scene, camera);
+
+        // Return false to prevent automatically rendering the default scene and camera
+        if (autoRender || autoRender === undefined) {
+          renderer.render(scene, camera);
+        }
       }
     },
   });
@@ -82,6 +86,7 @@ export function createSketch(
     domElement.style.width = config.width.toString();
     domElement.style.height = config.height.toString();
   };
+
   setup({
     domElement,
     renderer,
