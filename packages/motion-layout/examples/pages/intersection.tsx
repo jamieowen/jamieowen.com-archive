@@ -1,15 +1,15 @@
-import { Observer, Observable } from "@jamieowen/motion-layout";
+import { Layout } from "@jamieowen/motion-layout";
 import React, { FC, Fragment } from "react";
 
 const Line: FC<any> = ({ children }) => {
   return (
-    <Observable>
+    <Layout>
       {({ ref }) => (
         <h1 ref={ref} className="large-text">
           {children}
         </h1>
       )}
-    </Observable>
+    </Layout>
   );
 };
 
@@ -30,13 +30,13 @@ const splitWords = textLines.join(" ").split(" ");
 
 export default function Intersection() {
   return (
-    <Observer>
+    <Fragment>
       {textLines.map((t, i) => (
         <Line key={i}>{t}</Line>
       ))}
       {splitWords.map((t, i) => (
         <Word key={i}>{t}</Word>
       ))}
-    </Observer>
+    </Fragment>
   );
 }

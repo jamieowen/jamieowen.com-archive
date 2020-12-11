@@ -8,7 +8,7 @@ import React, {
   useContext,
 } from "react";
 
-export interface ObserverProps {
+export interface LayoutObserverProps {
   children?: ReactNode | ((ref: MutableRefObject<Element>) => ReactNode);
   rootMargin?: string;
   threshold?: number[];
@@ -16,21 +16,21 @@ export interface ObserverProps {
 }
 
 type CallbackEntryFn = (entry: IntersectionObserverEntry) => void;
-export type ObserverContextApi = {
+export type LayoutObserverApi = {
   observe: (element: Element, handler: CallbackEntryFn) => void;
   unobserve: (element: Element) => void;
 };
 
-export const ObserverContext = createContext<ObserverContextApi>(null!);
-export const useObserver = () => useContext(ObserverContext);
+export const LayoutObserverContext = createContext<LayoutObserverApi>(null!);
+export const useLayoutObserver = () => useContext(LayoutObserverContext);
 
-export class Observer extends Component<ObserverProps, {}> {
+export class LayoutObserver extends Component<LayoutObserverProps, {}> {
   domRef: RefObject<Element> = createRef();
   observer!: IntersectionObserver;
   observed: Map<Element, CallbackEntryFn> = new Map();
 
   componentDidMount() {
-    this.createObserver();
+    this.createIntersectionObserver();
   }
 
   componentWillUnmount() {
@@ -40,7 +40,7 @@ export class Observer extends Component<ObserverProps, {}> {
     }
   }
 
-  contextApiValue: ObserverContextApi = {
+  contextApiValue: LayoutObserverApi = {
     observe: (ele, handler) => {
       this.observed.set(ele, handler);
       if (this.observer) {
@@ -55,7 +55,7 @@ export class Observer extends Component<ObserverProps, {}> {
     },
   };
 
-  private createObserver() {
+  private createIntersectionObserver() {
     const { rootMargin = "0%", threshold, thresholdSteps = 5 } = this.props;
     let levels = threshold ? threshold : null;
     if (!levels) {
@@ -67,7 +67,7 @@ export class Observer extends Component<ObserverProps, {}> {
       this.observer.disconnect();
     }
 
-    this.observer = new IntersectionObserver(this.onObserverCallback, {
+    this.observer = new IntersectionObserver(this.onLayoutObserverCallback, {
       root: this.domRef.current,
       rootMargin,
       threshold: levels,
@@ -79,7 +79,7 @@ export class Observer extends Component<ObserverProps, {}> {
     }
   }
 
-  onObserverCallback: IntersectionObserverCallback = (entries) => {
+  onLayoutObserverCallback: IntersectionObserverCallback = (entries) => {
     entries.forEach((entry) => {
       const ele = entry.target;
       const callback = this.observed.get(ele);
@@ -100,9 +100,9 @@ export class Observer extends Component<ObserverProps, {}> {
     }
 
     return (
-      <ObserverContext.Provider value={this.contextApiValue}>
+      <LayoutObserverContext.Provider value={this.contextApiValue}>
         {_children}
-      </ObserverContext.Provider>
+      </LayoutObserverContext.Provider>
     );
   }
 }

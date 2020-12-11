@@ -1,46 +1,34 @@
-import React, { Component } from "react";
-import { SchedulerContextApi, SchedulerProps, SchedulerContext } from "./types";
-import { Interpreter, EventObject } from "xstate";
-import { Group } from "./Group";
-import {
-  ScheduleEvent,
-  ScheduleStateContext,
-  ScheduleStateSchema,
-} from "./Schedule";
+import React, { Component, createContext, ReactNode } from "react";
+import { LayoutGroup } from "./LayoutGroup";
+import { Schedule } from "./Schedule";
+import { LayoutObserver } from "./LayoutObserver";
 
-// export interface IScheduledComponent<C, S, E extends EventObject> {
-export interface IScheduledComponent<
-  C extends ScheduleStateContext = ScheduleStateContext,
-  S extends ScheduleStateSchema = ScheduleStateSchema,
-  E extends EventObject = ScheduleEvent
-> {
-  getService(): Interpreter<C, S, E>;
+interface SchedulerApi {
+  register: (child: Schedule) => void;
+  unregister: (child: Schedule) => void;
+  notifyChange: () => void;
 }
 
-/**
- *
- * --
- * Scheduler
- * --
- *
- */
+export interface SchedulerProps {
+  children: ReactNode;
+}
+
+export const SchedulerContext = createContext<SchedulerApi>(null!);
 
 export class Scheduler extends Component<SchedulerProps, {}> {
-  private children: Set<IScheduledComponent> = new Set();
+  private children: Set<Schedule> = new Set();
   private invalidated: boolean = false;
-  private changed: IScheduledComponent[] = [];
+  private changed: Schedule[] = [];
 
-  contextApiValue: SchedulerContextApi = {
-    register: (child: IScheduledComponent) => {
-      console.log("Register Schedule child");
+  contextApiValue: SchedulerApi = {
+    register: (child: Schedule) => {
       this.children.add(child);
       this.changed.push(child);
     },
-    unregister: (child: IScheduledComponent) => {
-      console.log("Unregister Schedule child");
+    unregister: (child: Schedule) => {
       this.children.delete(child);
     },
-    notifyChange: (events) => {
+    notifyChange: () => {
       // this.observablesChanged = [...this.observablesChanged, ...events];
       this.invalidate();
     },
@@ -88,7 +76,9 @@ export class Scheduler extends Component<SchedulerProps, {}> {
 
     return (
       <SchedulerContext.Provider value={this.contextApiValue}>
-        <Group>{children}</Group>
+        <LayoutObserver>
+          <LayoutGroup>{children}</LayoutGroup>
+        </LayoutObserver>
       </SchedulerContext.Provider>
     );
   }
