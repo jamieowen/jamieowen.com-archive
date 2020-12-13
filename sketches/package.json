@@ -17,10 +17,12 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@thi.ng/color": "^1.3.2",
     "@thi.ng/geom-accel": "^2.1.28",
     "@thi.ng/geom-subdiv-curve": "^0.1.66",
     "@thi.ng/math": "^2.2.2",
     "@thi.ng/poisson": "^1.1.21",
+    "@thi.ng/rdom": "^0.3.0",
     "@thi.ng/transducers": "^7.5.1",
     "@thi.ng/vectors": "^4.8.2",
     "canvas-sketch": "^0.7.4",

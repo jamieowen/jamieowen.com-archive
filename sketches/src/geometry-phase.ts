@@ -10,7 +10,6 @@ import { repeat } from "@thi.ng/transducers";
 
 sketch(({ render, renderer, camera, configure }) => {
   const geometries = createGeometryFactory();
-
   const gw = 4;
   const gh = 3;
   const scenes = [...repeat(0, gw * gh)].map(() => {
@@ -48,7 +47,6 @@ sketch(({ render, renderer, camera, configure }) => {
         renderer.render(scenes[i], camera);
       },
     });
-
     return false;
   });
 });
