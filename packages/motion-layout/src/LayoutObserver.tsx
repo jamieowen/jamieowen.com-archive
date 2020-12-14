@@ -19,6 +19,7 @@ type CallbackEntryFn = (entry: IntersectionObserverEntry) => void;
 export type LayoutObserverApi = {
   observe: (element: Element, handler: CallbackEntryFn) => void;
   unobserve: (element: Element) => void;
+  observing: (elmeent: Element) => boolean;
 };
 
 export const LayoutObserverContext = createContext<LayoutObserverApi>(null!);
@@ -52,6 +53,9 @@ export class LayoutObserver extends Component<LayoutObserverProps, {}> {
       if (this.observer) {
         this.observer.unobserve(ele);
       }
+    },
+    observing: (ele) => {
+      return this.observed.has(ele);
     },
   };
 

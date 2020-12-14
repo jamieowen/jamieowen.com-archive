@@ -26,6 +26,7 @@ interface ScheduleProps {
 interface ScheduleState {
   xstate: StateValue;
   tags: Tags;
+  ratio: number;
 }
 
 type Tags = Set<string>;
@@ -34,7 +35,9 @@ type Tags = Set<string>;
 export interface ScheduleRenderChildState {
   state: string;
   group: string;
+  ratio: number;
   tags: Tags;
+  ref: RefObject<HTMLElement>;
   onComplete: () => void;
   // potentially?
   // mounted or ready as boolean
@@ -61,22 +64,41 @@ export class Schedule extends Component<ScheduleProps, ScheduleState> {
     this.fsm.onTransition((state) => {
       this.setState({ xstate: state.value });
     });
+    this.fsm.onChange((context) => {
+      this.setState({
+        ratio: context.ratio,
+      });
+    });
 
     this.state = {
       xstate: this.fsm.initialState.value,
       tags: this.fsm.initialState.context.tags,
+      ratio: 0,
     };
   }
 
   componentDidMount() {
     this.fsm.start();
     this.context.register(this);
+    if (this.domRef.current) {
+      this.observerContextApi.observe(
+        this.domRef.current,
+        this.onIntersectionObserverEntry
+      );
+    }
   }
 
   componentWillUnmount() {
     this.fsm.stop();
     this.context.unregister(this);
+    if (this.domRef.current) {
+      this.observerContextApi.unobserve(this.domRef.current);
+    }
   }
+
+  onIntersectionObserverEntry = (entry: IntersectionObserverEntry) => {
+    this.context.onIntersectionObserverEntry(this, entry);
+  };
 
   render() {
     return (
@@ -94,12 +116,16 @@ export class Schedule extends Component<ScheduleProps, ScheduleState> {
     const { children, defer = false } = this.props;
     const { tags } = this.state;
 
-    // Not keen on this refbut no access to multiple contexts.
+    // Not keen on this ref but no access to multiple contexts with class components?
+    // Because of this, register happens on mount
     this.observerContextApi = observerApi;
 
+    // console.log("RENDER SCHEDULE");
     const renderState: ScheduleRenderChildState = {
-      state: this.state.xstate as string,
+      state: this.state.xstate as any,
       group: group.groupName,
+      ratio: this.state.ratio,
+      ref: this.domRef,
       onComplete: () => {},
       tags,
     };

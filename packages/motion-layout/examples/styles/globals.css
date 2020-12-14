@@ -28,4 +28,5 @@ a {
 .large-text {
   font-size: 72px;
   font-family: Arial, Helvetica, sans-serif;
+  transition: opacity 400ms ease-out;
 }

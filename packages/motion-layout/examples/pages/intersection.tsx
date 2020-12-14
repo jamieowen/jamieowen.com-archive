@@ -4,8 +4,8 @@ import React, { FC, Fragment } from "react";
 const Line: FC<any> = ({ children }) => {
   return (
     <Layout>
-      {({ ref }) => (
-        <h1 ref={ref} className="large-text">
+      {({ ref, state, ratio }) => (
+        <h1 ref={ref} className="large-text" style={{ opacity: ratio }}>
           {children}
         </h1>
       )}
