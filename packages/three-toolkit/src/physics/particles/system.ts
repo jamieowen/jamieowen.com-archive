@@ -79,6 +79,7 @@ export class ParticleSystem<T extends ECSComps> {
     this.ecs.defComponent(particleSystemComponents.acceleration());
     this.ecs.defComponent(particleSystemComponents.age());
 
+    // @ts-ignore
     this.main = this.ecs.defGroup([
       this.ecs.components.get("position"),
       this.ecs.components.get("velocity"),

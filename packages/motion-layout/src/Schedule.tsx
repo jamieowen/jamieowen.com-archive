@@ -17,7 +17,7 @@ interface ScheduleProps {
   // this is not always desirable, as would prevent DOM layout on elements.
   defer?: boolean;
   // tags to manually apply to this schedule
-  tags: string[];
+  tags?: string[];
 
   children: (state: ScheduleRenderChildState) => ReactNode;
 }
@@ -37,7 +37,7 @@ export interface ScheduleRenderChildState {
   group: string;
   ratio: number;
   tags: Tags;
-  ref: RefObject<HTMLElement>;
+  ref: RefObject<Element>;
   onComplete: () => void;
   // potentially?
   // mounted or ready as boolean
@@ -48,7 +48,7 @@ export class Schedule extends Component<ScheduleProps, ScheduleState> {
   context!: ContextType<typeof SchedulerContext>;
   fsm: ScheduleInterpreter;
   observerContextApi!: LayoutObserverApi;
-  domRef: RefObject<HTMLElement> = createRef();
+  domRef: RefObject<Element> = createRef();
 
   getService() {
     return this.fsm;

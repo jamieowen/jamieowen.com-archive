@@ -3,7 +3,7 @@ import React, { FC, Fragment } from "react";
 
 const Line: FC<any> = ({ children }) => {
   return (
-    <Layout>
+    <Layout tags={[""]}>
       {({ ref, state, ratio }) => (
         <h1 ref={ref} className="large-text" style={{ opacity: ratio }}>
           {children}
@@ -14,7 +14,16 @@ const Line: FC<any> = ({ children }) => {
 };
 
 const Word: FC<any> = ({ children }) => {
-  return <span className="large-text">{children} </span>;
+  // return <span className="large-text">{children} </span>;
+  return (
+    <Layout tags={[""]}>
+      {({ ref, state, ratio }) => (
+        <span ref={ref} className="large-text" style={{ opacity: ratio }}>
+          {children}
+        </span>
+      )}
+    </Layout>
+  );
 };
 
 const textLines = [
@@ -35,7 +44,7 @@ export default function Intersection() {
         <Line key={i}>{t}</Line>
       ))}
       {splitWords.map((t, i) => (
-        <Word key={i}>{t}</Word>
+        <Word key={i}>{t} </Word>
       ))}
     </Fragment>
   );

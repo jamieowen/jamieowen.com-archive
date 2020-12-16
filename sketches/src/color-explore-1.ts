@@ -7,18 +7,12 @@ import {
   closestPrimaryHue,
   parseCss,
   rgbaCss,
-  hslaCss,
-  hsvaRgba,
   rgbaHsva,
-  rgbaHsla,
   ColorMode,
-  Color,
   namedHueRgba,
   luminance,
-  luminanceRGB,
-  transform,
-  hueRotate,
 } from "@thi.ng/color";
+import { complement, contrastRatio2 } from "@jamieowen/three-toolkit";
 
 const blockStyle = {
   width: "200px",
@@ -39,28 +33,28 @@ const colorBlock = (text: string, bg: string) => [
 ];
 
 // RGB based complement ( rather than RYB )
-const complement = (out: Color, rgba: Color) => {
-  const hsva = rgbaHsva(out, rgba);
-  hsva[0] = hsva[0] + (0.5 % 1);
-  return hsvaRgba([], hsva);
-};
+// const complement = (out: Color, rgba: Color) => {
+//   const hsva = rgbaHsva(out, rgba);
+//   hsva[0] = hsva[0] + (0.5 % 1);
+//   return hsvaRgba([], hsva);
+// };
 
 // https://www.accessibility-developer-guide.com/knowledge/colours-and-contrast/how-to-calculate/
-const contrastRatio = (col1: Color, col2: Color, colorMode: ColorMode) => {
-  const lum1 = luminance(col1, colorMode);
-  const lum2 = luminance(col2, colorMode);
-  return (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
-};
+// const contrastRatio = (col1: Color, col2: Color, colorMode: ColorMode) => {
+//   const lum1 = luminance(col1, colorMode);
+//   const lum2 = luminance(col2, colorMode);
+//   return (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
+// };
 
-const LUM_RATIOS = [0.2126, 0.7152, 0.0722];
-// Using different luminance coefficients
-// Except seems to adjust for gamma correction
-// As : https://contrast-ratio.com
-const contrastRatio2 = (col1: Color, col2: Color, colorMode: ColorMode) => {
-  const lum1 = luminanceRGB(col1, LUM_RATIOS);
-  const lum2 = luminanceRGB(col2, LUM_RATIOS);
-  return (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
-};
+// const LUM_RATIOS = [0.2126, 0.7152, 0.0722];
+// // Using different luminance coefficients
+// // Except seems to adjust for gamma correction
+// // As : https://contrast-ratio.com
+// const contrastRatio2 = (col1: Color, col2: Color, colorMode: ColorMode) => {
+//   const lum1 = luminanceRGB(col1, LUM_RATIOS);
+//   const lum2 = luminanceRGB(col2, LUM_RATIOS);
+//   return (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
+// };
 
 // hsvaRgba([], transform([], hueRotate(Math.PI), hsva))
 
@@ -107,13 +101,13 @@ const colors = Object.keys(CSS_NAMES)
     closestHue: namedHueRgba(null, closestHue(hsva[0] as any)),
     closestPrimaryHue: namedHueRgba(null, closestPrimaryHue(hsva[0] as any)),
     luminance: luminance(rgba, ColorMode.RGBA),
-    complementary: complement([], rgba),
+    complementary: complement(rgba),
   }))
   .map(({ rgba, complementary, ...rest }) => ({
     ...rest,
     complementary,
     rgba,
-    complementaryRatio: contrastRatio2(rgba, complementary, ColorMode.RGBA),
+    complementaryRatio: contrastRatio2(rgba, complementary),
   }));
 
 const colorStream = reactive(colors);
@@ -130,7 +124,7 @@ const colorList = $list(colorStream, "div", {}, (color) => [
   colorBlock(color.complementaryRatio.toString(), "white"),
 ]);
 
-const onFormChange = (ev) => {
+const onFormChange = (ev: any) => {
   console.log(ev);
   const form: HTMLFormElement = ev.currentTarget;
   const data = new FormData(form);
@@ -175,7 +169,7 @@ const minMaxRangeSlider = (
   max: number,
   step: number = 0.01
 ) => {
-  const value = reactive(0);
+  // const value = reactive(0);
 
   return [
     ["span", {}, title],

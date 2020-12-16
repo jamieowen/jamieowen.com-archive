@@ -2,9 +2,9 @@ import { Layout, LayoutGroup } from "@jamieowen/motion-layout";
 
 const Heading = ({ children }) => (
   <Layout>
-    {({ state, group }) => (
-      <h1 className={state === "mount" ? "visible" : "hidden"}>
-        {children} ({state}) ({group})
+    {({ state, group, ref }) => (
+      <h1 ref={ref} className={state === "mount" ? "visible" : "hidden"}>
+        {children} ({state.toString()}) ({group})
       </h1>
     )}
   </Layout>

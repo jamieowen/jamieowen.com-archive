@@ -4,6 +4,9 @@ import {
   renderViewportGrid,
   timerStream,
   timerStreamRandomFrequency,
+  paletteCssNames,
+  paletteComplement,
+  filterContrastRatio2,
 } from "@jamieowen/three-toolkit";
 import {
   MeshBasicMaterial,
@@ -22,8 +25,14 @@ import {
 } from "three";
 import { ShadowMesh } from "three/examples/jsm/objects/ShadowMesh";
 import { repeat } from "@thi.ng/transducers";
-import { CSS_NAMES } from "@thi.ng/color";
+import { CSS_NAMES, rgbaCss } from "@thi.ng/color";
 
+const colors = filterContrastRatio2(
+  paletteComplement(paletteCssNames()),
+  1.4,
+  2
+);
+console.log("Colors", colors.length, colors);
 sketch(({ render, renderer, camera, configure }) => {
   const geometries = createGeometryFactory();
   const gw = 4;
@@ -36,9 +45,13 @@ sketch(({ render, renderer, camera, configure }) => {
     new DirectionalLight("white", 0.6),
   ];
   const scenes = [...repeat(0, gw * gh)].map((x, i) => {
+    const color1 = rgbaCss(colors[i][0]);
+    const color2 = rgbaCss(colors[i][1]);
+
     const geom = geometries.create("sphere");
     const material = new MeshStandardMaterial({
-      color: Object.keys(CSS_NAMES)[i * 4],
+      // color: Object.keys(CSS_NAMES)[i * 4],
+      color: color1,
       flatShading: true,
     });
     const mesh = new Mesh(geom, material);
@@ -46,11 +59,11 @@ sketch(({ render, renderer, camera, configure }) => {
     const scene = new Scene();
     const plane = new Mesh(
       geometries.create("plane"),
-      new MeshStandardMaterial({ color: Object.keys(CSS_NAMES)[i * 2] })
+      new MeshStandardMaterial({ color: color2 })
     );
     plane.receiveShadow = true;
     plane.material.emissiveIntensity = 0.5;
-    plane.material.emissive.setColorName(Object.keys(CSS_NAMES)[i * 2]);
+    plane.material.emissive.set(color2);
     scene.add(plane);
     plane.scale.multiplyScalar(10);
 
@@ -61,7 +74,7 @@ sketch(({ render, renderer, camera, configure }) => {
 
     mesh.castShadow = true;
     scene.receiveShadow = true;
-    const amb = new AmbientLight(0xfffff, 0.2);
+    const amb = new AmbientLight(0xffffff, 0.2);
     const hem = new HemisphereLight();
     hem.intensity = 0.2;
     // scene.add(hem);
@@ -70,6 +83,7 @@ sketch(({ render, renderer, camera, configure }) => {
     const light = lights[i % (lights.length - 1)].clone();
     light.castShadow = true;
     light.intensity = 0.8;
+    light.shadow.camera.left = -2;
     // light.shadow.camera.lef
     scene.add(light);
     const len = gw * gh;
@@ -77,6 +91,7 @@ sketch(({ render, renderer, camera, configure }) => {
     const dist = 5;
     light.position.set(Math.cos(theta) * dist, Math.sin(theta) * dist, 1);
     light.lookAt(0, 0, 0);
+    // light.color.set(color1);
     scene.background = new Color(Object.keys(CSS_NAMES)[i]);
     scene.add(mesh);
 

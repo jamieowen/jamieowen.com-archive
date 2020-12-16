@@ -32,10 +32,7 @@ import * as gscSub from "@thi.ng/geom-subdiv-curve";
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { cloneDeep } from "lodash";
-import {
-  createThreeRenderer,
-  resizeObserverStream,
-} from "@jamieowen/three-toolkit";
+import { resizeObserverStream } from "@jamieowen/three-toolkit";
 
 import {
   Render,
@@ -415,7 +412,7 @@ const createMatterScene = (
   const group = new Group();
   group.add.apply(group, meshes);
 
-  let frame = undefined;
+  let frame: any = undefined;
   const update = () => {
     meshes.forEach((mesh, i) => {
       const body = bodies[i];

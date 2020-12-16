@@ -1,12 +1,12 @@
 {
   "extends": "../tsconfig.json",
+  "include": ["./src/*.ts"],
   "compilerOptions": {
     "baseUrl": "../",
     "paths": {
       "@jamieowen/three-toolkit": ["./packages/three-toolkit/src"],
       "@jamieowen/xlayout": ["./packages/xlayout/src"]
     },
-
     "outDir": "./dist/",
     "noImplicitAny": true,
     "downlevelIteration": true,

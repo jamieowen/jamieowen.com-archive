@@ -4,11 +4,17 @@ const { ESBuildPlugin } = require("esbuild-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const collectEntries = () => {
-  return glob.sync("src/*.ts", { cwd: __dirname }).reduce((entries, path) => {
-    const name = pathUtil.basename(path).replace(".ts", "");
-    entries[name] = pathUtil.resolve(path);
-    return entries;
-  }, {});
+  // return glob.sync("src/*.ts", { cwd: __dirname }).reduce((entries, path) => {
+  return (
+    glob
+      // .sync("src/color-explore-2.ts", { cwd: __dirname })
+      .sync("src/geometry-phase.ts", { cwd: __dirname })
+      .reduce((entries, path) => {
+        const name = pathUtil.basename(path).replace(".ts", "");
+        entries[name] = pathUtil.resolve(path);
+        return entries;
+      }, {})
+  );
 };
 
 const entries = collectEntries();
