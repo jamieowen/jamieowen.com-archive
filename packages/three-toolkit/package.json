@@ -19,6 +19,7 @@
     "@thi.ng/associative": "^5.0.10",
     "@thi.ng/color": "^1.3.2",
     "@thi.ng/ecs": "0.3.32",
+    "@thi.ng/matrices": "^0.6.37",
     "@thi.ng/memoize": "^2.1.5",
     "@thi.ng/rdom": "^0.2.16",
     "@thi.ng/rstream": "^5.0.9",
