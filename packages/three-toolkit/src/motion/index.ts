@@ -2,6 +2,9 @@ import { fromRAF, sync, ISubscribable, reactive } from "@thi.ng/rstream";
 import { comp, map } from "@thi.ng/transducers";
 import { Vec3Like, mixN3 } from "@thi.ng/vectors";
 
+export * from "./types";
+export * from "./particle";
+export * from "./gesture-drag";
 /**
  * Ideas / Notes.
  *
@@ -22,7 +25,7 @@ import { Vec3Like, mixN3 } from "@thi.ng/vectors";
  * 6. Bayrcentric interpolation between multiple streams.
  * 7. Curve streams, Geometry, Typograhy?
  * 8. History / Buffer
- *
+ * 9. Gesture? Throw / Drag / Etc with Inertia
  */
 
 /**
