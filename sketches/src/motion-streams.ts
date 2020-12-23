@@ -10,6 +10,9 @@ import {
   gestureStream2d,
   gestureStream3d,
   GestureType,
+  particleStream,
+  forceStream,
+  dragGestureParticle3d,
 } from "@jamieowen/three-toolkit";
 
 import { Mesh, MeshBasicMaterial, Scene } from "three";
@@ -59,12 +62,23 @@ sketch(({ render, configure, scene, domElement, camera, resize }) => {
   const gesture3d$ = gestureStream3d(domElement, camera, resize);
 
   dragGesture3d(gesture3d$).subscribe({
-    next: (ev) => {
-      if (ev.type === GestureType.DRAG) {
-        grid.position.fromArray(ev.translate);
-      }
+    next: ({ gesture, particle }) => {
+      // console.log("p", particle.position);
+      grid.position.fromArray(particle.position);
     },
   });
+
+  // dragGestureParticle3d(gesture3d$).subscribe({
+  //   next: (ev) => {
+  //     // console.log("POS:");
+  //     grid.position.fromArray(ev.position);
+  //   },
+  // });
+
+  // const [forces$, setForces] = forceStream([]);
+  // const forces$ = forceStream([]);
+  // console.log("FORCE :", forces$);
+  // particleStream(forces$);
 
   configure({
     width: "1024px",

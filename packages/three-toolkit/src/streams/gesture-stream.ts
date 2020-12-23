@@ -8,6 +8,12 @@ import { map } from "@thi.ng/transducers";
 import { Raycaster, Plane, Camera, Vector3 } from "three";
 import { resizeObserverStream } from "./resize-observer-stream";
 
+import { ConsoleLogger, LogLevel } from "@thi.ng/api";
+import { setLogger } from "@thi.ng/rstream";
+
+// set package specific logger instance
+setLogger(new ConsoleLogger("rstream", LogLevel.WARN));
+
 export const gestureStream2d = gestureStream;
 
 export { GestureType } from "@thi.ng/rstream-gestures";

@@ -19,11 +19,11 @@ const addGravity = defn(
 // create compiler?
 const compileJs = targetJS();
 const res = compileJs(addGravity);
-console.log("AST");
-console.log(res);
+// console.log("AST");
+// console.log(res);
 const Module = compileJs.compile(addGravity);
 
-console.log(Module.addGravity([0, 0, 0], [1, 1, 1]));
+// console.log(Module.addGravity([0, 0, 0], [1, 1, 1]));
 
 // export const particleSystem = (components: [], maxCount: 1000) => {
 //   // create buffer per componnet

@@ -1,164 +1,108 @@
-import { fromRAF, ISubscribable, StreamSync, sync } from "@thi.ng/rstream";
-import { GestureStream, GestureType } from "@thi.ng/rstream-gestures";
-import { map } from "@thi.ng/transducers";
-import { Vec3Like, add3, mulN3, Vec3 } from "@thi.ng/vectors";
-import { RafStream } from "./types";
-
-export interface IParticle {
-  acceleration: Vec3Like;
-  velocity: Vec3Like;
-}
-
-export interface ITransform {
-  position: Vec3Like;
-  scale: Vec3Like;
-  rotation: Vec3Like;
-}
+import { ISubscribable, reactive, Stream } from "@thi.ng/rstream";
+import {
+  add3,
+  clampN3,
+  mulN3,
+  normalize,
+  set3,
+  Vec3,
+  Vec3Like,
+} from "@thi.ng/vectors";
+import { motionStream } from "./motion-stream";
+import { IForce, IParticle, ITransform, RafStream } from "./types";
 
 export class Transform implements ITransform {
-  position: [0, 0, 0];
-  scale: [0, 0, 0];
-  rotation: [0, 0, 0];
+  position: Vec3Like = [0, 0, 0];
+  scale: Vec3Like = [1, 1, 1];
+  rotation: Vec3Like = [0, 0, 0];
 }
 
 export class Particle extends Transform implements IParticle {
-  acceleration: [0, 0, 0];
-  velocity: [0, 0, 0];
+  acceleration: Vec3Like = [0, 0, 0];
+  velocity: Vec3Like = [0, 0, 0];
 }
 
-export type IForce = (particle: IParticle) => Vec3Like;
+export const updateParticle = (particle: IParticle, forces: IForce[]) => {
+  const { acceleration, velocity, position } = particle;
+  forces.forEach((f) => add3(null, acceleration, f(particle)));
+  add3(null, velocity, acceleration);
+  mulN3(null, acceleration, 0);
+  add3(null, position, velocity);
+  // mulN3(null, velocity, 0.75);
+};
 
-export const applyForce = () => {};
+export const limitVelocityN = (particle: IParticle, speed: number) => {
+  clampN3(null, particle.velocity, -speed, speed);
+};
+
+export const forceGravity = (grav: number = 1) => (): IForce => {
+  return (_p) => {
+    return [0, grav, 0];
+  };
+};
+
+export const forceFriction = (friction: number = 0.2): IForce => {
+  const res: Vec3Like = [0, 0, 0];
+  return (p) => {
+    set3(res, p.velocity);
+    mulN3(null, res, -1);
+    // normalize?
+    mulN3(null, res, friction);
+    return res;
+  };
+};
+
+export type ForceStream = Stream<{ forces: IForce[]; pulses: IForce[] }>;
+export const forceStream = (
+  // continous forces
+  forces: IForce[],
+  // 'one hit' pulses
+  pulses?: IForce[]
+): [ForceStream, (forces: IForce[], pulses: IForce[]) => void] => {
+  const stream = reactive({ forces, pulses });
+  const setForces = (forces: IForce[], pulses: IForce[] = []) => {
+    stream.next({ forces, pulses });
+  };
+  return [stream, setForces];
+};
+
+export type ParticleMotionConfig = {
+  maxSpeed?: number;
+};
+
 /**
  * A singular particle Stream class for use in simple
  * particle style effects.  Think gestures ( throw, drag, etc ) and
  * simple primary motion elements like mouse follow effects.
  */
-// export class ParticleStream
-//   extends StreamSync<{ raf: RafStream }>
-//   implements IParticle {
-//   acceleration: [0, 0, 0];
-//   velocity: [0, 0, 0];
-//   position: [0, 0, 0];
-//   forces: IForce[];
-//   // mass, friction?
-
-//   constructor(raf: RafStream = fromRAF()) {
-//     super({
-//       src: {
-//         raf,
-//       },
-//       xform: map((val) => {
-//         // update
-//         this.forces.forEach((f) => add3(null, this.acceleration, f(this)));
-//         add3(null, this.velocity, this.acceleration);
-//         mulN3(null, this.acceleration, 0);
-//         add3(null, this.position, this.velocity);
-
-//         return val;
-
-//         /**
-//           velocity.add(acceleration);
-//           velocity.limit(topspeed);
-//           location.add(velocity);
-//       * */
-//       }),
-//     });
-//   }
-
-//   addForce(force: IForce) {
-//     this.forces.push(force);
-//   }
-
-//   removeForce(for)
-// }
-
-// HOW BEST TO SRUCTIRE A PARTICLE?
-// ABOVE IS THE STREMA CLASS APPRACH.
-// BELOW WOULD BE A FUNCTION STREAM ONLY.
-// PERHAPS A 3rd OPION IS TO CREATE A PARTICLE CLASS
-// IN USUAL OO SETUP, THEN USE AN INSTANCE
-// OF THAT IN THE DRAG GESTURE STREAM
-// THE MOTION BLEND STUFF IS NICE - IN THAT IT IS RETURNING
-// BASIC POSITION STREAM EVENTS. ALL EVAULATING TO A POSITION
-// SHOULD THE PARTICLES BE ADAPTABLE TO THIS?
-// PERHAPS THE PARTICLE SHOULD BE A CLASS, THIS WAY A NUMBER OF
-// THEN CAN BE CONTROLLED IN TYPICAL WAY WITH A SYSTEM OBJECT. NOT THE SAME AS THE GPI/CPU SYS THOUGH.
-// THEN THE POSITION EVENT IS COMPATITLE WITH OTHER VEC STREAMS.
-
-// type ParticleStream = StreamSync<
 export const particleStream = (
-  rafStream?: RafStream,
-  opts?: { forces: IForce[] }
+  force$: ForceStream,
+  config?: ISubscribable<ParticleMotionConfig>,
+  raf?: RafStream
 ) => {
-  const acceleration = [0, 0, 0];
-  const velocity = [0, 0, 0];
-  const position = [0, 0, 0];
+  config =
+    config == undefined
+      ? reactive({
+          maxSpeed: 10,
+        })
+      : config;
+  const particle = new Particle();
 
-  const forces = [];
-
-  // Not entirely sold on passing api methods down stream.
-  // Seems like these should be class methods.
-  const addForce = () => {};
-  const removeForce = () => {};
-  const addForceOnce = () => {};
-
-  return sync({
-    src: {
-      raf: fromRAF(),
+  let { forces, pulses } = force$.deref();
+  force$.subscribe({
+    next: (f) => {
+      forces = f.forces;
+      pulses = f.pulses;
     },
-    xform: map(() => {
-      //         this.forces.forEach((f) => add3(null, this.acceleration, f(this)));
-      //         add3(null, this.velocity, this.acceleration);
-      //         mulN3(null, this.acceleration, 0);
-      //         add3(null, this.position, this.velocity);
-    }),
   });
-};
-
-/**
- * Applies a drag force to a particle and returns the particle
- * stream.
- *
- * @param gesture
- * @param raf
- * @param particle
- * @param opts
- */
-export const dragParticleGesture = (
-  gesture: GestureStream,
-  particle?: ParticleStream,
-  opts?: {}
-) => {
-  // convert raf to delta time ?
-  if (!particle) {
-    particle = new ParticleStream();
-  }
-
-  return sync({
-    src: {
-      gesture,
-      particle,
-    },
-    xform: map(({ gesture, particle }) => {
-      // store state? ( scan? )
-      // drag
-      // gesture down
-      switch (gesture.type) {
-        case GestureType.START:
-          break;
-        case GestureType.END:
-          break;
-        case GestureType.DRAG:
-          console.log("DRAG", gesture);
-          break;
-      }
-
+  return motionStream<ParticleMotionConfig, IParticle>(
+    (_time, _cfg) => {
+      updateParticle(particle, [...forces, ...pulses]);
+      limitVelocityN(particle, _cfg.maxSpeed);
+      pulses.splice(0);
       return particle;
-      // gesture move
-      // gesture release
-      // apply force
-      // inertia
-    }),
-  });
+    },
+    config,
+    raf
+  );
 };

@@ -18,6 +18,7 @@ export function resizeObserverStream(
       const height = entry.contentRect.height;
       stream.next({ width, height, entry, domElement });
     };
+    stream.next({ width: 0, height: 0, entry: null, domElement });
 
     const observer = new ResizeObserver(callback);
     observer.observe(domElement, opts);
