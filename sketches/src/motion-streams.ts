@@ -38,13 +38,13 @@ sketch(({ render, configure, scene, domElement, camera, resize }) => {
 
   motionRadialOrbit(motionConfig({ radius: 4, speed: 0.1 })).subscribe({
     next: (val) => {
-      mesh1.position.fromArray(val);
+      mesh1.position.fromArray(val.position);
     },
   });
 
   motionFigure8Orbit(motionConfig({ radius: 2, speed: 0.01 })).subscribe({
     next: (val) => {
-      mesh2.position.fromArray(val);
+      mesh2.position.fromArray(val.position);
     },
   });
 

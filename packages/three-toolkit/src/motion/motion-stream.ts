@@ -1,6 +1,13 @@
-import { sync, ISubscribable, reactive } from "@thi.ng/rstream";
+import {
+  sync,
+  ISubscribable,
+  reactive,
+  Stream,
+  StreamSync,
+} from "@thi.ng/rstream";
 import { comp, map } from "@thi.ng/transducers";
 import { Vec3Like, mixN3 } from "@thi.ng/vectors";
+import { Transform } from "./particle";
 import { DEFAULT_RAF_STREAM, RafStream } from "./types";
 
 /**
@@ -37,11 +44,12 @@ export const motionConfig = reactive;
  * @param config
  * @param raf
  */
-export function motionStream<C = any, T = Vec3Like>(
+export type MotionStream<T extends Transform = Transform> = StreamSync<any, T>; // types?
+export function motionStream<C = any, T extends Transform = Transform>(
   update: (time: number, cfg: C) => T,
   config: ISubscribable<C>,
   raf: RafStream = DEFAULT_RAF_STREAM()
-) {
+): MotionStream<T> {
   const cfg = config || reactive({} as C);
   const stream = sync({
     src: {
@@ -59,13 +67,14 @@ export function motionStream<C = any, T = Vec3Like>(
 }
 
 // Blend should be a config...
-export const motionBlend = (blend: number, a, b) =>
+// WIP
+export const motionBlend = (blend: number, a: MotionStream, b: MotionStream) =>
   sync({
     src: {
       a,
       b,
     },
     xform: map(({ a, b }) => {
-      return mixN3([], a, b, blend);
+      return mixN3([], a.position, b.position, blend);
     }),
   });
