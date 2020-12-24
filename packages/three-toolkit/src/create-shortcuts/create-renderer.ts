@@ -24,7 +24,6 @@ export const createRenderer = (
   const resize = resizeObserverStream(domElement);
   resize.subscribe({
     next: ({ entry, width, height }) => {
-      console.log(width, height);
       renderer.setSize(width, height);
     },
   });

@@ -37,6 +37,7 @@ import { DEFAULT_RAF_STREAM, RafStream } from "./types";
  * Export reactive helper for wrapping motion config objects.
  */
 export const motionConfig = reactive;
+export { reactive };
 
 /**
  * Base composable tween like stream emitting some customisable motion style.

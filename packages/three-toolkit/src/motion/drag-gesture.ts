@@ -64,7 +64,7 @@ export const dragGesture3d = (
     friction: number;
   }> = {}
 ) => {
-  const { maxSpeed = 0.8, friction = 0.09 } = opts;
+  const { maxSpeed = 0.8, friction = 0.12 } = opts;
   // gesture position
   let translate: Vec;
   let delta: Vec;
