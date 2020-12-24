@@ -1,8 +1,7 @@
 import {
   sketch,
   createGeometryFactory,
-  infiniteGridIterator,
-  infiniteGrid,
+  infiniteSubGrid,
   createGridHelper,
   GridOpts,
   reactive,
@@ -85,7 +84,7 @@ sketch(({ scene, camera, render, configure, domElement, resize }) => {
   group.position.x = 7 / 2;
   group.position.z = 5 / 2;
 
-  infiniteGrid<Mesh>(position, opts, {
+  infiniteSubGrid<Mesh>(position, opts, {
     add: (cell) => {
       return createMesh(cell.id);
     },

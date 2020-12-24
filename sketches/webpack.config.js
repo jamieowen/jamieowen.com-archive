@@ -10,7 +10,8 @@ const collectEntries = () => {
       // .sync("src/color-explore-2.ts", { cwd: __dirname })
       // .sync("src/geometry-phase.ts", { cwd: __dirname })
       // .sync("src/motion-streams.ts", { cwd: __dirname })
-      .sync("src/subgrid-1.ts", { cwd: __dirname })
+      // .sync("src/infinite-subgrid-1.ts", { cwd: __dirname })
+      .sync("src/infinite-subgrid-1.ts", { cwd: __dirname })
       .reduce((entries, path) => {
         const name = pathUtil.basename(path).replace(".ts", "");
         entries[name] = pathUtil.resolve(path);

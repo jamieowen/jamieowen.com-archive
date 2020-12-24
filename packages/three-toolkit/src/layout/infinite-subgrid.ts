@@ -2,7 +2,7 @@ import { ISubscribable, sync } from "@thi.ng/rstream";
 import { comp, iterator, map, range2d } from "@thi.ng/transducers";
 import { ChangeMap } from "./change-map";
 import { szudzikPairSigned } from "./pairing-functions";
-import { GridCell, GridOpts } from "./grid-types";
+import { SubGridCell, SubGridOpts } from "./grid-types";
 
 /**
  *
@@ -12,9 +12,9 @@ import { GridCell, GridOpts } from "./grid-types";
  * @param position
  * @param opts
  */
-export const infiniteGridIterator = (
+export const infiniteSubGridIterator = (
   position: [number, number],
-  opts: GridOpts
+  opts: SubGridOpts
 ) => {
   const [gw, gh] = opts.dimensions;
   const [vw, vh] = opts.viewport;
@@ -46,7 +46,7 @@ export const infiniteGridIterator = (
           cell: [x, y],
           world: [wx, wy],
           local: [wx - px, wy - py],
-        } as GridCell;
+        } as SubGridCell;
       })
     ),
     range2d(fromX, toX, fromY, toY)
@@ -58,13 +58,13 @@ export const infiniteGridIterator = (
  * @param position
  * @param opts
  */
-export function infiniteGrid<T = any>(
+export function infiniteSubGrid<T = any>(
   position: ISubscribable<[number, number]>,
-  opts: ISubscribable<GridOpts>,
+  opts: ISubscribable<SubGridOpts>,
   handle: {
-    add: (cell: GridCell) => T;
+    add: (cell: SubGridCell) => T;
     remove: (id: number, handler: T) => void;
-    update: (cell: GridCell, handler: T) => void;
+    update: (cell: SubGridCell, handler: T) => void;
   }
 ) {
   const changeMap = new ChangeMap<number, T>();
@@ -75,7 +75,7 @@ export function infiniteGrid<T = any>(
       opts,
     },
     xform: map(({ opts, position }) => {
-      const gridIterator = infiniteGridIterator(position, opts);
+      const gridIterator = infiniteSubGridIterator(position, opts);
       res.splice(0);
       for (let cell of gridIterator) {
         const handler = changeMap.set(cell.id, () => handle.add(cell));
