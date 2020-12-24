@@ -37,9 +37,7 @@ export const infiniteGridIterator = (
   // start cell x/y
   const xx = Math.floor(px / gw);
   const yy = Math.floor(py / gh);
-  // x,y offset
-  const xo = px % gw;
-  const yo = py % gh;
+
   // cell row / cols
   const xc = Math.ceil(vw / gw);
   const yc = Math.ceil(vh / gh);

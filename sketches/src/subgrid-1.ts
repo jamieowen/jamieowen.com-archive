@@ -9,9 +9,29 @@ import {
   GeometryAlignment,
   gestureStream3d,
   dragGesture3d,
+  paletteCssNames,
 } from "@jamieowen/three-toolkit";
 
-import { MeshBasicMaterial, Mesh, Scene, Group, Object3D } from "three";
+import {
+  MeshStandardMaterial,
+  Mesh,
+  Group,
+  DirectionalLight,
+  PointLight,
+} from "three";
+import { Smush32 } from "@thi.ng/random";
+
+const smush = new Smush32();
+const randomForId = (id: number) => {
+  smush.seed(id);
+  return smush.float(1);
+};
+const cssNames = paletteCssNames();
+const randomColor = (id: number) => {
+  const rand = randomForId(id);
+  const idx = Math.round(rand * (cssNames.length - 1));
+  return cssNames[idx];
+};
 
 sketch(({ scene, camera, render, configure, domElement, resize }) => {
   const geometries = createGeometryFactory();
@@ -19,27 +39,32 @@ sketch(({ scene, camera, render, configure, domElement, resize }) => {
   const meshPool: Mesh[] = [];
   const gridHelper = createGridHelper();
   const group = new Group();
+  const light = new DirectionalLight(0xffffff, 0.4);
+  const plight = new PointLight();
+
+  light.position.set(1, 4, 2);
+  plight.position.set(0.2, 1, 0);
+
+  scene.add(light);
+  scene.add(plight);
   scene.add(group);
   scene.add(gridHelper);
-
-  // camera.far = 100000;
-  // camera.position.z = 2000;
-  // camera.updateProjectionMatrix();
 
   configure({
     width: "1024px",
     height: "768px",
   });
 
-  const createMesh = () => {
-    let mesh;
+  const createMesh = (id: number) => {
+    let mesh: Mesh;
     if (meshPool.length > 0) {
       mesh = meshPool.shift();
-      console.log("retrieeve", meshPool.length);
     } else {
-      mesh = new Mesh(cube, new MeshBasicMaterial({ color: "white" }));
-      mesh.scale.multiplyScalar(0.9);
+      mesh = new Mesh(cube, new MeshStandardMaterial({ color: "white" }));
+      mesh.scale.multiplyScalar(0.8);
     }
+    const color = randomColor(id);
+    (mesh.material as MeshStandardMaterial).color.fromArray(color);
     group.add(mesh);
     return mesh;
   };
@@ -52,23 +77,19 @@ sketch(({ scene, camera, render, configure, domElement, resize }) => {
   const position = reactive([0, 0] as [number, number]);
   const opts = reactive<GridOpts>({
     dimensions: [1, 1],
-    viewport: [10, 4],
+    viewport: [7, 5],
   });
-  group.position.x = 10 / 2;
-  group.position.z = 4 / 2;
+  group.position.x = 7 / 2;
+  group.position.z = 5 / 2;
 
   infiniteGrid<Mesh>(position, opts, {
     add: (cell) => {
-      // console.log("Add", cell.id);
-      const mesh = createMesh();
-      return mesh;
+      return createMesh(cell.id);
     },
     remove: (id, mesh) => {
-      // console.log("Remove", id);
       poolMesh(mesh);
     },
     update: (cell, mesh) => {
-      // console.log("update", cell.local);
       mesh.position.x = -cell.local[0];
       mesh.position.z = -cell.local[1];
     },
@@ -76,21 +97,9 @@ sketch(({ scene, camera, render, configure, domElement, resize }) => {
 
   dragGesture3d(gestureStream3d(domElement, camera, resize), {}).subscribe({
     next: ({ particle }) => {
-      const xy = [particle.position[0], particle.position[2]] as [
-        number,
-        number
-      ];
       position.next([particle.position[0], particle.position[2]]);
     },
   });
-
-  // console.log("next");
-  // console.log("");
-  // position.next([10, 10]);
-  // console.log("after");
-  // console.log("");
-  // position.next([300, 300]);
-  // console.log("Length:", cells.length);
 
   render(() => {});
 });
