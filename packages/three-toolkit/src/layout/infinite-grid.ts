@@ -75,14 +75,16 @@ export const infiniteGridIterator = (
 export function infiniteGrid<T = any>(
   position: ISubscribable<[number, number]>,
   opts: ISubscribable<GridOpts>,
-  handler: {
+  handle: {
     add: (cell: GridCell) => T;
-    remove: (cell: GridCell) => T;
-    update: (cell: GridCell, mapped: T) => void;
+    remove: (id: number, handler: T) => void;
+    update: (cell: GridCell, handler: T) => void;
   }
 ) {
-  let swap = new Map();
-  let visible = new Set();
+  let prev = new Map<number, T>();
+  let visible = new Map<number, T>();
+  let swap: any;
+  let res = [];
 
   return sync({
     src: {
@@ -90,14 +92,26 @@ export function infiniteGrid<T = any>(
       opts,
     },
     xform: map(({ opts, position }) => {
-      // console.log("Grid Create", position);
-      // check position change before iterator.
       const gridIterator = infiniteGridIterator(position, opts);
+      res.splice(0);
       for (let cell of gridIterator) {
-        console.log(cell);
+        let handler = prev.get(cell.id);
+        if (!handler) {
+          handler = handle.add(cell);
+        }
+        prev.delete(cell.id);
+        visible.set(cell.id, handler);
+        handle.update(cell, handler);
+        res.push(cell);
       }
-      // return [...infiniteGridIterator(position, opts)];
-      return null;
+      for (let [id, handler] of prev.entries()) {
+        handle.remove(id, handler);
+      }
+      prev.clear();
+      swap = prev;
+      prev = visible;
+      visible = swap;
+      return res;
     }),
   });
 }
