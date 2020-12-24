@@ -1,5 +1,6 @@
 import { ISubscribable, sync } from "@thi.ng/rstream";
 import { comp, iterator, map, range2d } from "@thi.ng/transducers";
+import { ChangeMap } from "./change-map";
 import { szudzikPairSigned } from "./pairing-functions";
 
 export type GridOpts = {
@@ -79,11 +80,8 @@ export function infiniteGrid<T = any>(
     update: (cell: GridCell, handler: T) => void;
   }
 ) {
-  let prev = new Map<number, T>();
-  let visible = new Map<number, T>();
-  let swap: any;
+  const changeMap = new ChangeMap<number, T>();
   let res = [];
-
   return sync({
     src: {
       position,
@@ -93,22 +91,11 @@ export function infiniteGrid<T = any>(
       const gridIterator = infiniteGridIterator(position, opts);
       res.splice(0);
       for (let cell of gridIterator) {
-        let handler = prev.get(cell.id);
-        if (!handler) {
-          handler = handle.add(cell);
-        }
-        prev.delete(cell.id);
-        visible.set(cell.id, handler);
+        const handler = changeMap.set(cell.id, () => handle.add(cell));
         handle.update(cell, handler);
         res.push(cell);
       }
-      for (let [id, handler] of prev.entries()) {
-        handle.remove(id, handler);
-      }
-      prev.clear();
-      swap = prev;
-      prev = visible;
-      visible = swap;
+      changeMap.next((id, val) => handle.remove(id, val));
       return res;
     }),
   });

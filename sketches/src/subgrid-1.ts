@@ -45,6 +45,9 @@ sketch(({ scene, camera, render, configure, domElement, resize }) => {
   light.position.set(1, 4, 2);
   plight.position.set(0.2, 1, 0);
 
+  camera.near = 0.5;
+  camera.updateProjectionMatrix();
+
   scene.add(light);
   scene.add(plight);
   scene.add(group);
