@@ -27,8 +27,8 @@ export const infiniteGridIterator = (
   const fromY = Math.floor(py / gh);
 
   // cell row / cols
-  const xCount = Math.ceil(vw / gw);
-  const yCount = Math.ceil(vh / gh);
+  const xCount = Math.ceil(vw / gw) + 1;
+  const yCount = Math.ceil(vh / gh) + 1;
 
   const toX = fromX + xCount;
   const toY = fromY + yCount;

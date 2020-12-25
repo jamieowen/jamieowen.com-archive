@@ -17,6 +17,7 @@ import {
   Group,
   DirectionalLight,
   PointLight,
+  Matrix4,
 } from "three";
 import { Smush32 } from "@thi.ng/random";
 
@@ -35,6 +36,7 @@ const randomColor = (id: number) => {
 sketch(({ scene, camera, render, configure, domElement, resize }) => {
   const geometries = createGeometryFactory();
   const cube = geometries.create("box", GeometryAlignment.CENTER);
+  cube.applyMatrix4(new Matrix4().makeTranslation(0.5, 0, 0.5));
   const meshPool: Mesh[] = [];
   const gridHelper = createGridHelper();
   const group = new Group();
@@ -63,7 +65,7 @@ sketch(({ scene, camera, render, configure, domElement, resize }) => {
       mesh = meshPool.shift();
     } else {
       mesh = new Mesh(cube, new MeshStandardMaterial({ color: "white" }));
-      mesh.scale.multiplyScalar(0.8);
+      mesh.scale.multiplyScalar(0.95);
     }
     const color = randomColor(id);
     (mesh.material as MeshStandardMaterial).color.fromArray(color);
@@ -81,8 +83,8 @@ sketch(({ scene, camera, render, configure, domElement, resize }) => {
     dimensions: [1, 1],
     viewport: [7, 5],
   });
-  group.position.x = 7 / 2;
-  group.position.z = 5 / 2;
+  group.position.x = -7 / 2;
+  group.position.z = -5 / 2;
 
   infiniteGrid<Mesh>(position, opts, {
     add: (cell) => {
@@ -92,14 +94,14 @@ sketch(({ scene, camera, render, configure, domElement, resize }) => {
       poolMesh(mesh);
     },
     update: (cell, mesh) => {
-      mesh.position.x = -cell.local[0];
-      mesh.position.z = -cell.local[1];
+      mesh.position.x = cell.local[0];
+      mesh.position.z = cell.local[1];
     },
   });
 
   dragGesture3d(gestureStream3d(domElement, camera, resize), {}).subscribe({
     next: ({ particle }) => {
-      position.next([particle.position[0], particle.position[2]]);
+      position.next([-particle.position[0], -particle.position[2]]);
     },
   });
 
