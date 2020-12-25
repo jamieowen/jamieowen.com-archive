@@ -23,17 +23,15 @@ export const infiniteGridIterator = (
   const py = position[1];
 
   // start cell x/y
-  const xx = Math.floor(px / gw);
-  const yy = Math.floor(py / gh);
+  const fromX = Math.floor(px / gw);
+  const fromY = Math.floor(py / gh);
 
   // cell row / cols
-  const xc = Math.ceil(vw / gw);
-  const yc = Math.ceil(vh / gh);
+  const xCount = Math.ceil(vw / gw);
+  const yCount = Math.ceil(vh / gh);
 
-  const fromX = xx;
-  const fromY = yy;
-  const toX = xx + xc;
-  const toY = yy + yc;
+  const toX = fromX + xCount;
+  const toY = fromY + yCount;
 
   return iterator(
     comp(

@@ -1,8 +1,9 @@
 import { ISubscribable, sync } from "@thi.ng/rstream";
-import { comp, iterator, map, range2d } from "@thi.ng/transducers";
+import { comp, iterator, map } from "@thi.ng/transducers";
 import { ChangeMap } from "./change-map";
 import { szudzikPairSigned } from "./pairing-functions";
 import { SubGridCell, SubGridOpts } from "./grid-types";
+import { subdivRange2dIterator, mapSubdivideIf } from "./grid-rfn";
 
 /**
  *
@@ -23,33 +24,43 @@ export const infiniteSubGridIterator = (
   const py = position[1];
 
   // start cell x/y
-  const xx = Math.floor(px / gw);
-  const yy = Math.floor(py / gh);
+  const fromX = Math.floor(px / gw);
+  const fromY = Math.floor(py / gh);
 
   // cell row / cols
-  const xc = Math.ceil(vw / gw);
-  const yc = Math.ceil(vh / gh);
+  const xCount = Math.ceil(vw / gw) + 1;
+  const yCount = Math.ceil(vh / gh) + 1;
 
-  const fromX = xx;
-  const fromY = yy;
-  const toX = xx + xc;
-  const toY = yy + yc;
+  const toX = fromX + xCount;
+  const toY = fromY + yCount;
+
+  const { maxDepth = 1, subdivide = () => true } = opts;
+  const subdivScale = Math.pow(4, maxDepth);
+  const idGen = (x: number, y: number) =>
+    szudzikPairSigned(x * subdivScale, y * subdivScale);
+
+  // todo: ? unroll loops to a number of depths?
+  const compDivide = [];
+  for (let i = 0; i < maxDepth; i++) {
+    compDivide.push(mapSubdivideIf(idGen, subdivide));
+  }
 
   return iterator(
     comp(
-      map(([x, y]) => {
+      comp.apply(comp, compDivide),
+      map(([id, x, y, step, depth]) => {
         const wx = x * gw;
         const wy = y * gh;
-        const id = szudzikPairSigned(x, y);
         return {
           id,
-          cell: [x, y],
+          cell: [x, step],
           world: [wx, wy],
           local: [wx - px, wy - py],
+          depth,
         } as SubGridCell;
       })
     ),
-    range2d(fromX, toX, fromY, toY)
+    subdivRange2dIterator(fromX, toX, fromY, toY, 1, 0, idGen)
   );
 };
 

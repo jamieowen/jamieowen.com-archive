@@ -5,10 +5,21 @@ export type GridOpts = {
   viewport: [number, number];
 };
 
+export type SubdivCond = (item: SubdivItem) => boolean;
 export type SubGridOpts = GridOpts & {
   maxDepth: number;
-  subdivide: (depth: number) => boolean;
+  subdivide: SubdivCond;
 };
+
+export type GridIdGen = (x: number, y: number) => number;
+
+export type SubdivItem = [
+  id: number,
+  x: number,
+  y: number,
+  step: number,
+  depth: number
+];
 
 export type GridCell = {
   id: number;
