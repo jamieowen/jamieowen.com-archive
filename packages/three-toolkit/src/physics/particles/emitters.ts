@@ -1,12 +1,20 @@
-export class PointEmitter {
-  // dependencies =
-  constructor() {}
+import { Stream } from "@thi.ng/rstream";
+import { EmitterDef, EmitterEvent, EmitterStream, IEmitter } from "./types";
 
-  emit(count: number) {
-    // emit a stream event to be handled by system
+export class Emitter implements IEmitter {
+  stream: EmitterStream;
+
+  constructor(public definition: EmitterDef) {
+    this.stream = new Stream<EmitterEvent>();
   }
-
-  update() {}
-
-  create() {}
+  emit() {
+    this.stream.next({
+      type: "emit",
+      emitter: this,
+    });
+  }
 }
+
+export const emitter = (def: EmitterDef) => {
+  return new Emitter(def);
+};
