@@ -1,4 +1,4 @@
-import { Layout } from "@jamieowen/motion-layout";
+import { Layout, LayoutGroup } from "@jamieowen/motion-layout";
 import React, { FC, Fragment } from "react";
 
 const Line: FC<any> = ({ children }) => {
@@ -39,13 +39,13 @@ const splitWords = textLines.join(" ").split(" ");
 
 export default function Intersection() {
   return (
-    <Fragment>
+    <LayoutGroup>
       {textLines.map((t, i) => (
         <Line key={i}>{t}</Line>
       ))}
       {splitWords.map((t, i) => (
         <Word key={i}>{t} </Word>
       ))}
-    </Fragment>
+    </LayoutGroup>
   );
 }

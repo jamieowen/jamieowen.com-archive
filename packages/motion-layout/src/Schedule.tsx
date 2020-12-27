@@ -100,6 +100,8 @@ export class Schedule extends Component<ScheduleProps, ScheduleState> {
     this.context.onIntersectionObserverEntry(this, entry);
   };
 
+  setPendingState(state: Partial<Exclude<ScheduleState, "">>) {}
+
   render() {
     return (
       <LayoutGroupContext.Consumer>

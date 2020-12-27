@@ -29,6 +29,7 @@ export interface ScheduleStateSchema extends StateSchema {
     };
     visibility: {
       states: {
+        initialise: {};
         visible: {};
         hidden: {};
       };
@@ -51,8 +52,12 @@ export type ScheduleEvent =
   | { type: "MOUNTED"; timestamp: number; delay: number }
   | { type: "UNMOUNT"; timestamp: number; delay: number }
   | { type: "UNMOUNTED"; timestamp: number; delay: number }
-  | { type: "INTERSECT"; entry: IntersectionObserverEntry }
-  | { type: "VISIBILITY"; entry: IntersectionObserverEntry };
+  | {
+      type: "INTERSECT";
+      timestamp: number;
+      entry: IntersectionObserverEntry;
+      delay: number;
+    };
 
 export type ScheduleInterpreter = Interpreter<
   ScheduleStateContext,
@@ -106,8 +111,45 @@ export const scheduleMachine: MachineConfig<
       },
     },
     visibility: {
-      initial: "hidden",
+      initial: "initialise",
+      always: [
+        {
+          cond: (_context, event) => {
+            console.log("CONF", event, _context, event.type);
+            return event.type === "INTERSECT";
+          },
+          actions: assign((context) => {
+            console.log("okok");
+            return context;
+          }),
+        },
+      ],
       states: {
+        initialise: {
+          on: {
+            INTERSECT: [
+              {
+                target: "hidden",
+                cond: (_context, event) => !event.entry.isIntersecting,
+              },
+              {
+                target: "visible",
+                cond: (_context, event) => event.entry.isIntersecting,
+              },
+              {
+                actions: assign((context, event) => {
+                  console.log("ASSIGN INIT", event);
+                  return {
+                    ...context,
+                    entry: event.entry,
+                    ratio: event.entry.intersectionRatio,
+                    visible: event.entry.isIntersecting,
+                  };
+                }),
+              },
+            ],
+          },
+        },
         visible: {
           on: {
             INTERSECT: [
@@ -117,6 +159,7 @@ export const scheduleMachine: MachineConfig<
               },
               {
                 actions: assign((context, event) => {
+                  console.log("ASSIGN VISBILITY", event);
                   return {
                     ...context,
                     entry: event.entry,
@@ -137,6 +180,7 @@ export const scheduleMachine: MachineConfig<
               },
               {
                 actions: assign((context, event) => {
+                  console.log("ASSIGN VISBILITY FROM HIDDEN", event);
                   return {
                     ...context,
                     entry: event.entry,
@@ -162,6 +206,17 @@ export const scheduleMachine: MachineConfig<
     },
   },
 };
+
+// Actions
+const assignIntersectEntry = assign((context, event) => {
+  console.log("ASSIGN VISBILITY FROM HIDDEN", event);
+  return {
+    ...context,
+    entry: event.entry,
+    ratio: event.entry.intersectionRatio,
+    visible: event.entry.isIntersecting,
+  };
+});
 
 // state options.
 // initialise

@@ -54,11 +54,12 @@ export class Scheduler extends Component<SchedulerProps, {}> {
   }
 
   shouldComponentUpdate() {
-    return true;
+    return true; //this.invalidated;
   }
 
   invalidate() {
     if (!this.invalidated) {
+      console.log("Invalidated...");
       this.invalidated = true;
       requestAnimationFrame(this.onRequestFrameCallback);
     }
@@ -80,40 +81,72 @@ export class Scheduler extends Component<SchedulerProps, {}> {
     this.commitIntersectionChanges(time);
   };
 
+  /**
+   * Commit changes to state machines, caused by
+   * intersection observer events.
+   * @param time
+   */
   commitIntersectionChanges(time: number) {
     const entries = this.changedIntersections.entries();
 
-    const visibleQ = [];
-    const hiddenQ = [];
+    console.log("Commit Chnages : ");
+    const events: [Schedule, ScheduleEvent][] = [];
+    const delayedEvents: ScheduleEvent[] = [];
+
+    // Create events and categorise for assigning delay sequence
     for (let [schedule, entry] of entries) {
-      const current = schedule.getService().state.value;
-      // console.log("Current", current);
-      // calc info
-      // const bounds = entry.boundingClientRect;
-      // const ratio = entry.intersectionRatio;
-      // const visible = entry.isIntersecting;
-      // const events: ScheduleEvent[] = [];
-
-      // if (visible) {
-      //   events.push({type:'MOUNT',timestamp:time,delay:0})
-      //   events.push({type:'MOUNT',timestamp:time,delay:0})
-      // }else{
-
-      // }
-
-      // events.push({ type: "INTERSECT", entry });
-      entry.boundingClientRect;
-      schedule.getService().send({ type: "INTERSECT", entry });
-      // if( visible )
-      // visibleQ.push({
-      //   schedule,
-      //   events,
-      //   bounds,
-      //   ratio,
-      //   visible,
-      // });
+      const event: ScheduleEvent = {
+        type: "INTERSECT",
+        entry,
+        delay: 0,
+        timestamp: time,
+      };
+      events.push([schedule, event]);
+      if (entry.isIntersecting) {
+        delayedEvents.push(event);
+      }
     }
 
+    // Assign Sort Order
+    delayedEvents.forEach((event, i) => {
+      event.delay = i * 200;
+    });
+
+    console.log("events:", events.length, events);
+    // Send Events
+    events.forEach(([schedule, event]) => {
+      schedule.getService().send(event);
+    });
+
+    // Reset and Clear
+    this.invalidated = false;
+    this.changedIntersections.clear();
+
+    // console.log("Current", current);
+    // calc info
+    // const bounds = entry.boundingClientRect;
+    // const ratio = entry.intersectionRatio;
+    // const visible = entry.isIntersecting;
+    // const events: ScheduleEvent[] = [];
+
+    // if (visible) {
+    //   events.push({type:'MOUNT',timestamp:time,delay:0})
+    //   events.push({type:'MOUNT',timestamp:time,delay:0})
+    // }else{
+
+    // }
+
+    // events.push({ type: "INTERSECT", entry });
+    // entry.boundingClientRect;
+    // schedule.getService().send({ type: "INTERSECT", entry });
+    // if( visible )
+    // visibleQ.push({
+    //   schedule,
+    //   events,
+    //   bounds,
+    //   ratio,
+    //   visible,
+    // });
     // sort.
 
     // visibleQ.forEach((entry,i)=>{
@@ -122,8 +155,6 @@ export class Scheduler extends Component<SchedulerProps, {}> {
     //   const events = entry.events.map((ev)=>({...event,delay:}))
     //   serv.send(entry.events);
     // })
-    this.invalidated = false;
-    this.changedIntersections.clear();
   }
 
   render() {
