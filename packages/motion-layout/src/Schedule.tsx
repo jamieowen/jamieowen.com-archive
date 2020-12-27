@@ -5,14 +5,12 @@ import React, {
   createRef,
   RefObject,
 } from "react";
-import { StateValue } from "xstate";
 import { LayoutGroupContext, LayoutGroupInfo } from "./LayoutGroup";
-import { createInterpreter, ScheduleInterpreter } from "./state-machine";
 import { LayoutObserverApi, LayoutObserverContext } from "./LayoutObserver";
 import { SchedulerContext } from "./Scheduler";
 
 /** React State & Props Definitions */
-interface ScheduleProps {
+export interface ScheduleProps {
   // defer mount until mount state is entered.??
   // this is not always desirable, as would prevent DOM layout on elements.
   defer?: boolean;
@@ -22,63 +20,64 @@ interface ScheduleProps {
   children: (state: ScheduleRenderChildState) => ReactNode;
 }
 
-/** Regular React State */
-interface ScheduleState {
-  xstate: StateValue;
-  tags: Tags;
+export type StateString = {
+  visibility: "hidden" | "visible";
+  mount: "mounted" | "unmounted";
+};
+
+export type Intersection = {
   ratio: number;
+  edge: "left" | "right" | "top" | "bottom" | "none";
+};
+
+/** Regular React State */
+export interface IScheduleState {
+  tags: Tags;
+  intersection: Intersection;
+  state: StateString;
+  pendingState: StateString | null;
 }
 
-type Tags = Set<string>;
+export type Tags = Set<string>;
 
 /** Render State passed to render child. */
 export interface ScheduleRenderChildState {
-  state: string;
-  group: string;
-  ratio: number;
-  tags: Tags;
+  state: StateString;
+  isect: Intersection;
+  intersection: Intersection;
   ref: RefObject<Element>;
-  onComplete: () => void;
+  // onComplete: () => void;
   // potentially?
   // mounted or ready as boolean
 }
 
-export class Schedule extends Component<ScheduleProps, ScheduleState> {
+export class Schedule extends Component<ScheduleProps, IScheduleState> {
   static contextType = SchedulerContext;
   context!: ContextType<typeof SchedulerContext>;
-  fsm: ScheduleInterpreter;
   observerContextApi!: LayoutObserverApi;
   domRef: RefObject<Element> = createRef();
-
-  getService() {
-    return this.fsm;
-  }
-
+  activeTimeout: any;
   // Return sortable fields.
   // i.e. group, x,y, width, height
 
   constructor(props: any) {
     super(props);
 
-    this.fsm = createInterpreter();
-    this.fsm.onTransition((state) => {
-      this.setState({ xstate: state.value });
-    });
-    this.fsm.onChange((context) => {
-      this.setState({
-        ratio: context.ratio,
-      });
-    });
-
     this.state = {
-      xstate: this.fsm.initialState.value,
-      tags: this.fsm.initialState.context.tags,
-      ratio: 0,
+      tags: new Set(),
+      intersection: {
+        ratio: 0,
+        edge: "none",
+      },
+      state: {
+        mount: "unmounted",
+        visibility: "hidden",
+      },
+      pendingState: null,
     };
   }
 
   componentDidMount() {
-    this.fsm.start();
     this.context.register(this);
     if (this.domRef.current) {
       this.observerContextApi.observe(
@@ -89,8 +88,8 @@ export class Schedule extends Component<ScheduleProps, ScheduleState> {
   }
 
   componentWillUnmount() {
-    this.fsm.stop();
     this.context.unregister(this);
+    clearTimeout(this.activeTimeout);
     if (this.domRef.current) {
       this.observerContextApi.unobserve(this.domRef.current);
     }
@@ -100,7 +99,41 @@ export class Schedule extends Component<ScheduleProps, ScheduleState> {
     this.context.onIntersectionObserverEntry(this, entry);
   };
 
-  setPendingState(state: Partial<Exclude<ScheduleState, "">>) {}
+  setIntersectionEntry(entry: IntersectionObserverEntry) {
+    this.setState({
+      intersection: {
+        ratio: entry.intersectionRatio,
+        edge: "none",
+      },
+    });
+  }
+
+  setPendingStateString(state: Partial<StateString>, delay: number) {
+    clearTimeout(this.activeTimeout);
+
+    if (delay > 0) {
+      this.setState({
+        pendingState: { ...this.state.state, ...state },
+      });
+      this.activeTimeout = setTimeout(() => {
+        this.commitPendingState();
+      }, delay);
+    } else {
+      this.setState({
+        state: { ...this.state.state, ...state },
+      });
+    }
+  }
+
+  commitPendingState() {
+    clearTimeout(this.activeTimeout);
+    if (this.state.pendingState) {
+      this.setState({
+        state: { ...this.state, ...this.state.pendingState },
+        pendingState: null,
+      });
+    }
+  }
 
   render() {
     return (
@@ -116,23 +149,18 @@ export class Schedule extends Component<ScheduleProps, ScheduleState> {
 
   renderWithContexts(group: LayoutGroupInfo, observerApi: LayoutObserverApi) {
     const { children, defer = false } = this.props;
-    const { tags } = this.state;
+    // const { tags } = this.state;
 
     // Not keen on this ref but no access to multiple contexts with class components?
     // Because of this, register happens on mount
     this.observerContextApi = observerApi;
 
-    // console.log("RENDER SCHEDULE");
-    const renderState: ScheduleRenderChildState = {
-      state: this.state.xstate as any,
-      group: group.groupName,
-      ratio: this.state.ratio,
+    return children({
       ref: this.domRef,
-      onComplete: () => {},
-      tags,
-    };
-
-    return children(renderState);
+      intersection: this.state.intersection,
+      isect: this.state.intersection,
+      state: this.state.state,
+    });
   }
 }
 

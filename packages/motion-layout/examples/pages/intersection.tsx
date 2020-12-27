@@ -1,11 +1,11 @@
-import { Layout, LayoutGroup } from "@jamieowen/motion-layout";
+import { Layout, LayoutGroup, LayoutObserver } from "@jamieowen/motion-layout";
 import React, { FC, Fragment } from "react";
 
 const Line: FC<any> = ({ children }) => {
   return (
     <Layout tags={[""]}>
-      {({ ref, state, ratio }) => (
-        <h1 ref={ref} className="large-text" style={{ opacity: ratio }}>
+      {({ ref, state, isect }) => (
+        <h1 ref={ref} className="large-text" style={{ opacity: isect.ratio }}>
           {children}
         </h1>
       )}
@@ -17,8 +17,8 @@ const Word: FC<any> = ({ children }) => {
   // return <span className="large-text">{children} </span>;
   return (
     <Layout tags={[""]}>
-      {({ ref, state, ratio }) => (
-        <span ref={ref} className="large-text" style={{ opacity: ratio }}>
+      {({ ref, state, isect }) => (
+        <span ref={ref} className="large-text" style={{ opacity: isect.ratio }}>
           {children}
         </span>
       )}
@@ -39,13 +39,17 @@ const splitWords = textLines.join(" ").split(" ");
 
 export default function Intersection() {
   return (
-    <LayoutGroup>
-      {textLines.map((t, i) => (
-        <Line key={i}>{t}</Line>
-      ))}
-      {splitWords.map((t, i) => (
-        <Word key={i}>{t} </Word>
-      ))}
-    </LayoutGroup>
+    <Fragment>
+      <LayoutGroup>
+        {textLines.map((t, i) => (
+          <Line key={i}>{t}</Line>
+        ))}
+      </LayoutGroup>
+      <LayoutObserver rootMargin="-20% 0%">
+        {splitWords.map((t, i) => (
+          <Word key={i}>{t} </Word>
+        ))}
+      </LayoutObserver>
+    </Fragment>
   );
 }

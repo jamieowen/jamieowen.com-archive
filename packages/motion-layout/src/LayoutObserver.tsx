@@ -60,7 +60,7 @@ export class LayoutObserver extends Component<LayoutObserverProps, {}> {
   };
 
   private createIntersectionObserver() {
-    const { rootMargin = "0%", threshold, thresholdSteps = 5 } = this.props;
+    const { rootMargin = "0%", threshold, thresholdSteps = 25 } = this.props;
     let levels = threshold ? threshold : null;
     if (!levels) {
       let step = 1 / (Math.max(2, thresholdSteps) - 1);
