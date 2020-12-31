@@ -91,7 +91,7 @@ export const SelectedWork: FC<SelectedWorkProps> = ({
 
   return (
     <Fragment>
-      <ContentContainer swatch="secondary" header>
+      <ContentContainer swatch="primary" header>
         <LargeParagraphHeading subtitle="Selected Work" align="left">
           Various bits of work from installations, mobile & web apps.
         </LargeParagraphHeading>
@@ -111,7 +111,7 @@ export const SelectedWork: FC<SelectedWorkProps> = ({
         </LargeParagraphHeading>
         <MediaGrid media={projectsMedia} />
       </ContentContainer>
-      <ContentContainer swatch="secondary">
+      <ContentContainer swatch="primary">
         <LargeParagraphHeading subtitle="images" align="left">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </LargeParagraphHeading>

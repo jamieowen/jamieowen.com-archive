@@ -1,8 +1,9 @@
 import { FC, Fragment } from "react";
 import { Box, Grid, Text } from "theme-ui";
 import { BoxColumn } from "./containers";
-import { Schedule } from "@jamieowen/motion-layout";
+import { Layout } from "@jamieowen/motion-layout";
 type Align = "left" | "right";
+
 export const GridAlign: FC<{ align: Align }> = ({
   children,
   align = "left",
@@ -28,23 +29,33 @@ export const GridAlign: FC<{ align: Align }> = ({
   );
 };
 
+export const FullWidthCap: FC<any> = ({ children }) => {
+  return (
+    <Grid variant="grid_cap">
+      <Box>{children}</Box>
+      <Box></Box>
+    </Grid>
+  );
+};
+
 // Extend Text.
 export const ScheduledText: FC<any> = ({
   children,
   as = "h1",
   variant = "subtitle_heading",
 }) => (
-  <Schedule>
-    {({ state }) => (
-      <Text
-        as={as}
-        className={state === "mount" ? "visible" : "hidden"}
-        variant={variant}
-      >
-        {children}
-      </Text>
-    )}
-  </Schedule>
+  <Layout>
+    {({ ref, state }) => {
+      // console.log("STATE : ", state);
+      return (
+        <div ref={ref} className={state.visibility}>
+          <Text as={as} variant={variant}>
+            {children}
+          </Text>
+        </div>
+      );
+    }}
+  </Layout>
 );
 
 export const LargeParagraphHeading: FC<{ subtitle: string; align: Align }> = ({
@@ -78,5 +89,18 @@ export const SmallParagraphHeading: FC<{ subtitle: string; align: Align }> = ({
         {children}
       </ScheduledText>
     </GridAlign>
+  );
+};
+
+export const LargeParagraphFullWidth: FC<{
+  subtitle: string;
+}> = ({ children, subtitle }) => {
+  return (
+    <FullWidthCap>
+      <ScheduledText as="h1" variant="subtitle_heading">
+        {subtitle}
+      </ScheduledText>
+      {children}
+    </FullWidthCap>
   );
 };

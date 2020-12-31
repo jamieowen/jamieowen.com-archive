@@ -4,8 +4,10 @@ import {
   ContentContainer,
   PageHeader,
 } from "../../components/common";
+import { Layout } from "@jamieowen/motion-layout";
 import { Grid, Text } from "theme-ui";
 import {
+  LargeParagraphFullWidth,
   LargeParagraphHeading,
   SmallParagraphHeading,
 } from "../../components/common/headings";
@@ -21,23 +23,46 @@ const mapAlternateEmphasis = (x: string, i: number): ReactNode =>
     </Text>
   );
 
+const mapBlock = (x: string, i: number): ReactNode => (
+  <Layout>
+    {({ state, ref }) => (
+      <Text
+        ref={ref}
+        as="span"
+        variant="body_title"
+        className={state.visibility}
+      >
+        {x}{" "}
+      </Text>
+    )}
+  </Layout>
+);
+
 export const About: FC<any> = () => {
   return (
     <Fragment>
-      <ContentContainer swatch="primary" header>
-        <LargeParagraphHeading subtitle="Sapient Razorfish" align="left">
-          Creative technologist & software engineer and all round nice chap.
-          Hello.
-        </LargeParagraphHeading>
-        <SmallParagraphHeading subtitle="Overview" align="right">
+      <ContentContainer
+        swatch="primary"
+        header
+        sx={{
+          backgroundImage: "url(/assets/temp/Bitmap.png)",
+          height: "100vh",
+        }}
+      >
+        <LargeParagraphFullWidth subtitle="About">
+          {"Hello. I am Jamie Owen. A Creative technologist & software engineer based in London. Hello. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper quam vitae ipsum pellentesque feugiat. Integer rhoncus elit et dolor hendrerit, sed interdum elit aliquam. Phasellus sit amet quam vulputate, euismod leo in, aliquet ante."
+            .split(" ")
+            .map(mapBlock)}
+        </LargeParagraphFullWidth>
+        {/* <SmallParagraphHeading subtitle="Overview" align="left">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
           ullamcorper quam vitae ipsum pellentesque feugiat. Curabitur lorem
           lectus, imperdiet non congue vel, iaculis sit amet nunc. Integer
           rhoncus elit et dolor hendrerit, sed interdum elit aliquam. Phasellus
           sit amet quam vulputate, euismod leo in, aliquet ante.
-        </SmallParagraphHeading>
-      </ContentContainer>
-      <ContentContainer swatch="secondary">
+        </SmallParagraphHeading> */}
+        {/* </ContentContainer>
+      <ContentContainer swatch="primary"> */}
         <SmallParagraphHeading subtitle="Technology" align="left">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
           ullamcorper quam vitae ipsum pellentesque feugiat. Curabitur lorem

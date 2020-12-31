@@ -81,8 +81,8 @@ export const layout: Pick<Theme, "layout"> = {
 
     /** Top Navigation Bar */
     navigation: {
-      height: "8rem",
-      backgroundColor: "navigation_bg",
+      height: "4rem",
+      // backgroundColor: "#212121",
       position: "fixed",
       top: "0px",
       left: "0px",

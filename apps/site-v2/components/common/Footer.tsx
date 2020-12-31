@@ -16,7 +16,7 @@ export const FooterLinks: FC<{ links: { title: string; url: string }[] }> = ({
         variant="navigation_link"
         sx={{ display: "block", textDecoration: "none" }}
       >
-        <Link href={url}>{title}</Link>
+        <Link href={url}>{url + " " + title}</Link>
       </Text>
     );
   });

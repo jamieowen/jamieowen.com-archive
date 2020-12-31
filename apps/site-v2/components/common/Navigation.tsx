@@ -44,7 +44,7 @@ const NavigationLink: FC<{ href: string }> = ({ children, href }) => {
 };
 
 export const Navigation: FC<any> = () => {
-  const [mode, setMode] = useState<Mode>(Mode.Maximised);
+  const [mode, setMode] = useState<Mode>(Mode.Minimised);
   useKey("a", () => setMode(toggleMode(mode)), [mode, setMode]);
   return (
     <motion.nav

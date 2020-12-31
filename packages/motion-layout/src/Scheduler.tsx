@@ -85,7 +85,9 @@ export class Scheduler extends Component<SchedulerProps, {}> {
         schedule,
         timestamp: time,
       };
+
       changed.push(state);
+
       if (entry.isIntersecting) {
         changedVisible.push(state);
       }
@@ -93,9 +95,14 @@ export class Scheduler extends Component<SchedulerProps, {}> {
 
     // Assign Sort Order
     changedVisible.forEach((state, i) => {
-      state.delay = (i + 1) * 200;
+      state.delay = (i + 1) * 50;
     });
 
+    console.log(
+      "Chanaged : ",
+      [...this.children.entries()].length,
+      changed.length
+    );
     // Set Changes
     changed.forEach(({ delay, schedule, entry }) => {
       schedule.setIntersectionEntry(entry);

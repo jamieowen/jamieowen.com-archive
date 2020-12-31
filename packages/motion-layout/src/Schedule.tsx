@@ -45,7 +45,7 @@ export interface ScheduleRenderChildState {
   state: StateString;
   isect: Intersection;
   intersection: Intersection;
-  ref: RefObject<Element>;
+  ref: RefObject<any>;
   // onComplete: () => void;
   // potentially?
   // mounted or ready as boolean
@@ -55,7 +55,7 @@ export class Schedule extends Component<ScheduleProps, IScheduleState> {
   static contextType = SchedulerContext;
   context!: ContextType<typeof SchedulerContext>;
   observerContextApi!: LayoutObserverApi;
-  domRef: RefObject<Element> = createRef();
+  domRef: RefObject<any> = createRef(); // types ? LegacyRef error
   activeTimeout: any;
   // Return sortable fields.
   // i.e. group, x,y, width, height

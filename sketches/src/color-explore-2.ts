@@ -6,7 +6,7 @@ import { Color, CSS_NAMES, parseCss, rgbaCss } from "@thi.ng/color";
 import {
   complement,
   paletteGradientHSL,
-  paletteShadowsHSL,
+  paletteColorRangeHSL,
   paletteGradientRGB,
 } from "@jamieowen/three-toolkit";
 
@@ -30,12 +30,31 @@ const swatch = (color: Color) => [
   "div",
   {
     style: {
-      width: "200px",
-      height: "200px",
+      width: "50px",
+      height: "50px",
       display: "block",
       backgroundColor: rgbaCss(color),
     },
   },
+];
+
+const swatches = (colors: Color[]) => colors.map(swatch);
+
+const flexGrid = (children: any[]) => [
+  "div",
+  { style: { display: "flex", flexWrap: "wrap" } },
+  ...children,
+];
+
+const container = (children: any) => ["div", {}, ...children];
+const p = (text: string) => ["p", {}, text];
+const h2 = (title: string) => ["h2", {}, title];
+const swatchTitle = (title: string, text: string, colors: Color[]) => [
+  "div",
+  {},
+  h2(title),
+  p(text),
+  flexGrid(colors.map(swatch)),
 ];
 
 const selectedColorGenerate = $list(
@@ -47,34 +66,67 @@ const selectedColorGenerate = $list(
     // const pal = generateColorsComplement(color);
     const comp = complement(base);
 
-    const shadows1 = paletteShadowsHSL(base);
-    const shadows2 = paletteShadowsHSL(comp);
-    const gradHSL = paletteGradientHSL(base, comp, 16);
-    const gradRGB = paletteGradientRGB(base, comp, 16);
+    // Clamp
+    const range1 = paletteColorRangeHSL(base, {
+      scale: 1,
+      range: 1,
+      saturation: 1,
+      steps: 13,
+    });
+    // No clamp
+    const range2 = paletteColorRangeHSL(base, {
+      scale: 1,
+      range: 0.5,
+      saturation: 1,
+      steps: 13,
+      clamp: [-5, 5],
+    });
+    const range3 = paletteColorRangeHSL(base, {
+      scale: 1,
+      range: 0.3,
+      saturation: 1,
+      steps: 13,
+      clamp: [-5, 5],
+    });
+    const shadows2 = paletteColorRangeHSL(comp);
+    // const gradHSL = paletteGradientHSL(base, comp, 16);
+    // const gradRGB = paletteGradientRGB(base, comp, 16);
 
     return [
       "div",
       {},
       ["h1", {}, color],
-      [
-        "div",
-        { style: { display: "flex", flexWrap: "wrap" } },
-        swatch(base),
-        swatch(comp),
-        ...shadows1.map((col) => swatch(col)),
-        ...shadows2.map((col) => swatch(col)),
-        ...gradHSL.map((col) => swatch(col)),
-        ...gradRGB.map((col) => swatch(col)),
-      ],
+      swatchTitle("Base / Complement", "Generate complement from base color", [
+        base,
+        comp,
+      ]),
+      swatchTitle(
+        "Base Range 1",
+        "Generate base ranged palette with +1/-1 on L. ( Clamped [0,1] ) ",
+        range1
+      ),
+      swatchTitle(
+        "Base Range 2",
+        "Generate base ranged palette with +0.5/-0.5 on L. ( No Clamp [-5,5] ) ",
+        range2
+      ),
+      swatchTitle(
+        "Base Range 3",
+        "Generate base ranged palette with +0.3/-0.3 on L. ( No Clamp [-5,5] ) ",
+        range3
+      ),
+      swatchTitle("Complement Shadows", "", shadows2),
     ];
   }
 );
 
 $compile([
   "div",
-  {},
-  ["h1", {}, "Color Complement Test"],
-  ["p", {}, "Color palette generation from seed colors "],
+  {
+    style: { backgroundColor: "#efefef" },
+  },
+  ["h1", {}, "Color Palette Generation Tools"],
+  ["p", {}, "Testing different generation tools."],
   cssNameSelect(),
   ["div", {}, selectedColorGenerate],
 ]).mount(document.body);

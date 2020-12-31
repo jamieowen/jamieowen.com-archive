@@ -8,13 +8,14 @@ const collectEntries = () => {
   return (
     glob
       // .sync("src/color-explore-2.ts", { cwd: __dirname })
+      .sync("src/color-explore-3.tsx", { cwd: __dirname })
       // .sync("src/geometry-phase.ts", { cwd: __dirname })
       // .sync("src/motion-streams.ts", { cwd: __dirname })
-      .sync("src/particle-system.ts", { cwd: __dirname })
+      // .sync("src/particle-system.ts", { cwd: __dirname })
       // .sync("src/infinite-grid-example.ts", { cwd: __dirname })
       // .sync("src/infinite-subgrid-example.ts", { cwd: __dirname })
       .reduce((entries, path) => {
-        const name = pathUtil.basename(path).replace(".ts", "");
+        const name = pathUtil.basename(path).replace(/.tsx?/, "");
         entries[name] = pathUtil.resolve(path);
         return entries;
       }, {})

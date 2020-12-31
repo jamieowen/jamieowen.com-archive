@@ -36,7 +36,13 @@ export const ContentContainer: FC<{
   swatch?: string;
   header?: boolean;
   footer?: boolean;
-}> = ({ children, header = false, footer = false, swatch = null }) => {
+}> = ({
+  children,
+  header = false,
+  footer = false,
+  swatch = null,
+  ...props
+}) => {
   const text = swatch ? `${swatch}_text` : null;
   const bg = swatch ? `${swatch}_bg` : null;
   const element = header ? "header" : footer ? "footer" : "section";
@@ -48,6 +54,7 @@ export const ContentContainer: FC<{
       bg={bg}
       color={text}
       data-id="content"
+      {...props}
     >
       <Container variant="content_center" data-id="content-center">
         {children}

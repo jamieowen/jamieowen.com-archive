@@ -4,19 +4,21 @@ import Head from "next/head";
 import theme from "../components/theme";
 import { Footer, Navigation } from "../components/common";
 import { ThemeProvider } from "theme-ui";
-import { Scheduler } from "@jamieowen/motion-layout";
+import { Scheduler, LayoutObserver } from "@jamieowen/motion-layout";
 // import { MatterProvider } from "../components/physics/MatterContext";
 // import { IntersectionProvider } from "../components//motion/IntersectionContext";
 // import { GenerativeGridProvider } from "../components/generative-grid";
 
 import "styles/globals.css";
+import { ColorContextProvider } from "../components/context/ColorContext";
+import { AppStateContextProvider } from "components/context/AppStateContext";
 
 const Fonts = () => {
   return (
     <Fragment>
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Work+Sans:wght@300;400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Work+Sans:wght@300;400;600;700&display=swap"
         rel="stylesheet"
       />
     </Fragment>
@@ -35,13 +37,19 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
         ></meta>
         <Fonts />
       </Head>
-      <ThemeProvider theme={theme}>
-        <Scheduler>
-          <Navigation />
-          <Component {...pageProps} />
-          <Footer />
-        </Scheduler>
-      </ThemeProvider>
+      <AppStateContextProvider>
+        <ThemeProvider theme={theme}>
+          <ColorContextProvider>
+            <Scheduler>
+              {/* <Navigation /> */}
+              <LayoutObserver rootMargin="-10% 0%">
+                <Component {...pageProps} />
+              </LayoutObserver>
+              {/* <Footer /> */}
+            </Scheduler>
+          </ColorContextProvider>
+        </ThemeProvider>
+      </AppStateContextProvider>
     </Fragment>
   );
 };

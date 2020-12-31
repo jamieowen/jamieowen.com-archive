@@ -4,10 +4,14 @@ export const text: Pick<Theme, "text"> = {
   text: {
     /** Top Navigation Text */
     navigation: {
-      fontSize: 2,
-      fontFamily: "worksans",
-      fontWeight: "regular",
-      color: "navigation_text",
+      fontSize: 0,
+      letterSpacing: "0.12em",
+      opacity: 1,
+      fontFamily: "roboto",
+      fontWeight: "semibold",
+      textTransform: "uppercase",
+      // color: "navigation_text",
+      color: "#232323",
       "> * + *": {
         marginLeft: "1rem !important",
       },
@@ -20,6 +24,7 @@ export const text: Pick<Theme, "text"> = {
       "a:hover, a:link, a:visited": {
         color: "inherit",
         textDecoration: "none",
+        opacity: 1,
       },
       ":hover": {
         opacity: 0.4,
@@ -29,7 +34,7 @@ export const text: Pick<Theme, "text"> = {
     /** Typical Heading */
     heading: {
       color: "yellow",
-      lineHeight: "heading",
+      lineHeight: "2rem",
     },
     /**  Small Sub Heading */
     subtitle_heading: {
@@ -53,16 +58,19 @@ export const text: Pick<Theme, "text"> = {
     /** Extra large intro paragraph */
     body_title: {
       fontFamily: "worksans",
-      fontWeight: "semibold",
-      lineHeight: "2.5rem",
-      fontSize: 4,
+      fontWeight: "regular",
+      lineHeight: "3.5rem",
+      letterSpacing: 0.82,
+      fontSize: 5,
     },
+    /** Extra large intro paragraph */
     body_normal: {
-      fontFamily: "roboto",
-      textTransform: "uppercase",
-      fontSize: 1,
-      lineHeight: "1.5rem",
-      letterSpacing: 0.12,
+      fontFamily: "worksans",
+      textTransform: "initial",
+      fontWeight: "regular",
+      fontSize: 2,
+      lineHeight: "2rem",
+      letterSpacing: 0.82,
     },
   },
 };

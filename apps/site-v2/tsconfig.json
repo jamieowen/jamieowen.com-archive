@@ -18,7 +18,9 @@
     "experimentalDecorators": true,
     "baseUrl": "./",
     "paths": {
-      "@jamieowen/motion-layout": ["../../packages/motion-layout/src"]
+      "@jamieowen/motion-layout": ["../../packages/motion-layout/src"],
+      "@jamieowen/three-toolkit": ["../../packages/three-toolkit/src"],
+      "@jamieowen/color": ["../../packages/three-toolkit/src/color"]
     }
   },
 
