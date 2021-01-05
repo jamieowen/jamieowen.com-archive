@@ -19,6 +19,7 @@ export interface ProjectData {
  * Data defined in /services/project-data.ts
  */
 export interface ProjectContent {
+  order: number;
   baseColor: string | [number, number, number];
   client: string;
   title: string;

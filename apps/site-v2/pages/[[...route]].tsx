@@ -4,6 +4,7 @@ import { TextFormatter } from "components/text-formatter";
 import { GLCanvasGrid } from "components/infinite-grid";
 import { StaticPropsType } from "services/get-static-paths";
 import { ProjectData } from "types";
+import Link from "next/link";
 export { getStaticPaths, getStaticProps } from "services/get-static-paths";
 
 const em = (): CSSProperties => ({
@@ -16,11 +17,14 @@ const em = (): CSSProperties => ({
 const IntroText: FC<{ projects: ProjectData[] }> = ({ projects }) => {
   const projectsChildren = projects.map((p, i) => {
     return (
-      <Fragment>
-        <em style={{ ...em() }}>_00{i + 1}</em>
-        <strong>{p.content.title} </strong>
-        <strong>{p.content.client}</strong>
-      </Fragment>
+      <Link href={p.url}>
+        <a onClick={() => console.log("on clic", p.url)}>
+          <em style={{ ...em() }}>_00{i + 1}</em>
+          <strong>{p.content.title} </strong>
+          <strong>{p.content.client}</strong>
+          <strong>{p.content.order}</strong>
+        </a>
+      </Link>
     );
   });
   return (
@@ -45,22 +49,21 @@ const IntroText: FC<{ projects: ProjectData[] }> = ({ projects }) => {
   );
 };
 
-const SelectedLinkText: FC<any> = () => {
+const SelectedLinkText: FC<{ project?: ProjectData }> = ({ project }) => {
+  console.log("Change Project :");
   return (
     <TextFormatter>
-      <strong>Projects.</strong>
-      <em>Creative Technologist</em> & <em>Software Engineer </em>based in
-      Further detail on CNN Airwars.
+      <strong>{project && project.content.title}</strong>
+      <p>{project && project.content.client}</p>
     </TextFormatter>
   );
 };
 
 export const Home: FC<StaticPropsType> = ({ project, projects, archived }) => {
-  // console.log(project, projects, archived);
   return (
     <SlideStack>
       <IntroText projects={projects} />
-      <SelectedLinkText />
+      <SelectedLinkText project={project} />
       <GLCanvasGrid padding={false} />
     </SlideStack>
   );

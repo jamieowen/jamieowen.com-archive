@@ -58,6 +58,9 @@ export const readProjectFiles = (
         thumbs,
         content,
       };
+    })
+    .sort((a, b) => {
+      return a.content.order - b.content.order;
     });
 };
 
