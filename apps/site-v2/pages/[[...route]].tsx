@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from "react";
+import React, { CSSProperties, FC, Fragment } from "react";
 import { SlideStack } from "components/slide-stack";
 import { TextFormatter } from "components/text-formatter";
 import { GLCanvasGrid } from "components/infinite-grid";
@@ -6,12 +6,20 @@ import { StaticPropsType } from "services/get-static-paths";
 import { ProjectData } from "types";
 export { getStaticPaths, getStaticProps } from "services/get-static-paths";
 
+const em = (): CSSProperties => ({
+  verticalAlign: "super",
+  fontSize: "12px",
+  backgroundColor: "white",
+  color: "black",
+});
+
 const IntroText: FC<{ projects: ProjectData[] }> = ({ projects }) => {
   const projectsChildren = projects.map((p, i) => {
     return (
       <Fragment>
-        <em>_00{i + 1}</em>
-        <strong>{p.id}</strong>
+        <em style={{ ...em() }}>_00{i + 1}</em>
+        <strong>{p.content.title} </strong>
+        <strong>{p.content.client}</strong>
       </Fragment>
     );
   });
@@ -27,10 +35,11 @@ const IntroText: FC<{ projects: ProjectData[] }> = ({ projects }) => {
         digital words. Shuffle some Color Palettes. Select something at random.
         Or generate garbage. Once you are done, you get the
       </p>
-      <strong>Work & recent projects include </strong> <em>_001 </em>
+      <strong>Work & recent projects include </strong>
+      {/* <em>_001 </em>
       <strong>Systems Thinking / </strong>
       <em>Lloyds Banking Group</em>, _002 Multitouch Installations National
-      Museum of Qatar @ AllOfUs, Google Livecase
+      Museum of Qatar @ AllOfUs, Google Livecase */}
       {projectsChildren}
     </TextFormatter>
   );
@@ -47,7 +56,7 @@ const SelectedLinkText: FC<any> = () => {
 };
 
 export const Home: FC<StaticPropsType> = ({ project, projects, archived }) => {
-  console.log(project, projects, archived);
+  // console.log(project, projects, archived);
   return (
     <SlideStack>
       <IntroText projects={projects} />

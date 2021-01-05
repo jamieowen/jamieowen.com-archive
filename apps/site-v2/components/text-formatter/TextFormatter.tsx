@@ -12,6 +12,7 @@ export const TextFormatter: FC<{ children: ReactNode }> = ({ children }) => {
       // console.log("clone");
       return cloneElement(node, {
         ...node.props,
+        key: i,
         style: {
           color: colorAsCSS(grad[i % (grad.length - 1)]),
         },

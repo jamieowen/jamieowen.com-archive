@@ -1,7 +1,8 @@
 import glob from "glob";
 import pathUtil from "path";
 import imageSize from "image-size";
-import { ProjectData } from "../types";
+import { ProjectContent, ProjectData } from "../types";
+import { data } from "./project-data";
 
 /**
  * Read a project folder.
@@ -42,11 +43,13 @@ export const readProjectFiles = (
         { images: [], thumbs: [] }
       );
 
-      const content = {
-        name: "Project Name",
-        intro: "Project Big Intro Text",
-        markdown: "",
-      };
+      const content: ProjectContent = data[path]
+        ? data[path]
+        : {
+            baseColor: "black",
+            client: "Missing",
+            title: "Missing",
+          };
 
       return {
         id: path,
