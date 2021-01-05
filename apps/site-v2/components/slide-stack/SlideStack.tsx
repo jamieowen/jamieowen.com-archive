@@ -72,9 +72,10 @@ export const SlideStack: FC<any> = ({ children }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [hoverIndex, setHoverIndex] = useState(null);
 
-  console.log("Slide : ", mode, selectedIndex, hoverIndex);
   const slides = Children.map(children, (child, i) => {
     const color = colorContext.palette.backgroundRange[i];
+    const padding =
+      child.props.padding === undefined ? true : child.props.padding;
     return (
       <motion.div
         key={i}
@@ -100,7 +101,9 @@ export const SlideStack: FC<any> = ({ children }) => {
           onClick(i, mode, selectedIndex, setMode, setSelectedIndex)
         }
       >
-        <Slide bgColor={color}>{child}</Slide>
+        <Slide bgColor={color} padding={padding}>
+          {child}
+        </Slide>
       </motion.div>
     );
   });
@@ -118,9 +121,10 @@ export const SlideStack: FC<any> = ({ children }) => {
   );
 };
 
-export const Slide: FC<{ bgColor: string }> = ({
+export const Slide: FC<{ bgColor: string; padding: boolean }> = ({
   children,
   bgColor = "crimson",
+  padding = true,
 }) => {
   return (
     <Container
@@ -129,7 +133,7 @@ export const Slide: FC<{ bgColor: string }> = ({
         width: "100%",
         height: "100%",
         position: "absolute",
-        padding: "4rem",
+        padding: padding ? "4rem" : "0rem",
       }}
     >
       {/* Shadow */}
@@ -137,10 +141,11 @@ export const Slide: FC<{ bgColor: string }> = ({
         sx={{
           width: "100%",
           height: "16px",
-          margin: "-4rem",
+          margin: padding ? "-4rem" : "0rem",
           position: "fixed",
           opacity: "0.1",
           backgroundColor: "black",
+          zIndex: 100,
         }}
       ></Container>
       {children}

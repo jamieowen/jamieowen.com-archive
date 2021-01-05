@@ -20,10 +20,18 @@
     "paths": {
       "@jamieowen/motion-layout": ["../../packages/motion-layout/src"],
       "@jamieowen/three-toolkit": ["../../packages/three-toolkit/src"],
-      "@jamieowen/color": ["../../packages/three-toolkit/src/color"]
+      "@jamieowen/color": ["../../packages/three-toolkit/src/color"],
+      // Keep in to allow direct translation of ts files ( to linked module )
+      "@jamieowen/motion": ["./node_modules/@jamieowen/motion/src"],
+      "@jamieowen/browser": ["./node_modules/@jamieowen/browser/src"],
+      "@jamieowen/layout": ["./node_modules/@jamieowen/layout/src"]
     }
   },
-
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "./node_modules/@jamieowen/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
