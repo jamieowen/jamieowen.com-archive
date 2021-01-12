@@ -31,7 +31,7 @@ export const ColorContext = createContext<IColorContext>(null!);
 export const useColorContext = () => useContext(ColorContext);
 
 export const ColorContextProvider: FC<any> = ({ children }) => {
-  const color = "crimson";
+  const color = "hotpink";
   const value = useMemo<IColorContext>(() => {
     const base = parseCss(color);
     const fgbg = paletteForegroundBackground(base);

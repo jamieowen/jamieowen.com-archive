@@ -2586,6 +2586,11 @@
   resolved "https://registry.yarnpkg.com/@thi.ng/api/-/api-6.13.3.tgz#c45ffff870c539d478c3ddee8d286effadc29ae1"
   integrity sha512-9o1qdnbEVx2l+QFrFE8EMBGUuBO38ViCQ9lJE7BjJlS3Vp3DMhr90G3Npc1TpflQ526g3eP/Hugt3nUM/4tSHg==
 
+"@thi.ng/api@^6.13.6":
+  version "6.13.6"
+  resolved "https://registry.yarnpkg.com/@thi.ng/api/-/api-6.13.6.tgz#fb24ffd0fad409b2cc2c6156850b0d9829e0196d"
+  integrity sha512-r1qJR2QaODkhG0poOKAkFIaHYeGF3rYuh/eaGx+4mBjA+jUCRlqQNr/yP1DsjMEVbjlE1jqS5apQvnfSmQlOvg==
+
 "@thi.ng/arrays@^0.6.12":
   version "0.6.15"
   resolved "https://registry.yarnpkg.com/@thi.ng/arrays/-/arrays-0.6.15.tgz#b5b07536fe8299089630db7e74678e3ed7ea9b13"
@@ -2736,6 +2741,13 @@
   integrity sha512-567eiffVTkgL1gu2BLgPivLQdW9Pd4RuwqK76Z69OyhSiEHMcWuBWyPn0fkA4CSasUHteuecGfVeNoUPYCoyVQ==
   dependencies:
     tslib "^2.0.1"
+
+"@thi.ng/checks@^2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@thi.ng/checks/-/checks-2.8.0.tgz#b5ff557236adbe76f90392c7298a29fd440f9fcb"
+  integrity sha512-sAfnR+Az6y7LlK7nAWb0WRo6JTqPI9MhImZHYcQrFYwMT+IYIVhv7Vv96OrybKs2C2wxukCYAlgrhcaOfXe+QA==
+  dependencies:
+    tslib "2.0.1"
 
 "@thi.ng/color@^1.2.18":
   version "1.2.18"
@@ -3124,6 +3136,11 @@
   resolved "https://registry.yarnpkg.com/@thi.ng/hex/-/hex-0.1.1.tgz#0a0053eb6b9dc4bd61451c4524f12466cf4e0268"
   integrity sha512-AQROGbz29Y4ZnSup2mqFSc5TxhAM53wzMoS+ItNKcwlkeeV1ywEMykPV/8lkSvJtPYmAEJa8egNCGkqr+fE9nw==
 
+"@thi.ng/hex@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@thi.ng/hex/-/hex-0.1.3.tgz#dd9c1211e56b1c10682d29292e1433e053c55947"
+  integrity sha512-TPexHY7kHeDwZDooW8pv/uVBbqE841hstLrtZdtJk7FRbG5zpceTLbbxAtbX3pEbfEaTSn/lArt2aMjAmatsBw==
+
 "@thi.ng/hiccup-canvas@^1.1.10":
   version "1.1.10"
   resolved "https://registry.yarnpkg.com/@thi.ng/hiccup-canvas/-/hiccup-canvas-1.1.10.tgz#9bf9548381f056ec241afdd9456c94439dabef47"
@@ -3333,6 +3350,15 @@
     "@thi.ng/api" "^6.13.4"
     "@thi.ng/checks" "^2.7.11"
     "@thi.ng/hex" "^0.1.1"
+
+"@thi.ng/random@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@thi.ng/random/-/random-2.1.5.tgz#ffb57b01b1dc564c3211a73b08478b341cbe4a59"
+  integrity sha512-6bin3eU6HMfCJ2mb1bY4W4fUzX/k5RGwDfvfYK6g9iuQBAqXd1AU+LX1e8qsqU+M3Cbgb7jAOdp7W5LWGPg7wA==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/checks" "^2.8.0"
+    "@thi.ng/hex" "^0.1.3"
 
 "@thi.ng/rdom@^0.2.11", "@thi.ng/rdom@^0.2.13":
   version "0.2.14"

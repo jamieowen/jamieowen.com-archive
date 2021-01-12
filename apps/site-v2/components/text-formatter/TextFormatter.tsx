@@ -4,7 +4,11 @@ import { paletteGradientHSL, colorAsCSS } from "@jamieowen/color";
 
 const grad = paletteGradientHSL([0.7, 0.5, 0.5], [1, 1, 1], 3);
 
-export const TextFormatter: FC<{ children: ReactNode }> = ({ children }) => {
+export const TextFormatter: FC<{
+  children: ReactNode;
+  size?: string;
+  lineHeight?: string;
+}> = ({ children, size = "32px", lineHeight = "48px" }) => {
   // console.log("CHILDREN", children);
   const mappedChildren = Children.map(children, (node: ReactElement, i) => {
     // console.log("CHILD", typeof node, node);
@@ -27,11 +31,20 @@ export const TextFormatter: FC<{ children: ReactNode }> = ({ children }) => {
       variant="body_title"
       as="div"
       sx={{
+        color: "#333",
         fontFamily: "roboto",
-        fontSize: "24px",
+        // opacity: "0.3",
+        fontSize: size,
+        // fontWeight: "light",
         fontWeight: "light",
-        letterSpacing: "0.15rem",
-        lineHeight: "42px",
+        // maxWidth: "80%",
+        textAlign: "justify",
+        // letterSpacing: "0.12rem",
+        letterSpacing: "0.08rem",
+        // lineHeight: "54px",
+        lineHeight: lineHeight,
+        textTransform: "uppercase",
+        overflow: "scroll",
         strong: {
           fontStyle: "normal",
           fontWeight: "bold",
