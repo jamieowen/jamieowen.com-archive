@@ -43,7 +43,7 @@ export const TextFormatter: FC<{
         letterSpacing: "0.08rem",
         // lineHeight: "54px",
         lineHeight: lineHeight,
-        textTransform: "uppercase",
+        // textTransform: "uppercase",
         overflow: "scroll",
         strong: {
           fontStyle: "normal",

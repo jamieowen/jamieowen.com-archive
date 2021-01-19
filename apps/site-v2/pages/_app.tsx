@@ -4,7 +4,7 @@ import Head from "next/head";
 import theme from "../components/theme";
 import { Footer, Navigation } from "../components/common";
 import { ThemeProvider } from "theme-ui";
-import { Scheduler, LayoutObserver } from "@jamieowen/motion-layout";
+// import { Scheduler, LayoutObserver } from "@jamieowen/motion-layout";
 // import { MatterProvider } from "../components/physics/MatterContext";
 // import { IntersectionProvider } from "../components//motion/IntersectionContext";
 // import { GenerativeGridProvider } from "../components/generative-grid";
@@ -40,13 +40,13 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
       <AppStateContextProvider>
         <ThemeProvider theme={theme}>
           <ColorContextProvider>
-            <Scheduler>
-              {/* <Navigation /> */}
-              <LayoutObserver rootMargin="-10% 0%">
-                <Component {...pageProps} />
-              </LayoutObserver>
-              {/* <Footer /> */}
-            </Scheduler>
+            {/* <Scheduler> */}
+            {/* <Navigation /> */}
+            {/* <LayoutObserver rootMargin="-10% 0%"> */}
+            <Component {...pageProps} />
+            {/* </LayoutObserver> */}
+            {/* <Footer /> */}
+            {/* </Scheduler> */}
           </ColorContextProvider>
         </ThemeProvider>
       </AppStateContextProvider>
