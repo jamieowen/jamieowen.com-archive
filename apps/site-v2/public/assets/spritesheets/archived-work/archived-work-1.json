@@ -1,0 +1,133 @@
+{"frames": [
+
+{
+	"filename": "bbcalendaroftales_10.jpg",
+	"frame": {"x":1,"y":1,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "itv_01.jpg",
+	"frame": {"x":515,"y":1,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "itv_02.jpg",
+	"frame": {"x":1029,"y":1,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "itv_03.jpg",
+	"frame": {"x":1,"y":343,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_01.jpg",
+	"frame": {"x":515,"y":343,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_02.jpg",
+	"frame": {"x":1029,"y":343,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_03.jpg",
+	"frame": {"x":1,"y":685,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_04.jpg",
+	"frame": {"x":1,"y":1027,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_05.jpg",
+	"frame": {"x":1,"y":1369,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_06.jpg",
+	"frame": {"x":515,"y":685,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_07.jpg",
+	"frame": {"x":1029,"y":685,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_08.jpg",
+	"frame": {"x":515,"y":1027,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_09.jpg",
+	"frame": {"x":515,"y":1369,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_10.jpg",
+	"frame": {"x":1029,"y":1027,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+},
+{
+	"filename": "keithtyson_11.jpg",
+	"frame": {"x":1029,"y":1369,"w":512,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":340},
+	"sourceSize": {"w":512,"h":340}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "archived-work-1.png",
+	"format": "RGBA8888",
+	"size": {"w":1542,"h":1710},
+	"scale": "1",
+	"related_multi_packs": [ "archived-work-0.json", "archived-work-2.json", "archived-work-3.json", "archived-work-4.json", "archived-work-5.json", "archived-work-6.json" ],
+	"smartupdate": "$TexturePacker:SmartUpdate:d9ef89a468cd427eca993306cc36fc4d:032d4e3400e088596219f7ad7e00e591:f335ce9956d7a416dfdc9fbafe02e638$"
+}
+}

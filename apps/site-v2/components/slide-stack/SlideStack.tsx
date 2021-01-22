@@ -122,7 +122,7 @@ export const SlideStack: FC<any> = ({ children }) => {
   const router = useRouter();
 
   // Stack mode, hover & seelcted index.
-  const [mode, setMode] = useState<StackMode>("root");
+  const [mode, setMode] = useState<StackMode>("stacked");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [hoverIndex, setHoverIndex] = useState(null);
 

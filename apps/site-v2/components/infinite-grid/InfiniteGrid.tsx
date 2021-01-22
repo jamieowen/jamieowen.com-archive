@@ -1,90 +1,71 @@
-import { FC, useMemo, useState } from "react";
-import { gestureStream3d, resizeObserverStream } from "@jamieowen/browser";
-import { dragGesture3d } from "@jamieowen/motion";
-import { useThree, Vector3 } from "react-three-fiber";
-import { useInfiniteGrid } from "./hooks";
+import { FC, Fragment, useMemo, useLayoutEffect, useEffect } from "react";
+import { useThree } from "react-three-fiber";
+import { createGrid, createGestures } from "./createGrid";
+import { LoadState } from "./SpriteAssetLoader";
+import { createMeshFactory } from "./SpriteMeshFactory";
 
-export const InfiniteGrid: FC<{ viewport: [number, number] }> = ({
-  viewport,
-}) => {
-  const dimensions = [4, 3] as [number, number];
-  const vp = [viewport[0] * 0.01, viewport[1] * 0.01] as [number, number];
-  const { grid, position } = useInfiniteGrid(vp, dimensions);
-  const [pos, setPos] = useState(position.deref());
+/**
+ * Notes for grid implementation.
+ *
+ * Grid is supplied an array of spritesheet locations ( multiple images and json )
+ * Sprites are loaded and textures created accordingly.
+ * Sprites are sorted by name, and duplicated infinitely in the veritcal direction.
+ * Sprite groups are formed ( and duplicated horizontally ) by the difference between names. ( or supplying a groups list )
+ */
 
-  // useFrame(() => {
-  //   console.log("FRAME LOOP");
-  // }); `
-  const three = useThree();
-  const gesture = useMemo(() => {
-    const { camera } = three;
-    const domElement = three.gl.domElement;
-    const resize$ = resizeObserverStream(domElement);
-    console.log("Attach", domElement, camera);
-    // resize$.next({ width: 0, height: 0 } as ResizeEvent);
-    resize$.subscribe({
-      next: (ev) => {
-        console.log("RESIZE", ev);
+export interface InfiniteGridProps {
+  loadState: LoadState;
+}
+
+export const InfiniteGrid: FC<InfiniteGridProps> = ({ loadState }) => {
+  const { gl, camera, invalidate, scene } = useThree();
+
+  const { domElement } = gl;
+  const { resize, drag, pointer } = useMemo(
+    () => createGestures(domElement, camera),
+    []
+  );
+  const factory = useMemo(() => createMeshFactory(), []);
+  useMemo(() => factory.updateAssets(loadState.currentAssets), [
+    loadState.currentAssets,
+  ]);
+
+  const { position, opts, group } = useMemo(() => createGrid(factory), []);
+
+  group.rotation.z = Math.PI * 0.01;
+  group.rotation.x = Math.PI * -0.1;
+
+  useLayoutEffect(() => {
+    scene.add(group);
+
+    pointer.subscribe({
+      next: ({ type }) => {
+        // console.log("Ges", type);
       },
     });
-    camera.position.z = 0.5;
-    const stream = gestureStream3d(domElement, camera, resize$, {
-      normal: [0, 0, 1],
-    });
 
-    position.subscribe({
-      next: (pos) => {
-        // setPos(pos);
-      },
-    });
-
-    // stream.error = (err) => {
-    //   console.log("ERRRPR", err);
-    // };
-    // stream.subscribe({
-    //   next: (ev) => {
-    //     // console.log("NEXT 3D", ev);
-    //   },
-    // });
-
-    const drag = dragGesture3d(stream, {
-      maxSpeed: 10,
-      friction: 0.4,
-    });
     drag.subscribe({
       next: ({ particle }) => {
         position.next([-particle.position[0], -particle.position[1]]);
+        invalidate();
       },
     });
-    // drag.error = () => {
-    //   console.log("Drag Error");
-    // };
 
-    return stream;
+    resize.subscribe({
+      next: () => {
+        console.log("New resize...");
+        // update view port..
+
+        const op = opts.deref();
+        // set group center
+
+        group.position.set(-op.dimensions[0] / 2, -op.dimensions[1] / 2, 0);
+        // update grid opts
+        // dimensions: [4, 3],
+        // viewport: [10, 10],
+      },
+    });
   }, []);
 
-  // useEffect(() => {}, []);
-
-  const items = grid.deref();
-  // console.log("GRID RENDER UPDATE", pos, items.length, vp, dimensions);
-
-  const s = 0.1;
-  const ss = 0.9;
-  const [w, h] = dimensions;
-  const ms = [w * ss, h * ss, 1] as Vector3;
-  return (
-    <group scale={[s, s, s]}>
-      {items.map((item, i) => {
-        const x = item.local[0];
-        const y = item.local[1];
-        // console.log("XY:", viewport, x, y);
-        return (
-          <mesh key={i} position={[x, y, 0]} scale={ms}>
-            <planeBufferGeometry />
-            <meshBasicMaterial />
-          </mesh>
-        );
-      })}
-    </group>
-  );
+  return <group></group>;
 };

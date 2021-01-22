@@ -11,7 +11,8 @@ export type SelectedWorkIds =
   | "google-starbucks"
   | "mcdonalds-40thanniversary"
   | "pbs-gamesapp"
-  | "serpentine-galleries";
+  | "serpentine-galleries"
+  | "archived-work";
 
 let order = 0;
 export const data: { [K in SelectedWorkIds]: ProjectContent } = {
@@ -74,5 +75,11 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     baseColor: "lightgray",
     client: "McDonald's",
     title: "40th Anniversary",
+  },
+  "archived-work": {
+    order: order++,
+    baseColor: "lightgray",
+    client: "Archived",
+    title: "Archived",
   },
 };

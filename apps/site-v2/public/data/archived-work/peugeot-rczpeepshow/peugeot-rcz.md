@@ -1,3 +1,0 @@
-Peugeot launched their new RCZ car and worked with agency Signal Noise to develop an interactive installation to be installed around various large shopping complexes in the UK.
-
-We created a ‘Peepshow’ style unit which contained a number of ‘eye slits’ with LED monitors positioned behind.  Each monitor displayed  an interactive visualisation written in OpenFrameworks.  The visualisation was a series of layered videos and 360 degree stills of a 3D rendered RCZ car.  An additional realtime particle system layer gave additional depth, and interaction via 2 Griffin Powermate controls allowed rotation of the car and selection of key hot spots.  

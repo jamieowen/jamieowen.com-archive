@@ -1,3 +1,0 @@
-McDonald’s worked with Razorfish on a Guinness book of record style stunt to market their Chicken Legends range of meals.  The stunt involved performing a jump with a radio controlled car over an articulated lorry. The stunt was filmed from various angles including car-mounted and drone footage.
-
-We worked with Goodboy Digital to create an interactive desktop and tablet application to preview the jump in slow motion and from the various angles.  Due to limitations on video playback in the browser the footage was split across a single 4K video allowing switchable synced playback of each angle.  We added additional ‘Fast and the Furious’ style GLSL effects over the top and Web Audio style effects to the soundtrack.

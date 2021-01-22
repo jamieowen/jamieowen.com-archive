@@ -1,3 +1,0 @@
-Keith Tyson is a turner prize winning contemporary artist with an interest interest in generative systems. He worked with the agency de-construct to create a digital experience of his award-winning artworks.
-
-We developed an interactive experience centralised around a molecular structure as the main interface with each layer being a section to explore writings, galleries and additional information. Each artwork had an additional Explore section to provide an interactive version of each exhibit.  Interactive included video based content of the creation of Nature Paintings, a navigatable grid of objects for the Large Field Array sculptures; and a custom random number generated downloadable artwork exploring his History Paintings works.

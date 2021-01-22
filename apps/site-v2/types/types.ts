@@ -12,6 +12,7 @@ export interface ProjectData {
   url: string;
   images: Image[];
   thumbs: Image[];
+  json: string[];
   content: ProjectContent;
 }
 
