@@ -5,6 +5,7 @@ import {
   Mesh,
   MeshBasicMaterial,
   Texture,
+  BufferAttribute,
 } from "three";
 import { GridCell } from "@jamieowen/layout";
 
@@ -17,7 +18,6 @@ const sourceGeometry = (() => {
 })();
 export const createGeometry = () => {
   const geom = sourceGeometry().clone();
-  console.log("ADD Geometry", geom.getAttribute("uv"));
   return geom;
 };
 
@@ -33,11 +33,16 @@ interface ProjectFrames {
   }[];
 }
 
+const mod = (x: number, n: number) => {
+  return ((x % n) + n) % n;
+};
+
 export class SpriteMeshFactory {
   map: Map<number, Mesh> = new Map();
   count: number = 0;
   visible: Set<Mesh> = new Set();
-  projects: ProjectFrames[];
+  projects: ProjectFrames[] = [];
+  hasProjects: boolean = false;
 
   create(cell: GridCell) {
     let mesh: Mesh;
@@ -46,16 +51,78 @@ export class SpriteMeshFactory {
       this.count--;
     } else {
       // Retain individual geometry for each, for UVS.
+
       const geom = createGeometry();
-      mesh = new Mesh(geom, new MeshBasicMaterial({}));
+      console.log("CREATE MESH......", geom.attributes["uv"].array);
+      mesh = new Mesh(
+        geom,
+        new MeshBasicMaterial({
+          color: 0xffffff,
+        })
+      );
     }
+    this.visible.add(mesh);
     mesh.userData = cell;
+    this.assignMesh(mesh, cell);
     return mesh;
   }
 
   release(mesh: Mesh) {
     this.count++;
     this.map.set(this.count, mesh);
+    this.visible.delete(mesh);
+  }
+
+  assignMesh(mesh: Mesh, cell: GridCell) {
+    if (this.projects && this.projects.length > 0) {
+      try {
+        const pos = cell.cell;
+        const project = this.projects[mod(pos[1], this.projects.length)];
+        if (project) {
+          const frameOff = mod(pos[0], project.frameRefs.length);
+          const frame = project.frameRefs[frameOff];
+          const mat = mesh.material as MeshBasicMaterial;
+          if (frame && frame.texture) {
+            // console.log("ASSIGN MESH  :", frame.texture);
+            mat.map = frame.texture;
+            mat.needsUpdate = true;
+            const uv = frame.uv;
+            const geom = mesh.geometry as PlaneBufferGeometry;
+            const uva = geom.attributes["uv"] as BufferAttribute;
+
+            const arr = uva.array;
+            // @ts-ignore
+            uva.copyArray(uv);
+            uva.needsUpdate = true;
+            // arr[0] = uv[0];
+            // uva.array[1] = uv[2];
+
+            // const att = geom.
+          } else {
+            console.log("no frame", frameOff, project.frameRefs, cell.cell);
+          }
+        } else {
+          console.log("no project");
+        }
+
+        // console.log("assign mesh", cell.cell, frame.texture);
+      } catch (err) {
+        console.error("EROR", err);
+        throw err;
+      }
+    } else {
+      console.log("Skip assignMesh");
+    }
+  }
+  /**
+   * Update the visible cells with the correct sprite / geometry
+   */
+  assignCells() {
+    if (this.projects) {
+      for (let mesh of this.visible.keys()) {
+        this.assignMesh(mesh, mesh.userData as GridCell);
+      }
+    }
   }
 
   /**
@@ -102,16 +169,28 @@ export class SpriteMeshFactory {
         const tw = json.meta.size.w;
         const th = json.meta.size.h;
 
+        // typical three.js geom order : 0, 1, 1, 1, 0, 0, 1, 0
         const uv = new Float32Array([
           fx / tw,
+          (fy + fh) / th,
+          (fx + fw) / tw, // 1,1
+          (fy + fh) / th,
+          fx / tw, // 0,0
           fy / th,
           (fx + fw) / tw,
           fy / th,
-          (fx + fw) / tw,
-          (fy + fh) / th,
-          fx / tw,
-          (fy + fh) / th,
         ]);
+
+        // const uv = new Float32Array([
+        //   fx / tw,
+        //   fy / th,
+        //   (fx + fw) / tw,
+        //   fy / th,
+        //   (fx + fw) / tw,
+        //   (fy + fh) / th,
+        //   fx / tw,
+        //   (fy + fh) / th,
+        // ]);
 
         // this.x0 = frame.x / tw;
         // this.y0 = frame.y / th;
@@ -141,6 +220,7 @@ export class SpriteMeshFactory {
       );
       return item;
     });
+    this.hasProjects = true;
   }
 }
 

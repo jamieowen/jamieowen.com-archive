@@ -18,6 +18,7 @@ export const ProjectGallerySlide: FC<
   return (
     <SlideContainer {...props} padding={false}>
       <Canvas
+        colorManagement={false}
         pixelRatio={2}
         invalidateFrameloop={false}
         gl={{ alpha: false, antialias: true }}

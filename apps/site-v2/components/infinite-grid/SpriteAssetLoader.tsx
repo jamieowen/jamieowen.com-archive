@@ -83,7 +83,7 @@ class Loader {
     }
     const url = this.urls.pop();
     const ext = url.split(".").slice(-1)[0];
-    console.log("Next Asset..", ext, url);
+    // console.log("Next Asset..", ext, url);
 
     if (ext === "json") {
       fetch(url)

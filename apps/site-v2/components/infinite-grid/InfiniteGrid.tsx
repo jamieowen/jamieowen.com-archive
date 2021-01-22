@@ -26,14 +26,20 @@ export const InfiniteGrid: FC<InfiniteGridProps> = ({ loadState }) => {
     []
   );
   const factory = useMemo(() => createMeshFactory(), []);
-  useMemo(() => factory.updateAssets(loadState.currentAssets), [
-    loadState.currentAssets,
-  ]);
+  useMemo(() => {
+    console.log("UPDATE ASSETS");
+    try {
+      factory.updateAssets(loadState.currentAssets);
+      // factory.assignCells();
+    } catch (err) {
+      throw err;
+    }
+  }, [loadState.currentAssets]);
 
   const { position, opts, group } = useMemo(() => createGrid(factory), []);
 
-  group.rotation.z = Math.PI * 0.01;
-  group.rotation.x = Math.PI * -0.1;
+  // group.rotation.z = Math.PI * 0.01;
+  // group.rotation.x = Math.PI * -0.1;
 
   useLayoutEffect(() => {
     scene.add(group);
@@ -44,12 +50,19 @@ export const InfiniteGrid: FC<InfiniteGridProps> = ({ loadState }) => {
       },
     });
 
+    pointer.error = (err) => {
+      console.log("POINTER ERROR", err);
+    };
     drag.subscribe({
       next: ({ particle }) => {
         position.next([-particle.position[0], -particle.position[1]]);
         invalidate();
       },
     });
+
+    drag.error = (err) => {
+      console.error("DRAG ERROR", err);
+    };
 
     resize.subscribe({
       next: () => {

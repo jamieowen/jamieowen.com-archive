@@ -19,8 +19,8 @@ export const createGestures = (domElement: HTMLElement, camera: Camera) => {
   });
 
   const drag = dragGesture3d(pointer, {
-    // friction: 0.9,
-    // maxSpeed: 10,
+    friction: 0.04,
+    maxSpeed: 100,
   });
 
   return {
