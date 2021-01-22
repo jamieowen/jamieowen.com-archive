@@ -4,13 +4,15 @@ import {
   ContentContainer,
   PageHeader,
 } from "../../components/common";
-import { Layout } from "@jamieowen/motion-layout";
+// import { Layout } from "@jamieowen/motion-layout";
 import { Grid, Text } from "theme-ui";
 import {
   LargeParagraphFullWidth,
   LargeParagraphHeading,
   SmallParagraphHeading,
 } from "../../components/common/headings";
+
+const Layout: FC<any> = ({ children }) => <div>{children}</div>;
 
 const mapAlternateEmphasis = (x: string, i: number): ReactNode =>
   i % 2 ? (

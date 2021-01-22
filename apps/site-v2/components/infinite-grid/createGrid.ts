@@ -9,7 +9,6 @@ import { GridOpts, infiniteGrid, reactive } from "@jamieowen/layout";
 import { createGeometryFactory } from "@jamieowen/three";
 import { resizeObserverStream, gestureStream3d } from "@jamieowen/browser";
 import { dragGesture3d } from "@jamieowen/motion";
-import { createGeometry, updateUV, updateMesh } from "./geometry";
 import { SpriteMeshFactory } from "./SpriteMeshFactory";
 
 export const createGestures = (domElement: HTMLElement, camera: Camera) => {

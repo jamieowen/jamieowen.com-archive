@@ -16,6 +16,7 @@ export const ProjectGallerySlide: FC<
   }, [project]);
 
   return (
+    // @ts-ignore // unsure about this error..
     <SlideContainer {...props} padding={false}>
       <Canvas
         colorManagement={false}

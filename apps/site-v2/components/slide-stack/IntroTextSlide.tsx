@@ -84,6 +84,7 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
   }, [context.stackMode, currentProject]);
 
   return (
+    // @ts-ignore // unsure about this error..
     <SlideContainer {...props} ref={slideRef}>
       <TextFormatter>
         {/* <strong>Hello.</strong> You’ve reached the website of Jamie Owen, A{" "}

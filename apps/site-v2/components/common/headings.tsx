@@ -1,8 +1,10 @@
 import { FC, Fragment } from "react";
 import { Box, Grid, Text } from "theme-ui";
 import { BoxColumn } from "./containers";
-import { Layout } from "@jamieowen/motion-layout";
+// import { Layout } from "@jamieowen/motion-layout";
 type Align = "left" | "right";
+
+const Layout: FC<any> = ({ children }) => <div>{children}</div>;
 
 export const GridAlign: FC<{ align: Align }> = ({
   children,
