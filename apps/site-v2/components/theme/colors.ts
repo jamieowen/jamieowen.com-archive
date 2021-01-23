@@ -1,13 +1,15 @@
 import { Theme } from "theme-ui";
 
+const createModes = () => {};
+
 export const colors: Pick<
   Theme,
   "colors" | "colorStyles" | "initialColorModeName"
 > = {
   colors: {
     /** theme ui default **/
-    text: "#efefef",
-    background: "white",
+    text: "#444444",
+    background: "black",
     primary: "#efefef",
     secondary: "crimson",
     accent: "hotpink",
@@ -17,16 +19,6 @@ export const colors: Pick<
     /** Custom */
     navigation_text: "#454545",
     navigation_bg: "transparent",
-
-    /** Home */
-    slide_1_text: "hotpink",
-    slide_1_bg: "white",
-    slide_2_text: "#222222",
-    slide_2_bg: "indianred",
-    slide_3_text: "#f2f2f2",
-    slide_3_bg: "#1c1c1c",
-    slide_4_text: "#454545",
-    slide_4_bg: "#FEFF00",
 
     /**
      * Swatch Combinations

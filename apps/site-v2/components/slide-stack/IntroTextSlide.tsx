@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { CSSProperties, FC, useEffect, useMemo, useRef } from "react";
 import { useMotionValue } from "framer-motion";
 import { ProjectData } from "types";
-import { Link } from "theme-ui";
+import { Link, Text } from "theme-ui";
 import {
   useSlideContext,
   SlideContainer,
@@ -61,6 +61,7 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
   // Check current stack mode.
   // If stacked, then ensure active project is within scroll visibility.
   useEffect(() => {
+    return;
     // console.log("REF", slideRef.current);
     // console.log("Selected Project : ", currentProject);
     if (context.stackMode !== "root" && currentProject) {
@@ -86,26 +87,32 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
   return (
     // @ts-ignore // unsure about this error..
     <SlideContainer {...props} ref={slideRef}>
-      <TextFormatter>
-        {/* <strong>Hello.</strong> You’ve reached the website of Jamie Owen, A{" "}
-        <em>Creative Technologist</em> & <em>Software Engineer </em>based in
-        London, UK. I have 18+ years of experience working with a range of
-        coding platforms building creative web software for installations,
-        mobile and desktop. */}
-        {text}
-        <p>
-          Read more Below. Use your mouse or thumb pointer to interact with
-          these digital words. Shuffle some Color Palettes. Select something at
-          random. Or generate garbage. Once you are done, you get the
-        </p>
-        <strong>Work & recent projects include </strong>
-        {/* <em>_001 </em>
-      <strong>Systems Thinking / </strong>
-      <em>Lloyds Banking Group</em>, _002 Multitouch Installations National
-      Museum of Qatar @ AllOfUs, Google Livecase */}
-        {projectLinks.map((l) => l.element)}
-        {/* {text} */}
-      </TextFormatter>
+      <Text variant="body">{text}</Text>
     </SlideContainer>
+  );
+};
+
+const v = () => {
+  return (
+    <TextFormatter>
+      {/* <strong>Hello.</strong> You’ve reached the website of Jamie Owen, A{" "}
+    <em>Creative Technologist</em> & <em>Software Engineer </em>based in
+    London, UK. I have 18+ years of experience working with a range of
+    coding platforms building creative web software for installations,
+    mobile and desktop. */}
+      {/* {text} */}
+      <p>
+        Read more Below. Use your mouse or thumb pointer to interact with these
+        digital words. Shuffle some Color Palettes. Select something at random.
+        Or generate garbage. Once you are done, you get the
+      </p>
+      <strong>Work & recent projects include </strong>
+      {/* <em>_001 </em>
+  <strong>Systems Thinking / </strong>
+  <em>Lloyds Banking Group</em>, _002 Multitouch Installations National
+  Museum of Qatar @ AllOfUs, Google Livecase */}
+      {/* {projectLinks.map((l) => l.element)} */}
+      {/* {text} */}
+    </TextFormatter>
   );
 };

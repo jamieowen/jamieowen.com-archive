@@ -236,7 +236,7 @@ export const SlideContainer = forwardRef<HTMLDivElement, SlideContainerProps>(
     return (
       <Container
         ref={ref}
-        style={{ backgroundColor: bgColor }}
+        // style={{ backgroundColor: bgColor }}
         data-slide={true}
         // onScroll={(ev) => console.log("on scroll", ev.currentTarget.scrollTop)}
         sx={{
@@ -245,7 +245,7 @@ export const SlideContainer = forwardRef<HTMLDivElement, SlideContainerProps>(
           position: "absolute",
           pointerEvents: selected ? "all" : "none",
           overflow: selected ? "scroll" : "hidden",
-          padding: padding ? "4rem 10rem" : "0rem",
+          padding: padding ? "4rem 4rem" : "0rem",
         }}
       >
         {/* Shadow */}

@@ -2,6 +2,13 @@ import { Theme } from "theme-ui";
 
 export const text: Pick<Theme, "text"> = {
   text: {
+    body: {
+      fontFamily: "roboto",
+      fontSize: "24px",
+      lineHeight: "48px",
+      fontWeight: "300",
+    },
+
     /** Top Navigation Text */
     navigation: {
       fontSize: 0,
