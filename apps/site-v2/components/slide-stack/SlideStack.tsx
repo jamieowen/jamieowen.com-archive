@@ -23,22 +23,26 @@ const getPosition = (
   hoverIndex: number,
   selectedIndex: number
 ) => {
+  const hoverMin = 5;
+  const hoverMax = 10;
+  const rootHeight = 8;
+
   let hoverOffset: number;
   if (hoverIndex === null) {
     hoverOffset = 0;
   } else if (index === hoverIndex) {
-    hoverOffset = -5;
+    hoverOffset = -hoverMin;
   } else if (index < hoverIndex) {
-    hoverOffset = -10;
+    hoverOffset = -hoverMax;
   } else {
-    hoverOffset = 5;
+    hoverOffset = hoverMin;
   }
   switch (mode) {
     case "root":
       if (index === 0) {
         return "0%";
       } else {
-        return `calc(100% - ${(3 - index) * 30}px )`;
+        return `calc(100% - ${(3 - index) * rootHeight}px )`;
       }
     case "stacked":
       return index * 33.33 + hoverOffset + "%";
@@ -118,7 +122,7 @@ export const useSlideContext = () => {
 
 export const SlideStack: FC<any> = ({ children }) => {
   // Color? May shift to theme-ui
-  const colorContext = useColorContext();
+  // const colorContext = useColorContext();
   const router = useRouter();
 
   // Stack mode, hover & seelcted index.
@@ -151,7 +155,7 @@ export const SlideStack: FC<any> = ({ children }) => {
   // );
 
   const slides = Children.map(children, (child, i) => {
-    const color = colorContext.palette.backgroundRange[i];
+    // const color = colorContext.palette.backgroundRange[i];
     const padding =
       child.props.padding === undefined ? true : child.props.padding;
     const selected = i === selectedIndex;
@@ -183,7 +187,7 @@ export const SlideStack: FC<any> = ({ children }) => {
         }
       >
         {cloneElement(child, {
-          bgColor: color,
+          // bgColor: color,
           padding,
           selected,
           hover,
@@ -236,28 +240,20 @@ export const SlideContainer = forwardRef<HTMLDivElement, SlideContainerProps>(
     return (
       <Container
         ref={ref}
-        // style={{ backgroundColor: bgColor }}
+        variant="slide_container"
         data-slide={true}
         // onScroll={(ev) => console.log("on scroll", ev.currentTarget.scrollTop)}
         sx={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
           pointerEvents: selected ? "all" : "none",
           overflow: selected ? "scroll" : "hidden",
-          padding: padding ? "4rem 4rem" : "0rem",
+          padding: padding ? "4rem 4rem 4rem 4rem" : "0rem",
         }}
       >
         {/* Shadow */}
         <Container
+          variant="slide_shadow"
           sx={{
-            width: "100%",
-            height: "16px",
             margin: padding ? "-4rem" : "0rem",
-            position: "fixed",
-            opacity: "0.1",
-            backgroundColor: "black",
-            zIndex: 100,
           }}
         ></Container>
         {children}

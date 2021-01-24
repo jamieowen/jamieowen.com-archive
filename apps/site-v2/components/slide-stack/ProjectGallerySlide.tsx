@@ -18,7 +18,7 @@ export const ProjectGallerySlide: FC<
   return (
     // @ts-ignore // unsure about this error..
     <SlideContainer {...props} padding={false}>
-      <Canvas
+      {/* <Canvas
         colorManagement={false}
         pixelRatio={2}
         invalidateFrameloop={false}
@@ -27,7 +27,7 @@ export const ProjectGallerySlide: FC<
         <SpriteAssetLoader urls={assets}>
           {(loadState) => <InfiniteGrid loadState={loadState} />}
         </SpriteAssetLoader>
-      </Canvas>
+      </Canvas> */}
     </SlideContainer>
   );
 };

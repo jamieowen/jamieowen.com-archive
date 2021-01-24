@@ -40,15 +40,15 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
       </Head>
       <AppStateContextProvider>
         <ThemeProvider theme={theme}>
-          <ColorContextProvider>
-            {/* <Scheduler> */}
-            {/* <Navigation /> */}
-            {/* <LayoutObserver rootMargin="-10% 0%"> */}
-            <Component {...pageProps} />
-            {/* </LayoutObserver> */}
-            {/* <Footer /> */}
-            {/* </Scheduler> */}
-          </ColorContextProvider>
+          {/* <ColorContextProvider> */}
+          {/* <Scheduler> */}
+          {/* <Navigation /> */}
+          {/* <LayoutObserver rootMargin="-10% 0%"> */}
+          <Component {...pageProps} />
+          {/* </LayoutObserver> */}
+          {/* <Footer /> */}
+          {/* </Scheduler> */}
+          {/* </ColorContextProvider> */}
         </ThemeProvider>
       </AppStateContextProvider>
     </Fragment>

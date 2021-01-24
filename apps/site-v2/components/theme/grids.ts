@@ -2,6 +2,21 @@ import { Theme } from "theme-ui";
 
 export const grids: Pick<Theme, "grids"> = {
   grids: {
+    tech_list: {
+      gap: "16px",
+      maxWidth: "80%",
+      gridTemplateColumns: "1fr 1fr 1fr 1fr",
+      ul: {
+        display: "block",
+        margin: "0px",
+        padding: "0px",
+        listStyleType: "none",
+        fontFamily: "roboto",
+        fontSize: "12px",
+        lineHeight: "24px",
+      },
+    },
+
     /** Navigation Bar Grid */
     navigation: {
       gap: "1rem",
