@@ -2,7 +2,7 @@ import { FC, Fragment } from "react";
 import App, { AppProps } from "next/app";
 import Head from "next/head";
 import theme from "../components/theme";
-import { Footer, Navigation } from "../components/common";
+import { Navigation } from "../components/common";
 import { ThemeProvider } from "theme-ui";
 // import { Scheduler, LayoutObserver } from "@jamieowen/motion-layout";
 // import { MatterProvider } from "../components/physics/MatterContext";
