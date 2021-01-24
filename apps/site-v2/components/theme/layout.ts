@@ -10,7 +10,7 @@ export const layout: Pick<Theme, "layout"> = {
       position: "absolute",
       backgroundColor: "background",
       "> *": {
-        marginBottom: "256px",
+        marginBottom: "256px !important",
       },
     },
     slide_shadow: {
@@ -28,6 +28,10 @@ export const layout: Pick<Theme, "layout"> = {
       zIndex: 101,
       width: "64px",
       height: "100%",
+    },
+    content_container: {
+      margin: "0px",
+      padding: "0px",
     },
     /** Debug element */
     // debug: {

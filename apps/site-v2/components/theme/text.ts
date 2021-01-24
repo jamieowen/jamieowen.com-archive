@@ -7,14 +7,14 @@ export const text: Pick<Theme, "text"> = {
       fontSize: "24px",
       lineHeight: "48px",
       fontWeight: "400",
-      maxWidth: "65%",
+      maxWidth: "75%",
     },
     body_small: {
       fontFamily: "roboto",
       fontSize: "16px",
       lineHeight: "32px",
       fontWeight: "400",
-      maxWidth: "55%",
+      maxWidth: "65%",
     },
     subtitle_header: {
       fontFamily: "roboto",

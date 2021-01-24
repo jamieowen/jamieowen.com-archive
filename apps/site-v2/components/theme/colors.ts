@@ -16,6 +16,10 @@ export const colors: Pick<
         text: "white",
         background: "black",
       },
+      yellow: {
+        text: "#454545",
+        background: "#ffff00",
+      },
     },
   },
 };

@@ -1,7 +1,15 @@
 import { defaultIpsum, lorumIpsum } from "components/helpers/lorumIpsum";
 import { TextFormatter } from "components/text-formatter";
 import { useRouter } from "next/router";
-import { CSSProperties, FC, Fragment, useEffect, useMemo, useRef } from "react";
+import {
+  CSSProperties,
+  ElementType,
+  FC,
+  Fragment,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { useMotionValue } from "framer-motion";
 import { ProjectData } from "types";
 import { Grid, Heading, Link, Text, Container } from "theme-ui";
@@ -65,11 +73,10 @@ const ProjectLinks: FC<{}> = () => {
         }}
         onClick={(ev) => context.launchProject(ev, p)}
       >
-        <Text variant="project_text">
-          <em style={{ ...em() }}> _00{i + 1}</em>
-          <strong>{p.content.title} </strong>
-          <strong>{p.content.client}</strong>
-          <strong>{p.content.order} </strong>{" "}
+        <Text as="span" variant="project_text">
+          {/* <em style={{ ...em() }}> _00{i + 1}</em> */}
+          <strong>{p.content.client}</strong> <span>{p.content.title} </span>
+          <strong>({p.content.agency}) </strong>
         </Text>
       </Link>
     );
@@ -113,9 +120,9 @@ const MenuItems: FC<{}> = () => {
       { label: "Tech Stack.", href: "#tech-stack" },
       { label: "Recent Work.", href: "#recent-work", break: true },
       { label: "Archive.", href: " " },
+      { label: "Get In Touch.", href: " " },
       { label: "Github.", href: " " },
       { label: "LinkedIn.", href: " " },
-      { label: "Get In Touch.", href: " " },
     ],
     []
   );
@@ -150,6 +157,14 @@ const BodyHeader: FC<{}> = ({ children }) => {
   return <Heading variant="subtitle_header">{children}</Heading>;
 };
 
+const Section: FC<{ as?: ElementType }> = ({ as = "section", children }) => {
+  return (
+    <Container variant="content_container" as={as}>
+      {children}
+    </Container>
+  );
+};
+
 export const IntroTextSlide: FC<SlideContainerProps> = ({
   children,
   ...props
@@ -160,11 +175,11 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
   return (
     // @ts-ignore // unsure about this error.. to do with ref.
     <SlideContainer {...props} ref={slideRef}>
-      <nav>
+      <Section as="nav">
         <BodyHeader>00 / Menu</BodyHeader>
         <MenuItems />
-      </nav>
-      <section>
+      </Section>
+      <Section>
         <BodyHeader>01 / Intro</BodyHeader>
         <BodyText>
           Hello. My name is Jamie. I'm a Creative Developer & Software Engineer
@@ -172,8 +187,8 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
           installations & websites. Keep scrolling to have a peruse! Or Resume /
           CV
         </BodyText>
-      </section>
-      <section id="tech-stack">
+      </Section>
+      <Section id="tech-stack">
         <BodyHeader>02 / Tech Stack</BodyHeader>
         <BodySmallText>
           I've worked with a lot of frameworks, languages and platforms over the
@@ -183,15 +198,24 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
           <br />
         </BodySmallText>
         <TechList />
-      </section>
-      <section>
+      </Section>
+      <Section>
         <BodyHeader>03 / Recent Work</BodyHeader>
         <BodySmallText>
           I'm lucky to have worked with some talented folk at Moving Brands,
           Goodboy Digital, AllOfUs. On projects for Google,
         </BodySmallText>
         <ProjectLinks />
-      </section>
+      </Section>
+      <Section id="tech-stack">
+        <BodyHeader>04 / Get In Touch</BodyHeader>
+        <BodySmallText>
+          Say Hello. Send an email.
+          <br />
+          <br />
+        </BodySmallText>
+        <TechList />
+      </Section>
     </SlideContainer>
   );
 };
@@ -236,7 +260,7 @@ const TechList: FC<{}> = () => {
           <li>Python / Jupyter Lab</li>
           <li>OpenCV / NLTK</li>
           <li>Maya / Houdini</li>
-          <li>Sketch / Figma</li>
+          <li>Sketch / Figma / Adobe CC</li>
           <li>OpenFrameworks / Processing</li>
         </ul>
       </Container>
