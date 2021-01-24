@@ -9,7 +9,7 @@ export type SelectedWorkIds =
   | "google-livecase"
   | "argos-giftguide"
   | "google-starbucks"
-  | "mcdonalds-40thanniversary"
+  | "mcdonalds-40th"
   | "pbs-gamesapp"
   | "serpentine-galleries"
   | "archived-work";
@@ -70,7 +70,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "Google",
     title: "Google Fiber",
   },
-  "mcdonalds-40thanniversary": {
+  "mcdonalds-40th": {
     order: order++,
     baseColor: "lightgray",
     client: "McDonald's",

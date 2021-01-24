@@ -237,6 +237,7 @@ const TechList: FC<{}> = () => {
           <li>OpenCV / NLTK</li>
           <li>Maya / Houdini</li>
           <li>Sketch / Figma</li>
+          <li>OpenFrameworks / Processing</li>
         </ul>
       </Container>
     </Grid>

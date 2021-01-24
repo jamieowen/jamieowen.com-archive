@@ -22,6 +22,7 @@ const count = () => {
 };
 
 interface ResizeOpts {
+  type: "cover" | "fit";
   output: {
     width: number;
     height: number;
@@ -32,7 +33,7 @@ interface ResizeOpts {
 
 const outputRelativeToFolder = (to: string, subFolders: number = 1) => {
   return (filename: string, idx: number) => {
-    const rel = path.relative(filename, to);
+    // const rel = path.relative(filename, to);
     const basename = path.basename(filename).slice(0, -4) + ".jpg"; // enforce jpg
     const dirname = path.dirname(filename);
     // Take a number of nested folders up from the source.
@@ -41,8 +42,7 @@ const outputRelativeToFolder = (to: string, subFolders: number = 1) => {
         ? ""
         : dirname.split(path.sep).slice(-subFolders).join(path.sep);
 
-    console.log("Relative :", relativeFolder);
-    return path.join(rel, relativeFolder, basename);
+    return path.resolve(to, relativeFolder, basename);
   };
 };
 
@@ -61,9 +61,15 @@ const resizeImages = async (globMatch: string, opts: ResizeOpts) => {
     const outputPath = opts.outputPath(p, i++);
 
     if (!opts.dryRun) {
-      image.cover(opts.output.width, opts.output.height);
+      if (opts.type === "cover") {
+        image.cover(opts.output.width, opts.output.height);
+      } else if (opts.type === "fit") {
+        image.scaleToFit(opts.output.width, opts.output.height);
+      }
       image.quality(100);
-      await image.writeAsync(path.join(outputPath, output.toLowerCase()));
+      console.log("Write:", outputPath);
+      //path.join(outputPath, output.toLowerCase())
+      await image.writeAsync(outputPath);
     } else {
       console.log("(Dry run) Write : ", outputPath);
     }
@@ -77,22 +83,25 @@ const resizeImages = async (globMatch: string, opts: ResizeOpts) => {
 const run = async () => {
   // await rimraf()
   await resizeImages("./public-src/raw/archived-work/**/*.{png,jpg}", {
+    type: "cover",
     output: {
       width: 640 * 0.8,
       height: 425 * 0.8,
     },
     dryRun: true,
-    outputPath: outputRelativeToFolder("./public/resized/archived-work", 0),
+    outputPath: outputRelativeToFolder("./public-src/resized/archived-work", 0),
   });
 
   // Export selected work images.
+  // They sit in their own folders.
   await resizeImages("./public-src/raw/selected-work/**/*.{png,jpg}", {
+    type: "fit",
     output: {
-      width: 640 * 0.8,
-      height: 425 * 0.8,
+      width: 512,
+      height: 2048,
     },
-    dryRun: true,
-    outputPath: outputRelativeToFolder("./public/resized", 1),
+    dryRun: false,
+    outputPath: outputRelativeToFolder("./public-src/resized", 1),
   });
 };
 
