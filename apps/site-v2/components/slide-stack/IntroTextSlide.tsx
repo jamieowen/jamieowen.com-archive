@@ -21,6 +21,7 @@ import {
 import { useProjects } from "components/context/ProjectsContext";
 import { Button } from "components/common";
 import { colors } from "components/theme/colors";
+import { TechGridList, InterestsGridList } from "./GridList";
 
 const em = (): CSSProperties => ({
   verticalAlign: "super",
@@ -202,7 +203,7 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
         <BodyHeader>00 / Menu</BodyHeader>
         <MenuItems />
       </Section>
-      <Section size="mid">
+      <Section id="intro" size="mid">
         <BodyHeader>01 / Intro</BodyHeader>
         <BodyText>
           Hello. My name is Jamie. I'm a Creative Developer & Software Engineer
@@ -217,7 +218,8 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
           <BodySmallText>
             I've worked with a lot of frameworks, languages and platforms over
             the years but my typical focus is functional & object-oriented
-            programming in Typescript/Javascript ES6.
+            programming in Typescript/Javascript ES6. Here's some potentially
+            confusing words that I think about daily.
             <br />
             <br />
           </BodySmallText>
@@ -226,7 +228,7 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
           <TechGridList />
         </Section>
       </Section>
-      <Section size="full">
+      <Section id="recent-work" size="full">
         <BodyHeader>03 / Recent Work</BodyHeader>
         <Section as="div" size="sml" nomargin>
           <BodySmallText>
@@ -238,7 +240,23 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
           <ProjectLinks />
         </Section>
       </Section>
-      <Section id="tech-stack">
+
+      <Section id="interests" size="full">
+        <BodyHeader>04 / Interests</BodyHeader>
+        <Section as="div" size="sml" nomargin>
+          <BodySmallText>
+            I'm lucky to have worked with some talented folk at Moving Brands,
+            Goodboy Digital, AllOfUs. On projects for Google,
+            <br />
+            <br />
+          </BodySmallText>
+        </Section>
+        <Section as="div" size="mid">
+          <InterestsGridList />
+        </Section>
+      </Section>
+
+      <Section id="get-in-touch">
         <BodyHeader>04 / Get In Touch</BodyHeader>
         <BodySmallText>
           Say Hello. Send an email.
@@ -248,186 +266,4 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
       </Section>
     </SlideContainer>
   );
-};
-
-const techListData = (): GridColumns => [
-  // Creative Tech
-  [
-    // Each Line can have multiple links
-    [
-      ["Three.js", "https://threejs.org/"],
-      ["Pixi.js", "https://www.pixijs.com/"],
-    ],
-    [["thi.ng/umbrella", "https://thi.ng/"]],
-    [
-      ["WebGL", "https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API"],
-      ["GLSL", ""],
-      ["twgl", "http://twgljs.org/"],
-    ],
-    [
-      ["Canvas", "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"],
-      ["WebAudio", ""],
-    ],
-    [
-      ["Workers", ""],
-      ["Wasm", ""],
-      ["TypedArrays", ""],
-    ],
-    [
-      ["WebVR", ""],
-      ["WebAR", ""],
-      ["WebXR", ""],
-    ],
-  ],
-  // Front End
-  [
-    [
-      ["Typescript", ""],
-      ["Javascript ES6", ""],
-    ],
-    [
-      ["React", ""],
-      ["Redux", ""],
-      ["Storybook", ""],
-    ],
-    [
-      ["Styled Components", ""],
-      ["JSS", ""],
-      ["Emotion", ""],
-    ],
-    [
-      ["Material UI", ""],
-      ["Theme UI", ""],
-    ],
-
-    [
-      ["Webpack", ""],
-      ["Babel", ""],
-      ["Rollup", ""],
-    ],
-    [
-      ["Jest", ""],
-      ["Testing Library", ""],
-    ],
-  ],
-  // Backend
-  [
-    [
-      ["Node.js", ""],
-      ["Express", ""],
-      ["Next.js", ""],
-    ],
-    [
-      ["Lerna", ""],
-      ["Yarn", ""],
-      ["Npm", ""],
-    ],
-    [
-      ["Git", ""],
-      ["CI", ""],
-      ["Github Actions", ""],
-    ],
-    [
-      ["MongoDB", ""],
-      ["Mongoose", ""],
-    ],
-    [
-      ["Docker", ""],
-      ["Kubernetes", ""],
-    ],
-    [
-      ["JAMStack", ""],
-      ["Headless", ""],
-    ],
-    [
-      ["Contentful", ""],
-      ["Shopify", ""],
-    ],
-  ],
-  // Generalist
-  [
-    [
-      ["Python", ""],
-      ["Jupyter Lab", ""],
-    ],
-    [
-      ["OpenCV", ""],
-      ["NLTK", ""],
-    ],
-    [["OpenFrameworks", ""]],
-    [
-      ["Sketch", ""],
-      ["Figma", ""],
-      ["Adobe CC", ""],
-    ],
-    [
-      ["Framer", "https://www.framer.com/"],
-      ["Framer Motion", "https://www.framer.com/motion/"],
-    ],
-    [
-      ["Maya", ""],
-      ["Houdini", ""],
-    ],
-  ],
-];
-
-const interestData = () => ({});
-
-type GridColumn = [label: string, url: string][][];
-type GridColumns = [GridColumn, GridColumn, GridColumn, GridColumn];
-type GridNames = [string, string, string, string];
-
-const GridListColumn: FC<{ name: string; data: GridColumn }> = ({
-  name,
-  data,
-}) => {
-  return (
-    <Container>
-      <BodyHeader>{name}</BodyHeader>
-      <ul>
-        {data.map((line, i) => (
-          <li key={i}>
-            {line.map(([label, url], i) => (
-              <Fragment key={i}>
-                <Button href={url} size="small">
-                  {label}
-                </Button>
-                {i === line.length - 1 ? "" : " / "}
-              </Fragment>
-            ))}
-          </li>
-        ))}
-      </ul>
-    </Container>
-  );
-};
-
-const GridList: FC<{
-  columns: GridColumns;
-  names: GridNames;
-}> = ({ columns, names }) => {
-  return (
-    <Grid variant="tech_list">
-      {columns.map((col, i) => (
-        <GridListColumn key={i} data={col} name={names[i]} />
-      ))}
-    </Grid>
-  );
-};
-
-const TechGridList = () => {
-  const data = useMemo(
-    () => ({
-      columns: techListData(),
-      names: [
-        "02.1 / Creative Tech",
-        "02.2 / Frontend",
-        "02.3 / Backend/Devops",
-        "02.4 / Generalist",
-      ] as GridNames,
-    }),
-    []
-  );
-
-  return <GridList columns={data.columns} names={data.names} />;
 };
