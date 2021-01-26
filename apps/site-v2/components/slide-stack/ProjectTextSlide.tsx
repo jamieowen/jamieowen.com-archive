@@ -1,8 +1,7 @@
 import { defaultIpsum } from "components/helpers/lorumIpsum";
-import { TextFormatter } from "components/text-formatter";
 import { FC, Fragment, useMemo } from "react";
 import { ProjectData } from "types";
-import { Container, Link } from "theme-ui";
+import { Link, Text, Grid } from "theme-ui";
 import NextLink from "next/link";
 
 import {
@@ -10,6 +9,8 @@ import {
   SlideContainer,
   SlideContainerProps,
 } from "./SlideStack";
+
+import { BodyHeader, BodySmallText, Section } from "./IntroTextSlide";
 
 import { useProjects } from "components/context/ProjectsContext";
 
@@ -30,32 +31,54 @@ export const ProjectLink: FC<{ project: ProjectData | null }> = ({
   );
 };
 
+export const ProjectInfoText: FC<{}> = ({ children }) => {
+  return <Text variant="project_info">{children}</Text>;
+};
+
 export const ProjectTextSlide: FC<
   { project?: ProjectData } & SlideContainerProps
 > = ({ project, children, ...props }) => {
   const { currentProject, nextProject, previousProject } = useProjects();
-  const text = useMemo(() => defaultIpsum().generateParagraphs(3), []);
+  const text = useMemo(() => defaultIpsum().generateParagraphs(1), []);
   return (
     <SlideContainer {...props}>
-      <Container
-        sx={{
-          position: "fixed",
-          top: "64px",
-          left: "50%",
-          // right: "19%",
-          // textAlign: "right",
-          width: "100%",
-          fontSize: "16px",
-        }}
-      >
-        <ProjectLink project={previousProject}>Previous </ProjectLink>
-        <ProjectLink project={nextProject}>Next</ProjectLink>
-      </Container>
-      <TextFormatter size="16px" lineHeight="32px">
+      <ProjectLink project={previousProject}>Previous </ProjectLink>
+      <ProjectLink project={nextProject}>Next</ProjectLink>
+      <Section as="header" size="mid" nomargin>
+        <Grid variant="project_info">
+          <ProjectInfoText>
+            <h3>Client:</h3>
+            <span>{currentProject ? currentProject.content.client : ""}</span>
+          </ProjectInfoText>
+          <ProjectInfoText>
+            <h3>Title:</h3>
+            <span>{currentProject ? currentProject.content.title : ""}</span>
+          </ProjectInfoText>
+          <ProjectInfoText>
+            <h3>Agency:</h3>
+            <span>{currentProject ? currentProject.content.agency : ""}</span>
+          </ProjectInfoText>
+          <ProjectInfoText>
+            <h3>Tech:</h3>
+            <span>{currentProject ? currentProject.content.agency : ""}</span>
+          </ProjectInfoText>
+
+          {/* {currentProject.content.agency}
+        {currentProject.content.client}
+        {currentProject.content.title} */}
+        </Grid>
+      </Section>
+      <br />
+      <br />
+      <Section size="mid">
+        <BodySmallText>{text}</BodySmallText>
+      </Section>
+
+      {/* <TextFormatter size="16px" lineHeight="32px">
         <strong>{project && project.content.title}</strong>
         <p>{project && project.content.client}</p>
         {text}
-      </TextFormatter>
+      </TextFormatter> */}
     </SlideContainer>
   );
 };

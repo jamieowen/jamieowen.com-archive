@@ -7,26 +7,47 @@ export const text: Pick<Theme, "text"> = {
       fontSize: "24px",
       lineHeight: "48px",
       fontWeight: "400",
-      maxWidth: "75%",
     },
     body_small: {
       fontFamily: "roboto",
       fontSize: "16px",
       lineHeight: "32px",
       fontWeight: "400",
-      maxWidth: "65%",
     },
     subtitle_header: {
       fontFamily: "roboto",
       fontSize: "8px",
+      fontWeight: 400,
       lineHeight: "48px",
       opacity: 0.5,
       textTransform: "uppercase",
     },
+    // big project links..
     project_text: {
       fontFamily: "roboto",
       fontSize: "48px",
       lineHeight: "96px",
+    },
+    // client / agency links
+    project_info: {
+      fontFamily: "roboto",
+      fontSize: "8px",
+      lineHeight: "24px",
+      margin: "0px",
+      padding: "0px",
+      textTransform: "uppercase",
+
+      h3: {
+        display: "inline-block",
+        fontWeight: 400,
+        fontSize: "8px",
+        marginRight: "8px",
+        margin: "0px",
+        opacity: 0.5,
+      },
+      span: {
+        // opacity
+      },
     },
 
     /** Top Navigation Text */

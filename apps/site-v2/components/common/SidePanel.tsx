@@ -8,11 +8,11 @@ export const SidePanel: FC<{}> = () => {
   const colorModes = [
     colors.initialColorModeName,
     ...Object.keys(colors.colors.modes),
-  ].map((key) => {
+  ].map((key, i) => {
     return (
       <div
+        key={i}
         onClick={() => {
-          console.log("color mode.");
           setColorMode(key);
         }}
       >

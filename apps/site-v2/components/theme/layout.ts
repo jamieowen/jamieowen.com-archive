@@ -9,8 +9,19 @@ export const layout: Pick<Theme, "layout"> = {
       padding: "0% 0% 50% 50%",
       position: "absolute",
       backgroundColor: "background",
-      "> *": {
+      color: "text",
+      transition: "background-color 1s ease-out, color 1.3s ease-in",
+      "> .margin": {
         marginBottom: "256px !important",
+      },
+      ".sml": {
+        maxWidth: "65%",
+      },
+      ".mid": {
+        maxWidth: "75%",
+      },
+      ".full": {
+        maxWidth: "100%",
       },
     },
     slide_shadow: {
@@ -29,9 +40,14 @@ export const layout: Pick<Theme, "layout"> = {
       width: "64px",
       height: "100%",
     },
-    content_container: {
+    section: {
       margin: "0px",
       padding: "0px",
+    },
+    rollover: {
+      display: "absolute",
+      width: "100%",
+      height: "100%",
     },
     /** Debug element */
     // debug: {

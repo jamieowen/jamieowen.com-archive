@@ -19,6 +19,8 @@ import {
   SlideContainerProps,
 } from "./SlideStack";
 import { useProjects } from "components/context/ProjectsContext";
+import { Button } from "components/common";
+import { colors } from "components/theme/colors";
 
 const em = (): CSSProperties => ({
   verticalAlign: "super",
@@ -62,23 +64,13 @@ const ProjectLinks: FC<{}> = () => {
   const projectLinks = projects.map((p, i) => {
     const ref = useRef<HTMLAnchorElement>();
     const element = (
-      <Link
-        ref={ref}
-        key={i}
-        sx={{
-          ":hover": {
-            backgroundColor: "red",
-            cursor: "pointer",
-          },
-        }}
-        onClick={(ev) => context.launchProject(ev, p)}
-      >
+      <Button ref={ref} key={i} onClick={(ev) => context.launchProject(ev, p)}>
         <Text as="span" variant="project_text">
           {/* <em style={{ ...em() }}> _00{i + 1}</em> */}
           <strong>{p.content.client}</strong> <span>{p.content.title} </span>
           <strong>({p.content.agency}) </strong>
         </Text>
-      </Link>
+      </Button>
     );
 
     return {
@@ -91,7 +83,7 @@ const ProjectLinks: FC<{}> = () => {
   return <Fragment>{projectLinks.map((p) => p.element)}</Fragment>;
 };
 
-const MenuItem: FC<{ label: string; href: string }> = ({ label, href }) => {
+const MenuItem2: FC<{ label: string; href: string }> = ({ label, href }) => {
   return (
     <Link
       // href={href}
@@ -110,6 +102,28 @@ const MenuItem: FC<{ label: string; href: string }> = ({ label, href }) => {
         {label}
       </Text>
     </Link>
+  );
+};
+
+const MenuItem: FC<{ label: string; href: string }> = ({ label, href }) => {
+  return (
+    <Button
+      size="small"
+      // href={href}
+      onClick={() => console.log("Do Click", href)}
+      sx={{
+        cursor: "pointer",
+        marginRight: "16px",
+        // transition: "opacity 0.1s ease-out",
+        // ":hover": {
+        //   opacity: 0.4,
+        // },
+      }}
+    >
+      <Text variant="body_small" as="span">
+        {label}
+      </Text>
+    </Button>
   );
 };
 
@@ -135,8 +149,8 @@ const MenuItems: FC<{}> = () => {
     //   },
     // }}
     >
-      {links.map((link) => (
-        <Fragment>
+      {links.map((link, i) => (
+        <Fragment key={i}>
           <MenuItem {...link} />
           {link.break ? <br /> : null}
         </Fragment>
@@ -145,21 +159,30 @@ const MenuItems: FC<{}> = () => {
   );
 };
 
-const BodyText: FC<{}> = ({ children }) => {
+export const BodyText: FC<{}> = ({ children }) => {
   return <Text variant="body">{children}</Text>;
 };
 
-const BodySmallText: FC<{}> = ({ children }) => {
+export const BodySmallText: FC<{}> = ({ children }) => {
   return <Text variant="body_small">{children}</Text>;
 };
 
-const BodyHeader: FC<{}> = ({ children }) => {
+export const BodyHeader: FC<{}> = ({ children }) => {
   return <Heading variant="subtitle_header">{children}</Heading>;
 };
 
-const Section: FC<{ as?: ElementType }> = ({ as = "section", children }) => {
+export const Section: FC<{
+  id?: string;
+  as?: ElementType;
+  size?: "sml" | "mid" | "full";
+  nomargin?: boolean;
+}> = ({ as = "section", size = "sml", children, nomargin = false }) => {
   return (
-    <Container variant="content_container" as={as}>
+    <Container
+      variant="section"
+      as={as}
+      className={nomargin ? size : ["margin", size].join(" ")}
+    >
       {children}
     </Container>
   );
@@ -179,7 +202,7 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
         <BodyHeader>00 / Menu</BodyHeader>
         <MenuItems />
       </Section>
-      <Section>
+      <Section size="mid">
         <BodyHeader>01 / Intro</BodyHeader>
         <BodyText>
           Hello. My name is Jamie. I'm a Creative Developer & Software Engineer
@@ -188,24 +211,32 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
           CV
         </BodyText>
       </Section>
-      <Section id="tech-stack">
+      <Section id="tech-stack" size="full">
         <BodyHeader>02 / Tech Stack</BodyHeader>
-        <BodySmallText>
-          I've worked with a lot of frameworks, languages and platforms over the
-          years but my typical focus is functional & object-oriented programming
-          in Typescript/Javascript ES6.
-          <br />
-          <br />
-        </BodySmallText>
-        <TechList />
+        <Section as="div" size="sml" nomargin>
+          <BodySmallText>
+            I've worked with a lot of frameworks, languages and platforms over
+            the years but my typical focus is functional & object-oriented
+            programming in Typescript/Javascript ES6.
+            <br />
+            <br />
+          </BodySmallText>
+        </Section>
+        <Section as="div" size="mid">
+          <TechGridList />
+        </Section>
       </Section>
-      <Section>
+      <Section size="full">
         <BodyHeader>03 / Recent Work</BodyHeader>
-        <BodySmallText>
-          I'm lucky to have worked with some talented folk at Moving Brands,
-          Goodboy Digital, AllOfUs. On projects for Google,
-        </BodySmallText>
-        <ProjectLinks />
+        <Section as="div" size="sml" nomargin>
+          <BodySmallText>
+            I'm lucky to have worked with some talented folk at Moving Brands,
+            Goodboy Digital, AllOfUs. On projects for Google,
+          </BodySmallText>
+        </Section>
+        <Section as="div" size="full">
+          <ProjectLinks />
+        </Section>
       </Section>
       <Section id="tech-stack">
         <BodyHeader>04 / Get In Touch</BodyHeader>
@@ -214,81 +245,189 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
           <br />
           <br />
         </BodySmallText>
-        <TechList />
       </Section>
     </SlideContainer>
   );
 };
 
-const TechList: FC<{}> = () => {
+const techListData = (): GridColumns => [
+  // Creative Tech
+  [
+    // Each Line can have multiple links
+    [
+      ["Three.js", "https://threejs.org/"],
+      ["Pixi.js", "https://www.pixijs.com/"],
+    ],
+    [["thi.ng/umbrella", "https://thi.ng/"]],
+    [
+      ["WebGL", "https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API"],
+      ["GLSL", ""],
+      ["twgl", "http://twgljs.org/"],
+    ],
+    [
+      ["Canvas", "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"],
+      ["WebAudio", ""],
+    ],
+    [
+      ["Workers", ""],
+      ["Wasm", ""],
+      ["TypedArrays", ""],
+    ],
+    [
+      ["WebVR", ""],
+      ["WebAR", ""],
+      ["WebXR", ""],
+    ],
+  ],
+  // Front End
+  [
+    [
+      ["Typescript", ""],
+      ["Javascript ES6", ""],
+    ],
+    [
+      ["React", ""],
+      ["Redux", ""],
+      ["Storybook", ""],
+    ],
+    [
+      ["Styled Components", ""],
+      ["JSS", ""],
+      ["Emotion", ""],
+    ],
+    [
+      ["Material UI", ""],
+      ["Theme UI", ""],
+    ],
+
+    [
+      ["Webpack", ""],
+      ["Babel", ""],
+      ["Rollup", ""],
+    ],
+    [
+      ["Jest", ""],
+      ["Testing Library", ""],
+    ],
+  ],
+  // Backend
+  [
+    [
+      ["Node.js", ""],
+      ["Express", ""],
+      ["Next.js", ""],
+    ],
+    [
+      ["Lerna", ""],
+      ["Yarn", ""],
+      ["Npm", ""],
+    ],
+    [
+      ["Git", ""],
+      ["CI", ""],
+      ["Github Actions", ""],
+    ],
+    [
+      ["MongoDB", ""],
+      ["Mongoose", ""],
+    ],
+    [
+      ["Docker", ""],
+      ["Kubernetes", ""],
+    ],
+    [
+      ["JAMStack", ""],
+      ["Headless", ""],
+    ],
+    [
+      ["Contentful", ""],
+      ["Shopify", ""],
+    ],
+  ],
+  // Generalist
+  [
+    [
+      ["Python", ""],
+      ["Jupyter Lab", ""],
+    ],
+    [
+      ["OpenCV", ""],
+      ["NLTK", ""],
+    ],
+    [["OpenFrameworks", ""]],
+    [
+      ["Sketch", ""],
+      ["Figma", ""],
+      ["Adobe CC", ""],
+    ],
+    [
+      ["Framer", "https://www.framer.com/"],
+      ["Framer Motion", "https://www.framer.com/motion/"],
+    ],
+    [
+      ["Maya", ""],
+      ["Houdini", ""],
+    ],
+  ],
+];
+
+const interestData = () => ({});
+
+type GridColumn = [label: string, url: string][][];
+type GridColumns = [GridColumn, GridColumn, GridColumn, GridColumn];
+type GridNames = [string, string, string, string];
+
+const GridListColumn: FC<{ name: string; data: GridColumn }> = ({
+  name,
+  data,
+}) => {
+  return (
+    <Container>
+      <BodyHeader>{name}</BodyHeader>
+      <ul>
+        {data.map((line, i) => (
+          <li key={i}>
+            {line.map(([label, url], i) => (
+              <Fragment key={i}>
+                <Button href={url} size="small">
+                  {label}
+                </Button>
+                {i === line.length - 1 ? "" : " / "}
+              </Fragment>
+            ))}
+          </li>
+        ))}
+      </ul>
+    </Container>
+  );
+};
+
+const GridList: FC<{
+  columns: GridColumns;
+  names: GridNames;
+}> = ({ columns, names }) => {
   return (
     <Grid variant="tech_list">
-      <Container>
-        <BodyHeader>02.1 / Creative Tech</BodyHeader>
-        <ul>
-          <li>Three.js / Pixi.js</li>
-          <li>thi.ng/umbrella</li>
-          <li>StackGL / twgl</li>
-          <li>Canvas / WebGL</li>
-          <li>Framer / Framer Motion</li>
-        </ul>
-      </Container>
-      <Container>
-        <BodyHeader>02.2 / Frontend</BodyHeader>
-        <ul>
-          <li>Typescript/Javascript ES6</li>
-          <li>React / Redux / Storybook</li>
-          <li>Styled Components / JSS / Emotion</li>
-          <li>Material UI / Theme UI</li>
-          <li>Workers/Wasm/TypedArrays</li>
-        </ul>
-      </Container>
-      <Container>
-        <BodyHeader>02.3 / Backend/Devops</BodyHeader>
-        <ul>
-          <li>Node</li>
-          <li>Next.js / Vercel</li>
-          <li>Express / </li>
-          <li>Lerna / Npm </li>
-          <li>Docker / Kubernetes</li>
-          <li>JAMStack / </li>
-        </ul>
-      </Container>
-      <Container>
-        <BodyHeader>02.4 / Generalist</BodyHeader>
-        <ul>
-          <li>Python / Jupyter Lab</li>
-          <li>OpenCV / NLTK</li>
-          <li>Maya / Houdini</li>
-          <li>Sketch / Figma / Adobe CC</li>
-          <li>OpenFrameworks / Processing</li>
-        </ul>
-      </Container>
+      {columns.map((col, i) => (
+        <GridListColumn key={i} data={col} name={names[i]} />
+      ))}
     </Grid>
   );
 };
 
-// const v = () => {
-//   return (
-//     <TextFormatter>
-//       {/* <strong>Hello.</strong> You’ve reached the website of Jamie Owen, A{" "}
-//     <em>Creative Technologist</em> & <em>Software Engineer </em>based in
-//     London, UK. I have 18+ years of experience working with a range of
-//     coding platforms building creative web software for installations,
-//     mobile and desktop. */}
-//       {/* {text} */}
-//       <p>
-//         Read more Below. Use your mouse or thumb pointer to interact with these
-//         digital words. Shuffle some Color Palettes. Select something at random.
-//         Or generate garbage. Once you are done, you get the
-//       </p>
-//       <strong>Work & recent projects include </strong>
-//       {/* <em>_001 </em>
-//   <strong>Systems Thinking / </strong>
-//   <em>Lloyds Banking Group</em>, _002 Multitouch Installations National
-//   Museum of Qatar @ AllOfUs, Google Livecase */}
-//       {/* {projectLinks.map((l) => l.element)} */}
-//       {/* {text} */}
-//     </TextFormatter>
-//   );
-// };
+const TechGridList = () => {
+  const data = useMemo(
+    () => ({
+      columns: techListData(),
+      names: [
+        "02.1 / Creative Tech",
+        "02.2 / Frontend",
+        "02.3 / Backend/Devops",
+        "02.4 / Generalist",
+      ] as GridNames,
+    }),
+    []
+  );
+
+  return <GridList columns={data.columns} names={data.names} />;
+};

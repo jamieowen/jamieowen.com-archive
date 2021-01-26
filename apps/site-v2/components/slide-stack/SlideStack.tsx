@@ -187,7 +187,8 @@ export const SlideStack: FC<any> = ({ children }) => {
         }
       >
         {cloneElement(child, {
-          // bgColor: color,
+          bgColor: i === 0 ? "background" : "background" + i,
+          textColor: i === 0 ? "text" : "text" + i,
           padding,
           selected,
           hover,
@@ -221,6 +222,7 @@ export const SlideStack: FC<any> = ({ children }) => {
 
 export type SlideContainerProps = Partial<{
   bgColor: string;
+  textColor: string;
   padding: boolean;
   selected: boolean;
   hover: boolean;
@@ -230,7 +232,8 @@ export const SlideContainer = forwardRef<HTMLDivElement, SlideContainerProps>(
   (
     {
       children,
-      bgColor = "crimson",
+      bgColor = "background",
+      textColor = "text",
       padding = true,
       selected = false,
       hover = false,
@@ -244,6 +247,8 @@ export const SlideContainer = forwardRef<HTMLDivElement, SlideContainerProps>(
         data-slide={true}
         // onScroll={(ev) => console.log("on scroll", ev.currentTarget.scrollTop)}
         sx={{
+          backgroundColor: bgColor,
+          color: textColor,
           pointerEvents: selected ? "all" : "none",
           overflow: selected ? "scroll" : "hidden",
           padding: padding ? "4rem 4rem 4rem 4rem" : "0rem",
@@ -253,6 +258,8 @@ export const SlideContainer = forwardRef<HTMLDivElement, SlideContainerProps>(
         <Container
           variant="slide_shadow"
           sx={{
+            opacity: 0.02,
+            backgroundColor: "black",
             margin: padding ? "-4rem" : "0rem",
           }}
         ></Container>

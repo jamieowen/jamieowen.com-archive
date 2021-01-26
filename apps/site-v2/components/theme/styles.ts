@@ -12,7 +12,11 @@ export const styles: Pick<Theme, "styles"> = {
       fontSize: 0,
       margin: "0rem",
     },
-
+    "*": {
+      backgroundColor: "black",
+      WebkitFontSmoothing: "antialiased",
+      MozOsxFontSmoothing: "grayscale",
+    },
     h1: {
       variant: "heading",
       color: "secondary",
