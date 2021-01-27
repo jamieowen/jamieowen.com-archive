@@ -15,13 +15,13 @@ export const layout: Pick<Theme, "layout"> = {
         marginBottom: "256px !important",
       },
       ".sml": {
-        maxWidth: "65%",
+        maxWidth: ["90%", "65%"],
       },
       ".mid": {
-        maxWidth: "75%",
+        maxWidth: ["90%", "75%"],
       },
       ".full": {
-        maxWidth: "100%",
+        maxWidth: ["100%", "100%"],
       },
     },
     slide_shadow: {
@@ -38,7 +38,8 @@ export const layout: Pick<Theme, "layout"> = {
       top: "0px",
       zIndex: 101,
       width: "64px",
-      height: "100%",
+      // height: "100%",
+      // pointerEvents: "none",
     },
     section: {
       margin: "0px",

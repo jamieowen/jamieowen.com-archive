@@ -5,9 +5,10 @@ export const fonts: Pick<
   "fonts" | "fontWeights" | "lineHeights" | "fontSizes" | "letterSpacings"
 > = {
   fonts: {
-    roboto: "'Roboto Mono', sans-serif",
+    // roboto: "'Roboto Mono', monospace",
+    roboto: "'Work Sans', sans-serif",
     worksans: "'Work Sans', sans-serif",
-    body: "'Roboto Mono', sans-serif'",
+    body: "'Roboto Mono', monospace",
     heading: "'Work Sans', sans-serif",
     monospace: "Menlo, monospace",
   },

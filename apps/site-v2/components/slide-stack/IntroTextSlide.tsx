@@ -1,6 +1,14 @@
 import { defaultIpsum, lorumIpsum } from "components/helpers/lorumIpsum";
 import { TextFormatter } from "components/text-formatter";
 import { useRouter } from "next/router";
+
+import {
+  BodyHeader,
+  Section,
+  BodySmallText,
+  BodyText,
+  MenuItems,
+} from "components/common";
 import {
   CSSProperties,
   ElementType,
@@ -66,7 +74,7 @@ const ProjectLinks: FC<{}> = () => {
     const ref = useRef<HTMLAnchorElement>();
     const element = (
       <Button ref={ref} key={i} onClick={(ev) => context.launchProject(ev, p)}>
-        <Text as="span" variant="project_text">
+        <Text as="div" variant="project_text">
           {/* <em style={{ ...em() }}> _00{i + 1}</em> */}
           <strong>{p.content.client}</strong> <span>{p.content.title} </span>
           <strong>({p.content.agency}) </strong>
@@ -82,111 +90,6 @@ const ProjectLinks: FC<{}> = () => {
   });
 
   return <Fragment>{projectLinks.map((p) => p.element)}</Fragment>;
-};
-
-const MenuItem2: FC<{ label: string; href: string }> = ({ label, href }) => {
-  return (
-    <Link
-      // href={href}
-      onClick={() => console.log("Do Click", href)}
-      variant="body_small"
-      sx={{
-        cursor: "pointer",
-        marginRight: "16px",
-        transition: "opacity 0.1s ease-out",
-        ":hover": {
-          opacity: 0.4,
-        },
-      }}
-    >
-      <Text variant="body_small" as="span">
-        {label}
-      </Text>
-    </Link>
-  );
-};
-
-const MenuItem: FC<{ label: string; href: string }> = ({ label, href }) => {
-  return (
-    <Button
-      size="small"
-      // href={href}
-      onClick={() => console.log("Do Click", href)}
-      sx={{
-        cursor: "pointer",
-        marginRight: "16px",
-        // transition: "opacity 0.1s ease-out",
-        // ":hover": {
-        //   opacity: 0.4,
-        // },
-      }}
-    >
-      <Text variant="body_small" as="span">
-        {label}
-      </Text>
-    </Button>
-  );
-};
-
-const MenuItems: FC<{}> = () => {
-  const links = useMemo(
-    () => [
-      { label: "Intro.", href: "#intro" },
-      { label: "Tech Stack.", href: "#tech-stack" },
-      { label: "Recent Work.", href: "#recent-work", break: true },
-      { label: "Archive.", href: " " },
-      { label: "Get In Touch.", href: " " },
-      { label: "Github.", href: " " },
-      { label: "LinkedIn.", href: " " },
-    ],
-    []
-  );
-
-  return (
-    <Container
-    // sx={{
-    //   "> * + *": {
-    //     marginRight: "1rem !important",
-    //   },
-    // }}
-    >
-      {links.map((link, i) => (
-        <Fragment key={i}>
-          <MenuItem {...link} />
-          {link.break ? <br /> : null}
-        </Fragment>
-      ))}
-    </Container>
-  );
-};
-
-export const BodyText: FC<{}> = ({ children }) => {
-  return <Text variant="body">{children}</Text>;
-};
-
-export const BodySmallText: FC<{}> = ({ children }) => {
-  return <Text variant="body_small">{children}</Text>;
-};
-
-export const BodyHeader: FC<{}> = ({ children }) => {
-  return <Heading variant="subtitle_header">{children}</Heading>;
-};
-
-export const Section: FC<{
-  id?: string;
-  as?: ElementType;
-  size?: "sml" | "mid" | "full";
-  nomargin?: boolean;
-}> = ({ as = "section", size = "sml", children, nomargin = false }) => {
-  return (
-    <Container
-      variant="section"
-      as={as}
-      className={nomargin ? size : ["margin", size].join(" ")}
-    >
-      {children}
-    </Container>
-  );
 };
 
 export const IntroTextSlide: FC<SlideContainerProps> = ({
@@ -207,9 +110,10 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
         <BodyHeader>01 / Intro</BodyHeader>
         <BodyText>
           Hello. My name is Jamie. I'm a Creative Developer & Software Engineer
-          based in London, UK. I use current web technologies to build apps,
-          installations & websites. Keep scrolling to have a peruse! Or Resume /
-          CV
+          based in London, UK.
+          <br />
+          <br />I use current web technologies to build apps, installations &
+          websites. Keep scrolling to have a peruse! Or Resume / CV
         </BodyText>
       </Section>
       <Section id="tech-stack" size="full">

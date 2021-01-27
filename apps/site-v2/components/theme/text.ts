@@ -4,29 +4,29 @@ export const text: Pick<Theme, "text"> = {
   text: {
     body: {
       fontFamily: "roboto",
-      fontSize: "24px",
-      lineHeight: "48px",
-      fontWeight: "400",
+      fontSize: ["16px", "24px"],
+      lineHeight: ["32px", "48px"],
+      fontWeight: 600,
     },
     body_small: {
       fontFamily: "roboto",
-      fontSize: "16px",
+      fontSize: ["12px", "16px"],
       lineHeight: "32px",
-      fontWeight: "400",
+      fontWeight: 400,
     },
     subtitle_header: {
       fontFamily: "roboto",
       fontSize: "8px",
       fontWeight: 400,
       lineHeight: "48px",
-      opacity: 0.5,
+      opacity: 0.75,
       textTransform: "uppercase",
     },
     // big project links..
     project_text: {
       fontFamily: "roboto",
-      fontSize: "48px",
-      lineHeight: "96px",
+      fontSize: ["32px", "48px"],
+      lineHeight: ["56px", "96px"],
     },
     // client / agency links
     project_info: {

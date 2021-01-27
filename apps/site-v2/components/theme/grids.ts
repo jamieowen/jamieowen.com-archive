@@ -3,15 +3,15 @@ import { Theme } from "theme-ui";
 export const grids: Pick<Theme, "grids"> = {
   grids: {
     tech_list: {
-      gap: "16px",
-      gridTemplateColumns: "1fr 1fr 1fr 1fr",
+      gap: ["8px", "16px"],
+      gridTemplateColumns: ["1fr 1fr", "1fr 1fr 1fr 1fr"],
       ul: {
         display: "block",
         margin: "0px",
         padding: "0px",
         listStyleType: "none",
         fontFamily: "roboto",
-        fontSize: "12px",
+        fontSize: ["8px", "12px"],
         lineHeight: "24px",
       },
       li: {

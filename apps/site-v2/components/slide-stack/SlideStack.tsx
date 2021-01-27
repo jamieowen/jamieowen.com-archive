@@ -251,7 +251,7 @@ export const SlideContainer = forwardRef<HTMLDivElement, SlideContainerProps>(
           color: textColor,
           pointerEvents: selected ? "all" : "none",
           overflow: selected ? "scroll" : "hidden",
-          padding: padding ? "4rem 4rem 4rem 4rem" : "0rem",
+          padding: padding ? ["1rem", "4rem"] : "0rem",
         }}
       >
         {/* Shadow */}
