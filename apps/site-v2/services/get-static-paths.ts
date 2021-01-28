@@ -32,7 +32,6 @@ export const getStaticProps: GetStaticProps = async (
 export type StaticPropsType = InferGetStaticPropsType<typeof getStaticProps>;
 
 export const _getStaticProps = async (context) => {
-  console.log("CONTEXT PARAMS :", context.params);
   const route = context.params ? context.params["id"] : null;
   const projects = readSelectedWork();
   let archived: ProjectData[] = [];
@@ -90,7 +89,6 @@ export const _getStaticPaths: GetStaticPaths = async () => {
       id: ["recent-work", project.id],
     },
   }));
-  console.log("PROJECT PATHS", projectPaths);
   return {
     fallback: false,
     paths: [...extraPaths, ...projectPaths],

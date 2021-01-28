@@ -8,7 +8,8 @@ const collectEntries = () => {
   return (
     glob
       // .sync("src/color-explore-2.ts", { cwd: __dirname })
-      .sync("src/color-explore-3.tsx", { cwd: __dirname })
+      // .sync("src/color-explore-3.tsx", { cwd: __dirname })
+      .sync("src/particle-compile.ts", { cwd: __dirname })
       // .sync("src/geometry-phase.ts", { cwd: __dirname })
       // .sync("src/motion-streams.ts", { cwd: __dirname })
       // .sync("src/particle-system.ts", { cwd: __dirname })

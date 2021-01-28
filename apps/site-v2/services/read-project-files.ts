@@ -20,7 +20,6 @@ export const readProjectFiles = (
       return path.indexOf("_") === -1;
     })
     .map((path) => {
-      console.log("AMP", path, pathUtil.join(basePath, path));
       const files = glob.sync(`*.{jpg,png,json}`, {
         cwd: pathUtil.join(basePath, path),
       });
@@ -61,7 +60,6 @@ export const readProjectFiles = (
             title: "Missing",
           };
 
-      console.log(images, json);
       return {
         id: path,
         url: `/recent-work/${path}`,

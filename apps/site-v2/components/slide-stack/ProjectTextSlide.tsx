@@ -10,7 +10,7 @@ import {
   SlideContainerProps,
 } from "./SlideStack";
 
-import { BodyHeader, BodySmallText, Section } from "./IntroTextSlide";
+import { BodyHeader, BodySmallText, Section } from "components/common";
 
 import { useProjects } from "components/context/ProjectsContext";
 
