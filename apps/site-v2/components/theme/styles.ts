@@ -9,13 +9,34 @@ export const styles: Pick<Theme, "styles"> = {
     /** Body Styles. */
     root: {
       fontFamily: "body",
-      fontSize: 0,
+      fontSize: "8px",
       margin: "0rem",
-    },
-    "*": {
-      backgroundColor: "black",
-      WebkitFontSmoothing: "antialiased",
-      MozOsxFontSmoothing: "grayscale",
+      ".opq3": {
+        opacity: 0.3,
+      },
+      ".opq5": {
+        opacity: 0.5,
+      },
+      "em, strong": {
+        fontWeight: 600,
+      },
+      ".maxw-small": {
+        maxWidth: "50rem",
+      },
+      ".maxw-medium": {
+        // maxWidth: "50rem", // 1rem - 16
+        maxWidth: "60rem",
+      },
+      ".maxw-full": {
+        maxWidth: "100%",
+      },
+      // "*": {
+      //   transition: "background-color 1s ease-out, color 1.3s ease-in",
+      // },
+      a: {
+        color: "inherit",
+        textDecoration: "underline",
+      },
     },
     h1: {
       variant: "heading",

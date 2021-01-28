@@ -5,12 +5,13 @@ export const fonts: Pick<
   "fonts" | "fontWeights" | "lineHeights" | "fontSizes" | "letterSpacings"
 > = {
   fonts: {
+    // roboto: "'Poppins', monospace",
     // roboto: "'Roboto Mono', monospace",
-    roboto: "'Work Sans', sans-serif",
-    worksans: "'Work Sans', sans-serif",
-    body: "'Roboto Mono', monospace",
-    heading: "'Work Sans', sans-serif",
-    monospace: "Menlo, monospace",
+    // roboto: "'Work Sans', sans-serif",
+    // worksans: "'Work Sans', sans-serif",
+    body: "'Work Sans', sans-serif",
+    heading: "'Roboto Mono', monospace",
+    // monospace: "Menlo, monospace",
   },
   fontWeights: {
     bold: 700,

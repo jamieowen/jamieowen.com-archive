@@ -4,9 +4,11 @@ import Head from "next/head";
 import theme from "../components/theme";
 import {
   ContentContainer,
+  Footer,
   Header,
   Menu,
   SidePanel,
+  WeatherProvider,
   // Navigation,
 } from "../components/common";
 import { ThemeProvider } from "theme-ui";
@@ -45,24 +47,28 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
         <Fonts />
       </Head>
       <AppStateContextProvider>
-        <ThemeProvider theme={theme}>
-          <Header>
-            <Menu />
-          </Header>
-          <SidePanel />
-          <ContentContainer>
-            <Component {...pageProps} />
-          </ContentContainer>
-          {/* <ColorContextProvider> */}
-          {/* <Scheduler> */}
-          {/* <Navigation /> */}
-          {/* <LayoutObserver rootMargin="-10% 0%"> */}
+        <WeatherProvider>
+          <ThemeProvider theme={theme}>
+            <Header>
+              <Menu />
+              <SidePanel />
+              <Footer>XX / © 2020 Jamie Owen</Footer>
+            </Header>
+            <ContentContainer>
+              <Component {...pageProps} />
+              <Footer></Footer>
+            </ContentContainer>
+            {/* <ColorContextProvider> */}
+            {/* <Scheduler> */}
+            {/* <Navigation /> */}
+            {/* <LayoutObserver rootMargin="-10% 0%"> */}
 
-          {/* </LayoutObserver> */}
-          {/* <Footer /> */}
-          {/* </Scheduler> */}
-          {/* </ColorContextProvider> */}
-        </ThemeProvider>
+            {/* </LayoutObserver> */}
+            {/* <Footer /> */}
+            {/* </Scheduler> */}
+            {/* </ColorContextProvider> */}
+          </ThemeProvider>
+        </WeatherProvider>
       </AppStateContextProvider>
     </Fragment>
   );

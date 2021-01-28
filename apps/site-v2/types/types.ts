@@ -1,4 +1,6 @@
-export type Image = {
+import { ReactNode } from "react";
+
+export type ProjectImage = {
   url: string;
   width: number;
   height: number;
@@ -10,8 +12,8 @@ export type Image = {
 export interface ProjectData {
   id: string;
   url: string;
-  images: Image[];
-  thumbs: Image[];
+  images: ProjectImage[];
+  thumbs: ProjectImage[];
   json: string[];
   content: ProjectContent;
 }
@@ -25,4 +27,5 @@ export interface ProjectContent {
   client: string;
   title: string;
   agency: string;
+  content: string;
 }

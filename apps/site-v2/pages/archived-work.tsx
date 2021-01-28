@@ -9,8 +9,10 @@ import {
 export const ArchivedWork = () => {
   return (
     <Content>
-      <BodyHeader>04 / Archvied Work</BodyHeader>
-      <BodyText>Archive</BodyText>
+      <Section>
+        <BodyHeader>04 / Archvied Work</BodyHeader>
+        <BodyText>Archive</BodyText>
+      </Section>
       <Button>Next</Button>
     </Content>
   );

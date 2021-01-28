@@ -9,8 +9,11 @@ import {
 export const GetInTouch = () => {
   return (
     <Content>
-      <BodyHeader>05 / Get in touch</BodyHeader>
-      <BodyText>Get in touch</BodyText>
+      <Section maxWidth="small">
+        <BodyHeader>05 / Get in touch</BodyHeader>
+        <BodyText>Get in touch</BodyText>
+      </Section>
+
       <Button>Next</Button>
     </Content>
   );

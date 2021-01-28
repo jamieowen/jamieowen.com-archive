@@ -2,53 +2,72 @@ import { Theme } from "theme-ui";
 
 export const text: Pick<Theme, "text"> = {
   text: {
-    body: {
-      fontFamily: "roboto",
-      fontSize: ["16px", "24px"],
-      lineHeight: ["32px", "48px"],
-      fontWeight: 600,
-    },
-    body_small: {
-      fontFamily: "roboto",
-      fontSize: ["12px", "16px"],
+    body_text: {
+      fontFamily: "body",
+      fontSize: "16px",
       lineHeight: "32px",
       fontWeight: 400,
     },
-    subtitle_header: {
-      fontFamily: "roboto",
+    body_large: {
+      fontFamily: "body",
+      fontSize: ["16px", "24px"],
+      lineHeight: ["32px", "48px"],
+      fontWeight: 400,
+    },
+    body_header: {
+      fontFamily: "heading",
       fontSize: "8px",
       fontWeight: 400,
       lineHeight: "48px",
       opacity: 0.75,
       textTransform: "uppercase",
     },
-    // big project links..
-    project_text: {
-      fontFamily: "roboto",
-      fontSize: ["32px", "48px"],
-      lineHeight: ["56px", "96px"],
-    },
-    // client / agency links
-    project_info: {
-      fontFamily: "roboto",
-      fontSize: "8px",
-      lineHeight: "24px",
-      margin: "0px",
-      padding: "0px",
-      textTransform: "uppercase",
 
-      h3: {
-        display: "inline-block",
-        fontWeight: 400,
-        fontSize: "8px",
-        marginRight: "8px",
-        margin: "0px",
-        opacity: 0.5,
-      },
-      span: {
-        // opacity
-      },
+    /** Navigation Menu Link Style */
+    navigation_menu: {
+      fontFamily: "body",
+      fontSize: ["12px", "16px"],
+      fontWeight: 400,
+      lineHeight: "32px",
+      textDecoration: "none",
     },
+
+    /** Navigation Body Link Style */
+    navigation_body: {
+      fontFamily: "body",
+      fontSize: "16px",
+      fontWeight: 500,
+      lineHeight: "24px",
+    },
+
+    // big project links..
+    // project_text: {
+    //   fontFamily: "roboto",
+    //   fontSize: ["32px", "48px"],
+    //   lineHeight: ["56px", "96px"],
+    // },
+
+    // // client / agency links
+    // project_info: {
+    //   fontFamily: "roboto",
+    //   fontSize: "8px",
+    //   lineHeight: "24px",
+    //   margin: "0px",
+    //   padding: "0px",
+    //   textTransform: "uppercase",
+
+    //   h3: {
+    //     display: "inline-block",
+    //     fontWeight: 400,
+    //     fontSize: "8px",
+    //     marginRight: "8px",
+    //     margin: "0px",
+    //     opacity: 0.5,
+    //   },
+    //   span: {
+    //     // opacity
+    //   },
+    // },
 
     /** Top Navigation Text */
     // navigation: {

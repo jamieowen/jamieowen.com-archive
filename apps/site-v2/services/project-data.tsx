@@ -22,6 +22,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "Lloyds Banking Group",
     title: "Systems Thinking",
     agency: null,
+    content: ``,
   },
   "national-museum-of-qatar": {
     order: order++,
@@ -29,6 +30,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "National Museum of Qatar",
     title: "Exhibition Installations",
     agency: "AllOfUs",
+    content: ``,
   },
   "nexus-thescript": {
     order: order++,
@@ -36,6 +38,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "Nexus",
     agency: "",
     title: "The Script Mobile VR",
+    content: ``,
   },
   "serpentine-galleries": {
     order: order++,
@@ -43,6 +46,11 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "Serpentine Galleries",
     agency: "AllOfUs",
     title: "Mobile Tours",
+    content: `
+    The Serpentine Galleries is one of London’s contemporary galleries situated in Hyde Park attracting 1.2 million visitors per year. It has exhibited works from the likes of Jean-Michel Basquiat, Andy Warhol and Damien Hirst. 
+    With funding from Bloomberg Philanthropies, they contacted design agency AllOfUs to design and develop a new digital experience available to users of the galleries WiFi network and visible on digital screens throughout the gallery.
+    We developed a mobile web-application featuring interactive Text, Image, Video and Audio content cards that were curatable for each exhibition. Content was edited and delivered with the Contentful headless CMS.    
+    `,
   },
   "cnn-airwars": {
     order: order++,
@@ -50,6 +58,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "CNN",
     agency: "CNN",
     title: "Airwar on ISIS",
+    content: ``,
   },
   "google-livecase": {
     order: order++,
@@ -57,6 +66,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "Google",
     agency: "Rehabstudios",
     title: "Google Livecase",
+    content: ``,
   },
   "argos-giftguide": {
     order: order++,
@@ -64,6 +74,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "Argos",
     agency: "Sapient Razorfish",
     title: "Argos Giftguide",
+    content: ``,
   },
   "pbs-gamesapp": {
     order: order++,
@@ -71,6 +82,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "PBS Kids",
     title: "PBS Games App",
     agency: "Goodboy Digital",
+    content: ``,
   },
   "google-starbucks": {
     order: order++,
@@ -78,6 +90,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "Google",
     title: "Google Fiber",
     agency: "Rehabstudios",
+    content: ``,
   },
   "mcdonalds-40th": {
     order: order++,
@@ -85,6 +98,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "McDonald's",
     title: "40th Anniversary",
     agency: "Goodboy Digital",
+    content: ``,
   },
   "archived-work": {
     order: order++,
@@ -92,5 +106,6 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "Archived",
     title: "Archived",
     agency: null,
+    content: ``,
   },
 };

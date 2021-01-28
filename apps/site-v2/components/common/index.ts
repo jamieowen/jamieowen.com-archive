@@ -5,4 +5,5 @@ export * from "./Common";
 export * from "./Menu";
 export * from "./containers";
 export * from "./ProjectLinks";
-export * from "./ProjectThumbs";
+export * from "./ProjectRenderers";
+export * from "./Footer";

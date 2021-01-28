@@ -2,14 +2,15 @@ import Link from "next/link";
 import { ElementType, FC, Fragment, useMemo } from "react";
 import { Container, Heading, Text } from "theme-ui";
 import { Button } from "./Button";
-import { BodyHeader, Section } from "./Common";
+import { BodyHeader } from "./Common";
+import { Section } from "./containers";
 
 export const Menu: FC<{}> = ({ children }) => {
   return (
-    <Section as="nav">
+    <Container as="nav">
       <BodyHeader>00 / Menu</BodyHeader>
       <MenuItems />
-    </Section>
+    </Container>
   );
 };
 
@@ -50,7 +51,7 @@ const MenuItem: FC<{ label: string; href: string }> = ({ label, href }) => {
         // },
       }}
     >
-      <Text variant="body_small" as="span">
+      <Text variant="navigation_menu" as="span">
         {label}
       </Text>
     </Button>
@@ -64,7 +65,7 @@ export const MenuItems: FC<{}> = () => {
       { label: "Recent Work.", href: "/recent-work" },
       { label: "Tech Stack.", href: "/tech-stack", break: true },
       { label: "Get In Touch.", href: "/get-in-touch" },
-      { label: "Archived.", href: "/archived-work" },
+      // { label: "Archived.", href: "/archived-work" },
       { label: "Interests.", href: "/interests" },
 
       { label: "Github.", href: "https://github.com/jamieowen" },

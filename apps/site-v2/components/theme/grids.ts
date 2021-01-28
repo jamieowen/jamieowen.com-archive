@@ -4,14 +4,15 @@ export const grids: Pick<Theme, "grids"> = {
   grids: {
     tech_list: {
       gap: ["8px", "16px"],
-      gridTemplateColumns: ["1fr 1fr", "1fr 1fr 1fr 1fr"],
+      gridTemplateColumns: ["1fr", "1fr 1fr"],
       ul: {
         display: "block",
         margin: "0px",
         padding: "0px",
         listStyleType: "none",
-        fontFamily: "roboto",
-        fontSize: ["8px", "12px"],
+        fontFamily: "body",
+        // fontSize: ["8px", "12px"],
+        fontSize: "12px",
         lineHeight: "24px",
       },
       li: {
@@ -24,7 +25,7 @@ export const grids: Pick<Theme, "grids"> = {
 
     project_info: {
       gap: "0px 16px",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: ["1fr", "1fr 1fr"],
     },
     /** Navigation Bar Grid */
     // navigation: {

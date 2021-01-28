@@ -70,11 +70,11 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
   return (
     // @ts-ignore // unsure about this error.. to do with ref.
     <SlideContainer {...props} ref={slideRef}>
-      <Section as="nav">
+      <Section>
         <BodyHeader>00 / Menu</BodyHeader>
         <MenuItems />
       </Section>
-      <Section id="intro" size="mid">
+      {/* <Section size="mid">
         <BodyHeader>01 / Intro</BodyHeader>
         <BodyText>
           Hello. My name is Jamie. I'm a Creative Developer & Software Engineer
@@ -83,22 +83,22 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
           <br />I use current web technologies to build apps, installations &
           websites. Keep scrolling to have a peruse! Or Resume / CV
         </BodyText>
-      </Section>
+      </Section> */}
 
-      <Section id="recent-work" size="full">
+      {/* <Section size="full">
         <BodyHeader>03 / Recent Work</BodyHeader>
-        <Section as="div" size="sml" nomargin>
+        <Section size="sml" nomargin>
           <BodySmallText>
             I'm lucky to have worked with some talented folk at Moving Brands,
             Goodboy Digital, AllOfUs. On projects for Google,
           </BodySmallText>
         </Section>
-        <Section as="div" size="full">
+        <Section size="full">
           <ProjectLinks />
         </Section>
-      </Section>
+      </Section> */}
 
-      <Section id="interests" size="full">
+      {/* <Section size="full">
         <BodyHeader>04 / Interests</BodyHeader>
         <Section as="div" size="sml" nomargin>
           <BodySmallText>
@@ -111,9 +111,9 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
         <Section as="div" size="mid">
           <InterestsGridList />
         </Section>
-      </Section>
+      </Section> */}
 
-      <Section id="get-in-touch">
+      <Section>
         <BodyHeader>04 / Get In Touch</BodyHeader>
         <BodySmallText>
           Say Hello. Send an email.

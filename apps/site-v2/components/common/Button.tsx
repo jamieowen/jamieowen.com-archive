@@ -52,16 +52,10 @@ export const Button: FC<
         // lineHeight: "48px",
         cursor: "pointer",
         position: "relative",
-        transition: "background-position 0.02s ease-out",
         ":hover": {
-          transition: "background-position 0.08s ease-out",
-          backgroundPosition: "0px 0px",
           color: "background",
+          backgroundColor: (theme) => theme.colors.primary,
         },
-        display: "inline",
-        background: (theme) =>
-          `linear-gradient(${theme.colors.primary},${theme.colors.primary}) no-repeat`,
-        ...backgroundPosition(size),
         ...padding(size),
         ...sx,
       }}
@@ -82,3 +76,16 @@ export const Button: FC<
             },
           }}
  */
+
+// transition: "background-position 0.02s ease-out",
+// ":hover": {
+//   transition: "background-position 0.08s ease-out",
+//   backgroundPosition: "0px 0px",
+//   color: "background",
+// },
+// display: "inline",
+// background: (theme) =>
+//   `linear-gradient(${theme.colors.primary},${theme.colors.primary}) no-repeat`,
+// ...backgroundPosition(size),
+// ...padding(size),
+// ...sx,

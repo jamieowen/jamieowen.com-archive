@@ -38,13 +38,13 @@ export const ProjectInfoText: FC<{}> = ({ children }) => {
 export const ProjectTextSlide: FC<
   { project?: ProjectData } & SlideContainerProps
 > = ({ project, children, ...props }) => {
-  const { currentProject, nextProject, previousProject } = useProjects();
-  const text = useMemo(() => defaultIpsum().generateParagraphs(1), []);
+  // const { currentProject, nextProject, previousProject } = useProjects();
+  // const text = useMemo(() => defaultIpsum().generateParagraphs(1), []);
   return (
     <SlideContainer {...props}>
-      <ProjectLink project={previousProject}>Previous </ProjectLink>
-      <ProjectLink project={nextProject}>Next</ProjectLink>
-      <Section as="header" size="mid" nomargin>
+      {/* <ProjectLink project={previousProject}>Previous </ProjectLink>
+      <ProjectLink project={nextProject}>Next</ProjectLink> */}
+      {/* <Section as="header" size="mid" nomargin>
         <Grid variant="project_info">
           <ProjectInfoText>
             <h3>Client:</h3>
@@ -62,17 +62,13 @@ export const ProjectTextSlide: FC<
             <h3>Tech:</h3>
             <span>{currentProject ? currentProject.content.agency : ""}</span>
           </ProjectInfoText>
-
-          {/* {currentProject.content.agency}
-        {currentProject.content.client}
-        {currentProject.content.title} */}
         </Grid>
-      </Section>
+      </Section> */}
       <br />
       <br />
-      <Section size="mid">
+      {/* <Section size="mid">
         <BodySmallText>{text}</BodySmallText>
-      </Section>
+      </Section> */}
 
       {/* <TextFormatter size="16px" lineHeight="32px">
         <strong>{project && project.content.title}</strong>

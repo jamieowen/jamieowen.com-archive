@@ -11,15 +11,15 @@ import { InterestsGridList } from "components/slide-stack/GridList";
 export const Interests = () => {
   return (
     <Content>
-      <BodyHeader>02 / Tech Stack</BodyHeader>
-      <Section as="div" size="sml" nomargin>
-        <BodySmallText>
+      <Section maxWidth="small">
+        <BodyHeader>02 / Tech Stack</BodyHeader>
+        <BodyText>
           Some further interests
           <br />
           <br />
-        </BodySmallText>
+        </BodyText>
       </Section>
-      <Section as="div" size="mid">
+      <Section maxWidth="medium">
         <InterestsGridList />
       </Section>
     </Content>
