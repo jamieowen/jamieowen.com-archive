@@ -1,7 +1,6 @@
 import { FC, Fragment, useMemo } from "react";
 import { Grid, Heading, Link, Text, Container } from "theme-ui";
-import { BodyHeader } from "./IntroTextSlide";
-import { Button } from "components/common";
+import { Button, BodyHeader } from "components/common";
 import { techListData } from "./list-tech-data";
 import { interestsData } from "./list-interests-data";
 export type GridColumn = [label: string, url: string][][];

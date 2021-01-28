@@ -2,7 +2,13 @@ import { FC, Fragment } from "react";
 import App, { AppProps } from "next/app";
 import Head from "next/head";
 import theme from "../components/theme";
-import { Navigation } from "../components/common";
+import {
+  ContentContainer,
+  Header,
+  Menu,
+  SidePanel,
+  // Navigation,
+} from "../components/common";
 import { ThemeProvider } from "theme-ui";
 // import { Scheduler, LayoutObserver } from "@jamieowen/motion-layout";
 // import { MatterProvider } from "../components/physics/MatterContext";
@@ -12,6 +18,7 @@ import { ThemeProvider } from "theme-ui";
 import "styles/globals.css";
 import { ColorContextProvider } from "../components/context/ColorContext";
 import { AppStateContextProvider } from "components/context/AppStateContext";
+import { ProjectsContextProvider } from "components/context/ProjectsContext";
 
 const Fonts = () => {
   return (
@@ -39,11 +46,18 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
       </Head>
       <AppStateContextProvider>
         <ThemeProvider theme={theme}>
+          <Header>
+            <Menu />
+          </Header>
+          <SidePanel />
+          <ContentContainer>
+            <Component {...pageProps} />
+          </ContentContainer>
           {/* <ColorContextProvider> */}
           {/* <Scheduler> */}
           {/* <Navigation /> */}
           {/* <LayoutObserver rootMargin="-10% 0%"> */}
-          <Component {...pageProps} />
+
           {/* </LayoutObserver> */}
           {/* <Footer /> */}
           {/* </Scheduler> */}

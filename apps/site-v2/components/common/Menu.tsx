@@ -2,9 +2,15 @@ import Link from "next/link";
 import { ElementType, FC, Fragment, useMemo } from "react";
 import { Container, Heading, Text } from "theme-ui";
 import { Button } from "./Button";
+import { BodyHeader, Section } from "./Common";
 
 export const Menu: FC<{}> = ({ children }) => {
-  return <Text variant="body">{children}</Text>;
+  return (
+    <Section as="nav">
+      <BodyHeader>00 / Menu</BodyHeader>
+      <MenuItems />
+    </Section>
+  );
 };
 
 // const MenuItem2: FC<{ label: string; href: string }> = ({ label, href }) => {
@@ -33,7 +39,7 @@ const MenuItem: FC<{ label: string; href: string }> = ({ label, href }) => {
   return (
     <Button
       size="small"
-      // href={href}
+      href={href}
       onClick={() => console.log("Do Click", href)}
       sx={{
         cursor: "pointer",
@@ -54,13 +60,15 @@ const MenuItem: FC<{ label: string; href: string }> = ({ label, href }) => {
 export const MenuItems: FC<{}> = () => {
   const links = useMemo(
     () => [
-      { label: "Intro.", href: "#intro" },
-      { label: "Tech Stack.", href: "#tech-stack" },
-      { label: "Recent Work.", href: "#recent-work", break: true },
-      { label: "Archive.", href: " " },
-      { label: "Get In Touch.", href: " " },
-      { label: "Github.", href: " " },
-      { label: "LinkedIn.", href: " " },
+      { label: "Intro.", href: "/" },
+      { label: "Recent Work.", href: "/recent-work" },
+      { label: "Tech Stack.", href: "/tech-stack", break: true },
+      { label: "Get In Touch.", href: "/get-in-touch" },
+      { label: "Archived.", href: "/archived-work" },
+      { label: "Interests.", href: "/interests" },
+
+      { label: "Github.", href: "https://github.com/jamieowen" },
+      // { label: "LinkedIn.", href: "https://www.linkedin.com/in/jamie-owen" },
     ],
     []
   );

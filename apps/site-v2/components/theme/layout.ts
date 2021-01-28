@@ -41,6 +41,13 @@ export const layout: Pick<Theme, "layout"> = {
       // height: "100%",
       // pointerEvents: "none",
     },
+    full_header: {
+      width: "100%",
+      height: "100%",
+      position: "fixed",
+      zIndex: -1,
+      backgroundColor: "background2",
+    },
     section: {
       margin: "0px",
       padding: "0px",

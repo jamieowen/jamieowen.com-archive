@@ -31,14 +31,6 @@ import { Button } from "components/common";
 import { colors } from "components/theme/colors";
 import { TechGridList, InterestsGridList } from "./GridList";
 
-const em = (): CSSProperties => ({
-  verticalAlign: "super",
-  lineHeight: "96px",
-  fontSize: "8px",
-  backgroundColor: "white",
-  color: "black",
-});
-
 // const useProjectLinks = () => {
 //   // Check current stack mode.
 //   // If stacked, then ensure active project is within scroll visibility.
@@ -67,31 +59,6 @@ const em = (): CSSProperties => ({
 //   }, [context.stackMode, currentProject]);
 // };
 
-const ProjectLinks: FC<{}> = () => {
-  const { currentProject, projects } = useProjects();
-  const context = useSlideContext();
-  const projectLinks = projects.map((p, i) => {
-    const ref = useRef<HTMLAnchorElement>();
-    const element = (
-      <Button ref={ref} key={i} onClick={(ev) => context.launchProject(ev, p)}>
-        <Text as="div" variant="project_text">
-          {/* <em style={{ ...em() }}> _00{i + 1}</em> */}
-          <strong>{p.content.client}</strong> <span>{p.content.title} </span>
-          <strong>({p.content.agency}) </strong>
-        </Text>
-      </Button>
-    );
-
-    return {
-      ref,
-      element,
-      project: p,
-    };
-  });
-
-  return <Fragment>{projectLinks.map((p) => p.element)}</Fragment>;
-};
-
 export const IntroTextSlide: FC<SlideContainerProps> = ({
   children,
   ...props
@@ -116,22 +83,7 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
           websites. Keep scrolling to have a peruse! Or Resume / CV
         </BodyText>
       </Section>
-      <Section id="tech-stack" size="full">
-        <BodyHeader>02 / Tech Stack</BodyHeader>
-        <Section as="div" size="sml" nomargin>
-          <BodySmallText>
-            I've worked with a lot of frameworks, languages and platforms over
-            the years but my typical focus is functional & object-oriented
-            programming in Typescript/Javascript ES6. Here's some potentially
-            confusing words that I think about daily.
-            <br />
-            <br />
-          </BodySmallText>
-        </Section>
-        <Section as="div" size="mid">
-          <TechGridList />
-        </Section>
-      </Section>
+
       <Section id="recent-work" size="full">
         <BodyHeader>03 / Recent Work</BodyHeader>
         <Section as="div" size="sml" nomargin>

@@ -33,11 +33,19 @@ export const Button: FC<
     onClick?: ReactEventHandler;
     size?: Size;
   }
-> = ({ children, onClick = () => {}, sx = {}, size = "large", ...props }) => {
+> = ({
+  children,
+  onClick = () => {},
+  sx = {},
+  size = "large",
+  href,
+  ...props
+}) => {
   return (
     <Link
       as="a"
-      target="_blank"
+      href={href}
+      target={href && href.indexOf("http") === 0 ? "_blank" : undefined}
       sx={{
         width: "100%",
         height: "100%",

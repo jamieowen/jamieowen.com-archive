@@ -64,7 +64,7 @@ export const readProjectFiles = (
       console.log(images, json);
       return {
         id: path,
-        url: `/selected-work/${path}`,
+        url: `/recent-work/${path}`,
         images,
         thumbs,
         content,
@@ -77,9 +77,11 @@ export const readProjectFiles = (
 };
 
 export const readSelectedWork = () => {
-  return readProjectFiles("./public/assets/spritesheets", "spritesheets");
+  return readProjectFiles("./public/assets/projects", "projects");
 };
 
 export const readArchivedWork = () => {
-  return readProjectFiles("./public/data/archived-work", "archived-work");
+  // Archived work coming from sprite sheets folder...
+  return readProjectFiles("./public/assets/spritesheets", "spritesheets");
+  // return readProjectFiles("./public/data/archived-work", "archived-work");
 };

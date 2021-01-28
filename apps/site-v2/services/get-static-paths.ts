@@ -1,13 +1,39 @@
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from "next";
 import { ProjectData } from "types";
 import { readArchivedWork, readSelectedWork } from "./read-project-files";
 
-interface ProjectProps {
-  project: ProjectData;
-}
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  // Determine route project.
+  let id = null;
+  if (context.params) {
+    id = context.params["id"];
+  }
+  const projects = readSelectedWork();
+  let project: ProjectData = null;
+  if (id) {
+    project = projects.find((p) => p.id === id);
+  }
 
-export const getStaticProps = async (context) => {
-  const route = context.params["route"];
+  return {
+    props: {
+      archived: [] as ProjectData[],
+      project,
+      projects,
+    },
+  };
+};
+export type StaticPropsType = InferGetStaticPropsType<typeof getStaticProps>;
+
+export const _getStaticProps = async (context) => {
+  console.log("CONTEXT PARAMS :", context.params);
+  const route = context.params ? context.params["id"] : null;
   const projects = readSelectedWork();
   let archived: ProjectData[] = [];
   let ptype: string;
@@ -36,22 +62,35 @@ export const getStaticProps = async (context) => {
   };
 };
 
-export type StaticPropsType = InferGetStaticPropsType<typeof getStaticProps>;
-
 export const getStaticPaths: GetStaticPaths = async () => {
+  const projects = readSelectedWork();
+  return {
+    fallback: false,
+    paths: projects.map((p) => {
+      return {
+        params: {
+          id: p.id,
+        },
+      };
+    }),
+  };
+};
+
+export const _getStaticPaths: GetStaticPaths = async () => {
   const projects = readSelectedWork();
   const extraPaths = [[""], ["selected-work"], ["archived-work"]].map(
     (route) => ({
       params: {
-        route,
+        id: route,
       },
     })
   );
   const projectPaths = projects.map((project) => ({
     params: {
-      route: ["selected-work", project.id],
+      id: ["recent-work", project.id],
     },
   }));
+  console.log("PROJECT PATHS", projectPaths);
   return {
     fallback: false,
     paths: [...extraPaths, ...projectPaths],
