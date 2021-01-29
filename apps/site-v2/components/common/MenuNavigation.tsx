@@ -48,7 +48,12 @@ export const useNavigationData = () => useContext(NavigationDataContext);
 export const NavigationDataProvider: FC<{}> = ({ children }) => {
   const route = useRouter();
   const data = useMemo<NavigationData>(() => {
-    const filter = navigationData.filter((d) => route.asPath === d.href);
+    const filter = navigationData.filter((d) => {
+      // manual fix for recent-work sub paths
+      return route.asPath.indexOf("/recent-work") === 0
+        ? d.href === "/recent-work"
+        : route.asPath === d.href;
+    });
     let prev: MenuData = null;
     let next: MenuData = null;
     let current: MenuData = null;
