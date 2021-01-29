@@ -7,7 +7,6 @@ import {
   Section,
   BodySmallText,
   BodyText,
-  MenuItems,
   ProjectLinks,
 } from "components/common";
 import {
@@ -30,7 +29,7 @@ import {
 import { useProjects } from "components/context/ProjectsContext";
 import { Button } from "components/common";
 import { colors } from "components/theme/colors";
-import { TechGridList, InterestsGridList } from "./GridList";
+import { TechGridList, InterestsGridList } from "../common/GridList";
 
 // const useProjectLinks = () => {
 //   // Check current stack mode.
@@ -72,7 +71,7 @@ export const IntroTextSlide: FC<SlideContainerProps> = ({
     <SlideContainer {...props} ref={slideRef}>
       <Section>
         <BodyHeader>00 / Menu</BodyHeader>
-        <MenuItems />
+        {/* <MenuItems /> */}
       </Section>
       {/* <Section size="mid">
         <BodyHeader>01 / Intro</BodyHeader>

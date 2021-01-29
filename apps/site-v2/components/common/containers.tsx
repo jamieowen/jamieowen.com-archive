@@ -1,9 +1,11 @@
 import { FC } from "react";
 import { Container, Grid as _Grid, ThemeUIStyleObject } from "theme-ui";
 
+// Center line of page fold
+const cl = "50vh";
 const headerStyle: ThemeUIStyleObject = {
   width: "100vw",
-  height: "100vh",
+  height: cl,
   position: "fixed",
   top: "0px",
   zIndex: -1,
@@ -12,9 +14,12 @@ const headerStyle: ThemeUIStyleObject = {
 };
 
 const contentContainerStyle: ThemeUIStyleObject = {
-  // Shift to show just a fold of the main content
   position: "relative",
-  marginTop: "calc( 100vh - 2rem )",
+
+  // Shift to show just a fold of the main content
+  // marginTop: "calc( 100vh - 2rem )",
+  // Shift to show half way down the page
+  marginTop: `calc( ${cl} - 0rem )`,
   minHeight: "calc( 100vh - 2rem )",
   padding: ["2rem", "4rem"],
   backgroundColor: "background",

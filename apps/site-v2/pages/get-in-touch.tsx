@@ -1,20 +1,22 @@
 import {
   Section,
-  BodyHeader,
   BodyText,
-  Button,
   Content,
+  NextBackNavigation,
+  PageHeaderNavigation,
 } from "components/common";
 
 export const GetInTouch = () => {
   return (
     <Content>
       <Section maxWidth="small">
-        <BodyHeader>05 / Get in touch</BodyHeader>
+        <PageHeaderNavigation />
         <BodyText>Get in touch</BodyText>
       </Section>
 
-      <Button>Next</Button>
+      <Section>
+        <NextBackNavigation />
+      </Section>
     </Content>
   );
 };

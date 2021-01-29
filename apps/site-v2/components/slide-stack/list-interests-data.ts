@@ -1,4 +1,4 @@
-import { GridColumns } from "./GridList";
+import { GridColumns } from "../common/GridList";
 
 export const interestsData = (): GridColumns => [
   // General Interests

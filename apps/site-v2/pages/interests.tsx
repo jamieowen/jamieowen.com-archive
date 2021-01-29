@@ -5,14 +5,16 @@ import {
   BodyText,
   Button,
   Content,
+  NextBackNavigation,
+  PageHeaderNavigation,
 } from "components/common";
-import { InterestsGridList } from "components/slide-stack/GridList";
+import { InterestsGridList } from "components/common/GridList";
 
 export const Interests = () => {
   return (
     <Content>
       <Section maxWidth="small">
-        <BodyHeader>02 / Tech Stack</BodyHeader>
+        <PageHeaderNavigation />
         <BodyText>
           Some further interests
           <br />
@@ -21,6 +23,9 @@ export const Interests = () => {
       </Section>
       <Section maxWidth="medium">
         <InterestsGridList />
+      </Section>
+      <Section>
+        <NextBackNavigation />
       </Section>
     </Content>
   );

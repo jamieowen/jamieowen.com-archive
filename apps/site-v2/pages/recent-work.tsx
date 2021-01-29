@@ -6,6 +6,9 @@ import {
   ProjectLinks,
   ProjectImageLinks,
   BodyText,
+  NextBackNavigation,
+  useNavigationData,
+  PageHeaderNavigation,
 } from "components/common";
 import { ProjectsContextProvider } from "components/context/ProjectsContext";
 
@@ -16,8 +19,7 @@ export const RecentWork = ({ project, projects, archived }) => {
     <ProjectsContextProvider projects={projects}>
       <Content>
         <Section maxWidth="small">
-          <BodyHeader>03 / Recent Work</BodyHeader>
-
+          <PageHeaderNavigation />
           <BodyText>
             I'm lucky to have worked with some talented folk at Moving Brands,
             Goodboy Digital, AllOfUs. On projects for Google,
@@ -25,6 +27,9 @@ export const RecentWork = ({ project, projects, archived }) => {
         </Section>
         <Section maxWidth="medium">
           <ProjectImageLinks projects={projects} />
+        </Section>
+        <Section>
+          <NextBackNavigation />
         </Section>
       </Content>
     </ProjectsContextProvider>

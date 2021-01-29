@@ -8,6 +8,8 @@ export const styles: Pick<Theme, "styles"> = {
   styles: {
     /** Body Styles. */
     root: {
+      overflowY: "scroll",
+      overflowX: "hidden",
       fontFamily: "body",
       fontSize: "8px",
       margin: "0rem",

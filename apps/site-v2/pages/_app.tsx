@@ -7,6 +7,7 @@ import {
   Footer,
   Header,
   Menu,
+  NavigationDataProvider,
   SidePanel,
   WeatherProvider,
   // Navigation,
@@ -48,26 +49,28 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
       </Head>
       <AppStateContextProvider>
         <WeatherProvider>
-          <ThemeProvider theme={theme}>
-            <Header>
-              <Menu />
-              <SidePanel />
-              <Footer>XX / © 2020 Jamie Owen</Footer>
-            </Header>
-            <ContentContainer>
-              <Component {...pageProps} />
-              <Footer></Footer>
-            </ContentContainer>
-            {/* <ColorContextProvider> */}
-            {/* <Scheduler> */}
-            {/* <Navigation /> */}
-            {/* <LayoutObserver rootMargin="-10% 0%"> */}
+          <NavigationDataProvider>
+            <ThemeProvider theme={theme}>
+              <Header>
+                <Menu />
+                {/* <SidePanel /> */}
+                <Footer className="opq5" copyright={false} />
+              </Header>
+              <ContentContainer>
+                <Component {...pageProps} />
+                <Footer></Footer>
+              </ContentContainer>
+              {/* <ColorContextProvider> */}
+              {/* <Scheduler> */}
+              {/* <Navigation /> */}
+              {/* <LayoutObserver rootMargin="-10% 0%"> */}
 
-            {/* </LayoutObserver> */}
-            {/* <Footer /> */}
-            {/* </Scheduler> */}
-            {/* </ColorContextProvider> */}
-          </ThemeProvider>
+              {/* </LayoutObserver> */}
+              {/* <Footer /> */}
+              {/* </Scheduler> */}
+              {/* </ColorContextProvider> */}
+            </ThemeProvider>
+          </NavigationDataProvider>
         </WeatherProvider>
       </AppStateContextProvider>
     </Fragment>

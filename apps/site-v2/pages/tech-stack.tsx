@@ -1,18 +1,17 @@
 import {
   Section,
-  BodyHeader,
-  BodySmallText,
   BodyText,
-  Button,
   Content,
+  NextBackNavigation,
+  PageHeaderNavigation,
 } from "components/common";
-import { TechGridList } from "components/slide-stack/GridList";
+import { TechGridList } from "components/common/GridList";
 
 export const TechStack = () => {
   return (
     <Content>
       <Section maxWidth="small">
-        <BodyHeader>02 / Tech Stack</BodyHeader>
+        <PageHeaderNavigation />
         <BodyText>
           I've worked with a lot of frameworks, languages and platforms over the
           years but my typical focus is functional & object-oriented programming
@@ -22,6 +21,9 @@ export const TechStack = () => {
       </Section>
       <Section maxWidth="medium">
         <TechGridList />
+      </Section>
+      <Section>
+        <NextBackNavigation />
       </Section>
     </Content>
   );

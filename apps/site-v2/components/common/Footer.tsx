@@ -14,7 +14,7 @@ import { Weather } from "./Weather";
 const footerStyle: ThemeUIStyleObject = {
   position: "absolute",
   bottom: "4rem",
-  width: "calc( 100% - 8rem )",
+  width: ["calc( 100% - 4rem )", "calc( 100% - 8rem )"],
   display: "flex",
   fontFamily: "heading",
   textTransform: "uppercase",
@@ -29,11 +29,15 @@ const footerStyle: ThemeUIStyleObject = {
 };
 
 /** Content Area. */
-export const Footer: FC<{}> = ({ children, ...props }) => {
+export const Footer: FC<
+  ComponentProps<any> & {
+    copyright?: boolean;
+  }
+> = ({ children, copyright = true, ...props }) => {
   const year = useMemo(() => new Date().getFullYear(), []);
   return (
     <Container as="footer" sx={footerStyle} {...props}>
-      <Text className="aleft">XX / © {year} Jamie Owen</Text>
+      {copyright && <Text className="aleft">XX / © {year} Jamie Owen</Text>}
       <WeatherDisplay className="aright" />
     </Container>
   );

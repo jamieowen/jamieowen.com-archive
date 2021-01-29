@@ -1,19 +1,21 @@
 import {
   Section,
-  BodyHeader,
   BodyText,
-  Button,
   Content,
+  NextBackNavigation,
+  PageHeaderNavigation,
 } from "components/common";
 
 export const ArchivedWork = () => {
   return (
     <Content>
       <Section>
-        <BodyHeader>04 / Archvied Work</BodyHeader>
+        {/* <PageHeaderNavigation /> */}
         <BodyText>Archive</BodyText>
       </Section>
-      <Button>Next</Button>
+      <Section>
+        <NextBackNavigation />
+      </Section>
     </Content>
   );
 };

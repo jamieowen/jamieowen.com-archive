@@ -1,8 +1,9 @@
 import { FC, Fragment, useMemo } from "react";
 import { Grid, Heading, Link, Text, Container } from "theme-ui";
 import { Button, BodyHeader } from "components/common";
-import { techListData } from "./list-tech-data";
-import { interestsData } from "./list-interests-data";
+import { techListData } from "../slide-stack/list-tech-data";
+import { interestsData } from "../slide-stack/list-interests-data";
+import { useNavigationData } from "./MenuNavigation";
 export type GridColumn = [label: string, url: string][][];
 export type GridColumns = [GridColumn, GridColumn, GridColumn, GridColumn];
 export type GridNames = [string, string, string, string];
@@ -46,14 +47,15 @@ export const GridList: FC<{
 };
 
 export const TechGridList = () => {
+  const nav = useNavigationData();
   const data = useMemo(
     () => ({
       columns: techListData(),
       names: [
-        "02.1 / Creative Tech",
-        "02.2 / Frontend",
-        "02.3 / Backend/Devops",
-        "02.4 / Generalist",
+        `${nav.current.num}.1 / Creative Tech`,
+        `${nav.current.num}.2 / Frontend`,
+        `${nav.current.num}.3 / Backend/Devops`,
+        `${nav.current.num}.4 / Generalist`,
       ] as GridNames,
     }),
     []
@@ -63,14 +65,15 @@ export const TechGridList = () => {
 };
 
 export const InterestsGridList = () => {
+  const nav = useNavigationData();
   const data = useMemo(
     () => ({
       columns: interestsData(),
       names: [
-        "02.1 / General",
-        "02.2 / Music",
-        "02.3 / Podcasts",
-        "02.4 / Reading",
+        `${nav.current.num}.1 / General`,
+        `${nav.current.num}.2 / Music`,
+        `${nav.current.num}.3 / Podcasts`,
+        `${nav.current.num}.4 / Reading`,
       ] as GridNames,
     }),
     []
