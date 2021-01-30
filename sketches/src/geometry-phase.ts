@@ -62,15 +62,16 @@ const createObject = (scene: Scene, color1: Color, color2: Color) => {
       roughness: 1,
     })
   );
+
   plane.receiveShadow = true;
-  plane.material.emissiveIntensity = 0.5;
-  plane.material.emissive.fromArray(color2 as any);
+  (plane.material as MeshStandardMaterial).emissiveIntensity = 0.5;
+  (plane.material as MeshStandardMaterial).emissive.fromArray(color2 as any);
   plane.scale.multiplyScalar(10);
 
   colorStream.subscribe({
     next: ({ color1, color2 }) => {
-      object.material.color.fromArray(color1);
-      plane.material.color.fromArray(color2);
+      (object.material as MeshStandardMaterial).color.fromArray(color1);
+      (plane.material as MeshStandardMaterial).color.fromArray(color2);
     },
   });
 
@@ -100,7 +101,7 @@ const createLighting = (
 
   const light = lights[i % (lights.length - 1)].clone();
   light.castShadow = true;
-  light.intensity = 0.8;
+  (light as PointLight).intensity = 0.8;
   // light.shadow.camera.left = -2;
   // light.shadow.camera.lef
   scene.add(light);

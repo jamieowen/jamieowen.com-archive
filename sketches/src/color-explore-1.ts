@@ -100,7 +100,7 @@ const colors = Object.keys(CSS_NAMES)
     hsva,
     closestHue: namedHueRgba(null, closestHue(hsva[0] as any)),
     closestPrimaryHue: namedHueRgba(null, closestPrimaryHue(hsva[0] as any)),
-    luminance: luminance(rgba, ColorMode.RGBA),
+    luminance: luminance(rgba, "rgb"),
     complementary: complement(rgba),
   }))
   .map(({ rgba, complementary, ...rest }) => ({

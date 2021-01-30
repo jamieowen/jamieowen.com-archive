@@ -6,6 +6,7 @@
     "paths": {
       // "@jamieowen/color": ["./node_modules/@jamieowen/color/src"]
     },
+    "allowSyntheticDefaultImports": true,
     "strict": false,
     "outDir": "./dist/",
     "noImplicitAny": true,
