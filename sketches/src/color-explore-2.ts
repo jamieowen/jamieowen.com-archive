@@ -8,7 +8,7 @@ import {
   paletteGradientHSL,
   paletteColorRangeHSL,
   paletteGradientRGB,
-} from "@jamieowen/three-toolkit";
+} from "@jamieowen/color";
 
 const selectedColor = reactive("crimson");
 

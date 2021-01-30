@@ -1,15 +1,14 @@
 import {
   sketch,
   createGeometryFactory,
-  infiniteGrid,
   createGridHelper,
-  GridOpts,
-  reactive,
   GeometryAlignment,
   gestureStream3d,
   dragGesture3d,
-  paletteCssNames,
-} from "@jamieowen/three-toolkit";
+} from "@jamieowen/three";
+
+import { GridOpts, reactive, infiniteGrid } from "@jamieowen/layout";
+import { paletteCssNames } from "@jamieowen/color";
 
 import {
   MeshStandardMaterial,

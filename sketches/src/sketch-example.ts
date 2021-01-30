@@ -2,7 +2,7 @@ import {
   sketch,
   createGridHelper,
   createGeometryFactory,
-} from "@jamieowen/three-toolkit";
+} from "@jamieowen/three";
 import { Mesh, MeshBasicMaterial } from "three";
 
 sketch(({ render, scene, camera, configure, gestures }) => {

@@ -1,8 +1,7 @@
 module.exports = {
   plugins: ["@snowpack/plugin-typescript"],
   alias: {
-    "@jamieowen/three-toolkit": "../packages/three-toolkit",
-    "@jamieowen/xlayout": "./packages/xlayout",
+    "@jamieowen/color": "./node_modules/@jamieowen/color/src",
   },
   mount: {
     public: "/",

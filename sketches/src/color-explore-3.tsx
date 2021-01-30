@@ -3,7 +3,7 @@ import React, { FC, useState, useMemo, CSSProperties } from "react";
 import {
   paletteColorRangeHSL,
   paletteForegroundBackground,
-} from "@jamieowen/three-toolkit";
+} from "@jamieowen/color";
 import { Color, CSS_NAMES, parseCss, rgbaCss } from "@thi.ng/color";
 
 const styleFlex = (): CSSProperties => ({

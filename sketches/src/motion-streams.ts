@@ -1,15 +1,19 @@
 import {
   sketch,
   createGeometryFactory,
+  createGridHelper,
+  dragGesture3d,
+  gestureStream3d,
+} from "@jamieowen/three";
+
+import {
   motionRadialOrbit,
   motionBlend,
-  createGridHelper,
   motionFigure8Orbit,
   motionConfig,
-  dragGesture3d,
-  gestureStream2d,
-  gestureStream3d,
-} from "@jamieowen/three-toolkit";
+} from "@jamieowen/motion";
+
+import { gestureStream } from "@jamieowen/browser";
 
 import { Mesh, MeshBasicMaterial, Scene } from "three";
 
@@ -54,7 +58,7 @@ sketch(({ render, configure, scene, domElement, camera, resize }) => {
     },
   });
 
-  const gesture2d$ = gestureStream2d(domElement, {});
+  const gesture2d$ = gestureStream(domElement, {});
   const gesture3d$ = gestureStream3d(domElement, camera, resize);
 
   dragGesture3d(gesture3d$).subscribe({

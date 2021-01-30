@@ -1,5 +1,5 @@
 import { Mesh, MeshBasicMaterial, Group } from "three";
-import { createGeometryFactory, sketch } from "@jamieowen/three-toolkit";
+import { createGeometryFactory, sketch } from "@jamieowen/three";
 import { samplePoisson } from "@thi.ng/poisson";
 import { KdTreeSet } from "@thi.ng/geom-accel";
 import { dist } from "@thi.ng/vectors";

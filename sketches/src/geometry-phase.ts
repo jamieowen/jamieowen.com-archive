@@ -2,12 +2,16 @@ import {
   createGeometryFactory,
   sketch,
   renderViewportGrid,
-  timerStream,
-  timerStreamRandomFrequency,
+} from "@jamieowen/three";
+
+import { timerStream, timerStreamRandomFrequency } from "@jamieowen/browser";
+
+import {
   paletteCssNames,
   paletteComplement,
   filterContrastRatio2,
-} from "@jamieowen/three-toolkit";
+} from "@jamieowen/color";
+
 import {
   MeshBasicMaterial,
   MeshStandardMaterial,
@@ -21,6 +25,7 @@ import {
   HemisphereLight,
   Vector3,
   Vector4,
+  Light,
 } from "three";
 import { ShadowMesh } from "three/examples/jsm/objects/ShadowMesh";
 import { repeat } from "@thi.ng/transducers";
@@ -80,7 +85,13 @@ const createObject = (scene: Scene, color1: Color, color2: Color) => {
   };
 };
 
-const createLighting = (scene: Scene, lights, gw, gh, i) => {
+const createLighting = (
+  scene: Scene,
+  lights: Light[],
+  gw: number,
+  gh: number,
+  i: number
+) => {
   const amb = new AmbientLight(0xffffff, 0.4);
   const hem = new HemisphereLight();
   hem.intensity = 0.3;
@@ -121,7 +132,7 @@ sketch(({ render, renderer, camera, configure }) => {
     new DirectionalLight("white", 0.6),
   ];
 
-  const scenes = [...repeat(0, gw * gh)].map((x, i) => {
+  const scenes = [...repeat(0, gw * gh)].map((_x, i) => {
     const scene = new Scene();
     const color1 = colors[i][0];
     const color2 = colors[i][1];
@@ -144,13 +155,11 @@ sketch(({ render, renderer, camera, configure }) => {
       max: 600,
     }),
   }).subscribe({
-    next: (ev) => {
-      const randScene = Math.round(Math.random() * (scenes.length - 1));
-      const randColor = Math.round(Math.random() * (colors.length - 1));
-
-      const pick = scenes[randScene];
-      const color = colors[randColor];
-
+    next: (_ev) => {
+      // const randScene = Math.round(Math.random() * (scenes.length - 1));
+      // const randColor = Math.round(Math.random() * (colors.length - 1));
+      // const pick = scenes[randScene];
+      // const color = colors[randColor];
       // pick.colorStream.next({ color1: color[0], color2: color[1] });
     },
   });

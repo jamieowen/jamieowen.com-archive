@@ -32,7 +32,7 @@ import * as gscSub from "@thi.ng/geom-subdiv-curve";
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { cloneDeep } from "lodash";
-import { resizeObserverStream } from "@jamieowen/three-toolkit";
+import { resizeObserverStream } from "@jamieowen/browser";
 
 import {
   Render,

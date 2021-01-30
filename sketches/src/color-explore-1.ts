@@ -12,7 +12,7 @@ import {
   namedHueRgba,
   luminance,
 } from "@thi.ng/color";
-import { complement, contrastRatio2 } from "@jamieowen/three-toolkit";
+import { complement, contrastRatio2 } from "@jamieowen/color";
 
 const blockStyle = {
   width: "200px",

@@ -6,7 +6,6 @@ import {
   SphereBufferGeometry,
   MeshBasicMaterial,
 } from "three";
-import {} from "@jamieowen/three-toolkit";
 import { iterator, range3d, sideEffect } from "@thi.ng/transducers";
 
 const width = 800;

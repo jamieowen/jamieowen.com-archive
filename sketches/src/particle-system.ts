@@ -1,9 +1,9 @@
 import {
   sketch,
-  ParticleSystem,
+  // ParticleSystem,
   createGeometryFactory,
-  emitter as createEmitter,
-} from "@jamieowen/three-toolkit";
+  // emitter as createEmitter,
+} from "@jamieowen/three";
 import {
   InstancedMesh,
   MeshBasicMaterial,
@@ -11,7 +11,7 @@ import {
   DynamicDrawUsage,
 } from "three";
 
-sketch(({ render, scene, configure, keyboard }) => {
+sketch(({ render, scene, configure }) => {
   configure({
     width: "1024px",
     height: "768px",
@@ -19,17 +19,17 @@ sketch(({ render, scene, configure, keyboard }) => {
 
   // Create System & Emitters
   const count = 100;
-  const system = new ParticleSystem();
-  const emitter = createEmitter({
-    id: "",
-    behaviours: [],
-    // style - an additional custom flag to seperate renderers for styling purposes ( i.e. differennt render geometry )
-    signature: "",
-    // spawn: {},
-  });
-  system.add(emitter);
+  // const system = new ParticleSystem();
+  // const emitter = createEmitter({
+  //   id: "",
+  //   behaviours: [],
+  //   // style - an additional custom flag to seperate renderers for styling purposes ( i.e. differennt render geometry )
+  //   signature: "",
+  //   // spawn: {},
+  // });
+  // system.add(emitter);
 
-  emitter.emit();
+  // emitter.emit();
 
   // attach renderers
   // either listening to cpu, based or gpu based type emitters/ styles / etc.
