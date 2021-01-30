@@ -14,6 +14,7 @@ import { Weather } from "./Weather";
 const footerStyle: ThemeUIStyleObject = {
   position: "absolute",
   bottom: "4rem",
+  fontSize: "8px",
   width: ["calc( 100% - 4rem )", "calc( 100% - 8rem )"],
   display: "flex",
   fontFamily: "heading",

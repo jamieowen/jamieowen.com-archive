@@ -11,7 +11,7 @@ export const styles: Pick<Theme, "styles"> = {
       overflowY: "scroll",
       overflowX: "hidden",
       fontFamily: "body",
-      fontSize: "8px",
+      fontSize: "body",
       margin: "0rem",
       ".opq3": {
         opacity: 0.3,

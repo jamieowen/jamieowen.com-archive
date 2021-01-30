@@ -8,20 +8,22 @@ import {
   Header,
   Menu,
   NavigationDataProvider,
-  SidePanel,
+  // SidePanel,
   WeatherProvider,
+  ProjectMDXWrapper,
   // Navigation,
 } from "../components/common";
 import { ThemeProvider } from "theme-ui";
+import { MDXProvider } from "@mdx-js/react";
+
 // import { Scheduler, LayoutObserver } from "@jamieowen/motion-layout";
 // import { MatterProvider } from "../components/physics/MatterContext";
 // import { IntersectionProvider } from "../components//motion/IntersectionContext";
 // import { GenerativeGridProvider } from "../components/generative-grid";
 
 import "styles/globals.css";
-import { ColorContextProvider } from "../components/context/ColorContext";
-import { AppStateContextProvider } from "components/context/AppStateContext";
-import { ProjectsContextProvider } from "components/context/ProjectsContext";
+// import { ColorContextProvider } from "../components/context/ColorContext";
+// import { ProjectsContextProvider } from "components/context/ProjectsContext";
 
 const Fonts = () => {
   return (
@@ -47,35 +49,67 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
         ></meta>
         <Fonts />
       </Head>
-      <AppStateContextProvider>
-        <WeatherProvider>
-          <NavigationDataProvider>
-            <ThemeProvider theme={theme}>
-              <Header>
-                <Menu />
-                {/* <SidePanel /> */}
-                <Footer className="opq5" copyright={false} />
-              </Header>
-              <ContentContainer>
-                <Component {...pageProps} />
-                <Footer></Footer>
-              </ContentContainer>
-              {/* <ColorContextProvider> */}
-              {/* <Scheduler> */}
-              {/* <Navigation /> */}
-              {/* <LayoutObserver rootMargin="-10% 0%"> */}
-
-              {/* </LayoutObserver> */}
-              {/* <Footer /> */}
-              {/* </Scheduler> */}
-              {/* </ColorContextProvider> */}
-            </ThemeProvider>
-          </NavigationDataProvider>
-        </WeatherProvider>
-      </AppStateContextProvider>
+      <Providers>
+        <Header>
+          <Menu />
+          {/* <SidePanel /> */}
+          <Footer className="opq5" copyright={false} />
+        </Header>
+        <ContentContainer>
+          <Component {...pageProps} />
+          <Footer></Footer>
+        </ContentContainer>
+      </Providers>
     </Fragment>
   );
 };
+
+const Providers: FC<{ pageProps?: any }> = ({ children, pageProps }) => {
+  return (
+    <ThemeProvider theme={theme}>
+      <MDXProvider
+        components={{
+          wrapper: ProjectMDXWrapper,
+        }}
+      >
+        <WeatherProvider>
+          <NavigationDataProvider>{children}</NavigationDataProvider>
+        </WeatherProvider>
+      </MDXProvider>
+    </ThemeProvider>
+  );
+};
+
+const MDXWraper = (props) => {
+  console.log("MDX WRAPPER :", props);
+  return <Fragment>{props.children}</Fragment>;
+};
+
+{
+  /* <ColorContextProvider> */
+}
+{
+  /* <Scheduler> */
+}
+{
+  /* <Navigation /> */
+}
+{
+  /* <LayoutObserver rootMargin="-10% 0%"> */
+}
+
+{
+  /* </LayoutObserver> */
+}
+{
+  /* <Footer /> */
+}
+{
+  /* </Scheduler> */
+}
+{
+  /* </ColorContextProvider> */
+}
 
 // @ts-ignore
 // MyApp.getInitialProps = async (appContext) => {

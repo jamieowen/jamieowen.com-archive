@@ -7,3 +7,4 @@ export * from "./containers";
 export * from "./ProjectLinks";
 export * from "./ProjectRenderers";
 export * from "./Footer";
+export * from "./ProjectMDXWrapper";

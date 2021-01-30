@@ -18,7 +18,9 @@ export const Intro = () => {
           CV
         </BodyText>
       </Section>
-      <NextBackNavigation />
+      <Section>
+        <NextBackNavigation />
+      </Section>
     </Content>
   );
 };

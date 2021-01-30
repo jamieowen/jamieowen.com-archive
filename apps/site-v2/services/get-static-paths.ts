@@ -61,8 +61,9 @@ export const _getStaticProps = async (context) => {
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async (context) => {
   const projects = readSelectedWork();
+
   return {
     fallback: false,
     paths: projects.map((p) => {
