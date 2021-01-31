@@ -14,7 +14,7 @@ type GestureEvent3D = {
   gesture: GestureEvent;
   size: ResizeEvent;
   ndc: Vec;
-  point: Vec;
+  position: Vec; // the final point.
 };
 
 type GestureEvent3DFn = (ev: GestureEvent3D) => GestureEvent3D;
@@ -52,7 +52,7 @@ export const threeRaycastPlane = (
     return {
       ...ev,
       ndc,
-      point: tmp.toArray(),
+      position: tmp.toArray(),
     };
   };
 };
