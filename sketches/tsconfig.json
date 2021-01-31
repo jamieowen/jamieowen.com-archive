@@ -11,7 +11,7 @@
     "outDir": "./dist/",
     "noImplicitAny": true,
     "downlevelIteration": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "module": "esnext",
     "lib": ["es5", "es6", "es7", "es2017", "dom", "dom.iterable", "esnext"],
     "moduleResolution": "node",
