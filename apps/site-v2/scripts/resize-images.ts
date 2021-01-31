@@ -97,8 +97,8 @@ const run = async () => {
   await resizeImages("./public-src/raw/selected-work/**/*.{png,jpg}", {
     type: "fit",
     output: {
-      width: 512,
-      height: 2048,
+      width: 1024,
+      height: 5000,
     },
     dryRun: false,
     outputPath: outputRelativeToFolder("./public-src/resized", 1),
