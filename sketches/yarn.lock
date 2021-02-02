@@ -386,6 +386,16 @@
     "@thi.ng/errors" "^1.2.26"
     "@thi.ng/transducers" "^7.5.8"
 
+"@thi.ng/shader-ast-glsl@^0.2.20":
+  version "0.2.20"
+  resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast-glsl/-/shader-ast-glsl-0.2.20.tgz#3601a3dd81f9dfd525d3845e027c43cb3e3e1b56"
+  integrity sha512-I/jRO5srAqW40sqbO/brWdZIQjrYdrcFSDWolB6zEJOtH6JyueLigBvS/QHSS3A7bD/A1s78KrjcGCxbhvdV6w==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/checks" "^2.8.0"
+    "@thi.ng/errors" "^1.2.26"
+    "@thi.ng/shader-ast" "^0.7.12"
+
 "@thi.ng/shader-ast-js@^0.5.19":
   version "0.5.19"
   resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast-js/-/shader-ast-js-0.5.19.tgz#b0436058334ee4df7ab8540a7fea10161c20b732"
