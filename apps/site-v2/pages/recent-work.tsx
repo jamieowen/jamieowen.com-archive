@@ -21,8 +21,27 @@ export const RecentWork = ({ project, projects, archived }) => {
         <Section maxWidth="small">
           <PageHeaderNavigation />
           <BodyText>
-            I'm lucky to have worked with some talented folk at Moving Brands,
-            Goodboy Digital, AllOfUs. On projects for Google,
+            Some recent work made possible whilst contracting with the very
+            talented folk at agencies:{" "}
+            <a href="https://allofus.com/" target="_blank">
+              AllOfUs
+            </a>
+            ,{" "}
+            <a href="https://www.goodboydigital.com/" target="_blank">
+              Goodboy Digital
+            </a>
+            ,{" "}
+            <a href="https://www.movingbrands.com/" target="_blank">
+              Moving Brands
+            </a>
+            ,{" "}
+            <a href="https://www.rehabagency.ai/" target="_blank">
+              Rehab Agency
+            </a>
+            , and{" "}
+            <a href="https://nexusstudios.com/interactive/" target="_blank">
+              Nexus Studios.
+            </a>
           </BodyText>
         </Section>
         <Section maxWidth="medium">

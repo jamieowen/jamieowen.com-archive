@@ -25,11 +25,11 @@ export const ProjectImageLink: FC<{ project: ProjectData }> = ({
   return (
     <Link href={project.url}>
       <Container sx={{ cursor: "pointer" }} {...props}>
+        <ProjectImageView image={project.images[0]} />
         <BodyText>
           <strong>{project.content.client}</strong>
           <span className="opq5"> {project.content.title}</span>
         </BodyText>
-        <ProjectImageView image={project.images[0]} />
       </Container>
     </Link>
   );

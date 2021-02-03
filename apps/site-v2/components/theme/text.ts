@@ -7,6 +7,7 @@ export const text: Pick<Theme, "text"> = {
       fontSize: "16px",
       lineHeight: "32px",
       fontWeight: 400,
+      marginBottom: "32px",
     },
     body_large: {
       fontFamily: "body",
