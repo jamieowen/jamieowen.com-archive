@@ -15,11 +15,7 @@ export const Interests = () => {
     <Content>
       <Section maxWidth="small">
         <PageHeaderNavigation />
-        <BodyText>
-          Some further interests
-          <br />
-          <br />
-        </BodyText>
+        <BodyText>I generally </BodyText>
       </Section>
       <Section maxWidth="medium">
         <InterestsGridList />

@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { FC, Fragment, useMemo } from "react";
 import App, { AppProps } from "next/app";
 import Head from "next/head";
 import theme from "../components/theme";
@@ -22,6 +22,7 @@ import { MDXProvider } from "@mdx-js/react";
 // import { GenerativeGridProvider } from "../components/generative-grid";
 
 import "styles/globals.css";
+import { useColorMode } from "theme-ui";
 // import { ColorContextProvider } from "../components/context/ColorContext";
 // import { ProjectsContextProvider } from "components/context/ProjectsContext";
 
@@ -64,6 +65,14 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
   );
 };
 
+const ColorSwitch: FC<{}> = () => {
+  const [color, setColor] = useColorMode();
+  useMemo(() => {
+    setColor("dark");
+  }, []);
+  return <Fragment />;
+};
+
 const Providers: FC<{ pageProps?: any }> = ({ children, pageProps }) => {
   return (
     <ThemeProvider theme={theme}>
@@ -72,6 +81,7 @@ const Providers: FC<{ pageProps?: any }> = ({ children, pageProps }) => {
           wrapper: ProjectMDXWrapper,
         }}
       >
+        <ColorSwitch />
         <WeatherProvider>
           <NavigationDataProvider>{children}</NavigationDataProvider>
         </WeatherProvider>

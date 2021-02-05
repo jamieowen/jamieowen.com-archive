@@ -70,10 +70,10 @@ export const InterestsGridList = () => {
     () => ({
       columns: interestsData(),
       names: [
-        `${nav.current.num}.1 / General`,
-        `${nav.current.num}.2 / Music`,
-        `${nav.current.num}.3 / Podcasts`,
-        `${nav.current.num}.4 / Reading`,
+        `${nav.current.num}.1 / Thinking`,
+        `${nav.current.num}.2 / Listening`,
+        `${nav.current.num}.3 / More Listening`,
+        `${nav.current.num}.4 / Anything`,
       ] as GridNames,
     }),
     []

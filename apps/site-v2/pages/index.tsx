@@ -28,16 +28,16 @@ export const Intro = () => {
             {" "}
             National Museum of Qatar
           </a>
-          , and developing prototyping & visualisation solutions within{" "}
+          , and developing visualisation & prototyping solutions within{" "}
           <a href="/recent-work/lbg-systems-thinking">
             Systems Thinking at Lloyds Banking Group.
           </a>
         </BodyText>
         <BodyText>
           Please have a look at some <a href="/recent-work">Recent Work</a>,
-          check out the typical <a href="/tech-stack">Tech Stack</a> I currently
-          use, or here are some <a href="/interests">Interests</a> that
-          generally make me tick otherwise.
+          check out the typical <a href="/tech-stack">Tech Stack</a> I use, or
+          here are some general <a href="/interests">Interests</a> that make me
+          tick otherwise!
         </BodyText>
         <BodyText>
           Cheers! <br />

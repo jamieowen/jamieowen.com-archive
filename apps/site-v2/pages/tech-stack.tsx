@@ -13,10 +13,10 @@ export const TechStack = () => {
       <Section maxWidth="small">
         <PageHeaderNavigation />
         <BodyText>
-          I've worked with a lot of frameworks, languages and platforms over the
-          years but my typical focus is functional & object-oriented programming
-          in Typescript/Javascript ES6. Here's some potentially confusing words
-          that I think about daily.
+          Currently focused on all things Typescript/Javascript ES6. Including
+          functional & object oriented programming styles, design patterns,
+          reactive programming, test driven development and various creative
+          coding platforms.
         </BodyText>
       </Section>
       <Section maxWidth="medium">

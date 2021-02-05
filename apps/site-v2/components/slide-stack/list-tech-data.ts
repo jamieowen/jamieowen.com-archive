@@ -11,17 +11,18 @@ export const techListData = (): GridColumns => [
     [
       ["thi.ng/umbrella", "https://thi.ng/"],
       ["twgl", "http://twgljs.org/"],
+      ["stackgl", "http://stack.gl/"],
     ],
     [
+      ["Canvas", "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"],
       ["WebGL", "https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API"],
       ["GLSL", "https://www.khronos.org/opengl/wiki/Core_Language_(GLSL)"],
+    ],
+    [
       [
         "WebXR",
         "https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API",
       ],
-    ],
-    [
-      ["Canvas", "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"],
       [
         "WebAudio",
         "https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API",
@@ -62,6 +63,7 @@ export const techListData = (): GridColumns => [
 
     [
       ["Webpack", "https://webpack.js.org/"],
+      ["Snowpack", "https://www.snowpack.dev/"],
       ["Babel", "https://babeljs.io/"],
       ["Rollup", "https://rollupjs.org/"],
     ],

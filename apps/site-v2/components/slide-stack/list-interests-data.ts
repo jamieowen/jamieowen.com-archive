@@ -5,8 +5,14 @@ export const interestsData = (): GridColumns => [
   [
     // Each Line can have multiple links
     [
-      ["Physics", "https://threejs.org/"],
-      ["Math", "https://www.pixijs.com/"],
+      ["Complexity", ""],
+      ["Systems Thinking", ""],
+      ["Math", ""],
+    ],
+    [
+      ["Complexity", ""],
+      ["Systems Thinking", ""],
+      ["Math", ""],
     ],
   ],
   // Music
@@ -15,14 +21,33 @@ export const interestsData = (): GridColumns => [
       ["Aphex Twin", ""],
       ["Autechre", ""],
       ["Boards of Canada", ""],
+      ["Broadcast", ""],
+    ],
+    [
+      ["Jon Hopkins", ""],
+      ["Nils Frahm", ""],
+      ["Peter Broderick", ""],
+      ["Olafur Arnalds", ""],
     ],
     [
       ["Max  Richter", ""],
       ["Phillip Glass", ""],
       ["Steve Reich", ""],
+      ["Ludovico Einaudi", ""],
+      ["Hania Rani", ""],
+    ],
+    [
+      ["Matthew Halsall", ""],
+      ["Alice Coltrane", ""],
+      ["Steve Reich", ""],
+    ],
+    [
+      ["Juan Atkins", ""],
+      ["Jeff Mills", ""],
+      ["Andy Stott", ""],
     ],
   ],
-  // Music
+  // Podcasts
   [
     [
       ["Sam Harris", ""],

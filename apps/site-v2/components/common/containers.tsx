@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
+import { useColorMode } from "theme-ui";
 import { Container, Grid as _Grid, ThemeUIStyleObject } from "theme-ui";
 
 // Center line of page fold
