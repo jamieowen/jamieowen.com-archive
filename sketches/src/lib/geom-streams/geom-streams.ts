@@ -14,17 +14,6 @@ interface GeometryEvent {
   data: any;
 }
 
-export const isSubscribable = (x: any): x is ISubscribable<any> =>
-  implementsFunction(x, "subscribe");
-
-export function optsStream<T>(opts: T | Stream<T>): Stream<T> {
-  if (!isSubscribable(opts)) {
-    return reactive<T>(opts as T);
-  } else {
-    return opts as Stream<T>;
-  }
-}
-
 interface IRandomPointsOpts {
   count: number;
 }
