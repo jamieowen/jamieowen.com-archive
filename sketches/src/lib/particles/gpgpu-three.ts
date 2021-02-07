@@ -59,6 +59,7 @@ export class GPGPUState {
   states: WebGLRenderTarget[];
   output: WebGLRenderTarget;
   material: RawShaderMaterial;
+  writeMaterial: RawShaderMaterial;
   geometry: BufferGeometry;
   camera: OrthographicCamera;
   scene: Scene = new Scene();
@@ -91,6 +92,16 @@ export class GPGPUState {
         }, {}),
       },
     });
+    this.writeMaterial = new RawShaderMaterial({
+      vertexShader: setup.vertexSource,
+      fragmentShader: setup.fragmentWriteSource,
+      depthTest: false,
+      depthWrite: false,
+      side: DoubleSide,
+      uniforms: {
+        ["state_0"]: { value: null },
+      },
+    });
     this.geometry = createGeometry(setup.positionBuffer);
     this.mesh = new Mesh(this.geometry, this.material);
     this.camera = new OrthographicCamera(-0.5, 0.5, 0.5, -0.5, 0, 1);
@@ -98,15 +109,21 @@ export class GPGPUState {
   }
 
   /**
-   * Set the supplied data as the current state and
-   * write it to the output buffer.
+   * Set the supplied data as all states and
+   * write it to the current output buffer.
    *
    * This is replaces the current state and
    * @param data
    */
   write(data: DataTexture) {
-    // this.material.uniforms[]
-    // TODO..
+    this.writeMaterial.uniforms["state_0"].value = data;
+    this.mesh.material = this.writeMaterial;
+    this.states.forEach((state) => {
+      this.renderer.setRenderTarget(state);
+      this.renderer.render(this.scene, this.camera);
+    });
+    this.renderer.setRenderTarget(null);
+    this.mesh.material = this.material;
   }
 
   /**
@@ -118,7 +135,7 @@ export class GPGPUState {
   update() {
     // Update state uniforms
     this.states.forEach((state, i) => {
-      this.material.uniforms[`state_${i}`].value = state;
+      this.material.uniforms[`state_${i}`].value = state.texture;
     });
     // Render
     this.renderer.setRenderTarget(this.output);

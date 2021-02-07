@@ -21,9 +21,10 @@ export const gpgpuInitialData = (
 };
 
 export const gpgpuRandomData = (width: number, height: number) => {
-  return gpgpuInitialData(width, height, 3, (_x, _y, out, offset) => {
+  return gpgpuInitialData(width, height, 4, (_x, _y, out, offset) => {
     out[offset] = Math.random();
     out[offset + 1] = Math.random();
     out[offset + 2] = Math.random();
+    out[offset + 3] = 1.0;
   });
 };

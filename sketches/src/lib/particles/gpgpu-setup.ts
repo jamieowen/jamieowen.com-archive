@@ -1,6 +1,10 @@
 import { program } from "@thi.ng/shader-ast";
 import { GLSLTarget, GLSLVersion, targetGLSL } from "@thi.ng/shader-ast-glsl";
-import { gpgpuQuadVertexShader, gpgpuTriangleVertexShader } from "./gpgpu-glsl";
+import {
+  gpgpuQuadVertexShader,
+  gpgpuTriangleVertexShader,
+  gpgpuWriteOperation,
+} from "./gpgpu-glsl";
 
 export interface IGPGPUSetupOpts {
   geomType: "triangle" | "quad";
@@ -54,6 +58,8 @@ export const gpgpuSetup = (opts: IGPGPUSetupOpts) => {
   const fragmentAst = updateProgram(targetFS);
   const vertexSource = targetVS(vertexAst);
   const fragmentSource = targetFS(fragmentAst);
+  // An additional source for raw state writes.
+  const fragmentWriteSource = targetFS(gpgpuWriteOperation(targetFS));
 
   return {
     // data,
@@ -63,6 +69,7 @@ export const gpgpuSetup = (opts: IGPGPUSetupOpts) => {
     fragmentAst,
     vertexSource,
     fragmentSource,
+    fragmentWriteSource,
     positionBuffer,
     width,
     height,

@@ -12,11 +12,19 @@ import {
 } from "./lib/particles";
 
 import {
+  ClampToEdgeWrapping,
   Color,
+  DataTexture,
+  FloatType,
   Mesh,
   MeshBasicMaterial,
+  NearestFilter,
   PlaneBufferGeometry,
+  UVMapping,
+  RGBAFormat,
+  RGBFormat,
   ShaderMaterial,
+  TextureDataType,
   WebGLRenderer,
 } from "three";
 import { GPGPUState } from "./lib/particles/gpgpu-three";
@@ -28,8 +36,8 @@ import {
   sym,
   input,
   assign,
-  vec4,
 } from "@thi.ng/shader-ast";
+import { gpgpuRandomData } from "./lib/particles/gpgpu-data";
 
 const stateUpdate = (renderer: WebGLRenderer) => {
   const setup = gpgpuSetup({
@@ -37,11 +45,10 @@ const stateUpdate = (renderer: WebGLRenderer) => {
     width: 128,
     height: 128,
     count: 2,
-    // initialData: gpgpuRandomData(128, 128),
     updateProgram: (target) => {
       // Defs
-      const previousIn = uniform("sampler2D", "previous", { prec: "highp" });
-      const currentIn = uniform("sampler2D", "current");
+      const previousIn = uniform("sampler2D", "state_1", { prec: "highp" });
+      const currentIn = uniform("sampler2D", "state_0");
       const vReadUV = input("vec2", "vReadUV");
 
       // Main
@@ -54,13 +61,29 @@ const stateUpdate = (renderer: WebGLRenderer) => {
         defMain(() => [
           previous,
           current,
-          assign(target.gl_FragColor, vec4(1.0, 0.0, 1.0, 1.0)),
+          assign(target.gl_FragColor, current),
         ]),
       ]);
     },
   });
 
   const state = new GPGPUState(renderer, setup);
+  const data = gpgpuRandomData(128, 128);
+  const dataTex = new DataTexture(
+    data,
+    128,
+    128,
+    RGBAFormat,
+    FloatType,
+    UVMapping,
+    ClampToEdgeWrapping,
+    ClampToEdgeWrapping,
+    NearestFilter,
+    NearestFilter
+  );
+  state.write(dataTex);
+  console.log(dataTex);
+  // console.log(data);
   return {
     state,
     setup,

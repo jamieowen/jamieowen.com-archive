@@ -9,6 +9,8 @@ import {
   add,
   output,
   $xy,
+  sym,
+  texture,
 } from "@thi.ng/shader-ast";
 import { GLSLTarget } from "@thi.ng/shader-ast-glsl";
 
@@ -66,4 +68,15 @@ export const gpgpuFragmentBase = (target: GLSLTarget) => {
   const vReadUV = input("vec2", "vReadUV");
 
   return program([previous, current, vReadUV, defMain(() => [])]);
+};
+
+export const gpgpuWriteOperation = (target: GLSLTarget) => {
+  const currentIn = uniform("sampler2D", "state_0");
+  const vReadUV = input("vec2", "vReadUV");
+  const current = sym(texture(currentIn, vReadUV));
+  return program([
+    currentIn,
+    vReadUV,
+    defMain(() => [current, assign(target.gl_FragColor, current)]),
+  ]);
 };
