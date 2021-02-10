@@ -33,6 +33,33 @@ export interface IAccumulation {
   acceleration: Vec;
 }
 
+export interface EntityEvent<T = any> {
+  data: T;
+}
+
+enum EventType {
+  TransformUpdate,
+  TransformAdd,
+  TransformRemove,
+  TransformArrayUpdate,
+  TransformArrayAdd,
+  TransformArrayRemove,
+}
+
+export interface TransformEvent extends EntityEvent<ITransform> {
+  type:
+    | EventType.TransformAdd
+    | EventType.TransformRemove
+    | EventType.TransformUpdate;
+}
+
+export interface TransformArrayEvent extends EntityEvent<ITransform[]> {
+  type:
+    | EventType.TransformArrayAdd
+    | EventType.TransformArrayRemove
+    | EventType.TransformArrayUpdate;
+}
+
 export const createTransform = (): ITransform => {
   return {
     position: [0, 0, 0],
@@ -42,6 +69,21 @@ export const createTransform = (): ITransform => {
 };
 
 export const fromTransform = () => reactive<ITransform>(createTransform());
+
+export const toTransformEvent = (obj: ITransform): TransformEvent => ({
+  data: obj,
+  type: EventType.TransformAdd,
+});
+
+export const toTransformArrayEvent = (
+  obj: ITransform[]
+): TransformArrayEvent => ({
+  data: obj,
+  type: EventType.TransformArrayAdd,
+});
+
+export const mapcatTransformArray = () =>
+  mapcat<TransformArrayEvent, TransformEvent>((arr) => arr.data);
 
 export const wrapBoundsScalar = (mod: number) => (obj: ITransform) => (
   modN3(undefined, obj.position, mod), obj

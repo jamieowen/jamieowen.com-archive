@@ -34,6 +34,11 @@ import {
   Vector3,
   Object3D,
   AxesHelper,
+  BoxBufferGeometry,
+  BackSide,
+  AmbientLight,
+  MeshLambertMaterial,
+  PointLight,
 } from "three";
 
 const tmp = new Vector3();
@@ -71,6 +76,20 @@ const calcAxes = (dir: Vec) => {
   };
 };
 
+const createSceneBox = (scene: Scene) => {
+  const box = new Mesh(
+    new BoxBufferGeometry(2, 2, 2),
+    new MeshLambertMaterial({ color: "lightgray", side: BackSide })
+  );
+  const light = new AmbientLight(0xffffff, 0.2);
+  const plight = new PointLight(0xffffff, 0.5);
+  plight.position.set(1.5, 1, 2);
+  scene.add(light);
+  scene.add(plight);
+  scene.add(box);
+  return box;
+};
+
 const renderTransform = (scene: Scene): ISubscriber<ITransform> => {
   const renderMap = new WeakMap<ITransform, Mesh>();
   return {
@@ -96,6 +115,7 @@ sketch(({ render, configure, scene, domElement, camera, resize }) => {
   mousePoint.scale.set(s, 0, s);
   scene.add(axes);
   // scene.add(grid);
+  createSceneBox(scene);
 
   // dir
   const group = new Group();
@@ -136,7 +156,7 @@ sketch(({ render, configure, scene, domElement, camera, resize }) => {
         map(steerRandomPoint(0.5)),
         map(limitVelocity(0.03)),
         map(endPhysics())
-        // map(wrapBoundsScalar(3))
+        // map(wrapBoundsScalar(2))
       )
     )
     .subscribe(renderTransform(scene));
