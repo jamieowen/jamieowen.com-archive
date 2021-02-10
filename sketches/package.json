@@ -34,6 +34,7 @@
     "@jamieowen/layout": "^0.0.2",
     "@jamieowen/motion": "^0.0.2",
     "@jamieowen/three": "^0.0.2",
+    "@thi.ng/api": "^6.13.6",
     "@thi.ng/checks": "^2.8.0",
     "@thi.ng/color": "^2.1.5",
     "@thi.ng/ecs": "^0.4.9",

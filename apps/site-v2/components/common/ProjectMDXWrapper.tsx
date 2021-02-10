@@ -15,7 +15,7 @@ import {
   ProjectsContextProvider,
   useProjects,
 } from "components/context/ProjectsContext";
-import { NextBackNavigation } from "./MenuNavigation";
+import { NextBackNavigation, useNavigationData } from "./MenuNavigation";
 
 export const ProjectMDXWrapper: FC<StaticPropsType> = ({
   children,
@@ -30,12 +30,20 @@ export const ProjectMDXWrapper: FC<StaticPropsType> = ({
 
 export const ProjectsContent: FC<{}> = ({ children }) => {
   const projects = useProjects();
-  console.log(projects);
+  const navigation = useNavigationData();
+
+  const project = projects.currentProject;
   return (
     <Content>
       <Section maxWidth="small">
-        <BodyHeader>05 / Recent Work</BodyHeader>
-        {/* <BodyText>{project.id}</BodyText> */}
+        <BodyHeader>
+          <span className="opq5">
+            {navigation.current.num} / Recent Work /{" "}
+          </span>
+          {project.id}
+        </BodyHeader>
+        <BodyText>{project.content.title}</BodyText>
+        <BodyText>{project.content.client}</BodyText>
       </Section>
       <Section>
         <ProjectImages project={projects.currentProject} />

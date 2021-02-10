@@ -20,7 +20,7 @@ import {
   FrontSide,
   DoubleSide,
 } from "three";
-import { GPGPUSetup, gpgpuSetup, GPGPUSetupOpts } from "./gpgpu-setup";
+import { GPGPUSetup, gpgpuSetup } from "./gpgpu-setup";
 
 const defaultRttOpts = {
   format: RGBAFormat,
