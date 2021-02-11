@@ -148,6 +148,17 @@ sketch(({ render, configure, scene, domElement, camera, resize }) => {
     error: () => {},
   });
 
+  /**
+   * TODO:
+   *
+   * A couple of thing.
+   *
+   * + How do we debug?  If I want to render lines / points for different components?
+   * + Having some kind of emit/debug to stream that can be injected into the pipeline
+   * + Creation of objects and ECS system.
+   * + Shared WeakMap of underlying mapped data.
+   * + Emit stream of physics data, convert velocities & positions to line/line-array events... ( similar to geometry processing idea )
+   */
   createFrameLoop([createTransform()])
     .transform(
       comp(

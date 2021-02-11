@@ -76,12 +76,13 @@ export const toTransformEvent = (obj: ITransform): TransformEvent => ({
 });
 
 export const toTransformArrayEvent = (
-  obj: ITransform[]
+  obj: ITransform[] // ? This should be an array of TranformEvents? Do we even need arrays of Transforms?
 ): TransformArrayEvent => ({
   data: obj,
   type: EventType.TransformArrayAdd,
 });
 
+// Object --> Transform --> TransformEvent
 export const mapcatTransformArray = () =>
   mapcat<TransformArrayEvent, TransformEvent>((arr) => arr.data);
 
