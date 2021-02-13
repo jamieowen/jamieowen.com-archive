@@ -28,7 +28,7 @@ const ProjectsContext = createContext<IProjectsContext>(null!);
 export const useProjects = () => useContext(ProjectsContext);
 
 export const ProjectsContextProvider: FC<{ projects: ProjectData[] }> = ({
-  projects,
+  projects = [],
   children,
 }) => {
   const router = useRouter();

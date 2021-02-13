@@ -3,7 +3,7 @@ import { useColorMode } from "theme-ui";
 import { Container, Grid as _Grid, ThemeUIStyleObject } from "theme-ui";
 
 // Center line of page fold
-const cl = "50vh";
+const cl = "100vh";
 const headerStyle: ThemeUIStyleObject = {
   width: "100vw",
   height: cl,
@@ -20,7 +20,7 @@ const contentContainerStyle: ThemeUIStyleObject = {
   // Shift to show just a fold of the main content
   // marginTop: "calc( 100vh - 2rem )",
   // Shift to show half way down the page
-  marginTop: `calc( ${cl} - 0rem )`,
+  marginTop: `calc( ${cl} - 2rem )`,
   minHeight: "calc( 100vh - 2rem )",
   padding: ["2rem", "4rem"],
   backgroundColor: "background",
@@ -50,7 +50,11 @@ export const Header: FC<{}> = ({ children }) => {
 
 /** Content Area. */
 export const ContentContainer: FC<{}> = ({ children }) => {
-  return <Container sx={contentContainerStyle}>{children}</Container>;
+  return (
+    <Container id="content-container" sx={contentContainerStyle}>
+      {children}
+    </Container>
+  );
 };
 
 /** Content wrapper for each page */

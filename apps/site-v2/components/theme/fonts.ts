@@ -11,6 +11,7 @@ export const fonts: Pick<
     // worksans: "'Work Sans', sans-serif",
     body: "'Work Sans', sans-serif",
     heading: "'Roboto Mono', monospace",
+    navigation: "'Roboto Mono', monospace",
     // monospace: "Menlo, monospace",
   },
   fontWeights: {

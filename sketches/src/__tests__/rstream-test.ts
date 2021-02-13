@@ -1,4 +1,16 @@
-import { stream, State } from "@thi.ng/rstream";
+import {
+  stream,
+  Stream,
+  State,
+  CloseMode,
+  sync,
+  reactive,
+  fromRAF,
+  sidechainPartition,
+  trace,
+  subscription,
+  debounce,
+} from "@thi.ng/rstream";
 import { map } from "@thi.ng/transducers";
 
 const eventObject = () => ({
@@ -47,33 +59,104 @@ type Event = ReturnType<typeof eventObject>;
 // + i.e. Do not augment midstream via transform. ( as Accumuate is doing )
 // + any augmentation should probably happen at 'splits'/branches' to prepare events for next stage in pipeline
 
-test("event type clsoing/opening", () => {
-  // Create stream and emit initial 'add'
-  const str = stream<Event>((s) => {
-    const ev = eventObject();
-    ev.type = "add";
-    s.next(ev);
-    return () => {
-      console.log("close");
+const jestSubs = () => {
+  const totalSubs: ReturnType<typeof jest.fn>[] = [];
+  const sub = () => {
+    const next = jest.fn();
+    totalSubs.push(next);
+    return {
+      next,
     };
-  }, {});
+  };
+  return { totalSubs, sub };
+};
 
-  // const handler = jest.fn();
-  // using stream() and not reactive()
-
-  // NO event is emitted until first subscription is attached.
-  expect(str.deref()).toBeUndefined();
-  console.log(str.deref());
-
-  str.subscribe({
-    next: (ev) => {
-      console.log(">>", ev);
-    },
-    done: () => {},
-    error: () => {},
+test("Events start stop", () => {
+  const evStream = stream((s) => {
+    console.log("OPENED");
+    s.next({ type: "add" });
+    return () => {
+      s.next({ type: "remove" });
+    };
   });
 
-  expect(str.deref()).toHaveProperty("type");
+  evStream.subscribe(sidechainPartition(fromRAF())).subscribe(trace("Emi"));
+  evStream.unsubscribe();
+});
 
-  // console.log(str.deref());
+/**
+ * Testing how streams open and close.
+ */
+test("Test open/close state on streams", () => {
+  // ** Test Stream Behaviour **
+  // Streams start in the IDLE STATE.
+  // The state determines if subscriptions exist or not.
+  const s1 = stream({
+    closeOut: CloseMode.FIRST,
+  });
+  expect(s1.getState()).toEqual(State.IDLE);
+  // If a value emits, nothing changes, just the buffer is filled with the next value until a sub connects.
+  s1.next("hello");
+  expect(s1.getState()).toEqual(State.IDLE);
+
+  // Subscribing will now emit the value immediately.
+  const callback = jest.fn();
+  const sub = s1.subscribe({
+    next: callback,
+  });
+  expect(callback.mock.calls).toHaveLength(1);
+  expect(callback.mock.calls[0][0]).toEqual("hello");
+
+  // And the stream is still in the active state.
+  expect(s1.getState()).toEqual(State.ACTIVE);
+
+  // ** Check subscrition state before unsubscribing **
+  expect(sub.getState()).toEqual(State.IDLE);
+  s1.unsubscribe(sub);
+
+  // Stream will now be closed
+  expect(s1.getState()).toEqual(State.DONE);
+
+  // Subscriptions are left UNTOUCHED by the parent stream.
+  // This is when unsubscribing...
+  expect(sub.getState()).toEqual(State.IDLE);
+});
+
+type SrcMap = Record<string, Stream<number>>;
+
+test("test sync stream, undefined error issue", () => {
+  const src = new Array(5).fill(0).reduce<SrcMap>((map, val, i) => {
+    map[i + 1] = reactive(i + 1);
+    return map;
+  }, {});
+
+  const synced = sync({
+    src: src,
+  });
+
+  for (let key in src) {
+    const inp = src[key];
+    const curr = inp.deref();
+    inp.next(curr + 1);
+    // src[key].
+  }
+});
+
+jest.useRealTimers();
+
+test("Test stream connectivity", () => {
+  const str = stream({});
+  str.subscribe(trace("1"));
+  str.subscribe(trace("2"));
+  str.subscribe(trace("3"));
+  str
+    .transform(map(() => console.log("1")))
+    .transform(map(() => console.log("2")))
+    .transform(map(() => console.log("3")));
+  // str.subscribe(debounce(30)).subscribe(trace("BOUNCE"));
+  str.next(0);
+
+  const str2 = stream({});
+  str2.subscribe(trace("1")).subscribe(trace("2")).subscribe(trace("3"));
+  str2.next(5);
 });

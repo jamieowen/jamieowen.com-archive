@@ -23,6 +23,7 @@ import { MDXProvider } from "@mdx-js/react";
 
 import "styles/globals.css";
 import { useColorMode } from "theme-ui";
+import { ScrollProvider } from "components/context/ScrollContext";
 // import { ColorContextProvider } from "../components/context/ColorContext";
 // import { ProjectsContextProvider } from "components/context/ProjectsContext";
 
@@ -81,10 +82,12 @@ const Providers: FC<{ pageProps?: any }> = ({ children, pageProps }) => {
           wrapper: ProjectMDXWrapper,
         }}
       >
-        <ColorSwitch />
-        <WeatherProvider>
-          <NavigationDataProvider>{children}</NavigationDataProvider>
-        </WeatherProvider>
+        <ScrollProvider>
+          <ColorSwitch />
+          <WeatherProvider>
+            <NavigationDataProvider>{children}</NavigationDataProvider>
+          </WeatherProvider>
+        </ScrollProvider>
       </MDXProvider>
     </ThemeProvider>
   );

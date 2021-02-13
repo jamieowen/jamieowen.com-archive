@@ -26,7 +26,7 @@ export const text: Pick<Theme, "text"> = {
 
     /** Navigation Menu Link Style */
     navigation_menu: {
-      fontFamily: "body",
+      fontFamily: "navigation",
       fontSize: ["12px", "16px"],
       fontWeight: 400,
       lineHeight: "32px",
@@ -35,7 +35,7 @@ export const text: Pick<Theme, "text"> = {
 
     /** Navigation Body Link Style */
     navigation_body: {
-      fontFamily: "body",
+      fontFamily: "navigation",
       fontSize: "16px",
       fontWeight: 500,
       lineHeight: "24px",

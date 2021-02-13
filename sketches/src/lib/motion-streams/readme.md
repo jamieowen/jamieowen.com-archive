@@ -60,3 +60,49 @@ for (let i = 0; i < obj.length; i++) {
   steerBehaviour(obj);
 }
 ```
+
+## How effective will this be?
+
+A bit unsure if this is overkill to operate on objects like this and break down to smaller
+primitives. I.e. breaking down a group of objects to single objects, emitting single add/remove/udpate transform events. Or even individual lines, points, etc. If you have 1000 objects, thats 60000 map/generator steps at least per second. Things become even more ridiculous with points.
+
+May be the lowest unit would be a geometry, transforms, entities, etc.
+
+e.g.
+
+```typescript
+
+// Rough Idea - BUT based on some tests subscribe() executes backwards
+fromGeometry(geom)
+  .subscribe(toTransforms()) // geom converted to transform ( w/ rot/scale/etc )
+  // .subscribe(toECS()) // or to ECS?
+  .subscribe(physicsSystem(
+    // physics emits an update event, transforming all objects
+    comp(
+      map(())
+      map(()=>)
+    )
+  ))
+  .subscribe()
+
+// SO.. the same with transform
+
+const psystem = fromGeometry(geom)
+  .transform( toPhysicsECS() ) // converts to array
+  .transform(
+    physicsSystem( // perform a more optimal loop in here ( without events )
+      comp(
+        map(()=>) // behaviour
+        map()
+      )
+    )
+  )
+
+psystem.subscribe(renderPoints());
+psystem.subscribe(renderLines());
+
+
+
+
+
+```
