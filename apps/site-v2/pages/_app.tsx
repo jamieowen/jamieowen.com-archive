@@ -16,16 +16,9 @@ import {
 import { ThemeProvider } from "theme-ui";
 import { MDXProvider } from "@mdx-js/react";
 
-// import { Scheduler, LayoutObserver } from "@jamieowen/motion-layout";
-// import { MatterProvider } from "../components/physics/MatterContext";
-// import { IntersectionProvider } from "../components//motion/IntersectionContext";
-// import { GenerativeGridProvider } from "../components/generative-grid";
-
 import "styles/globals.css";
 import { useColorMode } from "theme-ui";
 import { ScrollProvider } from "components/context/ScrollContext";
-// import { ColorContextProvider } from "../components/context/ColorContext";
-// import { ProjectsContextProvider } from "components/context/ProjectsContext";
 
 const Fonts = () => {
   return (
@@ -91,11 +84,6 @@ const Providers: FC<{ pageProps?: any }> = ({ children, pageProps }) => {
       </MDXProvider>
     </ThemeProvider>
   );
-};
-
-const MDXWraper = (props) => {
-  console.log("MDX WRAPPER :", props);
-  return <Fragment>{props.children}</Fragment>;
 };
 
 {

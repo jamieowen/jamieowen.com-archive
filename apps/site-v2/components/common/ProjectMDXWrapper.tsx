@@ -6,7 +6,6 @@ import {
   Content,
   ProjectImages,
 } from "components/common";
-import { ProjectData } from "types";
 import { FC } from "react";
 
 // export { getStaticPaths, getStaticProps } from "services/get-static-paths";
