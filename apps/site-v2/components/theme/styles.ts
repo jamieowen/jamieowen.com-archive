@@ -15,6 +15,12 @@ export const styles: Pick<Theme, "styles"> = {
       fontFamily: "body",
       fontSize: "body",
       margin: "0rem",
+
+      /**
+       *
+       * Some global class helpers to use where needed.
+       *
+       */
       ".opq3": {
         opacity: 0.3,
       },
@@ -34,18 +40,21 @@ export const styles: Pick<Theme, "styles"> = {
       ".maxw-full": {
         maxWidth: "100%",
       },
+
+      // Used for selected router links
       ".selected": {
         color: "content_background",
+        pointerEvents: "none",
         textDecoration: "line-through",
+      },
+      a: {
+        color: "inherit",
+        textDecoration: "none",
       },
 
       // "*": {
       //   transition: "background-color 1s ease-out, color 1.3s ease-in",
       // },
-      a: {
-        color: "inherit",
-        textDecoration: "none",
-      },
     },
     h1: {
       variant: "heading",

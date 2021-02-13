@@ -1,7 +1,6 @@
-// export * from "./Navigation";
 export * from "./SidePanel";
 export * from "./Button";
-export * from "./common";
+export * from "./typography";
 export * from "./MenuNavigation";
 export * from "./containers";
 export * from "./ProjectLinks";

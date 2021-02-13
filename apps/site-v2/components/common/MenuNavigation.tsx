@@ -11,7 +11,7 @@ import {
 } from "react";
 import { Container, Heading, Text } from "theme-ui";
 import { Button } from "./Button";
-import { BodyHeader, MenuLink } from "./common";
+import { BodyHeader, MenuLink } from "./typography";
 
 interface MenuData {
   label: string;

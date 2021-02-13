@@ -8,8 +8,6 @@ import {
   useMemo,
 } from "react";
 import { Container, ThemeUIStyleObject, Text } from "theme-ui";
-import { BodyHeader, BodyText } from "./common";
-import { Weather } from "./Weather";
 
 const footerStyle: ThemeUIStyleObject = {
   position: "absolute",
