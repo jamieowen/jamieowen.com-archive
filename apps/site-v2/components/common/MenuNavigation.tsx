@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
+
 import {
   ElementType,
   FC,
@@ -9,7 +11,7 @@ import {
 } from "react";
 import { Container, Heading, Text } from "theme-ui";
 import { Button } from "./Button";
-import { BodyHeader } from "./Common";
+import { BodyHeader, MenuLink } from "./common";
 
 interface MenuData {
   label: string;
@@ -22,7 +24,6 @@ export const navigationData: MenuData[] = [
   { num: "01", label: "Intro.", href: "/" },
   { num: "02", label: "Recent Work.", href: "/recent-work" },
   { num: "03", label: "Tech Stack.", href: "/tech-stack", break: true },
-
   // { label: "Archived.", href: "/archived-work" },
   { num: "04", label: "Interests.", href: "/interests" },
   { num: "05", label: "Get In Touch.", href: "/get-in-touch" },
@@ -85,6 +86,7 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
 
 export const Menu: FC<{}> = ({ children }) => {
   const nav = useNavigationData();
+  const router = useRouter();
 
   return (
     <Container as="nav">
@@ -92,34 +94,19 @@ export const Menu: FC<{}> = ({ children }) => {
       <Container>
         {nav.items.map((link, i) => (
           <Fragment key={i}>
-            <MenuItem {...link} />
+            {/* <MenuItem {...link} /> */}
+            <MenuLink
+              as="span"
+              className={router.asPath === link.href ? "selected" : ""}
+              href={link.href}
+            >
+              {link.label}
+            </MenuLink>
             {link.break ? <br /> : null}
           </Fragment>
         ))}
       </Container>
     </Container>
-  );
-};
-
-const MenuItem: FC<{ label: string; href: string }> = ({ label, href }) => {
-  return (
-    <Button
-      size="small"
-      href={href}
-      // onClick={() => console.log("Do Click", href)}
-      sx={{
-        cursor: "pointer",
-        marginRight: "16px",
-        // transition: "opacity 0.1s ease-out",
-        // ":hover": {
-        //   opacity: 0.4,
-        // },
-      }}
-    >
-      <Text variant="navigation_menu" as="span">
-        {label}
-      </Text>
-    </Button>
   );
 };
 
@@ -145,7 +132,8 @@ export const NextBackNavigation: FC<{}> = () => {
         width: "100%",
         display: "grid",
         marginTop: "8rem",
-        gridTemplateColumns: "1fr 1fr",
+        textAlign: "center",
+        gridTemplateColumns: "1fr",
         columnGap: "16px",
       }}
     >
@@ -163,12 +151,10 @@ export const NextBackNavigation: FC<{}> = () => {
       <Container>
         {next ? (
           <Button href={next ? next.href : ""}>
+            <span className="opq3">{next.num}/06</span> <br />
+            <div>Next</div>
             <Text as="span" variant="navigation_body">
-              Next
-              <br />
-              <span>
-                {next.num}. {next.label}{" "}
-              </span>
+              <strong>{next.label}</strong>
             </Text>
           </Button>
         ) : (

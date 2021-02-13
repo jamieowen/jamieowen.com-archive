@@ -9,7 +9,7 @@ const headerStyle: ThemeUIStyleObject = {
   height: cl,
   position: "fixed",
   top: "0px",
-  backgroundColor: "background2",
+  backgroundColor: "background",
   padding: ["2rem", "4rem"],
 };
 
@@ -22,7 +22,8 @@ const contentContainerStyle: ThemeUIStyleObject = {
   top: `calc( ${cl} - 2rem )`,
   minHeight: "calc( 100vh - 2rem )",
   padding: ["2rem", "4rem"],
-  backgroundColor: "background",
+  backgroundColor: "content_background",
+  color: "content_text",
 };
 
 const contentStyle: ThemeUIStyleObject = {};

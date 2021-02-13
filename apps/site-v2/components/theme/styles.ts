@@ -8,6 +8,8 @@ export const styles: Pick<Theme, "styles"> = {
   styles: {
     /** Body Styles. */
     root: {
+      // background color *behind* header
+      backgroundColor: "content_background",
       overflowY: "scroll",
       overflowX: "hidden",
       fontFamily: "body",
@@ -32,12 +34,17 @@ export const styles: Pick<Theme, "styles"> = {
       ".maxw-full": {
         maxWidth: "100%",
       },
+      ".selected": {
+        color: "content_background",
+        textDecoration: "line-through",
+      },
+
       // "*": {
       //   transition: "background-color 1s ease-out, color 1.3s ease-in",
       // },
       a: {
         color: "inherit",
-        textDecoration: "underline",
+        textDecoration: "none",
       },
     },
     h1: {

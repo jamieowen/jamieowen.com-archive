@@ -24,16 +24,31 @@ export const text: Pick<Theme, "text"> = {
       textTransform: "uppercase",
     },
 
-    /** Navigation Menu Link Style */
+    /**
+     * Navigation Menu
+     *
+     * For navigation menu in the top left.
+     **/
     navigation_menu: {
       fontFamily: "navigation",
       fontSize: ["12px", "16px"],
       fontWeight: 400,
       lineHeight: "32px",
-      textDecoration: "none",
+      textDecoration: "underline",
+      cursor: "pointer",
+      marginRight: "16px",
+      ":hover": {
+        opacity: 0.4,
+        textDecoration: "line-through",
+      },
     },
 
-    /** Navigation Body Link Style */
+    /**
+     * Navigation Body
+     *
+     * For previous & next when navigating
+     * from content page.
+     **/
     navigation_body: {
       fontFamily: "navigation",
       fontSize: "16px",

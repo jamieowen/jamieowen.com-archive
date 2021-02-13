@@ -39,7 +39,7 @@ export const ScrollProvider: FC<any> = ({ children }) => {
     if (router.asPath !== "/" && contentContainerRef.current) {
       console.log("Scroll TO ");
       window.scrollTo({
-        top: contentContainerRef.current.getBoundingClientRect().top,
+        top: contentContainerRef.current.getBoundingClientRect().top - 32,
         behavior: "auto",
       });
     }
