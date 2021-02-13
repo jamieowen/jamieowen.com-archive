@@ -51,10 +51,10 @@ export const colors: Pick<
     modes: {
       // Dark
       dark: {
-        text: "white",
-        background: "#111111",
-        ...namedGradient("background", "#111111", -0.05),
-        ...namedGradient("text", "white", 0.05),
+        text: "#eeeeee",
+        background: "#323232",
+        ...namedGradient("background", "#323232", 0.15),
+        ...namedGradient("text", "#eeeeee", 0.25),
         primary: "pink",
         // ...namedComplement("primary", "#453333"),
       },

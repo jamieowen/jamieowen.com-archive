@@ -1,4 +1,4 @@
-import { FC, Fragment, useMemo } from "react";
+import { FC, Fragment, useLayoutEffect, useMemo } from "react";
 import App, { AppProps } from "next/app";
 import Head from "next/head";
 import theme from "../components/theme";
@@ -60,9 +60,9 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
 };
 
 const ColorSwitch: FC<{}> = () => {
-  const [color, setColor] = useColorMode();
-  useMemo(() => {
-    setColor("dark");
+  const [, setColor] = useColorMode();
+  useLayoutEffect(() => {
+    setColor("blue");
   }, []);
   return <Fragment />;
 };
@@ -86,62 +86,4 @@ const Providers: FC<{ pageProps?: any }> = ({ children, pageProps }) => {
   );
 };
 
-{
-  /* <ColorContextProvider> */
-}
-{
-  /* <Scheduler> */
-}
-{
-  /* <Navigation /> */
-}
-{
-  /* <LayoutObserver rootMargin="-10% 0%"> */
-}
-
-{
-  /* </LayoutObserver> */
-}
-{
-  /* <Footer /> */
-}
-{
-  /* </Scheduler> */
-}
-{
-  /* </ColorContextProvider> */
-}
-
-// @ts-ignore
-// MyApp.getInitialProps = async (appContext) => {
-//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-//   const appProps = await App.getInitialProps(appContext);
-//   const pages = []; //await fetchPages();
-//   return {
-//     ...appProps,
-//     pages,
-//   };
-// };
-
 export default MyApp;
-
-/**
- *
- * FUCKING BLOG???
- *
- *
- * https://github.com/vercel/next.js/tree/canary/examples/blog-starter/pages
- * https://github.com/hashicorp/next-mdx-enhanced
- * https://github.com/hashicorp/next-mdx-remote
- * https://stackoverflow.com/questions/54059179/what-is-require-context
- * https://johnpolacek.com/building-a-blog-with-nextjs-and-mdx
- * https://www.smashingmagazine.com/2020/09/build-blog-nextjs-mdx/
- * https://nextjs.org/learn/basics/data-fetching
- *
- * https://github.com/gvergnaud/nextjs-dynamic-routes
- * https://github.com/vercel/next.js/issues/2131
- *
- * https://www.npmjs.com/package/worker-farm
- *
- *
- */

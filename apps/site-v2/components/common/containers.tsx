@@ -9,7 +9,6 @@ const headerStyle: ThemeUIStyleObject = {
   height: cl,
   position: "fixed",
   top: "0px",
-  zIndex: -1,
   backgroundColor: "background2",
   padding: ["2rem", "4rem"],
 };
@@ -20,7 +19,7 @@ const contentContainerStyle: ThemeUIStyleObject = {
   // Shift to show just a fold of the main content
   // marginTop: "calc( 100vh - 2rem )",
   // Shift to show half way down the page
-  marginTop: `calc( ${cl} - 2rem )`,
+  top: `calc( ${cl} - 2rem )`,
   minHeight: "calc( 100vh - 2rem )",
   padding: ["2rem", "4rem"],
   backgroundColor: "background",

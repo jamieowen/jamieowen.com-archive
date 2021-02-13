@@ -28,3 +28,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+/\*\*
+
+-
+- FUCKING BLOG???
+-
+-
+- https://github.com/vercel/next.js/tree/canary/examples/blog-starter/pages
+- https://github.com/hashicorp/next-mdx-enhanced
+- https://github.com/hashicorp/next-mdx-remote
+- https://stackoverflow.com/questions/54059179/what-is-require-context
+- https://johnpolacek.com/building-a-blog-with-nextjs-and-mdx
+- https://www.smashingmagazine.com/2020/09/build-blog-nextjs-mdx/
+- https://nextjs.org/learn/basics/data-fetching
+-
+- https://github.com/gvergnaud/nextjs-dynamic-routes
+- https://github.com/vercel/next.js/issues/2131
+-
+- https://www.npmjs.com/package/worker-farm
+-
+- \*/

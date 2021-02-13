@@ -12,21 +12,21 @@ const padding = (size: Size) =>
     ? { padding: "8px 0px 8px 0px" }
     : size === "medium"
     ? { padding: "10px 20px" }
-    : { padding: "40px 0px 20px 0px" };
+    : { padding: "10px 0px 10px 0px" };
 
-const backgroundPosition = (size: Size) =>
-  size === "small"
-    ? { backgroundPosition: "0px 34px" }
-    : size === "medium"
-    ? { padding: "10px 20px" }
-    : { backgroundPosition: "0px 78px" };
+// const backgroundPosition = (size: Size) =>
+//   size === "small"
+//     ? { backgroundPosition: "0px 34px" }
+//     : size === "medium"
+//     ? { padding: "10px 20px" }
+//     : { backgroundPosition: "0px 78px" };
 
-const lineHeight = (size: Size) =>
-  size === "small"
-    ? { lineHeight: "48px" }
-    : size === "medium"
-    ? { lineHeight: "48px" }
-    : { lineHeight: "48px" };
+// const lineHeight = (size: Size) =>
+//   size === "small"
+//     ? { lineHeight: "48px" }
+//     : size === "medium"
+//     ? { lineHeight: "48px" }
+//     : { lineHeight: "48px" };
 
 export const Button: FC<
   ComponentProps<typeof Link> & {
@@ -49,7 +49,7 @@ export const Button: FC<
       sx={{
         width: "100%",
         height: "100%",
-        // lineHeight: "48px",
+        lineHeight: size === "large" ? "40px" : "32px",
         cursor: "pointer",
         position: "relative",
         ":hover": {
@@ -60,7 +60,6 @@ export const Button: FC<
         ...sx,
       }}
       onClick={onClick}
-      onPointerOver={() => console.log("Pointer")}
       {...props}
     >
       {children}

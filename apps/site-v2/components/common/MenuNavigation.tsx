@@ -144,13 +144,14 @@ export const NextBackNavigation: FC<{}> = () => {
       sx={{
         width: "100%",
         display: "grid",
+        marginTop: "8rem",
         gridTemplateColumns: "1fr 1fr",
         columnGap: "16px",
       }}
     >
-      <Container sx={{ textAlign: "right" }}>
+      {/* <Container sx={{ textAlign: "right" }}>
         {prev ? (
-          <Button href={prev ? prev.href : ""} className={next ? "opq3" : ""}>
+          <Button href={prev ? prev.href : ""} className={next ? "opq5" : ""}>
             <Text as="span" variant="navigation_body">
               Previous
             </Text>
@@ -158,13 +159,14 @@ export const NextBackNavigation: FC<{}> = () => {
         ) : (
           ""
         )}
-      </Container>
+      </Container> */}
       <Container>
         {next ? (
           <Button href={next ? next.href : ""}>
             <Text as="span" variant="navigation_body">
-              Next /{" "}
-              <span className="opq5">
+              Next
+              <br />
+              <span>
                 {next.num}. {next.label}{" "}
               </span>
             </Text>
