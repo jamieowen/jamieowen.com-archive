@@ -62,11 +62,18 @@ export const interestsData = (): GridColumns => [
       ["Complexity SFI", ""],
     ],
   ],
-  // Generalist
+  // Anything
   [
     [
-      ["Python", ""],
-      ["Jupyter Lab", ""],
+      ["Swimming", ""],
+      ["Running", ""],
+      ["Cycling", ""],
+      ["Callisthenics", ""],
+    ],
+    [
+      ["Yoga", ""],
+      ["Mindulness", ""],
+      ["Meditation", ""],
     ],
   ],
 ];

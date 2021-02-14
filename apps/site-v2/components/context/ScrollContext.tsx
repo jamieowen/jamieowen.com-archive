@@ -40,7 +40,7 @@ export const ScrollProvider: FC<any> = ({ children }) => {
       console.log("Scroll TO ");
       window.scrollTo({
         top: contentContainerRef.current.getBoundingClientRect().top - 32,
-        behavior: "auto",
+        behavior: "smooth",
       });
     }
   }, [router.asPath]);

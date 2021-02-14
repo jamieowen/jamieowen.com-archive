@@ -1,9 +1,6 @@
 import {
   Section,
-  BodyHeader,
-  BodySmallText,
   BodyText,
-  Button,
   Content,
   NextBackNavigation,
   PageHeaderNavigation,
@@ -15,7 +12,7 @@ export const Interests = () => {
     <Content>
       <Section maxWidth="small">
         <PageHeaderNavigation />
-        <BodyText>I generally </BodyText>
+        <BodyText>When not in front of the computer,</BodyText>
       </Section>
       <Section maxWidth="medium">
         <InterestsGridList />

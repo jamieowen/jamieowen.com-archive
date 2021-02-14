@@ -11,6 +11,7 @@ import {
   // SidePanel,
   WeatherProvider,
   ProjectMDXWrapper,
+  FooterContainer,
   // Navigation,
 } from "../components/common";
 import { ThemeProvider } from "theme-ui";
@@ -52,8 +53,10 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
         </Header>
         <ContentContainer>
           <Component {...pageProps} />
-          <Footer></Footer>
         </ContentContainer>
+        <FooterContainer>
+          <Footer></Footer>
+        </FooterContainer>
       </Providers>
     </Fragment>
   );

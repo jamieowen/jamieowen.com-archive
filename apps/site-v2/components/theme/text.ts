@@ -51,9 +51,16 @@ export const text: Pick<Theme, "text"> = {
      **/
     navigation_body: {
       fontFamily: "navigation",
-      fontSize: "16px",
+      fontSize: "24px",
       fontWeight: 500,
-      lineHeight: "24px",
+      lineHeight: "32px",
+      textDecoration: "underline",
+      cursor: "pointer",
+      marginRight: "16px",
+      ":hover": {
+        opacity: 0.8,
+        textDecoration: "line-through",
+      },
     },
 
     // big project links..

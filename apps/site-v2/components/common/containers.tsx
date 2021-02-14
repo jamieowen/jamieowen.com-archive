@@ -28,6 +28,14 @@ const contentContainerStyle: ThemeUIStyleObject = {
 
 const contentStyle: ThemeUIStyleObject = {};
 
+const footerStyle: ThemeUIStyleObject = {
+  top: `calc( ${cl} - 2rem )`,
+  position: "relative",
+  backgroundColor: "footer_background",
+  minHeight: "33vh",
+  padding: ["2rem", "4rem"],
+};
+
 const sectionStyle: ThemeUIStyleObject = {
   // max widths are defined as classes in root style object.
   width: "100%",
@@ -61,6 +69,15 @@ export const ContentContainer: FC<{}> = ({ children }) => {
 export const Content: FC<{}> = ({ children }) => {
   return (
     <Container as="div" sx={contentStyle}>
+      {children}
+    </Container>
+  );
+};
+
+/** Content Area. */
+export const FooterContainer: FC<{}> = ({ children }) => {
+  return (
+    <Container as="div" sx={footerStyle}>
       {children}
     </Container>
   );

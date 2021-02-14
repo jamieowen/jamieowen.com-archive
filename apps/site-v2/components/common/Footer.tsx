@@ -13,8 +13,10 @@ const footerStyle: ThemeUIStyleObject = {
   position: "absolute",
   bottom: "4rem",
   fontSize: "8px",
+  backgroundColor: "red",
   width: ["calc( 100% - 4rem )", "calc( 100% - 8rem )"],
-  display: "flex",
+  // height: "10rem",
+  // display: "flex",
   fontFamily: "heading",
   textTransform: "uppercase",
   ".aleft": {

@@ -11,7 +11,7 @@ import {
 } from "react";
 import { Container, Heading, Text } from "theme-ui";
 import { Button } from "./Button";
-import { BodyHeader, MenuLink } from "./typography";
+import { BodyHeader, BodyLink, MenuLink } from "./typography";
 
 interface MenuData {
   label: string;
@@ -124,7 +124,8 @@ export const PageHeaderNavigation: FC<any> = () => {
 };
 
 export const NextBackNavigation: FC<{}> = () => {
-  const { next, prev } = useNavigationData();
+  const { next, prev, current } = useNavigationData();
+
   return (
     <Container
       as="nav"
@@ -132,23 +133,16 @@ export const NextBackNavigation: FC<{}> = () => {
         width: "100%",
         display: "grid",
         marginTop: "8rem",
-        textAlign: "center",
+        textAlign: "left",
         gridTemplateColumns: "1fr",
         columnGap: "16px",
       }}
     >
-      {/* <Container sx={{ textAlign: "right" }}>
-        {prev ? (
-          <Button href={prev ? prev.href : ""} className={next ? "opq5" : ""}>
-            <Text as="span" variant="navigation_body">
-              Previous
-            </Text>
-          </Button>
-        ) : (
-          ""
-        )}
-      </Container> */}
-      <Container>
+      <BodyHeader>{current.num} / Next</BodyHeader>
+      <BodyLink href={next ? next.href : ""}>
+        {next && next.label + " >> "}
+      </BodyLink>
+      {/* <Container>
         {next ? (
           <Button href={next ? next.href : ""}>
             <span className="opq3">{next.num}/06</span> <br />
@@ -162,7 +156,7 @@ export const NextBackNavigation: FC<{}> = () => {
             Done / Thank You.
           </Text>
         )}
-      </Container>
+      </Container> */}
     </Container>
   );
 };

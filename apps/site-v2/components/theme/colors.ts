@@ -44,6 +44,7 @@ export const colors: Pick<
     background: "blue", //"#C0BECC",
     content_text: "#dfdfdf",
     content_background: "#222222",
+    footer_background: "#202020",
     primary: "blue",
 
     modes: {

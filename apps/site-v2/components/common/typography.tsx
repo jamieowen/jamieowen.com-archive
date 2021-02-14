@@ -53,3 +53,24 @@ export const MenuLink: FC<ComponentProps<typeof Text> & { href: string }> = ({
     </Link>
   );
 };
+
+/**
+ *
+ * Body Link
+ *
+ * Use for next / back navigation.
+ *
+ */
+export const BodyLink: FC<ComponentProps<typeof Text> & { href: string }> = ({
+  children,
+  href,
+  ...props
+}) => {
+  return (
+    <Link href={href}>
+      <Text as="span" variant="navigation_body" {...props}>
+        <a>{children}</a>
+      </Text>
+    </Link>
+  );
+};
