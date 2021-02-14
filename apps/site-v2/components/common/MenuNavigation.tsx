@@ -138,7 +138,7 @@ export const NextBackNavigation: FC<{}> = () => {
         columnGap: "16px",
       }}
     >
-      <BodyHeader>{current.num} / Next</BodyHeader>
+      <BodyHeader>{current && current.num} / Next</BodyHeader>
       <BodyLink href={next ? next.href : ""}>
         {next && next.label + " >> "}
       </BodyLink>
