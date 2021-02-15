@@ -122,5 +122,6 @@ dist
 .DS_Store
 #!packages/db/dist
 dist
+build
 
 

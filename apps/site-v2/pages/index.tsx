@@ -1,56 +1,58 @@
-import React, { FC, Fragment } from "react";
-import { Grid, Styled, Text } from "theme-ui";
-import { MediaGrid } from "../components/media-grid";
 import {
-  ContentContainer,
-  HeroContainer,
-  HeroHeader,
-  HeroType,
-} from "../components/common";
+  BodyText,
+  BodyTextLarge,
+  Content,
+  NextBackNavigation,
+  PageHeaderNavigation,
+  Section,
+} from "components/common";
+import { Styled } from "theme-ui";
 
-export const Home: FC<any> = ({}) => {
+export const Intro = () => {
   return (
-    <Fragment>
-      <HeroHeader bgColor="slide_1_bg" textColor="slide_1_text">
-        <HeroType column={0} title="Intro">
-          Hello, my name is <Styled.em>Jamie Owen,</Styled.em> I am a software
-          engineer & creative technologist.
-        </HeroType>
-      </HeroHeader>
-      <HeroContainer bgColor="slide_2_bg" textColor="slide_2_text">
-        <HeroType column={0} title="Intro">
-          Hello, my name is <Styled.em>Jamie Owen,</Styled.em> I am a software
-          engineer & creative technologist.
-        </HeroType>
-      </HeroContainer>
-      <HeroContainer bgColor="slide_3_bg" textColor="slide_3_text">
-        <HeroType column={0} title="Intro">
-          Hello, my name is <Styled.em>Jamie Owen,</Styled.em> I am a software
-          engineer & creative technologist.
-        </HeroType>
-      </HeroContainer>
-      <HeroContainer bgColor="slide_4_bg" textColor="slide_4_text">
-        <HeroType column={0} title="Intro">
-          Hello, my name is <Styled.em>Jamie Owen,</Styled.em> I am a software
-          engineer & creative technologist.
-        </HeroType>
-      </HeroContainer>
-
-      {/** Selected Work */}
-      <ContentContainer>
-        <Text as="h1" variant="subtitle_heading">
-          Selected Work
-        </Text>
-        <Grid variant="primary">
-          <Text variant="body_title">
-            Have a browse of some fairly recent projects
-          </Text>
-          {/* <Box>Some extra big content</Box> */}
-        </Grid>
-        <MediaGrid media={[]} />
-      </ContentContainer>
-    </Fragment>
+    <Content>
+      <Section maxWidth="small">
+        <PageHeaderNavigation />
+        <BodyText>
+          Hello. My name is Jamie. I'm a freelance Creative Developer & Software
+          Engineer based in London, UK. I enjoy making things with code and have
+          18+ years experience using web technologies to build apps,
+          installations & websites.
+        </BodyText>
+        <BodyText>
+          I'm lucky to have contracted as a lead developer on projects such as:
+          an iOS/Android games portal app for{" "}
+          <Styled.a href="/recent-work/pbs-gamesapp">
+            PBS Kids with 10+ million downloads
+          </Styled.a>
+          , building 25+ touch screen installations for the{" "}
+          <Styled.a href="/recent-work/national-museum-of-qatar">
+            {" "}
+            National Museum of Qatar
+          </Styled.a>
+          , and developing visualisation & prototyping solutions within{" "}
+          <Styled.a href="/recent-work/lbg-systems-thinking">
+            Systems Thinking at Lloyds Banking Group.
+          </Styled.a>
+        </BodyText>
+        <BodyText>
+          Please have a look at some{" "}
+          <Styled.a href="/recent-work">Recent Work</Styled.a>, check my typical{" "}
+          <Styled.a href="/tech-stack">Tech Stack</Styled.a>, or here are some
+          general <Styled.a href="/interests">Interests</Styled.a> that make me
+          tick otherwise!
+        </BodyText>
+        <BodyText>
+          Cheers! <br />
+          {/* <br />
+          <a href="/get-in-touch">Get in Touch</a> */}
+        </BodyText>
+      </Section>
+      <Section>
+        <NextBackNavigation />
+      </Section>
+    </Content>
   );
 };
 
-export default Home;
+export default Intro;

@@ -1,3 +1,0 @@
-Toyota are a Japanese automotive manufacturing company who’ve been consistent leaders in the move to electric vehicles.  They released a vision of a futuristic concept car back in 2008 along with the latest model Prius, and worked with agency de-construct to explain their vision of an environmentally conscious world that takes advantage of electric cars and solar energy. 
-
-We created a richly illustrated and animated scene of that vision allowing the user to switch between ‘Today’ and ‘Tomorrow’ with the background scene animating between these states accordingly.  Vignette animations detailed a daily routine for a typical family, and additional technical content layered on top showed 3D renders of the latest safety features of the Toyota Prius.

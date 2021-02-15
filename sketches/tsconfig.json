@@ -1,16 +1,19 @@
 {
-  "extends": "../tsconfig.json",
+  // "extends": "../tsconfig.json",
+  // "include": ["./src/*.ts", "./src/*.tsx", "./scripts/*.ts"],
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
-    "baseUrl": "../",
+    "baseUrl": "./",
     "paths": {
-      "@jamieowen/three-toolkit": ["./packages/three-toolkit/src"],
-      "@jamieowen/xlayout": ["./packages/xlayout/src"]
+      // "@jamieowen/color": ["./node_modules/@jamieowen/color/src"]
     },
-
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
     "outDir": "./dist/",
     "noImplicitAny": true,
     "downlevelIteration": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "module": "esnext",
     "lib": ["es5", "es6", "es7", "es2017", "dom", "dom.iterable", "esnext"],
     "moduleResolution": "node",

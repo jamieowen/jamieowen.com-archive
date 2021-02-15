@@ -1,79 +1,102 @@
-import React, { FC } from "react";
-import { Flex, Box, Heading, Grid, Styled, Container, Text } from "theme-ui";
+import { FC, useMemo } from "react";
+import { useColorMode } from "theme-ui";
+import { Container, Grid as _Grid, ThemeUIStyleObject } from "theme-ui";
 
-/**
- *
- * PHASE OUT....
- * Hero container with customisable full with outer container.
- * Along with inner center column content container.
- * @param param0
- */
-export const HeroContainer: FC<{
-  bgColor?: string;
-  textColor?: string;
-}> = ({ bgColor = "slide_1_bg", textColor = "slide_1_text", children }) => {
-  // extra bg color props,
-  // and text color props.
-  // color / text inversion.
+// Center line of page fold
+const cl = "100vh";
+const headerStyle: ThemeUIStyleObject = {
+  width: "100vw",
+  height: cl,
+  position: "fixed",
+  top: "0px",
+  backgroundColor: "background",
+  padding: ["2rem", "4rem"],
+};
 
-  // CHANGE TO NEW TEXT IDEA...
+const contentContainerStyle: ThemeUIStyleObject = {
+  position: "relative",
+
+  // Shift to show just a fold of the main content
+  // marginTop: "calc( 100vh - 2rem )",
+  // Shift to show half way down the page
+  top: `calc( ${cl} - 2rem )`,
+  minHeight: "calc( 100vh - 2rem - 8rem )",
+  padding: ["2rem", "4rem"],
+  backgroundColor: "content_background",
+  color: "content_text",
+};
+
+const contentStyle: ThemeUIStyleObject = {};
+
+const footerStyle: ThemeUIStyleObject = {
+  top: `calc( ${cl} - 2rem )`,
+  position: "relative",
+  backgroundColor: "footer_background",
+  minHeight: "8rem",
+  padding: ["2rem", "4rem"],
+};
+
+const sectionStyle: ThemeUIStyleObject = {
+  // max widths are defined as classes in root style object.
+  width: "100%",
+  margin: "0px",
+  marginBottom: "4rem",
+};
+
+const gridStyle: ThemeUIStyleObject = {
+  gridTemplateColumns: ["1fr", "1fr 1fr"],
+};
+
+/* Fixed header containing menu */
+export const Header: FC<{}> = ({ children }) => {
   return (
-    <Container
-      as="section"
-      variant="content_hero"
-      bg={bgColor}
-      color={textColor}
-    >
-      <Container variant="content_center">{children}</Container>
+    <Container as="section" sx={headerStyle}>
+      {children}
     </Container>
   );
 };
 
-/**
- *
- */
-export const ContentContainer: FC<{ swatch?: string; header?: boolean }> = ({
-  children,
-  header = false,
-  swatch = null,
-}) => {
-  const text = swatch ? `${swatch}_text` : null;
-  const bg = swatch ? `${swatch}_bg` : null;
-  const element = header ? "header" : "section";
-  const variant = header ? "content_stretch_header" : "content_stretch";
+/** Content Area. */
+export const ContentContainer: FC<{}> = ({ children }) => {
   return (
-    <Container as={element} variant={variant} bg={bg} color={text}>
-      <Container variant="content_center">{children}</Container>
+    <Container id="content-container" sx={contentContainerStyle}>
+      {children}
     </Container>
   );
 };
 
-/**
- *
- * // PHASE THIS OUT
- *
- *
- * Hero style type for use on home page.
- * @param param0
- */
-export const HeroType: FC<{
-  column?: number;
-  title?: string;
-}> = ({ children, title = "Subtitle", column = 0 }) => {
-  const columns = new Array(4).fill(0).map((v, i) => {
-    return (
-      <Box key={i}>
-        {i == column ? (
-          <Text as="h1" variant="subtitle_heading">
-            {title}
-          </Text>
-        ) : (
-          <Text as="p" variant="subtitle_heading">{`0${i + 1}`}</Text>
-        )}
-        {i == column ? <Text variant="body_title">{children}</Text> : null}
-      </Box>
-    );
-  });
+/** Content wrapper for each page */
+export const Content: FC<{}> = ({ children }) => {
+  return (
+    <Container as="div" sx={contentStyle}>
+      {children}
+    </Container>
+  );
+};
 
-  return <Grid variant="primary">{columns}</Grid>;
+/** Content Area. */
+export const FooterContainer: FC<{}> = ({ children }) => {
+  return (
+    <Container as="div" sx={footerStyle}>
+      {children}
+    </Container>
+  );
+};
+
+/** Region of grouped content elements */
+export const Section: FC<{
+  // Max widths correspond to classes defined in the styles root object.
+  maxWidth?: "small" | "medium" | "full";
+}> = ({ children, maxWidth = "medium" }) => {
+  const maxClass = `maxw-${maxWidth}`;
+  return (
+    <Container as="section" sx={sectionStyle} className={maxClass}>
+      {children}
+    </Container>
+  );
+};
+
+/** Grid being used on ProjectThumbs - need to add columns option */
+export const Grid: FC<{}> = ({ children }) => {
+  return <_Grid sx={gridStyle}>{children}</_Grid>;
 };

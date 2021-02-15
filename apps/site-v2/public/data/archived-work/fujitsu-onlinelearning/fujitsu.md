@@ -1,3 +1,0 @@
-Fujitsu are a multinational information technology company headquartered in Tokyo, Japan.  They contacted Ludic Group & Signal Noise to create a digital online learning platform to educate members of their global workforce.
-
-We created an online learning platform with a narrative based around areas of a 3D virtual office.  Learning content featured rich infographic, interactive & video content modules and multiple choice tests.  Users could login and track their learning progress through a personalised dashboard.  All learning modules and captured user data took advantage of the SCORM e-learning standard.
