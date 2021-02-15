@@ -12,7 +12,8 @@
     "packages": [
       "apps/*",
       "packages/*",
-      "projects/*"
+      "projects/*",
+      "sketches/*"
     ],
     "nohoist": [
       "**/**",

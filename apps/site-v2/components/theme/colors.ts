@@ -1,58 +1,49 @@
-import { Theme, ColorMode, ColorModesScale } from "theme-ui";
-import {
-  paletteGradientHSL,
-  paletteColorRangeHSL,
-  complement,
-} from "@jamieowen/color";
-import { parseCss, rgbaCss } from "@thi.ng/color";
-
-/**
- * Generate backgrouund colors used as Slide background colors.
- * @param name
- * @param color
- */
-const namedGradient = (name: string, color: string, range: number = 0.2) => {
-  const col = parseCss(color);
-  const colors = paletteColorRangeHSL(col, {
-    steps: 5,
-    scale: 1,
-    range: range,
-  });
-  // only use the first 3. ( util creates a range on either side of the scale value )
-  return colors
-    .slice(0, 3)
-    .reverse()
-    .reduce((map, col, i) => {
-      map[name + i] = rgbaCss(col);
-      return map;
-    }, {});
-};
-
-const namedComplement = (name: string, color: string) => {
-  return {
-    [name]: rgbaCss(complement(parseCss(color))),
-  };
-};
+import { Theme } from "theme-ui";
 
 export const colors: Pick<
   Theme,
   "colors" | "colorStyles" | "initialColorModeName"
 > = {
-  initialColorModeName: "light",
   colors: {
-    text: "#f6f6f6",
-    background: "blue", //"#C0BECC",
-    content_text: "#dfdfdf",
-    content_background: "#222222",
-    footer_background: "#202020",
-    primary: "blue",
+    /** theme ui default **/
+    text: "#efefef",
+    background: "white",
+    primary: "#efefef",
+    secondary: "crimson",
+    accent: "hotpink",
+    highlight: "orange",
+    // muted
 
+    /** Custom */
+    navigation_text: "#454545",
+    navigation_bg: "transparent",
+
+    /** Home */
+    slide_1_text: "hotpink",
+    slide_1_bg: "white",
+    slide_2_text: "#222222",
+    slide_2_bg: "indianred",
+    slide_3_text: "#f2f2f2",
+    slide_3_bg: "#1c1c1c",
+    slide_4_text: "#454545",
+    slide_4_bg: "#FEFF00",
+
+    /**
+     * Swatch Combinations
+     */
+    primary_text: "#454545",
+    primary_bg: "whitesmoke",
+
+    secondary_text: "whitesmoke",
+    secondary_bg: "#212121",
+
+    tertiary_text: "#333333",
+    tertiary_bg: "whitesmoke",
+
+    /** Additional modes for dark mode, light mode, etc. **/
     modes: {
-      dark: {
-        text: "#eeeeee",
-        background: "#323232",
-        primary: "pink",
-      },
+      light: {},
+      dark: {},
     },
   },
 };

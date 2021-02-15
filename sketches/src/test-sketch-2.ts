@@ -6,6 +6,13 @@ import {
   SphereBufferGeometry,
   MeshBasicMaterial,
 } from "three";
+import {
+  color,
+  drawContext,
+  position,
+  sphere,
+  DrawContext,
+} from "@jamieowen/three-toolkit";
 import { iterator, range3d, sideEffect } from "@thi.ng/transducers";
 
 const width = 800;
@@ -24,7 +31,6 @@ const scene = new Scene();
 const mesh = new Mesh(new SphereBufferGeometry(), new MeshBasicMaterial());
 scene.add(mesh);
 
-// @ts-ignore
 const ctx = new DrawContext(renderer);
 console.log("CTX", ctx);
 
