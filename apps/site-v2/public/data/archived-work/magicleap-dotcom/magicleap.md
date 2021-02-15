@@ -1,0 +1,3 @@
+Magic Leap are one of the best known Mixed Reality startups based in Miami, Florida.  Having received a massive 6 billion in funding from the likes of Google, Alibaba and Andreessen Horowitz they are keeping their ground breaking technology under tight security and historically have made very few press releases.
+
+Working with a well known agency in London, we worked on various 3d prototypes for Magic Leap’s new web site and digital marketing experiences.   Luckily we got a full demo of the current Mixed Reality glasses over in Miami, Florida; and caught a glimpse of the areas that they want to push the technology.

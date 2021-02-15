@@ -15,25 +15,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "experimentalDecorators": true,
-    "baseUrl": "./",
-    "paths": {
-      // "@jamieowen/motion-layout": ["../../packages/motion-layout/src"],
-      // "@jamieowen/three-toolkit": ["../../packages/three-toolkit/src"],
-      // "@jamieowen/color": ["../../packages/three-toolkit/src/color"],
-      // Keep in to allow direct translation of ts files ( to linked module )
-      "@jamieowen/motion": ["./node_modules/@jamieowen/motion/src"],
-      "@jamieowen/browser": ["./node_modules/@jamieowen/browser/src"],
-      "@jamieowen/layout": ["./node_modules/@jamieowen/layout/src"],
-      "@jamieowen/color": ["./node_modules/@jamieowen/color/src"],
-      "@jamieowen/three": ["./node_modules/@jamieowen/three/src"]
-    }
+    "experimentalDecorators": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "./node_modules/@jamieowen/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

@@ -21,10 +21,3 @@ export const lorumIpsum = () => {
 
   return lorem;
 };
-
-export const defaultIpsum = (() => {
-  const lipsum = lorumIpsum();
-  return () => {
-    return lipsum;
-  };
-})();
