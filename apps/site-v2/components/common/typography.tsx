@@ -1,10 +1,18 @@
-import { FC, ComponentProps } from "react";
+import { FC, ComponentProps, Fragment } from "react";
 import { Heading, Text } from "theme-ui";
 import Link from "next/link";
 
 export const BodyText: FC<{}> = ({ children }) => {
   return (
     <Text as="p" variant="body_text">
+      {children}
+    </Text>
+  );
+};
+
+export const BodyTextLarge: FC<{}> = ({ children }) => {
+  return (
+    <Text as="p" variant="body_large">
       {children}
     </Text>
   );
@@ -33,6 +41,22 @@ export const BodyHeader: FC<{}> = ({ children }) => {
   );
 };
 
+export const LinkWrapper: FC<ComponentProps<typeof Link>> = ({
+  href,
+  children,
+}) => {
+  return (
+    <Fragment>
+      {href && href !== "" ? (
+        <Link href={href} passHref>
+          <a>{children}</a>
+        </Link>
+      ) : (
+        <span>{children}</span>
+      )}
+    </Fragment>
+  );
+};
 /**
  *
  * Menu Link.
@@ -72,5 +96,24 @@ export const BodyLink: FC<ComponentProps<typeof Text> & { href: string }> = ({
         <a>{children}</a>
       </Text>
     </Link>
+  );
+};
+
+/**
+ *
+ * List Link.
+ *
+ * Used for the main navigation menu.
+ *
+ */
+export const ListLink: FC<ComponentProps<typeof Text> & { href: string }> = ({
+  children,
+  href,
+  ...props
+}) => {
+  return (
+    <Text as="span" variant="navigation_list" {...props}>
+      <LinkWrapper href={href}>{children}</LinkWrapper>
+    </Text>
   );
 };

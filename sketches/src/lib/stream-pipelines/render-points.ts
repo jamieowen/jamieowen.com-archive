@@ -45,6 +45,7 @@ export const renderPoints = (parent: Object3D) => {
     {
       next: (ev) => {
         if (!state.received) {
+          state.received = true;
           state.mesh = createPoints(ev.data.position, ev.data.color);
           parent.add(state.mesh);
         } else {

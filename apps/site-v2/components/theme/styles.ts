@@ -68,5 +68,12 @@ export const styles: Pick<Theme, "styles"> = {
       fontWeight: "bold",
       fontStyle: "normal",
     },
+    a: {
+      textDecoration: "underline",
+      ":hover": {
+        backgroundColor: "content_text",
+        color: "content_background",
+      },
+    },
   },
 };

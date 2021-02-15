@@ -1,10 +1,12 @@
 import {
   BodyText,
+  BodyTextLarge,
   Content,
   NextBackNavigation,
   PageHeaderNavigation,
   Section,
 } from "components/common";
+import { Styled } from "theme-ui";
 
 export const Intro = () => {
   return (
@@ -20,29 +22,30 @@ export const Intro = () => {
         <BodyText>
           I'm lucky to have contracted as a lead developer on projects such as:
           an iOS/Android games portal app for{" "}
-          <a href="/recent-work/pbs-gamesapp">
+          <Styled.a href="/recent-work/pbs-gamesapp">
             PBS Kids with 10+ million downloads
-          </a>
+          </Styled.a>
           , building 25+ touch screen installations for the{" "}
-          <a href="/recent-work/national-museum-of-qatar">
+          <Styled.a href="/recent-work/national-museum-of-qatar">
             {" "}
             National Museum of Qatar
-          </a>
+          </Styled.a>
           , and developing visualisation & prototyping solutions within{" "}
-          <a href="/recent-work/lbg-systems-thinking">
+          <Styled.a href="/recent-work/lbg-systems-thinking">
             Systems Thinking at Lloyds Banking Group.
-          </a>
+          </Styled.a>
         </BodyText>
         <BodyText>
-          Please have a look at some <a href="/recent-work">Recent Work</a>,
-          check out the typical <a href="/tech-stack">Tech Stack</a> I use, or
-          here are some general <a href="/interests">Interests</a> that make me
+          Please have a look at some{" "}
+          <Styled.a href="/recent-work">Recent Work</Styled.a>, check my typical{" "}
+          <Styled.a href="/tech-stack">Tech Stack</Styled.a>, or here are some
+          general <Styled.a href="/interests">Interests</Styled.a> that make me
           tick otherwise!
         </BodyText>
         <BodyText>
           Cheers! <br />
-          <br />
-          <a href="/get-in-touch">Get in Touch</a>
+          {/* <br />
+          <a href="/get-in-touch">Get in Touch</a> */}
         </BodyText>
       </Section>
       <Section>

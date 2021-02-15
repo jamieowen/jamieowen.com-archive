@@ -32,7 +32,7 @@ const footerStyle: ThemeUIStyleObject = {
   top: `calc( ${cl} - 2rem )`,
   position: "relative",
   backgroundColor: "footer_background",
-  minHeight: "33vh",
+  minHeight: "8rem",
   padding: ["2rem", "4rem"],
 };
 

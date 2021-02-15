@@ -25,6 +25,7 @@ export interface ProjectContent {
   order: number;
   baseColor: string | [number, number, number];
   client: string;
+  tech: string[];
   title: string;
   agency: string;
   content: string;

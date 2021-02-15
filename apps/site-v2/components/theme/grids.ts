@@ -27,6 +27,10 @@ export const grids: Pick<Theme, "grids"> = {
       gap: "0px 16px",
       gridTemplateColumns: ["1fr", "1fr 1fr"],
     },
+
+    grid_2: {
+      gridTemplateColumns: "1fr 1fr",
+    },
     /** Navigation Bar Grid */
     // navigation: {
     //   gap: "1rem",

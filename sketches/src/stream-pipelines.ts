@@ -7,6 +7,7 @@ import {
   mergeAttributes,
   fromColorGradient,
   fromRandomAttribute,
+  renderLines,
 } from "./lib/stream-pipelines";
 
 sketch(({ configure, render, renderer, scene }) => {
@@ -29,6 +30,7 @@ sketch(({ configure, render, renderer, scene }) => {
     })
   )
     .subscribe(renderPoints(group))
+    .subscribe(renderLines(group))
     .subscribe(trace("Merged:"));
 
   render(() => {});

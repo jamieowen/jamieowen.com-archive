@@ -21,7 +21,8 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     baseColor: "green",
     client: "Lloyds Banking Group",
     title: "Systems Thinking",
-    agency: null,
+    agency: "NA",
+    tech: ["Typescript", "Python", "WebAssembly"],
     content: ``,
   },
   "national-museum-of-qatar": {
@@ -31,14 +32,16 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     title: "Exhibition Installations",
     agency: "AllOfUs",
     content: ``,
+    tech: ["Javascript", "React", "Electron"],
   },
   "nexus-thescript": {
     order: order++,
     baseColor: "lightgray",
-    client: "Nexus",
-    agency: "",
+    client: "The Script",
+    agency: "Nexus Studios",
     title: "The Script Mobile VR",
     content: ``,
+    tech: ["Javascript", "WebGL", "three.js"],
   },
   "serpentine-galleries": {
     order: order++,
@@ -46,9 +49,8 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "Serpentine Galleries",
     agency: "AllOfUs",
     title: "Mobile Tours",
-    content: `
-    
-    `,
+    content: ``,
+    tech: ["Javascript", "pixi.js"],
   },
   "cnn-airwars": {
     order: order++,
@@ -57,6 +59,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     agency: "CNN",
     title: "Airwar on ISIS",
     content: ``,
+    tech: ["Javascript", "React", "three.js"],
   },
   "google-livecase": {
     order: order++,
@@ -65,6 +68,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     agency: "Rehabstudios",
     title: "Google Livecase",
     content: ``,
+    tech: ["Javascript", "WebGL", "three.js"],
   },
   "argos-giftguide": {
     order: order++,
@@ -73,6 +77,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     agency: "Sapient Razorfish",
     title: "Argos Giftguide",
     content: ``,
+    tech: ["Javascript", "pixi.js"],
   },
   "pbs-gamesapp": {
     order: order++,
@@ -81,6 +86,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     title: "PBS Games App",
     agency: "Goodboy Digital",
     content: ``,
+    tech: ["Javascript", "WebGL", "pixi.js"],
   },
   "google-starbucks": {
     order: order++,
@@ -89,6 +95,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     title: "Google Fiber",
     agency: "Rehabstudios",
     content: ``,
+    tech: ["Javascript", "React", "three.js"],
   },
   "mcdonalds-40th": {
     order: order++,
@@ -97,6 +104,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     title: "40th Anniversary",
     agency: "Goodboy Digital",
     content: ``,
+    tech: ["Javascript", "pixi.js", "Natural language"],
   },
   "archived-work": {
     order: order++,
@@ -105,5 +113,6 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     title: "Archived",
     agency: null,
     content: ``,
+    tech: [],
   },
 };

@@ -1,6 +1,6 @@
 import { FC, Fragment, useMemo } from "react";
 import { Grid, Heading, Link, Text, Container } from "theme-ui";
-import { Button, BodyHeader } from "components/common";
+import { Button, BodyHeader, ListLink } from "components/common";
 import { techListData } from "../slide-stack/list-tech-data";
 import { interestsData } from "../slide-stack/list-interests-data";
 import { useNavigationData } from "./MenuNavigation";
@@ -20,9 +20,10 @@ export const GridListColumn: FC<{ name: string; data: GridColumn }> = ({
           <li key={i}>
             {line.map(([label, url], i) => (
               <Fragment key={i}>
-                <Button href={url} size="small">
+                {/* <Button href={url} size="small">
                   {label}
-                </Button>
+                </Button> */}
+                <ListLink href={url}>{label}</ListLink>
                 {i === line.length - 1 ? "" : " / "}
               </Fragment>
             ))}

@@ -11,9 +11,10 @@ export const text: Pick<Theme, "text"> = {
     },
     body_large: {
       fontFamily: "body",
-      fontSize: ["16px", "24px"],
-      lineHeight: ["32px", "48px"],
+      fontSize: ["24px", "20px"],
+      lineHeight: ["32px", "40px"],
       fontWeight: 400,
+      marginBottom: "32px",
     },
     body_header: {
       fontFamily: "heading",
@@ -51,7 +52,7 @@ export const text: Pick<Theme, "text"> = {
      **/
     navigation_body: {
       fontFamily: "navigation",
-      fontSize: "24px",
+      fontSize: "20px",
       fontWeight: 500,
       lineHeight: "32px",
       textDecoration: "underline",
@@ -60,6 +61,22 @@ export const text: Pick<Theme, "text"> = {
       ":hover": {
         opacity: 0.8,
         textDecoration: "line-through",
+      },
+    },
+
+    navigation_list: {
+      fontFamily: "navigation",
+      fontSize: "12px",
+      fontWeight: 400,
+      lineHeight: "32px",
+      textDecoration: "underline",
+      cursor: "pointer",
+      // marginRight: (v)=>'10px',
+      ":hover": {
+        opacity: 0.8,
+        textDecoration: "line-through",
+        backgroundColor: "content_text",
+        color: "content_background",
       },
     },
 
