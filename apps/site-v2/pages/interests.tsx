@@ -12,11 +12,9 @@ export const Interests = () => {
     <Content>
       <Section maxWidth="small">
         <PageHeaderNavigation />
-        <BodyText>When not in front of the computer,</BodyText>
+        <BodyText>Text to follow..</BodyText>
       </Section>
-      <Section maxWidth="medium">
-        <InterestsGridList />
-      </Section>
+      <Section maxWidth="medium">{/* <InterestsGridList /> */}</Section>
       <Section>
         <NextBackNavigation />
       </Section>

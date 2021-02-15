@@ -4,6 +4,7 @@ import { Button, BodyHeader, ListLink } from "components/common";
 import { techListData } from "../slide-stack/list-tech-data";
 import { interestsData } from "../slide-stack/list-interests-data";
 import { useNavigationData } from "./MenuNavigation";
+import { socialMediaData } from "components/slide-stack/list-social-data";
 export type GridColumn = [label: string, url: string][][];
 export type GridColumns = [GridColumn, GridColumn, GridColumn, GridColumn];
 export type GridNames = [string, string, string, string];
@@ -75,6 +76,24 @@ export const InterestsGridList = () => {
         `${nav.current.num}.2 / Listening`,
         `${nav.current.num}.3 / More Listening`,
         `${nav.current.num}.4 / Anything`,
+      ] as GridNames,
+    }),
+    []
+  );
+
+  return <GridList columns={data.columns} names={data.names} />;
+};
+
+export const SocialMediaGridList = () => {
+  const nav = useNavigationData();
+  const data = useMemo(
+    () => ({
+      columns: socialMediaData(),
+      names: [
+        `${nav.current.num}.1 / One`,
+        `${nav.current.num}.2 / Two`,
+        ``,
+        ``,
       ] as GridNames,
     }),
     []

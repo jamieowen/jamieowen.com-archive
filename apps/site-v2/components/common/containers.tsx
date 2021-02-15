@@ -20,7 +20,7 @@ const contentContainerStyle: ThemeUIStyleObject = {
   // marginTop: "calc( 100vh - 2rem )",
   // Shift to show half way down the page
   top: `calc( ${cl} - 2rem )`,
-  minHeight: "calc( 100vh - 2rem )",
+  minHeight: "calc( 100vh - 2rem - 8rem )",
   padding: ["2rem", "4rem"],
   backgroundColor: "content_background",
   color: "content_text",
