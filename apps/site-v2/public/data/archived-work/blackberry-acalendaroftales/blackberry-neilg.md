@@ -1,3 +1,0 @@
-Neil Gaiman is an English author of popular children’s books such as Coraline, Stardust and The Graveyard Book.  He partnered with Blackberry & design agency The Neighbourhood when working on The Calendar of Tales, a series of monthly short stories inspired by answers to questions posed on Twitter to Gaiman’s followers.  People were invited to submit illustrations and artworks to accompany each story.
-
-We worked with The Neighbourhood to create a heavily illustrated site that displayed artworks and short stories read by Gaiman himself. The site flowed through the seasons for each month, with animations and sound growing and retreating as the seasons changed.

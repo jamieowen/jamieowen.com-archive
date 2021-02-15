@@ -1,0 +1,68 @@
+{"frames": [
+
+{
+	"filename": "pbs-gamesapp_01.jpg",
+	"frame": {"x":1,"y":1,"w":512,"h":288},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":288},
+	"sourceSize": {"w":512,"h":288}
+},
+{
+	"filename": "pbs-gamesapp_02.jpg",
+	"frame": {"x":1,"y":291,"w":512,"h":288},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":288},
+	"sourceSize": {"w":512,"h":288}
+},
+{
+	"filename": "pbs-gamesapp_03.jpg",
+	"frame": {"x":1,"y":581,"w":512,"h":288},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":288},
+	"sourceSize": {"w":512,"h":288}
+},
+{
+	"filename": "pbs-gamesapp_04.jpg",
+	"frame": {"x":1,"y":871,"w":512,"h":288},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":288},
+	"sourceSize": {"w":512,"h":288}
+},
+{
+	"filename": "pbs-gamesapp_05.jpg",
+	"frame": {"x":1,"y":1161,"w":512,"h":288},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":288},
+	"sourceSize": {"w":512,"h":288}
+},
+{
+	"filename": "pbs-gamesapp_06.jpg",
+	"frame": {"x":1,"y":1451,"w":512,"h":288},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":288},
+	"sourceSize": {"w":512,"h":288}
+},
+{
+	"filename": "pbs-gamesapp_07.jpg",
+	"frame": {"x":1,"y":1741,"w":512,"h":288},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":288},
+	"sourceSize": {"w":512,"h":288}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "pbs-gamesapp-0.png",
+	"format": "RGBA8888",
+	"size": {"w":514,"h":2030},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:515e1ceece8476fdaf78986fa04ad6a3:17bb81f4e2f59df03772b2d5894356fa:4c4018e0b9dd7e2eb1729b3ba748f5c8$"
+}
+}

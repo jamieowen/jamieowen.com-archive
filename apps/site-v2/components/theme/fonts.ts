@@ -5,15 +5,19 @@ export const fonts: Pick<
   "fonts" | "fontWeights" | "lineHeights" | "fontSizes" | "letterSpacings"
 > = {
   fonts: {
-    roboto: "'Roboto', sans-serif",
-    worksans: "'Work Sans', sans-serif",
-    body: "'Roboto', sans-serif'",
-    heading: "'Work Sans', sans-serif",
-    monospace: "Menlo, monospace",
+    // roboto: "'Poppins', monospace",
+    // roboto: "'Roboto Mono', monospace",
+    // roboto: "'Work Sans', sans-serif",
+    // worksans: "'Work Sans', sans-serif",
+    body: "'Work Sans', sans-serif",
+    heading: "'Roboto Mono', monospace",
+    navigation: "'Roboto Mono', monospace",
+    // monospace: "Menlo, monospace",
   },
   fontWeights: {
     bold: 700,
     semibold: 600,
+    medium: 500,
     regular: 400,
     light: 300,
   },
@@ -23,6 +27,7 @@ export const fonts: Pick<
     16, // h3
     24, // h2
     32, // h1
+    40, // h0
   ],
   lineHeights: {
     body: 1.5,
