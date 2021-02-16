@@ -1,13 +1,8 @@
 import {
   Section,
-  BodyHeader,
-  BodySmallText,
   Content,
-  ProjectLinks,
   ProjectImageLinks,
   BodyText,
-  NextBackNavigation,
-  useNavigationData,
   PageHeaderNavigation,
 } from "components/common";
 import { ProjectsContextProvider } from "components/context/ProjectsContext";

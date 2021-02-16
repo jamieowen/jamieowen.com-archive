@@ -19,6 +19,7 @@ interface MenuData {
   href: string;
   break?: boolean;
   hideNext?: boolean;
+  devOnly?: boolean;
 }
 export const navigationData: MenuData[] = [
   { num: "01", label: "Intro.", href: "/" },
@@ -32,6 +33,13 @@ export const navigationData: MenuData[] = [
     label: "Github.",
     href: "https://github.com/jamieowen",
     hideNext: true,
+  },
+  {
+    num: "07",
+    label: "Packages.",
+    href: "/packages",
+    // hideNext: true,
+    devOnly: true,
   },
   // { label: "LinkedIn.", href: "https://www.linkedin.com/in/jamie-owen" },
 ];
@@ -64,7 +72,7 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
       const idx = navigationData.indexOf(current);
       prev = idx > 0 ? navigationData[idx - 1] : null;
       next = idx < navigationData.length - 1 ? navigationData[idx + 1] : null;
-      if (next.hideNext) {
+      if (next && next.hideNext) {
         next = null;
       }
     }
@@ -92,24 +100,45 @@ export const Menu: FC<{}> = ({ children }) => {
     <Container as="nav">
       <BodyHeader>00 / Menu</BodyHeader>
       <Container>
-        {nav.items.map((link, i) => (
-          <Fragment key={i}>
-            {/* <MenuItem {...link} /> */}
-            <MenuLink
-              as="span"
-              className={router.asPath === link.href ? "selected" : ""}
-              href={link.href}
-            >
-              {link.label}
-            </MenuLink>
-            {link.break ? <br /> : null}
-          </Fragment>
-        ))}
+        {nav.items
+          .filter((link) => {
+            if (process.env.NODE_ENV === "development" && link.devOnly) {
+              return true;
+            } else {
+              return !link.devOnly;
+            }
+          })
+          .map((link, i) => (
+            <Fragment key={i}>
+              <MenuLink
+                as="span"
+                className={router.asPath === link.href ? "selected" : ""}
+                href={link.href}
+              >
+                {link.label}
+              </MenuLink>
+              {link.break ? <br /> : null}
+            </Fragment>
+          ))}
       </Container>
     </Container>
   );
 };
 
+export const HiddenItems: FC<any> = () => {
+  const env = process.env.NODE_ENV;
+  if (process.env.NODE_ENV === "development") {
+    return (
+      <Fragment>
+        <MenuLink as="span" href="/packages">
+          Packages.
+        </MenuLink>
+      </Fragment>
+    );
+  } else {
+    return <Fragment />;
+  }
+};
 /**
  * Page Elements
  */

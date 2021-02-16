@@ -1,10 +1,10 @@
 import { FC, Fragment, useMemo } from "react";
 import { Grid, Heading, Link, Text, Container } from "theme-ui";
 import { Button, BodyHeader, ListLink } from "components/common";
-import { techListData } from "../slide-stack/list-tech-data";
-import { interestsData } from "../slide-stack/list-interests-data";
+import { techListData } from "data/list-tech-data";
+import { interestsData } from "../../data/list-interests-data";
 import { useNavigationData } from "./MenuNavigation";
-import { socialMediaData } from "components/slide-stack/list-social-data";
+import { socialMediaData } from "data/list-social-data";
 export type GridColumn = [label: string, url: string][][];
 export type GridColumns = [GridColumn, GridColumn, GridColumn, GridColumn];
 export type GridNames = [string, string, string, string];

@@ -2,7 +2,7 @@ import glob from "glob";
 import pathUtil from "path";
 import imageSize from "image-size";
 import { ProjectContent, ProjectData } from "../types";
-import { data } from "./project-data";
+import { data } from "../data/project-data";
 
 /**
  * Read a project folder.
