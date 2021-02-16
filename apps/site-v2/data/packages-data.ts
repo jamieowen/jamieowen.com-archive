@@ -7,9 +7,10 @@ export const packagesData: PackageDataRoot = {
       title: "@jamieowen/layout",
       examples: [
         {
+          slug: "infinite-grid",
           title: "Infinite Grid Variations",
           description: "Stream based infinite grids with pair indices.",
-          href: "http://jamieowen.github.com/packages/infinite-grid.html",
+          href: "https://jamieowen.github.io/packages/",
           image:
             "https://buffer.com/library/content/images/size/w1200/library/wp-content/uploads/2016/06/giphy.gif",
         },
@@ -20,16 +21,18 @@ export const packagesData: PackageDataRoot = {
       title: "@jamieowen/webgl",
       examples: [
         {
+          slug: "gpgpu-state",
           title: "GPGPU State",
           description: "GPGPU State helpers",
-          href: "http://jamieowen.github.com/packages/gpgpu-state.html",
+          href: "https://jamieowen.github.io/packages/",
           image:
             "https://buffer.com/library/content/images/size/w1200/library/wp-content/uploads/2016/06/giphy.gif",
         },
         {
+          slug: "gpgpu-fluid",
           title: "GPGPU Fluid",
           description: "Simple grid gpgpu convolution diffusion",
-          href: "http://jamieowen.github.com/packages/gpgpu-state.html",
+          href: "https://jamieowen.github.io/packages/",
           image:
             "https://buffer.com/library/content/images/size/w1200/library/wp-content/uploads/2016/06/giphy.gif",
         },
@@ -40,9 +43,10 @@ export const packagesData: PackageDataRoot = {
       title: "@jamieowen/react",
       examples: [
         {
+          slug: "react-layout-scheduler",
           title: "React Layout Scheduler",
           description: "Layout Scheduler",
-          href: "http://jamieowen.github.com/packages/gpgpu-state.html",
+          href: "https://jamieowen.github.io/packages/",
           image:
             "https://buffer.com/library/content/images/size/w1200/library/wp-content/uploads/2016/06/giphy.gif",
         },

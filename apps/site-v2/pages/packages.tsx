@@ -12,10 +12,7 @@ export const Packages = () => {
     <Content>
       <Section maxWidth="small">
         <PageHeaderNavigation />
-        <BodyText>
-          Various npm package examples, on a private repo for now. Will make
-          public soon.
-        </BodyText>
+        <BodyText>Various modules used as building blocks</BodyText>
       </Section>
       <Section maxWidth="medium">
         <PackagesGrid root={packagesData} />

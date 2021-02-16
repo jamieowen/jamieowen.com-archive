@@ -42,8 +42,10 @@ export interface PackageInfo {
 }
 
 export interface PackageExample {
+  slug: string;
   href: string;
   description: string;
   title: string;
   image: string;
+  visible?: boolean;
 }

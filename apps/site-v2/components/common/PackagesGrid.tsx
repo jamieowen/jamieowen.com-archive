@@ -1,10 +1,5 @@
-import { FC, Fragment, useRef, forwardRef } from "react";
-import {
-  PackageDataRoot,
-  PackageExample,
-  ProjectData,
-  ProjectImage,
-} from "types";
+import { FC, Fragment, forwardRef } from "react";
+import { PackageDataRoot, PackageExample } from "types";
 import { Grid } from "./containers";
 import { Image, Container } from "theme-ui";
 import { BodyText } from "components/common";
@@ -28,7 +23,7 @@ export const PackageImageLink: FC<{ example: PackageExample }> = ({
   ...props
 }) => {
   return (
-    <Link href={example.href}>
+    <Link href={`/packages/${example.slug}`}>
       <Container sx={{ cursor: "pointer" }} {...props}>
         <PackageImageView image={example.image} />
         <BodyText>{example.title}</BodyText>
