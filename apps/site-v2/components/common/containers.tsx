@@ -3,10 +3,10 @@ import { useColorMode } from "theme-ui";
 import { Container, Grid as _Grid, ThemeUIStyleObject } from "theme-ui";
 
 // Center line of page fold
-const cl = "100%";
+// const cl = "100%";
 const headerStyle: ThemeUIStyleObject = {
   width: "100%",
-  height: `calc( ${cl} - 2rem )`,
+  height: `calc( 20rem - 2rem )`,
   position: "sticky",
   top: "0px",
   backgroundColor: "background",
@@ -34,9 +34,9 @@ const footerStyle: ThemeUIStyleObject = {
   // top: `calc( ${cl} - 2rem )`,
   marginTop: "-1px",
   position: "relative",
-  backgroundColor: "footer_background",
+  // backgroundColor: "footer_background",
   minHeight: "8rem",
-  padding: ["2rem", "4rem"],
+  // padding: ["2rem", "4rem"], // now nested within content container
 };
 
 const sectionStyle: ThemeUIStyleObject = {
@@ -53,7 +53,7 @@ const gridStyle: ThemeUIStyleObject = {
 /* Fixed header containing menu */
 export const Header: FC<{}> = ({ children }) => {
   return (
-    <Container as="section" sx={headerStyle}>
+    <Container as="header" sx={headerStyle}>
       {children}
     </Container>
   );
@@ -71,16 +71,16 @@ export const ContentContainer: FC<{}> = ({ children }) => {
 /** Content wrapper for each page */
 export const Content: FC<{}> = ({ children }) => {
   return (
-    <Container as="div" sx={contentStyle}>
+    <Container as="section" sx={contentStyle}>
       {children}
     </Container>
   );
 };
 
 /** Content Area. */
-export const FooterContainer: FC<{}> = ({ children }) => {
+export const Footer: FC<{}> = ({ children }) => {
   return (
-    <Container as="div" sx={footerStyle}>
+    <Container as="footer" sx={footerStyle}>
       {children}
     </Container>
   );
@@ -93,7 +93,7 @@ export const Section: FC<{
 }> = ({ children, maxWidth = "medium" }) => {
   const maxClass = `maxw-${maxWidth}`;
   return (
-    <Container as="section" sx={sectionStyle} className={maxClass}>
+    <Container as="div" sx={sectionStyle} className={maxClass}>
       {children}
     </Container>
   );

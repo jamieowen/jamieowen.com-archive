@@ -49,6 +49,14 @@ export const styles: Pick<Theme, "styles"> = {
         maxWidth: "100%",
       },
 
+      ".align-left": {
+        textAlign: "left",
+      },
+
+      ".align-right": {
+        textAlign: "right",
+      },
+
       // Used for selected router links
       ".selected": {
         color: "content_background",

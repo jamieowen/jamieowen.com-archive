@@ -28,10 +28,6 @@ export const GetInTouch = () => {
       <Section>
         <SocialMediaGridList />
       </Section>
-
-      <Section>
-        <NextBackNavigation />
-      </Section>
     </Content>
   );
 };

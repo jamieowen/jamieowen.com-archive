@@ -1,10 +1,4 @@
-import {
-  Section,
-  BodyText,
-  Content,
-  NextBackNavigation,
-  PageHeaderNavigation,
-} from "components/common";
+import { Section, BodyText, Content } from "components/common";
 
 export const ArchivedWork = () => {
   return (
@@ -12,9 +6,6 @@ export const ArchivedWork = () => {
       <Section>
         {/* <PageHeaderNavigation /> */}
         <BodyText>Archive</BodyText>
-      </Section>
-      <Section>
-        <NextBackNavigation />
       </Section>
     </Content>
   );
