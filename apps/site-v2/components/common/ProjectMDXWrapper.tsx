@@ -2,11 +2,13 @@ import {
   Section,
   BodyHeader,
   BodyText,
-  Button,
   Content,
   ProjectImages,
+  Footer,
+  FooterNavigation,
+  FooterCopyright,
 } from "components/common";
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { Container, Grid, Text } from "theme-ui";
 
 // export { getStaticPaths, getStaticProps } from "services/get-static-paths";
@@ -17,6 +19,7 @@ import {
 } from "components/context/ProjectsContext";
 import { NextBackNavigation, useNavigationData } from "./MenuNavigation";
 import { BodyLink, BodyTextLarge } from "./typography";
+import { FooterProjectNavigation } from "./FooterNavigation";
 
 export const ProjectMDXWrapper: FC<StaticPropsType> = ({
   children,
@@ -60,62 +63,49 @@ export const ProjectsContent: FC<{}> = ({ children }) => {
 
   if (project) {
     return (
-      <Content>
-        <Section maxWidth="medium">
-          <BodyHeader>
-            <span className="opq5">
-              {navigation.current.num} / Recent Work /{" "}
-            </span>
-            {project.id}
-          </BodyHeader>
-          {/* <hr /> */}
-          <Grid variant="grid_2">
-            <Container>
-              <Header>Title</Header>
-              <Title>{project.content.title}</Title>
-            </Container>
-            <Container>
-              <Header>Client</Header>
-              <Title>{project.content.client}</Title>
-            </Container>
-            <Container>
-              <Header>Tech</Header>
-              <Title>
-                {project.content.tech && project.content.tech.join(", ")}
-              </Title>
-            </Container>
-            <Container>
-              <Header>Agency</Header>
-              <Title>{project.content.agency}</Title>
-            </Container>
-          </Grid>
-        </Section>
-        <Section>
-          <ProjectImages project={projects.currentProject} />
-        </Section>
-        <Section maxWidth="medium" sx={{ columnCount: 2 }}>
-          <BodyText>{children}</BodyText>
-        </Section>
-
-        {nextProject && (
-          <Section>
-            {/* <BodyHeader>{nextProject.id + " / Next"}</BodyHeader> */}
+      <Fragment>
+        <Content>
+          <Section maxWidth="medium">
             <BodyHeader>
               <span className="opq5">
-                {navigation.current.num} / Recent Work / Next
+                {navigation.current.num} / Recent Work /{" "}
               </span>
-              {/* {nextProject.id} */}
+              {project.id}
             </BodyHeader>
-            <BodyLink href={nextProject.url}>
-              {nextProject.content.title + " >> "}
-            </BodyLink>
+            {/* <hr /> */}
+            <Grid variant="grid_2">
+              <Container>
+                <Header>Title</Header>
+                <Title>{project.content.title}</Title>
+              </Container>
+              <Container>
+                <Header>Client</Header>
+                <Title>{project.content.client}</Title>
+              </Container>
+              <Container>
+                <Header>Tech</Header>
+                <Title>
+                  {project.content.tech && project.content.tech.join(", ")}
+                </Title>
+              </Container>
+              <Container>
+                <Header>Agency</Header>
+                <Title>{project.content.agency}</Title>
+              </Container>
+            </Grid>
           </Section>
-        )}
-
-        <Section maxWidth="medium">
-          <NextBackNavigation />
-        </Section>
-      </Content>
+          <Section>
+            <ProjectImages project={projects.currentProject} />
+          </Section>
+          <Section maxWidth="medium" sx={{ columnCount: 2 }}>
+            <BodyText>{children}</BodyText>
+          </Section>
+        </Content>
+        <Footer>
+          <FooterNavigation />
+          <FooterCopyright />
+        </Footer>
+      </Fragment>
     );
   } else {
     return <Content>{children}</Content>;
@@ -123,3 +113,18 @@ export const ProjectsContent: FC<{}> = ({ children }) => {
 };
 
 export default ProjectMDXWrapper;
+
+// {nextProject && (
+//   <Section>
+//     {/* <BodyHeader>{nextProject.id + " / Next"}</BodyHeader> */}
+//     <BodyHeader>
+//       <span className="opq5">
+//         {navigation.current.num} / Recent Work / Next
+//       </span>
+//       {/* {nextProject.id} */}
+//     </BodyHeader>
+//     <BodyLink href={nextProject.url}>
+//       {nextProject.content.title + " >> "}
+//     </BodyLink>
+//   </Section>
+// )}

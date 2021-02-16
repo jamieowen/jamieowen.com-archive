@@ -29,9 +29,6 @@ export const TechStack = () => {
       <Section maxWidth="medium">
         <TechGridList />
       </Section>
-      <Section>
-        <NextBackNavigation />
-      </Section>
     </Content>
   );
 };

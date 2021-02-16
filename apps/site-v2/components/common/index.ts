@@ -5,6 +5,7 @@ export * from "./MenuNavigation";
 export * from "./containers";
 export * from "./ProjectLinks";
 export * from "./ProjectRenderers";
-export * from "./Footer";
+export * from "./FooterCopyright";
+export * from "./FooterNavigation";
 export * from "./ProjectMDXWrapper";
 export * from "./GridList";

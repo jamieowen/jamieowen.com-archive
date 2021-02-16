@@ -11,7 +11,9 @@ import {
   // SidePanel,
   WeatherProvider,
   ProjectMDXWrapper,
-  FooterContainer,
+  FooterCopyright,
+  FooterNavigation,
+  isProjectsPage,
   // Navigation,
 } from "../components/common";
 import { ThemeProvider } from "theme-ui";
@@ -34,16 +36,12 @@ const Fonts = () => {
 };
 
 const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
+  const projectsPage = isProjectsPage();
   return (
     <Fragment>
       <Head>
         <title>jamieowen.com</title>
         <link rel="icon" href="/favicon.ico" />
-        {/* <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
-        /> */}
-
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -53,14 +51,18 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
         <Header>
           <Menu />
           {/* <SidePanel /> */}
-          <Footer className="opq5" copyright={false} />
+          {/* <FooterCopyright className="opq5" copyright={false} /> */}
         </Header>
         <ContentContainer>
           <Component {...pageProps} />
+          {!projectsPage && (
+            // See ProjectsMDX Wrapper.
+            <Footer>
+              <FooterNavigation />
+              <FooterCopyright />
+            </Footer>
+          )}
         </ContentContainer>
-        <FooterContainer>
-          <Footer></Footer>
-        </FooterContainer>
       </Providers>
     </Fragment>
   );

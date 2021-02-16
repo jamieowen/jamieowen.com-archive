@@ -13,9 +13,6 @@ export const ArchivedWork = () => {
         {/* <PageHeaderNavigation /> */}
         <BodyText>Archive</BodyText>
       </Section>
-      <Section>
-        <NextBackNavigation />
-      </Section>
     </Content>
   );
 };

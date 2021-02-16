@@ -47,9 +47,6 @@ export const RecentWork = ({ project, projects, archived }) => {
         <Section maxWidth="medium">
           <ProjectImageLinks projects={projects} />
         </Section>
-        <Section>
-          <NextBackNavigation />
-        </Section>
       </Content>
     </ProjectsContextProvider>
   );

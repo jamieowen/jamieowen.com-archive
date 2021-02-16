@@ -15,9 +15,6 @@ export const Interests = () => {
         <BodyText>Text to follow...</BodyText>
       </Section>
       <Section maxWidth="medium">{/* <InterestsGridList /> */}</Section>
-      <Section>
-        <NextBackNavigation />
-      </Section>
     </Content>
   );
 };

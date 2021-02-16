@@ -8,46 +8,49 @@ import {
   useMemo,
 } from "react";
 import { Container, ThemeUIStyleObject, Text } from "theme-ui";
+import { Grid } from "./containers";
 
 const footerStyle: ThemeUIStyleObject = {
-  position: "absolute",
+  // position: "absolute",
   bottom: "4rem",
+  marginTop: "2rem",
   fontSize: "8px",
-  backgroundColor: "red",
-  width: ["calc( 100% - 4rem )", "calc( 100% - 8rem )"],
-  // height: "10rem",
-  // display: "flex",
+  // width: ["calc( 100% - 4rem )", "calc( 100% - 8rem )"],
   fontFamily: "heading",
   textTransform: "uppercase",
-  ".aleft": {
-    position: "absolute",
-    left: "0px",
-  },
-  ".aright": {
-    position: "absolute",
-    right: "0px",
-  },
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
 };
 
 /** Content Area. */
-export const Footer: FC<
+export const FooterCopyright: FC<
   ComponentProps<any> & {
     copyright?: boolean;
+    fullwidth?: boolean;
   }
-> = ({ children, copyright = true, ...props }) => {
+> = ({ children, copyright = true, fullwidth = false, ...props }) => {
   const year = useMemo(() => new Date().getFullYear(), []);
   return (
-    <Container as="footer" sx={footerStyle} {...props}>
-      {copyright && (
-        <Text as="span" className="aleft">
-          XX / © {year} Jamie Owen
-        </Text>
-      )}
-      <WeatherDisplay className="aright" />
+    <Container sx={footerStyle} className={`maxw-medium`} {...props}>
+      <div>
+        {copyright && (
+          <Text as="div" className="align-left">
+            XX / © {year} Jamie Owen
+          </Text>
+        )}
+      </div>
+      <div className="align-right">
+        <WeatherDisplay />
+      </div>
     </Container>
   );
 };
 
+/**
+ *
+ * Weather
+ *
+ */
 interface WeatherData {
   weather: string;
   location: string;
@@ -63,7 +66,7 @@ export const WeatherProvider: FC<{}> = ({ children }) => {
   useEffect(() => {
     const key = "a131a6647fa956c084e49306d8d33b4e";
     fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${key}`
+      `https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${key}`
     )
       .then((res) => res.json())
       .then((data) => {

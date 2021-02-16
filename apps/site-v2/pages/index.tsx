@@ -42,14 +42,11 @@ export const Intro = () => {
           general <Styled.a href="/interests">Interests</Styled.a> that make me
           tick otherwise!
         </BodyText>
-        <BodyText>
+        {/* <BodyText>
           Cheers! <br />
-          {/* <br />
-          <a href="/get-in-touch">Get in Touch</a> */}
-        </BodyText>
-      </Section>
-      <Section>
-        <NextBackNavigation />
+          <br />
+          <a href="/get-in-touch">Get in Touch</a>
+        </BodyText> */}
       </Section>
     </Content>
   );

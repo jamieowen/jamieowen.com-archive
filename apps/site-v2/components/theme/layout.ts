@@ -3,35 +3,40 @@ import { Theme } from "theme-ui";
 export const layout: Pick<Theme, "layout"> = {
   /** Layout Variants */
   layout: {
-    slide_container: {
-      width: "100%",
-      height: "100%",
-      padding: "0% 0% 50% 50%",
-      position: "absolute",
-      backgroundColor: "background",
-      color: "text",
-      transition: "background-color 1s ease-out, color 1.3s ease-in",
-      "> .margin": {
-        marginBottom: "256px !important",
-      },
-      ".sml": {
-        maxWidth: ["90%", "65%"],
-      },
-      ".mid": {
-        maxWidth: ["90%", "75%"],
-      },
-      ".full": {
-        maxWidth: ["100%", "100%"],
-      },
+    container: {
+      margin: 0,
+      marginLeft: 0,
+      marginRight: 0,
     },
-    slide_shadow: {
-      width: "100%",
-      height: "8px",
-      position: "fixed",
-      opacity: "0.1",
-      backgroundColor: "red",
-      zIndex: 100,
-    },
+    // slide_container: {
+    //   width: "100%",
+    //   height: "100%",
+    //   padding: "0% 0% 50% 50%",
+    //   position: "absolute",
+    //   backgroundColor: "background",
+    //   color: "text",
+    //   transition: "background-color 1s ease-out, color 1.3s ease-in",
+    //   "> .margin": {
+    //     marginBottom: "256px !important",
+    //   },
+    //   ".sml": {
+    //     maxWidth: ["90%", "65%"],
+    //   },
+    //   ".mid": {
+    //     maxWidth: ["90%", "75%"],
+    //   },
+    //   ".full": {
+    //     maxWidth: ["100%", "100%"],
+    //   },
+    // },
+    // slide_shadow: {
+    //   width: "100%",
+    //   height: "8px",
+    //   position: "fixed",
+    //   opacity: "0.1",
+    //   backgroundColor: "red",
+    //   zIndex: 100,
+    // },
     side_panel: {
       position: "fixed",
       right: "0px",
