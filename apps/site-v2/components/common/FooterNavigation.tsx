@@ -77,7 +77,7 @@ export const FooterNavigation: FC<{}> = () => {
 export const FooterSiteNavigation: FC<{}> = () => {
   const { next, prev, current, items } = useNavigationData();
   const len = items.length - 1; // not including github
-  const marker = current.num + "/" + ("00" + len).slice(-2);
+  const marker = current ? current.num + "/" + ("00" + len).slice(-2) : "";
 
   return (
     <Container sx={navStyle} className="maxw-medium">
