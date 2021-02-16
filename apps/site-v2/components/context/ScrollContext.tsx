@@ -18,12 +18,9 @@ export const ScrollProvider: FC<any> = ({ children }) => {
   const [contentScrollPos, setContentScroll] = useState(0);
   const router = useRouter();
 
-  console.log("Redraw scroll context");
-
   useEffect(() => {
     const container = document.getElementById("content-container");
     contentContainerRef.current = container;
-    console.log("Add scroll listeners");
     if (container) {
       window.addEventListener(
         "scroll",
@@ -35,10 +32,9 @@ export const ScrollProvider: FC<any> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log("Router", router.asPath);
+    const scrollTarget = document.getElementById("__next");
     if (router.asPath !== "/" && contentContainerRef.current) {
-      console.log("Scroll TO ");
-      window.scrollTo({
+      scrollTarget.scrollTo({
         top: contentContainerRef.current.getBoundingClientRect().top - 32,
         behavior: "smooth",
       });

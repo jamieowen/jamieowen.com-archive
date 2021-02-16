@@ -38,7 +38,11 @@ export const Footer: FC<
   const year = useMemo(() => new Date().getFullYear(), []);
   return (
     <Container as="footer" sx={footerStyle} {...props}>
-      {copyright && <Text className="aleft">XX / © {year} Jamie Owen</Text>}
+      {copyright && (
+        <Text as="span" className="aleft">
+          XX / © {year} Jamie Owen
+        </Text>
+      )}
       <WeatherDisplay className="aright" />
     </Container>
   );
@@ -82,7 +86,7 @@ export const WeatherDisplay: FC<ComponentProps<"div">> = (props) => {
   const data = useContext(WeatherContext);
   return (
     <div {...props}>
-      <Text>
+      <Text as="span">
         YY / {data.location} / {data.weather}
       </Text>
     </div>
