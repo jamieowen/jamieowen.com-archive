@@ -39,10 +39,14 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
       <Head>
         <title>jamieowen.com</title>
         <link rel="icon" href="/favicon.ico" />
-        <meta
+        {/* <meta
           name="viewport"
-          content="initial-scale=1.0, width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-        ></meta>
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+        /> */}
+
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <Fonts />
       </Head>
       <Providers>

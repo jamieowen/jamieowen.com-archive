@@ -10,11 +10,19 @@ export const styles: Pick<Theme, "styles"> = {
     root: {
       // background color *behind* header
       backgroundColor: "content_background",
-      overflowY: "scroll",
-      overflowX: "hidden",
+      overflow: "hidden",
       fontFamily: "body",
-      fontSize: "body",
       margin: "0rem",
+      width: "100%",
+      height: "100%",
+
+      "#__next": {
+        width: "100%",
+        height: "100%",
+        overflowX: "hidden",
+        overflowY: "scroll",
+        position: "fixed",
+      },
 
       /**
        *

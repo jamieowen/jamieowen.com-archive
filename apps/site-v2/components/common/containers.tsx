@@ -3,11 +3,11 @@ import { useColorMode } from "theme-ui";
 import { Container, Grid as _Grid, ThemeUIStyleObject } from "theme-ui";
 
 // Center line of page fold
-const cl = "100vh";
+const cl = "100%";
 const headerStyle: ThemeUIStyleObject = {
-  width: "100vw",
-  height: cl,
-  position: "fixed",
+  width: "100%",
+  height: `calc( ${cl} - 2rem )`,
+  position: "sticky",
   top: "0px",
   backgroundColor: "background",
   padding: ["2rem", "4rem"],
@@ -17,10 +17,11 @@ const contentContainerStyle: ThemeUIStyleObject = {
   position: "relative",
 
   // Shift to show just a fold of the main content
-  // marginTop: "calc( 100vh - 2rem )",
+  // marginTop: "calc( 100% - 6rem )",
+  overflow: "hidden",
   // Shift to show half way down the page
-  top: `calc( ${cl} - 2rem )`,
-  minHeight: "calc( 100vh - 2rem - 8rem )",
+  // top: `calc( ${cl} - 2rem )`,
+  minHeight: "calc( 100% - 2rem - 8rem )",
   padding: ["2rem", "4rem"],
   backgroundColor: "content_background",
   color: "content_text",
@@ -29,7 +30,9 @@ const contentContainerStyle: ThemeUIStyleObject = {
 const contentStyle: ThemeUIStyleObject = {};
 
 const footerStyle: ThemeUIStyleObject = {
-  top: `calc( ${cl} - 2rem )`,
+  overflow: "hidden",
+  // top: `calc( ${cl} - 2rem )`,
+  marginTop: "-1px",
   position: "relative",
   backgroundColor: "footer_background",
   minHeight: "8rem",
