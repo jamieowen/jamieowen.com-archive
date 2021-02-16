@@ -15,16 +15,20 @@ const headerStyle: ThemeUIStyleObject = {
 
 const contentContainerStyle: ThemeUIStyleObject = {
   position: "relative",
+  display: "grid",
+  gridTemplateRows: "1fr 10rem",
 
   // Shift to show just a fold of the main content
   // marginTop: "calc( 100% - 6rem )",
   overflow: "hidden",
   // Shift to show half way down the page
   // top: `calc( ${cl} - 2rem )`,
-  minHeight: "calc( 100% - 2rem - 8rem )",
+  // minHeight: "calc( 100% - 2rem - 8rem )",
+  minHeight: "calc( 100% - 2rem )",
   padding: ["2rem", "4rem"],
   backgroundColor: "content_background",
   color: "content_text",
+  // marginBottom: ["10rem"],
 };
 
 const contentStyle: ThemeUIStyleObject = {};
@@ -32,11 +36,13 @@ const contentStyle: ThemeUIStyleObject = {};
 const footerStyle: ThemeUIStyleObject = {
   overflow: "hidden",
   // top: `calc( ${cl} - 2rem )`,
-  marginTop: "-1px",
-  position: "relative",
+  // marginTop: "10rem",
+  position: "absolute",
+  bottom: ["2rem", "4rem"],
+
   // backgroundColor: "footer_background",
   minHeight: "8rem",
-  // padding: ["2rem", "4rem"], // now nested within content container
+  padding: ["0rem 2rem", "0rem 4rem"], // now nested within content container
 };
 
 const sectionStyle: ThemeUIStyleObject = {
