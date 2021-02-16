@@ -54,11 +54,19 @@ interface NavigationData {
 export const NavigationDataContext = createContext<NavigationData>(null);
 export const useNavigationData = () => useContext(NavigationDataContext);
 
+/**
+ *
+ * Stores the current, next & previous navigation data item.
+ * To populate the navigation menu  & footer navigation.
+ *
+ */
 export const NavigationDataProvider: FC<{}> = ({ children }) => {
   const route = useRouter();
   const data = useMemo<NavigationData>(() => {
     const filter = navigationData.filter((d) => {
       // manual fix for recent-work sub paths
+      // TODO: not sure what this is actually for?
+
       return route.asPath.indexOf("/recent-work") === 0
         ? d.href === "/recent-work"
         : route.asPath === d.href;
@@ -67,18 +75,24 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
     let next: MenuData = null;
     let current: MenuData = null;
 
+    // Filter any dev mode only sections.
+    const navData =
+      process.env.NODE_ENV === "development"
+        ? navigationData
+        : navigationData.filter((entry) => !entry.devOnly);
+
     if (filter && filter.length > 0) {
       current = filter[0];
-      const idx = navigationData.indexOf(current);
-      prev = idx > 0 ? navigationData[idx - 1] : null;
-      next = idx < navigationData.length - 1 ? navigationData[idx + 1] : null;
+      const idx = navData.indexOf(current);
+      prev = idx > 0 ? navData[idx - 1] : null;
+      next = idx < navData.length - 1 ? navData[idx + 1] : null;
       if (next && next.hideNext) {
         next = null;
       }
     }
 
     return {
-      items: navigationData,
+      items: navData,
       current,
       next,
       prev,
