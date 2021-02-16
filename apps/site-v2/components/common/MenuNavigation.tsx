@@ -114,26 +114,18 @@ export const Menu: FC<{}> = ({ children }) => {
     <Container as="nav">
       <BodyHeader>00 / Menu</BodyHeader>
       <Container>
-        {nav.items
-          .filter((link) => {
-            if (process.env.NODE_ENV === "development" && link.devOnly) {
-              return true;
-            } else {
-              return !link.devOnly;
-            }
-          })
-          .map((link, i) => (
-            <Fragment key={i}>
-              <MenuLink
-                as="span"
-                className={router.asPath === link.href ? "selected" : ""}
-                href={link.href}
-              >
-                {link.label}
-              </MenuLink>
-              {link.break ? <br /> : null}
-            </Fragment>
-          ))}
+        {nav.items.map((link, i) => (
+          <Fragment key={i}>
+            <MenuLink
+              as="span"
+              className={router.asPath === link.href ? "selected" : ""}
+              href={link.href}
+            >
+              {link.label}
+            </MenuLink>
+            {link.break ? <br /> : null}
+          </Fragment>
+        ))}
       </Container>
     </Container>
   );
