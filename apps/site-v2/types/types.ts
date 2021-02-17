@@ -30,3 +30,22 @@ export interface ProjectContent {
   agency: string;
   content: string;
 }
+
+export interface PackageDataRoot {
+  packages: PackageInfo[];
+}
+
+export interface PackageInfo {
+  href: string;
+  title: string;
+  examples: PackageExample[];
+}
+
+export interface PackageExample {
+  slug: string;
+  href: string;
+  description: string;
+  title: string;
+  image: string;
+  visible?: boolean;
+}

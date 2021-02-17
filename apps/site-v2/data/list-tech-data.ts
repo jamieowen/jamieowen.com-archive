@@ -1,4 +1,4 @@
-import { GridColumns } from "../common/GridList";
+import { GridColumns } from "components/common/GridList";
 
 export const techListData = (): GridColumns => [
   // Creative Tech

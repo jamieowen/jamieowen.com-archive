@@ -19,6 +19,7 @@ interface MenuData {
   href: string;
   break?: boolean;
   hideNext?: boolean;
+  devOnly?: boolean;
 }
 export const navigationData: MenuData[] = [
   { num: "01", label: "Intro.", href: "/" },
@@ -33,6 +34,13 @@ export const navigationData: MenuData[] = [
     href: "https://github.com/jamieowen",
     hideNext: true,
   },
+  {
+    num: "07",
+    label: "Packages.",
+    href: "/packages",
+    // hideNext: true,
+    devOnly: true,
+  },
   // { label: "LinkedIn.", href: "https://www.linkedin.com/in/jamie-owen" },
 ];
 
@@ -46,11 +54,19 @@ interface NavigationData {
 export const NavigationDataContext = createContext<NavigationData>(null);
 export const useNavigationData = () => useContext(NavigationDataContext);
 
+/**
+ *
+ * Stores the current, next & previous navigation data item.
+ * To populate the navigation menu  & footer navigation.
+ *
+ */
 export const NavigationDataProvider: FC<{}> = ({ children }) => {
   const route = useRouter();
   const data = useMemo<NavigationData>(() => {
     const filter = navigationData.filter((d) => {
       // manual fix for recent-work sub paths
+      // TODO: not sure what this is actually for?
+
       return route.asPath.indexOf("/recent-work") === 0
         ? d.href === "/recent-work"
         : route.asPath === d.href;
@@ -59,18 +75,24 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
     let next: MenuData = null;
     let current: MenuData = null;
 
+    // Filter any dev mode only sections.
+    const navData =
+      process.env.NODE_ENV === "development"
+        ? navigationData
+        : navigationData.filter((entry) => !entry.devOnly);
+
     if (filter && filter.length > 0) {
       current = filter[0];
-      const idx = navigationData.indexOf(current);
-      prev = idx > 0 ? navigationData[idx - 1] : null;
-      next = idx < navigationData.length - 1 ? navigationData[idx + 1] : null;
-      if (next.hideNext) {
+      const idx = navData.indexOf(current);
+      prev = idx > 0 ? navData[idx - 1] : null;
+      next = idx < navData.length - 1 ? navData[idx + 1] : null;
+      if (next && next.hideNext) {
         next = null;
       }
     }
 
     return {
-      items: navigationData,
+      items: navData,
       current,
       next,
       prev,
@@ -94,7 +116,6 @@ export const Menu: FC<{}> = ({ children }) => {
       <Container>
         {nav.items.map((link, i) => (
           <Fragment key={i}>
-            {/* <MenuItem {...link} /> */}
             <MenuLink
               as="span"
               className={router.asPath === link.href ? "selected" : ""}
@@ -110,6 +131,20 @@ export const Menu: FC<{}> = ({ children }) => {
   );
 };
 
+export const HiddenItems: FC<any> = () => {
+  const env = process.env.NODE_ENV;
+  if (process.env.NODE_ENV === "development") {
+    return (
+      <Fragment>
+        <MenuLink as="span" href="/packages">
+          Packages.
+        </MenuLink>
+      </Fragment>
+    );
+  } else {
+    return <Fragment />;
+  }
+};
 /**
  * Page Elements
  */

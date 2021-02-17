@@ -1,4 +1,4 @@
-import { FC, Fragment, useLayoutEffect, useMemo } from "react";
+import { FC, Fragment, useEffect, useLayoutEffect, useMemo } from "react";
 import App, { AppProps } from "next/app";
 import Head from "next/head";
 import theme from "../components/theme";
@@ -70,7 +70,7 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
 
 const ColorSwitch: FC<{}> = () => {
   const [, setColor] = useColorMode();
-  useLayoutEffect(() => {
+  useEffect(() => {
     setColor("blue");
   }, []);
   return <Fragment />;
