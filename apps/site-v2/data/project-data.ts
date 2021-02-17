@@ -22,7 +22,7 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     client: "Lloyds Banking Group",
     title: "Systems Thinking",
     agency: "NA",
-    tech: ["Typescript", "Python", "WebAssembly"],
+    tech: ["Typescript", "Python", "WebAssembly", "Jupyter Lab"],
     content: ``,
   },
   "national-museum-of-qatar": {
@@ -70,15 +70,6 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     content: ``,
     tech: ["Javascript", "WebGL", "three.js"],
   },
-  "argos-giftguide": {
-    order: order++,
-    baseColor: "lightgray",
-    client: "Argos",
-    agency: "Sapient Razorfish",
-    title: "Argos Giftguide",
-    content: ``,
-    tech: ["Javascript", "pixi.js"],
-  },
   "pbs-gamesapp": {
     order: order++,
     baseColor: "lightgray",
@@ -87,6 +78,15 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     agency: "Goodboy Digital",
     content: ``,
     tech: ["Javascript", "WebGL", "pixi.js"],
+  },
+  "mcdonalds-40th": {
+    order: order++,
+    baseColor: "lightgray",
+    client: "McDonald's",
+    title: "40th Anniversary",
+    agency: "Goodboy Digital",
+    content: ``,
+    tech: ["Javascript", "pixi.js", "Natural language"],
   },
   "google-starbucks": {
     order: order++,
@@ -97,14 +97,14 @@ export const data: { [K in SelectedWorkIds]: ProjectContent } = {
     content: ``,
     tech: ["Javascript", "React", "three.js"],
   },
-  "mcdonalds-40th": {
+  "argos-giftguide": {
     order: order++,
     baseColor: "lightgray",
-    client: "McDonald's",
-    title: "40th Anniversary",
-    agency: "Goodboy Digital",
+    client: "Argos",
+    agency: "Sapient Razorfish",
+    title: "Argos Giftguide",
     content: ``,
-    tech: ["Javascript", "pixi.js", "Natural language"],
+    tech: ["Javascript", "pixi.js"],
   },
   "archived-work": {
     order: order++,
