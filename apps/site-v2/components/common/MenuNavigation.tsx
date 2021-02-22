@@ -9,9 +9,10 @@ import {
   createContext,
   useContext,
 } from "react";
-import { Container, Heading, Text } from "theme-ui";
+import { Container, Box, Heading, Text } from "theme-ui";
 import { Button } from "./Button";
 import { BodyHeader, BodyLink, MenuLink } from "./typography";
+import { useScrollContext } from "components/context/ScrollContext";
 
 interface MenuData {
   label: string;
@@ -21,7 +22,14 @@ interface MenuData {
   hideNext?: boolean;
   devOnly?: boolean;
 }
+
 export const navigationData: MenuData[] = [
+  { num: "01", label: "Work.", href: "/recent-work" },
+  { num: "02", label: "About.", href: "/about" },
+  { num: "03", label: "Play.", href: "/play" },
+];
+
+export const navigationData2: MenuData[] = [
   { num: "01", label: "Intro.", href: "/" },
   { num: "02", label: "Recent Work.", href: "/recent-work" },
   { num: "03", label: "Tech Stack.", href: "/tech-stack", break: true },
@@ -117,11 +125,19 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
 export const Menu: FC<{}> = ({ children }) => {
   const nav = useNavigationData();
   const router = useRouter();
+  const scroll = useScrollContext();
+  const vis = 1 - scroll.headerVisibility;
 
   return (
-    <Container as="nav">
+    <Box as="nav" sx={{ pointerEvents: "all" }}>
       <BodyHeader>00 / Menu</BodyHeader>
-      <Container>
+      <Box
+        sx={{
+          "span:not(:last-child)": {
+            marginRight: "2rem",
+          },
+        }}
+      >
         {nav.items.map((link, i) => (
           <Fragment key={i}>
             <MenuLink
@@ -134,8 +150,8 @@ export const Menu: FC<{}> = ({ children }) => {
             {link.break ? <br /> : null}
           </Fragment>
         ))}
-      </Container>
-    </Container>
+      </Box>
+    </Box>
   );
 };
 
@@ -163,43 +179,5 @@ export const PageHeaderNavigation: FC<any> = () => {
     <BodyHeader>
       {nav.current && nav.current.num} / {nav.current && nav.current.label}
     </BodyHeader>
-  );
-};
-
-export const NextBackNavigation: FC<{}> = () => {
-  const { next, prev, current } = useNavigationData();
-
-  return (
-    <Container
-      as="nav"
-      sx={{
-        width: "100%",
-        display: "grid",
-        marginTop: "8rem",
-        textAlign: "left",
-        gridTemplateColumns: "1fr",
-        columnGap: "16px",
-      }}
-    >
-      <BodyHeader>{next && next.num + " / Next"}</BodyHeader>
-      <BodyLink href={next ? next.href : ""}>
-        {next && next.label + " >> "}
-      </BodyLink>
-      {/* <Container>
-        {next ? (
-          <Button href={next ? next.href : ""}>
-            <span className="opq3">{next.num}/06</span> <br />
-            <div>Next</div>
-            <Text as="span" variant="navigation_body">
-              <strong>{next.label}</strong>
-            </Text>
-          </Button>
-        ) : (
-          <Text as="span" className="opq3" variant="navigation_body">
-            Done / Thank You.
-          </Text>
-        )}
-      </Container> */}
-    </Container>
   );
 };

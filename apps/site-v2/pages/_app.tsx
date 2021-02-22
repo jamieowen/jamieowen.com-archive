@@ -14,6 +14,7 @@ import {
   FooterCopyright,
   FooterNavigation,
   isProjectsPage,
+  ContentIFrame,
   // Navigation,
 } from "../components/common";
 import { Styled, Text, ThemeProvider } from "theme-ui";
@@ -66,8 +67,10 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
 
       <Providers>
         <DevSwitch>
+          <ContentIFrame />
           <Header>
             <Menu />
+
             {/* <SidePanel /> */}
             {/* <FooterCopyright className="opq5" copyright={false} /> */}
           </Header>

@@ -17,7 +17,7 @@ import {
   ProjectsContextProvider,
   useProjects,
 } from "components/context/ProjectsContext";
-import { NextBackNavigation, useNavigationData } from "./MenuNavigation";
+import { useNavigationData } from "./MenuNavigation";
 import { BodyLink, BodyTextLarge } from "./typography";
 import { FooterProjectNavigation } from "./FooterNavigation";
 

@@ -1,18 +1,20 @@
 import { FC, Fragment, forwardRef } from "react";
 import { PackageDataRoot, PackageExample } from "types";
 import { Grid } from "./containers";
-import { Image, Container } from "theme-ui";
+import { Image, Container, Box } from "theme-ui";
 import { BodyText } from "components/common";
 import Link from "next/link";
+import { MediaView } from "./MediaView";
+import { BodyTextLarge } from "./typography";
 
-export const PackageImageView = forwardRef<
-  HTMLImageElement,
-  {
-    image: string;
-  }
->(({ image }, ref) => {
-  return <Image ref={ref} src={image}></Image>;
-});
+// export const PackageImageView = forwardRef<
+//   HTMLImageElement,
+//   {
+//     image: string;
+//   }
+// >(({ image }, ref) => {
+//   return <Image ref={ref} src={image}></Image>;
+// });
 
 /**
  * Take the a project's first image and display along with the title as a clickable link
@@ -24,11 +26,11 @@ export const PackageImageLink: FC<{ example: PackageExample }> = ({
 }) => {
   return (
     <Link href={`/packages/${example.slug}`}>
-      <Container sx={{ cursor: "pointer" }} {...props}>
-        <PackageImageView image={example.image} />
-        <BodyText>{example.title}</BodyText>
+      <Box as="article" sx={{ cursor: "pointer" }} {...props}>
+        <MediaView src={example.image} type="video" />
+        <BodyTextLarge>{example.title}</BodyTextLarge>
         <BodyText>{example.description}</BodyText>
-      </Container>
+      </Box>
     </Link>
   );
 };
@@ -41,11 +43,13 @@ export const PackageExampleGrid: FC<{ examples: PackageExample[] }> = ({
   examples,
 }) => {
   return (
-    <Grid>
-      {examples.map((ex, i) => (
-        <PackageImageLink key={i} example={ex} />
-      ))}
-    </Grid>
+    <Box as="section" sx={{ marginBottom: "6rem" }}>
+      <Grid>
+        {examples.map((ex, i) => (
+          <PackageImageLink key={i} example={ex} />
+        ))}
+      </Grid>
+    </Box>
   );
 };
 
@@ -55,7 +59,9 @@ export const PackagesGrid: FC<{ root: PackageDataRoot }> = ({ root }) => {
       {root.packages.map((pkg, i) => {
         return (
           <Fragment key={i}>
-            <BodyText>{pkg.title}</BodyText>
+            <BodyTextLarge>
+              <strong>{pkg.title}</strong>
+            </BodyTextLarge>
             <PackageExampleGrid examples={pkg.examples} />
           </Fragment>
         );

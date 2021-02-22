@@ -2,7 +2,6 @@ import {
   Section,
   BodyText,
   Content,
-  NextBackNavigation,
   PageHeaderNavigation,
 } from "components/common";
 import { TechGridList } from "components/common/GridList";

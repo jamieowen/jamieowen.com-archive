@@ -9,3 +9,4 @@ export * from "./FooterNavigation";
 export * from "./ProjectMDXWrapper";
 export * from "./GridList";
 export * from "./PackagesGrid";
+export * from "./IFrame";

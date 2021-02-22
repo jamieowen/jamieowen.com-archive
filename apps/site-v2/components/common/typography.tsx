@@ -12,7 +12,7 @@ export const BodyText: FC<{}> = ({ children }) => {
 
 export const BodyTextLarge: FC<{}> = ({ children }) => {
   return (
-    <Text as="p" variant="body_large">
+    <Text as="h3" variant="body_large">
       {children}
     </Text>
   );

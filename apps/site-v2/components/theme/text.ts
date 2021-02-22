@@ -7,14 +7,14 @@ export const text: Pick<Theme, "text"> = {
       fontSize: "16px",
       lineHeight: "32px",
       fontWeight: 400,
-      marginBottom: "32px",
+      // marginBottom: "32px",
     },
     body_large: {
       fontFamily: "body",
-      fontSize: ["24px", "20px"],
-      lineHeight: ["32px", "40px"],
-      fontWeight: 400,
-      marginBottom: "32px",
+      fontSize: "16px",
+      lineHeight: "56px",
+      fontWeight: 600,
+      // marginBottom: "32px",
     },
     body_header: {
       fontFamily: "heading",
@@ -37,7 +37,7 @@ export const text: Pick<Theme, "text"> = {
       lineHeight: "32px",
       textDecoration: "underline",
       cursor: "pointer",
-      marginRight: "16px",
+      // marginRight: "16px",
       ":hover": {
         opacity: 0.4,
         textDecoration: "line-through",

@@ -2,9 +2,9 @@ import {
   BodyText,
   BodyTextLarge,
   Content,
-  NextBackNavigation,
   PageHeaderNavigation,
   Section,
+  TechGridList,
 } from "components/common";
 import { Styled } from "theme-ui";
 
@@ -42,11 +42,25 @@ export const Intro = () => {
           general <Styled.a href="/interests">Interests</Styled.a> that make me
           tick otherwise!
         </BodyText>
+      </Section>
+      <Section maxWidth="small">
+        <PageHeaderNavigation />
+        <BodyText>
+          Currently focused on all things Typescript/Javascript ES6. But I have
+          experience working with Python, C++, C#, Adobe Flex {"& "} Flash AS3
+          (RIP).
+        </BodyText>
+        <BodyText>
+          Always learning new functional & object oriented programming concepts,
+          algorithms, design patterns, reactive programming & test driven
+          development.
+        </BodyText>
         {/* <BodyText>
-          Cheers! <br />
-          <br />
-          <a href="/get-in-touch">Get in Touch</a>
+          And had and had a long history with various creative coding platforms.
         </BodyText> */}
+      </Section>
+      <Section maxWidth="small">
+        <TechGridList />
       </Section>
     </Content>
   );

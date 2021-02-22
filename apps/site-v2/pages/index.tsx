@@ -2,7 +2,6 @@ import {
   BodyText,
   BodyTextLarge,
   Content,
-  NextBackNavigation,
   PageHeaderNavigation,
   Section,
 } from "components/common";

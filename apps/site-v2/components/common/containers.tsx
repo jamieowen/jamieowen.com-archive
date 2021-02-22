@@ -1,44 +1,47 @@
 import { FC, useMemo } from "react";
-import { useColorMode } from "theme-ui";
+import { Box, useColorMode } from "theme-ui";
 import { Container, Grid as _Grid, ThemeUIStyleObject } from "theme-ui";
 
-// Center line of page fold
-// const cl = "100%";
+// Imported by IFrame
+export const headerHeight = "66vh"; //"calc( 100vh - 30rem )";
+
 const headerStyle: ThemeUIStyleObject = {
   width: "100%",
-  height: `calc( 20rem - 2rem )`,
-  position: "sticky",
+  height: headerHeight,
+  position: "fixed",
   top: "0px",
-  backgroundColor: "background",
-  padding: ["2rem", "4rem"],
+  pointerEvents: "none",
+  textAlign: "center",
+  padding: "2rem", //["2rem", "4rem"],
 };
 
 const contentContainerStyle: ThemeUIStyleObject = {
   position: "relative",
-  display: "grid",
-  gridTemplateRows: "1fr 10rem",
-
-  // Shift to show just a fold of the main content
-  // marginTop: "calc( 100% - 6rem )",
+  marginTop: headerHeight,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
+  width: "100%",
   overflow: "hidden",
-  // Shift to show half way down the page
-  // top: `calc( ${cl} - 2rem )`,
-  // minHeight: "calc( 100% - 2rem - 8rem )",
+
   minHeight: "calc( 100% - 2rem )",
   padding: ["2rem", "4rem"],
   backgroundColor: "content_background",
   color: "content_text",
-  // marginBottom: ["10rem"],
 };
 
-const contentStyle: ThemeUIStyleObject = {};
+const contentStyle: ThemeUIStyleObject = {
+  width: "auto",
+};
 
 const footerStyle: ThemeUIStyleObject = {
   overflow: "hidden",
   // top: `calc( ${cl} - 2rem )`,
   // marginTop: "10rem",
-  position: "absolute",
-  bottom: ["2rem", "4rem"],
+  // position: "absolute",
+  position: "relative",
+  // bottom: ["2rem", "4rem"],
 
   // backgroundColor: "footer_background",
   minHeight: "8rem",
@@ -47,7 +50,8 @@ const footerStyle: ThemeUIStyleObject = {
 
 const sectionStyle: ThemeUIStyleObject = {
   // max widths are defined as classes in root style object.
-  width: "100%",
+  // width: "100%",
+  width: "auto !important",
   margin: "0px",
   marginBottom: "4rem",
 };
@@ -59,9 +63,9 @@ const gridStyle: ThemeUIStyleObject = {
 /* Fixed header containing menu */
 export const Header: FC<{}> = ({ children }) => {
   return (
-    <Container as="header" sx={headerStyle}>
+    <Box as="header" sx={headerStyle}>
       {children}
-    </Container>
+    </Box>
   );
 };
 
@@ -77,18 +81,18 @@ export const ContentContainer: FC<{}> = ({ children }) => {
 /** Content wrapper for each page */
 export const Content: FC<{}> = ({ children }) => {
   return (
-    <Container as="section" sx={contentStyle}>
+    <Box as="section" sx={contentStyle}>
       {children}
-    </Container>
+    </Box>
   );
 };
 
 /** Content Area. */
 export const Footer: FC<{}> = ({ children }) => {
   return (
-    <Container as="footer" sx={footerStyle}>
+    <Box as="footer" sx={footerStyle}>
       {children}
-    </Container>
+    </Box>
   );
 };
 
@@ -99,9 +103,9 @@ export const Section: FC<{
 }> = ({ children, maxWidth = "medium" }) => {
   const maxClass = `maxw-${maxWidth}`;
   return (
-    <Container as="div" sx={sectionStyle} className={maxClass}>
+    <Box as="div" sx={sectionStyle} className={maxClass}>
       {children}
-    </Container>
+    </Box>
   );
 };
 

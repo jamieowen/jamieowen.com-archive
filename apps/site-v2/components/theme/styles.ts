@@ -42,7 +42,6 @@ export const styles: Pick<Theme, "styles"> = {
         maxWidth: "50rem",
       },
       ".maxw-medium": {
-        // maxWidth: "50rem", // 1rem - 16
         maxWidth: "60rem",
       },
       ".maxw-full": {

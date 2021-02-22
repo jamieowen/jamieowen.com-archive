@@ -4,18 +4,19 @@ import { Interests } from "./interests";
 import { GetInTouch } from "./get-in-touch";
 
 import { Intro } from "./index";
+import { Fragment } from "react";
 
 export { getStaticProps } from "services/get-static-paths";
 
 const FullPage = ({ projects }) => {
   return (
-    <div>
+    <Fragment>
       <Intro />
       <RecentWork projects={projects}></RecentWork>
       <TechStack />
       <Interests />
       <GetInTouch />
-    </div>
+    </Fragment>
   );
 };
 
