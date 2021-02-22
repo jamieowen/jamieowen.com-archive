@@ -1,4 +1,3 @@
-import { timeStamp } from "console";
 import {
   RawShaderMaterial,
   BufferGeometry,
@@ -57,7 +56,6 @@ const createGeometry = (buffer: Float32Array) => {
 export class GPGPUState {
   renderer: WebGLRenderer;
   states: WebGLRenderTarget[];
-  output: WebGLRenderTarget;
   material: RawShaderMaterial;
   writeMaterial: RawShaderMaterial;
   geometry: BufferGeometry;
@@ -72,10 +70,11 @@ export class GPGPUState {
    */
   constructor(renderer: WebGLRenderer, setup: ReturnType<typeof gpgpuSetup>) {
     this.renderer = renderer;
+    // Create state textures.
     this.states = new Array(setup.count)
       .fill(0)
       .map(() => createTexture(setup.width, setup.height));
-    this.output = createTexture(setup.width, setup.height);
+    // Main ping/pong update material
     this.material = new RawShaderMaterial({
       vertexShader: setup.vertexSource,
       fragmentShader: setup.fragmentSource,
@@ -84,14 +83,10 @@ export class GPGPUState {
       // side: setup.geomType === "triangle" ? BackSide : FrontSide,
       side: DoubleSide,
       uniforms: {
-        ...this.states.reduce((map, _val, i) => {
-          return {
-            ...map,
-            [`state_${i}`]: { value: this.states[i] },
-          };
-        }, {}),
+        previousState: { value: null },
       },
     });
+    // Material to write a data texture to the output buffer.
     this.writeMaterial = new RawShaderMaterial({
       vertexShader: setup.vertexSource,
       fragmentShader: setup.fragmentWriteSource,
@@ -99,7 +94,7 @@ export class GPGPUState {
       depthWrite: false,
       side: DoubleSide,
       uniforms: {
-        ["state_0"]: { value: null },
+        inputSource: { value: null },
       },
     });
     this.geometry = createGeometry(setup.positionBuffer);
@@ -116,9 +111,10 @@ export class GPGPUState {
    * @param data
    */
   write(data: DataTexture) {
-    this.writeMaterial.uniforms["state_0"].value = data;
+    this.writeMaterial.uniforms["inputSource"].value = data;
     this.mesh.material = this.writeMaterial;
     this.states.forEach((state) => {
+      console.log("write state.");
       this.renderer.setRenderTarget(state);
       this.renderer.render(this.scene, this.camera);
     });
@@ -134,14 +130,15 @@ export class GPGPUState {
    */
   update() {
     // Update state uniforms
-    this.states.forEach((state, i) => {
-      this.material.uniforms[`state_${i}`].value = state.texture;
-    });
+    // this.states.forEach((state, i) => {
+    //   this.material.uniforms[`state_${i}`].value = state.texture;
+    // });
     // Render
-    this.renderer.setRenderTarget(this.output);
+    this.material.uniforms["previousState"].value = this.states[1].texture;
+    this.renderer.setRenderTarget(this.states[0]);
     this.renderer.render(this.scene, this.camera);
     this.renderer.setRenderTarget(null);
-    this.next();
+    this.shiftStates();
   }
 
   get current() {
@@ -149,24 +146,29 @@ export class GPGPUState {
   }
 
   /**
-   * The state at state [0] is always the current most
-   * recently written to state.
-   *
-   * Shift the state textures along after each update to
-   * keep access to previous state.
+   * Return a preview texture ( that is not being rendered to next )
    */
-  next() {
-    let prevState;
+  get preview() {
+    return this.states[1];
+  }
+
+  get output() {
+    return this.states[0];
+  }
+
+  /**
+   * Advance the states along from left to right.
+   * The texture in the state[0] position will
+   * be the next output buffer.
+   *
+   * State at > state[1] can be used as a texture for preview.
+   */
+  shiftStates() {
+    let prevState = this.states[this.states.length - 1];
     for (let i = 0; i < this.states.length; i++) {
-      prevState = this.states[i];
-      // Update curent state at states[0]
-      if (i === 0) {
-        this.states[i] = this.output;
-      } else {
-        this.states[i] = prevState;
-      }
+      let current = this.states[i];
+      this.states[i] = prevState;
+      prevState = current;
     }
-    // Set the last state to the new output buffer
-    this.output = prevState;
   }
 }
