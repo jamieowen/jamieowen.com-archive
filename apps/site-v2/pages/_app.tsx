@@ -16,7 +16,7 @@ import {
   isProjectsPage,
   // Navigation,
 } from "../components/common";
-import { ThemeProvider } from "theme-ui";
+import { Styled, Text, ThemeProvider } from "theme-ui";
 import { MDXProvider } from "@mdx-js/react";
 
 import "styles/globals.css";
@@ -35,6 +35,22 @@ const Fonts = () => {
   );
 };
 
+const Soon = () => {
+  return (
+    <Text sx={{ margin: "32px" }}>
+      Undergoing refurbishment.{" "}
+      <Text as="span" sx={{ fontSize: "24px" }}>
+        👍
+      </Text>
+    </Text>
+  );
+};
+
+const DevSwitch = ({ children }) => {
+  const dev = process.env.NODE_ENV === "development";
+  return <Fragment>{dev ? children : <Soon />}</Fragment>;
+};
+
 const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
   const projectsPage = isProjectsPage();
   return (
@@ -47,22 +63,25 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
         <meta name="mobile-web-app-capable" content="yes" />
         <Fonts />
       </Head>
+
       <Providers>
-        <Header>
-          <Menu />
-          {/* <SidePanel /> */}
-          {/* <FooterCopyright className="opq5" copyright={false} /> */}
-        </Header>
-        <ContentContainer>
-          <Component {...pageProps} />
-          {!projectsPage && (
-            // See ProjectsMDX Wrapper.
-            <Footer>
-              <FooterNavigation />
-              <FooterCopyright />
-            </Footer>
-          )}
-        </ContentContainer>
+        <DevSwitch>
+          <Header>
+            <Menu />
+            {/* <SidePanel /> */}
+            {/* <FooterCopyright className="opq5" copyright={false} /> */}
+          </Header>
+          <ContentContainer>
+            <Component {...pageProps} />
+            {!projectsPage && (
+              // See ProjectsMDX Wrapper.
+              <Footer>
+                <FooterNavigation />
+                <FooterCopyright />
+              </Footer>
+            )}
+          </ContentContainer>
+        </DevSwitch>
       </Providers>
     </Fragment>
   );

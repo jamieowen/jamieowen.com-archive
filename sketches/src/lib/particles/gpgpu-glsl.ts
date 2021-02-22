@@ -62,16 +62,28 @@ export const gpgpuTriangleVertexShader = (target: GLSLTarget) => {
   ]);
 };
 
+/**
+ * UNUSED.
+ * WIP for base update shader.
+ * @param target
+ */
 export const gpgpuFragmentBase = (target: GLSLTarget) => {
   const previous = uniform("sampler2D", "previous");
   const current = uniform("sampler2D", "current");
   const vReadUV = input("vec2", "vReadUV");
-
   return program([previous, current, vReadUV, defMain(() => [])]);
 };
 
+/**
+ *
+ * Writes an input texture or data texture
+ * directly to the output buffer.
+ *
+ * @param target
+ *
+ */
 export const gpgpuWriteOperation = (target: GLSLTarget) => {
-  const currentIn = uniform("sampler2D", "state_0");
+  const currentIn = uniform("sampler2D", "inputSource");
   const vReadUV = input("vec2", "vReadUV");
   const current = sym(texture(currentIn, vReadUV));
   return program([

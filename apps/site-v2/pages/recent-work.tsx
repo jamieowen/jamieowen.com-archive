@@ -9,7 +9,7 @@ import { ProjectsContextProvider } from "components/context/ProjectsContext";
 
 export { getStaticProps } from "services/get-static-paths";
 
-export const RecentWork = ({ project, projects, archived }) => {
+export const RecentWork = ({ projects }) => {
   return (
     <ProjectsContextProvider projects={projects}>
       <Content>

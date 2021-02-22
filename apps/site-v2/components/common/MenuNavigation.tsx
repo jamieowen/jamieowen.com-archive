@@ -91,6 +91,14 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
       }
     }
 
+    // spoof a fake one for now.
+    if (!current) {
+      current = {
+        href: "/",
+        num: "--",
+        label: "MISSING",
+      };
+    }
     return {
       items: navData,
       current,
@@ -153,7 +161,7 @@ export const PageHeaderNavigation: FC<any> = () => {
   const nav = useNavigationData();
   return (
     <BodyHeader>
-      {nav.current.num} / {nav.current.label}
+      {nav.current && nav.current.num} / {nav.current && nav.current.label}
     </BodyHeader>
   );
 };
