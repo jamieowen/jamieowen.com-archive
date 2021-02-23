@@ -9,7 +9,7 @@ const guiListen = (gui: GUI, callback: () => void) => {
 export function createGui<T>(controls: T) {
   // Create dat.gui
   const gui = new GUI({
-    width: 250,
+    width: 350,
   });
 
   gui.domElement.parentElement.style.zIndex = "100";
