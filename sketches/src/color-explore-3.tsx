@@ -4,7 +4,7 @@ import {
   paletteColorRangeHSL,
   paletteForegroundBackground,
 } from "@jamieowen/color";
-import { Color, CSS_NAMES, parseCss, rgbaCss } from "@thi.ng/color";
+import { Color, CSS_NAMES, parseCss, rgbCss } from "@thi.ng/color";
 
 const styleFlex = (): CSSProperties => ({
   display: "flex",
@@ -27,11 +27,11 @@ const styleFont = (
 });
 
 const styleColor = (color: Color) => ({
-  color: rgbaCss(color),
+  color: rgbCss(color),
 });
 
 const styleBgColor = (color: Color) => ({
-  backgroundColor: rgbaCss(color),
+  backgroundColor: rgbCss(color),
 });
 
 const stylePadding = (pad: number) => ({
@@ -72,7 +72,7 @@ const CssColorSelect: FC<{ onChange: (color: Color) => void }> = ({
         const name = ev.target.options[ev.target.selectedIndex].value;
         setSelected(name);
         const color = parseCss(name);
-        onChange(color);
+        onChange(color.deref());
       }}
     >
       {options}

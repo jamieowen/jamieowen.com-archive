@@ -1,7 +1,7 @@
 import { $compile, $list } from "@thi.ng/rdom";
 import { reactive } from "@thi.ng/rstream";
 import { map } from "@thi.ng/transducers";
-import { Color, CSS_NAMES, parseCss, rgbaCss } from "@thi.ng/color";
+import { Color, CSS_NAMES, parseCss, rgbCss } from "@thi.ng/color";
 
 import {
   complement,
@@ -33,7 +33,7 @@ const swatch = (color: Color) => [
       width: "50px",
       height: "50px",
       display: "block",
-      backgroundColor: rgbaCss(color),
+      backgroundColor: rgbCss(color),
     },
   },
 ];
@@ -64,24 +64,24 @@ const selectedColorGenerate = $list(
   (color) => {
     const base = parseCss(color);
     // const pal = generateColorsComplement(color);
-    const comp = complement(base);
+    const comp = complement(base.deref());
 
     // Clamp
-    const range1 = paletteColorRangeHSL(base, {
+    const range1 = paletteColorRangeHSL(base.deref(), {
       scale: 1,
       range: 1,
       saturation: 1,
       steps: 13,
     });
     // No clamp
-    const range2 = paletteColorRangeHSL(base, {
+    const range2 = paletteColorRangeHSL(base.deref(), {
       scale: 1,
       range: 0.5,
       saturation: 1,
       steps: 13,
       clamp: [-5, 5],
     });
-    const range3 = paletteColorRangeHSL(base, {
+    const range3 = paletteColorRangeHSL(base.deref(), {
       scale: 1,
       range: 0.3,
       saturation: 1,
@@ -97,7 +97,7 @@ const selectedColorGenerate = $list(
       {},
       ["h1", {}, color],
       swatchTitle("Base / Complement", "Generate complement from base color", [
-        base,
+        base.deref(),
         comp,
       ]),
       swatchTitle(

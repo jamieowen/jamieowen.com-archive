@@ -8,7 +8,7 @@ const rimraf = require("rimraf");
 
 const src = path.join(__dirname, "../src");
 const out = path.join(__dirname, "../public");
-const tsFiles = glob.sync("*.ts", { cwd: src });
+const tsFiles = glob.sync("*.{ts,tsx}", { cwd: src });
 
 const sketchHTML = (file: string) => `
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ const sketchHTML = (file: string) => `
     <title>Starter Snowpack App</title>
   </head>
   <body style="margin:0px">
-    <script type="module" src="/js/${file.replace(".ts", ".js")}"></script>
+    <script type="module" src="/js/${file.replace(/.tsx?/, ".js")}"></script>
   </body>
 </html>
 `;
@@ -30,7 +30,7 @@ fs.mkdirSync(out);
 
 for (let file of tsFiles) {
   fs.writeFileSync(
-    path.join(out, file.replace(".ts", ".html")),
+    path.join(out, file.replace(/.tsx?/, ".html")),
     sketchHTML(file)
   );
 }
@@ -55,5 +55,7 @@ const indexHTML = (links: string[]) => `
 </html>
 `;
 
-const links = tsFiles.map((file: string) => "/" + file.replace(".ts", ".html"));
+const links = tsFiles.map(
+  (file: string) => "/" + file.replace(/.tsx?/, ".html")
+);
 fs.writeFileSync(path.join(out, "index.html"), indexHTML(links));
