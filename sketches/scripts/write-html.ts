@@ -19,7 +19,7 @@ const sketchHTML = (file: string) => `
     <meta name="description" content="Starter Snowpack App" />
     <title>Starter Snowpack App</title>
   </head>
-  <body>
+  <body style="margin:0px">
     <script type="module" src="/js/${file.replace(".ts", ".js")}"></script>
   </body>
 </html>

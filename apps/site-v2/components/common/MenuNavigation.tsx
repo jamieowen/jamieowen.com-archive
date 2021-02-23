@@ -129,7 +129,14 @@ export const Menu: FC<{}> = ({ children }) => {
   const vis = 1 - scroll.headerVisibility;
 
   return (
-    <Box as="nav" sx={{ pointerEvents: "all" }}>
+    <Box
+      as="nav"
+      sx={{
+        pointerEvents: "all",
+        // transition: "transform 0.3s ease-out",
+        // transform: `translate(0px,${-vis * 10}vh)`,
+      }}
+    >
       <BodyHeader>00 / Menu</BodyHeader>
       <Box
         sx={{

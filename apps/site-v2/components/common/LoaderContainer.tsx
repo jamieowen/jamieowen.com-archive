@@ -28,7 +28,7 @@ export const LoaderContainer: FC<{
           transition: "transform 1.4s cubic-bezier(0.85, 0, 0.15, 1)",
         },
         ".hidden": {
-          transform: "scale(0.5,2.0) rotate(85deg)",
+          transform: "scale(0.5,2.0) rotate(90deg)",
           transformOrigin: "0% 0%",
         },
         ".spin-hide": {
