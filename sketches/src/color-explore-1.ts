@@ -91,23 +91,23 @@ const colors = Object.keys(CSS_NAMES)
   .map((name) => ({ name, rgba: parseCss(name) }))
   .map(({ rgba, ...rest }) => ({
     ...rest,
-    rgba,
-    hsva: rgbHsv([], rgba as any),
+    rgba: rgba.deref(),
+    hsva: rgbHsv([], rgba.deref()),
   }))
   .map(({ hsva, rgba, ...rest }) => ({
     ...rest,
-    rgba,
+    rgba: rgba,
     hsva,
     closestHue: namedHueRgb(null, closestHue(hsva[0] as any)),
     closestPrimaryHue: namedHueRgb(null, closestPrimaryHue(hsva[0] as any)),
     luminance: luminance(rgba),
-    complementary: complement(rgba.deref()),
+    complementary: complement(rgba),
   }))
   .map(({ rgba, complementary, ...rest }) => ({
     ...rest,
     complementary,
     rgba,
-    complementaryRatio: contrastRatio2(rgba.deref(), complementary),
+    complementaryRatio: contrastRatio2(rgba, complementary),
   }));
 
 const colorStream = reactive(colors);
