@@ -106,7 +106,8 @@ const gui = createGui({
   aspect: ["1:1", "16:9", "4:3"],
   size: [250, 100, 500, 10],
   scene: ["shapes"],
-  mode: ["hsl", "hsv", "lab50", "oklab"],
+  // mode: ["hsl", "hsv", "lab50", "oklab"],
+  mode: ["hsl", "hsv"],
   hueStep: [0.01, 0.01, 0.4, 0.0001],
   hueTheme: [
     "monochromatic",
@@ -114,8 +115,9 @@ const gui = createGui({
     "split-complementary",
     "analogous",
     "triad",
+    "tetradic",
   ],
-  saturation: [],
+  saturation: [0.5, 0, 1, 0.01],
 });
 
 type HueTheme =
@@ -123,25 +125,31 @@ type HueTheme =
   | "complementary"
   | "split-complementary"
   | "triad"
-  | "analogous";
+  | "analogous"
+  | "tetradic";
+
 const hueThemeSteps: Record<HueTheme, number> = {
   monochromatic: 1,
   complementary: 2,
   triad: 3,
   analogous: 3,
   "split-complementary": 3,
+  tetradic: 4,
 };
 
 const T1 = 1 / 12;
 const T4 = T1 * 4;
+const T3 = T1 * 3;
 const hueThemeValues: Record<HueTheme, any> = {
   monochromatic: (hue: number) => [hue],
   complementary: (hue: number) => [hue, hue + 0.5],
-  analogous: (hue: number) => [hue, hue - T1, hue + T1],
-  triad: (hue: number) => [hue, hue - T4, hue + T4],
-  "split-complementary": (hue: number) => [hue, hue + 0.5 - T1, hue + 0.5 + T1],
+  analogous: (hue: number) => [hue, hue + T1, hue - T1],
+  triad: (hue: number) => [hue, hue + T4, hue - T4],
+  "split-complementary": (hue: number) => [hue, hue + 0.5 + T1, hue + 0.5 - T1],
+  tetradic: (hue: number) => [hue, hue + T3, hue + 0.5, hue - T3],
 };
 
+// @ts-ignore
 const hueModes: Record<Partial<ColorMode>, any> = {
   hsl: hslRgb,
   hsv: hsvRgb,
@@ -149,9 +157,6 @@ const hueModes: Record<Partial<ColorMode>, any> = {
   oklab: oklabRgb,
   // oklab: (out: Vec, src: Vec) => oklabRgb(out, []),
 };
-// "argb32" | "abgr32" | "hcy" | "hsi" | "hsl" | "hsv" | "lab50" | "lab65" | "lch" | "oklab" | "rgb" | "srgb" | "xyy" | "xyz50" | "xyz65" | "ycc";
-
-// const
 
 const mod = (n: number, m: number) => ((n % m) + m) % m;
 const tmpHue: any = [];
@@ -159,14 +164,17 @@ const hueForCell = (
   cell: GridCell,
   hueStep: number,
   hueTheme: HueTheme,
-  hueMode: ColorMode = "hsl"
+  hueMode: ColorMode = "hsl",
+  saturation: number = 0.5
 ) => {
   // number of steps in hue theme
   const seq = hueThemeSteps[hueTheme];
   // converter
   const toRgb = hueModes[hueMode];
-  // total steps across range
-  const span = Math.floor((1 / hueStep) * seq);
+  // single span
+  const span1 = Math.floor(1 / hueStep);
+  // total steps across range for sequence
+  const span = span1 * seq;
   // current cell step
   const curr = mod(cell.cell[0], span);
   // current sub cell step ( for hue theme )
@@ -176,8 +184,12 @@ const hueForCell = (
   // real hue
   const ahue = hueThemeValues[hueTheme](hue);
   // console.log(span, curr, seq, substep, ahue);
+
+  const currY = mod(cell.cell[1], span1);
+  const valY = currY * hueStep;
+
   // remember to mod the hue
-  return toRgb(tmpHue, [mod(ahue[substep], 1), 1, 0.5]);
+  return toRgb(tmpHue, [mod(ahue[substep], 1), saturation, valY]);
 };
 
 // new Array(100).fill(0).forEach((v, i) => {
@@ -222,7 +234,7 @@ sketch(({ configure, render, renderer, camera }) => {
   sync({
     src: {
       gui,
-      resize: fromResizeObserver(renderer.domElement).subscribe(debounce(10)),
+      resize: fromResizeObserver(renderer.domElement), //.subscribe(debounce(1)),
     },
   }).subscribe({
     next: ({ gui, resize }) => {
@@ -276,7 +288,8 @@ sketch(({ configure, render, renderer, camera }) => {
         cell,
         values.hueStep,
         values.hueTheme,
-        values.mode
+        values.mode,
+        values.saturation
       );
       (scene.background.material as MeshStandardMaterial).color.fromArray(
         color
