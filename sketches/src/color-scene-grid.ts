@@ -10,6 +10,10 @@ import {
   ReadonlyColor,
   hsvRgb,
   hslRgb,
+  rgbHsl,
+  oklabRgb,
+  labRgb,
+  labRgbD65,
 } from "@thi.ng/color";
 
 import { createGui } from "./lib/gui";
@@ -23,7 +27,7 @@ import {
   PointLight,
   Scene,
 } from "three";
-import { clearLine } from "readline";
+import { Vec } from "@thi.ng/vectors";
 
 // function defineReactiveOpts<T>(defaultOpts: T) {
 //   return (opts: Partial<T>): Stream<T> => {
@@ -99,52 +103,98 @@ const scenes = {
 };
 
 const gui = createGui({
-  width: [4, 2, 10, 1],
-  height: [4, 2, 10, 1],
   aspect: ["1:1", "16:9", "4:3"],
   size: [250, 100, 500, 10],
   scene: ["shapes"],
-  mode: ["hsl", "hsv", "lab65", "oklab"],
-  hueStep: [0.0001, 0.01, 0.4, 0.0001],
-  hueSequence: ["monochromatic", "complementary"], // add more later.
+  mode: ["hsl", "hsv", "lab50", "oklab"],
+  hueStep: [0.01, 0.01, 0.4, 0.0001],
+  hueTheme: [
+    "monochromatic",
+    "complementary",
+    "split-complementary",
+    "analogous",
+    "triad",
+  ],
+  saturation: [],
 });
 
-const hueSeqStep = {
+type HueTheme =
+  | "monochromatic"
+  | "complementary"
+  | "split-complementary"
+  | "triad"
+  | "analogous";
+const hueThemeSteps: Record<HueTheme, number> = {
   monochromatic: 1,
   complementary: 2,
+  triad: 3,
+  analogous: 3,
+  "split-complementary": 3,
 };
 
+const T1 = 1 / 12;
+const T4 = T1 * 4;
+const hueThemeValues: Record<HueTheme, any> = {
+  monochromatic: (hue: number) => [hue],
+  complementary: (hue: number) => [hue, hue + 0.5],
+  analogous: (hue: number) => [hue, hue - T1, hue + T1],
+  triad: (hue: number) => [hue, hue - T4, hue + T4],
+  "split-complementary": (hue: number) => [hue, hue + 0.5 - T1, hue + 0.5 + T1],
+};
+
+const hueModes: Record<Partial<ColorMode>, any> = {
+  hsl: hslRgb,
+  hsv: hsvRgb,
+  lab50: labRgb,
+  oklab: oklabRgb,
+  // oklab: (out: Vec, src: Vec) => oklabRgb(out, []),
+};
 // "argb32" | "abgr32" | "hcy" | "hsi" | "hsl" | "hsv" | "lab50" | "lab65" | "lch" | "oklab" | "rgb" | "srgb" | "xyy" | "xyz50" | "xyz65" | "ycc";
 
 // const
 
-const hueForCell = (cell: GridCell, hueStep: number, hueSequence: string) => {
-  // @ts-ignore
-  const seq = hueSeqStep[hueSequence as any];
+const mod = (n: number, m: number) => ((n % m) + m) % m;
+const tmpHue: any = [];
+const hueForCell = (
+  cell: GridCell,
+  hueStep: number,
+  hueTheme: HueTheme,
+  hueMode: ColorMode = "hsl"
+) => {
+  // number of steps in hue theme
+  const seq = hueThemeSteps[hueTheme];
+  // converter
+  const toRgb = hueModes[hueMode];
   // total steps across range
-  const span = (1 / hueStep) * seq;
+  const span = Math.floor((1 / hueStep) * seq);
   // current cell step
-  const curr = cell.cell[0] % span;
-
-  const hue = curr * hueStep;
-
-  return hslRgb([], [hue, 1, 0.5]);
+  const curr = mod(cell.cell[0], span);
+  // current sub cell step ( for hue theme )
+  const substep = mod(curr, seq);
+  // start hue
+  const hue = (curr - substep) * hueStep;
+  // real hue
+  const ahue = hueThemeValues[hueTheme](hue);
+  // console.log(span, curr, seq, substep, ahue);
+  // remember to mod the hue
+  return toRgb(tmpHue, [mod(ahue[substep], 1), 1, 0.5]);
 };
 
-new Array(100).fill(0).forEach((v, i) => {
-  console.log(
-    hueForCell(
-      {
-        cell: [i, 0],
-        id: i,
-        local: [0, 0],
-        world: [0, 0],
-      },
-      gui.deref().values.hueStep,
-      gui.deref().values.hueSequence
-    )
-  );
-});
+// new Array(100).fill(0).forEach((v, i) => {
+//   console.log(
+//     hueForCell(
+//       {
+//         cell: [i * 200 - 1000, 0],
+//         id: i,
+//         local: [0, 0],
+//         world: [0, 0],
+//       },
+//       0.014,
+//       "complementary"
+//     )
+//   );
+// });
+
 const aspectLookup = { "1:1": 1, "16:9": 9 / 16, "4:3": 3 / 4 };
 const getFromSizeAspect = (size: number, aspect: keyof typeof aspectLookup) => {
   const ratio = aspectLookup[aspect];
@@ -157,7 +207,7 @@ const getFromSizeAspect = (size: number, aspect: keyof typeof aspectLookup) => {
 const gridPosition = reactive([0, 0]);
 const gridOpts = reactive<GridOpts>({
   dimensions: [16, 9],
-  viewport: [gui.deref().values.width, gui.deref().values.height],
+  viewport: [100, 100], // resize stream will pick up.
 });
 
 // @ts-ignore
@@ -204,6 +254,7 @@ sketch(({ configure, render, renderer, camera }) => {
   render(() => {
     const { values } = gui.deref();
     const gridItems = grid.deref();
+    // return;
     //@ts-ignore
     const scene = <typeof scenes.shapes>scenes[values.scene as any];
 
@@ -221,7 +272,12 @@ sketch(({ configure, render, renderer, camera }) => {
         width,
         height,
       };
-      const color = hueForCell(cell, values.hueStep, values.hueSequence);
+      const color = hueForCell(
+        cell,
+        values.hueStep,
+        values.hueTheme,
+        values.mode
+      );
       (scene.background.material as MeshStandardMaterial).color.fromArray(
         color
       );
