@@ -1,3 +1,3 @@
-export function linear(t) {
+export function linear(t: number) {
   return t;
 }

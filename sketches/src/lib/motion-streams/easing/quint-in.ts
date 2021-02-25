@@ -1,3 +1,3 @@
-export function quintIn(t) {
-  return t * t * t * t * t
+export function quintIn(t: number) {
+  return t * t * t * t * t;
 }

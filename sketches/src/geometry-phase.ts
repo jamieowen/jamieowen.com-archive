@@ -30,7 +30,7 @@ import {
 import { ShadowMesh } from "three/examples/jsm/objects/ShadowMesh";
 import { repeat } from "@thi.ng/transducers";
 import { reactive } from "@thi.ng/rstream";
-import { CSS_NAMES, rgbaCss, Color } from "@thi.ng/color";
+import { CSS_NAMES, rgbCss, Color } from "@thi.ng/color";
 
 const geometries = createGeometryFactory();
 

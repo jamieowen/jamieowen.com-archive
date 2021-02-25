@@ -25,6 +25,7 @@ sketch(({ scene, configure, camera, domElement, resize, render }) => {
   sync({
     src: {
       raf: fromRAF(),
+      // @ts-ignore
       position: gest.transform(map<unknown, Vec>((ev) => ev.position)),
     },
     xform: comp(

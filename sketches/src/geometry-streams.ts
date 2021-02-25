@@ -25,7 +25,7 @@ const render = subscription<any, GeometryEvent>({
   },
 });
 
-const [points, pointsInputs] = createRandomPoints();
+const [points, pointsInputs] = createRandomPoints("id");
 
 points.subscribe(render);
 points.subscribe({
