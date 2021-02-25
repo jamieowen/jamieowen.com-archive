@@ -23,6 +23,7 @@ const EasingLookup: Record<EasingType, EasingFn> = {
 export interface LightingRigOpts {
   count: number;
   types: string;
+  radius: number;
   intensityDist: EasingFn;
   intensityMin: number;
   intensityMax: number;
@@ -39,13 +40,14 @@ export const createLightingRigOpts = reactiveOptsFactory<
 >({
   count: 3,
   types: "HPD",
+  radius: 10,
   intensityDist: linear,
   intensityMin: 0.1,
   intensityMax: 1,
-  azimuthAngle: 90,
+  azimuthAngle: 45,
   azimuthDist: linear,
   azimuthVariance: 1,
-  polarAngle: 90,
+  polarAngle: 45,
   polarDist: linear,
   polarVariance: 1,
 });
@@ -78,7 +80,7 @@ const distribute = (
 ) => {
   const filtered = lights.filter(filter);
   filtered.forEach((light, i) => {
-    const value = ease(i / (filtered.length - 1));
+    const value = ease(i / (filtered.length - 1) || 0);
     apply(light, value);
   });
 };
@@ -90,34 +92,34 @@ const assignIntensity = (lights: Light[], opts: LightingRigOpts) => {
   });
 };
 
-const assignAzimuth = (
-  lights: Light[],
-  sph: Spherical,
-  opts: LightingRigOpts
-) => {
-  distribute(
-    lights,
-    opts.azimuthDist,
-    (light, value) => {
-      console.log("light AZ", light, value);
-    },
-    (light: any) => !light.isHemisphereLight && !light.isAmbientLight
-  );
-};
+const filterAngleLights = (light: any) =>
+  !light.isHemisphereLight && !light.isAmbientLight;
 
-const assignPolar = (
+const toRadians = Math.PI / 180;
+const assignAngles = (
   lights: Light[],
   sph: Spherical,
   opts: LightingRigOpts
 ) => {
-  distribute(
-    lights,
-    opts.polarDist,
-    (light, value) => {
-      console.log("light PL ", light, value);
-    },
-    (light: any) => !light.isHemisphereLight && !light.isAmbientLight
-  );
+  const filtered = lights.filter(filterAngleLights);
+  const len = filtered.length;
+
+  for (let i = 0; i < len; i++) {
+    const N = i / (len - 1) || 0;
+    const theE = opts.azimuthDist(N);
+    const phiE = opts.polarDist(N);
+    const phiStart = opts.polarAngle * toRadians;
+    const theStart = opts.azimuthAngle * toRadians;
+
+    sph.set(
+      opts.radius,
+      phiStart + phiE * (Math.PI * opts.polarVariance),
+      theStart + theE * (Math.PI * 2.0 * opts.azimuthVariance)
+    );
+
+    const light = filtered[i];
+    light.position.setFromSpherical(sph);
+  }
 };
 
 export const createLightingRig = (
@@ -135,24 +137,24 @@ export const createLightingRig = (
   // Would be nice to split streams across properties.
   // As some invalidation system
   // Later...
-  opts
-    .subscribe(debounce(10))
-    .subscribe({
-      next: (opts) => {
-        if (lights.types !== opts.types) {
-          lights.lights.forEach((l) => group.remove(l));
-          lights.lights = parseLights(opts.types);
-          lights.lights.forEach((l) => group.add(l));
-          lights.types = opts.types;
-          console.log("update lights");
-        }
-        assignIntensity(lights.lights, opts);
-        assignPolar(lights.lights, sphHelper, opts);
-        assignAzimuth(lights.lights, sphHelper, opts);
-      },
-      error: () => {},
-    })
-    .subscribe(trace("Update Opts"));
+  // Look at @thi.ng/atom
+  opts.subscribe(debounce(0)).subscribe({
+    next: (opts) => {
+      if (lights.types !== opts.types) {
+        lights.lights.forEach((l) => group.remove(l));
+        lights.lights = parseLights(opts.types);
+        lights.lights.forEach((l) => group.add(l));
+        lights.types = opts.types;
+        // console.log("update lights");
+      }
+      assignIntensity(lights.lights, opts);
+      assignAngles(lights.lights, sphHelper, opts);
+    },
+    error: (err) => {
+      throw err;
+    },
+  });
+  // .subscribe(trace("Update Opts"));
 
   return {
     lights: [] as any[],

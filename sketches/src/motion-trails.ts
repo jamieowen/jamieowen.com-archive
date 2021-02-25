@@ -16,19 +16,39 @@ const gui = createGui({
   motion: ["sine"],
   intensityMin: [0.3, 0, 2, 0.1],
   intensityMax: [1, 0, 2, 0.1],
+  azimuthAngle: [45, 0, 360, 1],
+  azimuthVariance: [1, 0, 1, 0.01],
+  polarAngle: [45, 0, 180, 1],
+  polarVariance: [1, 0, 1, 0.01],
+  radius: [5, 1, 20, 1],
 });
 
 const rigOpts = createLightingRigOpts({
-  types: "HPD",
+  types: "APD",
   intensityMin: 0.3,
   intensityMax: 1,
 });
 
 gui.subscribe({
-  next: ({ values: { intensityMax, intensityMin } }) => {
+  next: ({
+    values: {
+      intensityMax,
+      intensityMin,
+      azimuthAngle,
+      azimuthVariance,
+      polarAngle,
+      polarVariance,
+      radius,
+    },
+  }) => {
     rigOpts.next({
       intensityMax,
       intensityMin,
+      azimuthAngle,
+      azimuthVariance,
+      polarAngle,
+      polarVariance,
+      radius,
     });
   },
 });
@@ -43,5 +63,6 @@ sketch(({ render, scene }) => {
   meshFactory.mesh(scene);
   const lightRig = createLightingRig(scene, rigOpts);
   const dome = createDomeScene(scene);
+
   render(() => {});
 });

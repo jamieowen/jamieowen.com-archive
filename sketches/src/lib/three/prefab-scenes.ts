@@ -1,26 +1,38 @@
-import { create } from "lodash";
-import { Group, Material, Object3D, BackSide } from "three";
+import { Group, Object3D, BackSide, DoubleSide } from "three";
 import { createMeshFactory } from "./mesh-factory";
 
-const meshFactory = createMeshFactory();
+const mf = createMeshFactory();
 
 export const createDomeScene = (parent?: Object3D) => {
   const group = new Group();
   if (parent) {
     parent.add(group);
   }
-  meshFactory.basicMaterial({
-    color: "white",
+
+  // Reset
+  mf.scale.set(1, 1, 1);
+  mf.scale.multiplyScalar(30);
+
+  // Dome
+  mf.standardMaterial({
+    color: "yellow",
     side: BackSide,
   });
 
-  const floor = meshFactory.mesh();
-  const dome = meshFactory.mesh();
+  mf.sphere();
+  const dome = mf.mesh(group);
 
-  group.add(floor);
-  group.add(dome);
-
-  dome.scale.multiplyScalar(5);
+  // Floor
+  mf.standardMaterial({
+    color: "crimson",
+    side: DoubleSide,
+    emissive: "crimson",
+    emissiveIntensity: 0.6,
+  });
+  mf.scale.multiplyScalar(10);
+  mf.plane();
+  const floor = mf.mesh(group);
+  floor.rotation.x = Math.PI * -0.5;
 
   return {
     group,
