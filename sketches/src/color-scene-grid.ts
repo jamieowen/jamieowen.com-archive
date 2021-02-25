@@ -27,18 +27,6 @@ import {
   PointLight,
   Scene,
 } from "three";
-import { Vec } from "@thi.ng/vectors";
-
-// function defineReactiveOpts<T>(defaultOpts: T) {
-//   return (opts: Partial<T>): Stream<T> => {
-//     return {
-//       ...defaultOpts,
-//       ...opts,
-//     };
-//   };
-// }
-
-// function reactiveOpts<T>(opts: Partial<T>) {}
 
 const fromResizeObserver = (target: HTMLElement) =>
   stream<ResizeObserverEntry>(($) => {
