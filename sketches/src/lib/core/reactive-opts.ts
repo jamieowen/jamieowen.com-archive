@@ -14,7 +14,7 @@ export const mergeOpts = <T>(opts: T) => {
 
 export const reactiveOptsFactory = <T>(defaultOpts: T) => {
   return (opts: T) => {
-    return new Stream<Partial<T>>(($) => {
+    return new Stream<T>(($) => {
       $.next({
         ...opts,
       });

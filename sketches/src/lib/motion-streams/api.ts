@@ -20,3 +20,5 @@ export interface IMotionEvent {
   data: ITransform;
   clock: IClock;
 }
+
+export default {}; // snowpack does not export without something?
