@@ -15,9 +15,15 @@ export interface IClock {
   frame: number;
 }
 
-export interface IMotionEvent {
-  type: "transform" | "particle";
-  data: ITransform;
+export interface IMotionEvent<
+  T extends "transform" | "particle" | "transform-array"
+> {
+  type: T;
+  data: T extends "transform"
+    ? ITransform
+    : T extends "transform-array"
+    ? ITransform[]
+    : null;
   clock: IClock;
 }
 

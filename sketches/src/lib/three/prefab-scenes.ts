@@ -15,7 +15,7 @@ export const createDomeScene = (parent?: Object3D) => {
 
   // Dome
   mf.standardMaterial({
-    color: "yellow",
+    color: "crimson",
     side: BackSide,
   });
 
