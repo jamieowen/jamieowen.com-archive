@@ -280,18 +280,22 @@ sketch(({ configure, render, renderer, camera, controls }) => {
   });
 
   renderer.shadowMap.enabled = true;
-  // renderer.shadowMap.type = ShadowMapType.
 
   camera.lookAt(0, 1, 0);
 
   controls.target.setY(1);
 
-  mf.sphere();
-  // const track = mf.mesh(SCENES.shapes.scene);
+  // mf.sphere();
+  // // const track = mf.mesh(SCENES.shapes.scene);
+
+  const ENABLE_ANIM = true;
 
   const camT = motionTransform()
     .transform(
       mapPosition((t, pos) => {
+        if (!ENABLE_ANIM) {
+          return;
+        }
         const D = 6.0;
         t *= 0.5;
         pos[0] = Math.sin(t) * ((Math.cos(t) + 2.0) * D);
@@ -306,7 +310,8 @@ sketch(({ configure, render, renderer, camera, controls }) => {
         camera.lookAt(0, 1, 0);
       },
     });
-  controls.enabled = false;
+
+  controls.enabled = !ENABLE_ANIM;
   // Restore Cam Position
   // camPos.copy(camera.position);
   // camPos.copy(controls.object.position);
@@ -341,6 +346,7 @@ sketch(({ configure, render, renderer, camera, controls }) => {
     scene.scene.autoUpdate = false;
     scene.scene.matrixAutoUpdate = false;
     scene.scene.updateMatrixWorld();
+    camera.updateMatrixWorld();
 
     gridItems.forEach((cell, _i) => {
       const x = cell.local[0];
@@ -354,23 +360,24 @@ sketch(({ configure, render, renderer, camera, controls }) => {
         values.saturation
       );
 
-      // Calc Rect Offsets
-      const cx = ((x + width / 2) / vwidth) * 2.0 - 1.0;
-      const cy = ((y - height / 2) / vheight) * 2.0 - 1.0;
+      if (ENABLE_ANIM) {
+        // Calc Rect Offsets
+        const cx = ((x + width / 2) / vwidth) * 2.0 - 1.0;
+        const cy = ((y - height / 2) / vheight) * 2.0 - 1.0;
+        camera.position.fromArray(camP.data.position);
 
-      camera.position.fromArray(camP.data.position);
+        // Offset x
+        camPos.copy(camHorz);
+        camPos.multiplyScalar(cx * -1.2);
+        camera.position.add(camPos);
 
-      // Offset x
-      camPos.copy(camHorz);
-      camPos.multiplyScalar(cx * -1.2);
-      camera.position.add(camPos);
+        // Offset y
+        camPos.copy(camVert);
+        camPos.multiplyScalar(cy * -1.2);
+        camera.position.add(camPos);
 
-      // Offset y
-      camPos.copy(camVert);
-      camPos.multiplyScalar(cy * -1.2);
-      camera.position.add(camPos);
-
-      camera.updateMatrixWorld();
+        camera.updateMatrixWorld();
+      }
 
       scene.setColors(color[0], color[1]);
       scene.setId(cell.id);
@@ -381,8 +388,6 @@ sketch(({ configure, render, renderer, camera, controls }) => {
     });
 
     cc++;
-    // Restore Cam Position
-    // camera.position.copy(camPos);
     renderer.setScissorTest(false);
 
     return false;
