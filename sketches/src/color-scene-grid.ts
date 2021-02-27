@@ -1,4 +1,4 @@
-import { sketch, createGeometryFactory } from "@jamieowen/three";
+import { sketch, GeometryAlignment } from "@jamieowen/three";
 import { infiniteGrid, reactive, GridOpts, GridCell } from "@jamieowen/layout";
 import { gestureStream } from "@jamieowen/browser";
 import { dragGesture2d } from "@jamieowen/motion";
@@ -14,19 +14,20 @@ import {
   oklabRgb,
   labRgb,
   labRgbD65,
+  Color as VecColor,
+  hueRotate,
 } from "@thi.ng/color";
+import { Smush32 } from "@thi.ng/random";
 
 import { createGui } from "./lib/gui";
+import { MeshStandardMaterial, Scene } from "three";
 import {
-  AmbientLight,
-  Color,
-  DirectionalLight,
-  Mesh,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
-  PointLight,
-  Scene,
-} from "three";
+  createDomeScene,
+  createLightingRig,
+  createLightingRigOpts,
+  createMeshFactory,
+} from "./lib/three";
+import { smin } from "@thi.ng/math";
 
 const fromResizeObserver = (target: HTMLElement) =>
   stream<ResizeObserverEntry>(($) => {
@@ -39,64 +40,78 @@ const fromResizeObserver = (target: HTMLElement) =>
     };
   });
 
-const sceneLights = (scene: Scene) => {
-  const ambient = new AmbientLight("white", 0.4);
-  const directional = new DirectionalLight("white", 0.2);
-  const point = new PointLight("white", 0.5);
-  scene.add(ambient);
-  scene.add(directional);
-  scene.add(point);
-  point.position.z = 4;
-  point.position.x = 3;
-  directional.position.x = -3;
-  directional.position.z = 2;
-  return {
-    ambient,
-    directional,
-    point,
-  };
-};
+const mf = createMeshFactory();
 
-const geometry = createGeometryFactory();
-const shapeScene = () => {
+interface RenderScene {
+  scene: Scene;
+  setColors: (bg: VecColor, fg: VecColor) => void;
+  setId: (id: number) => void;
+}
+
+const shapesScene2 = (): RenderScene => {
   const scene = new Scene();
-  scene.background = new Color("red");
-  const background = new Mesh(
-    geometry.create("plane"),
-    new MeshStandardMaterial({
-      // new MeshBasicMaterial({
-      color: "white",
+  const lights = createLightingRig(
+    scene,
+    createLightingRigOpts({
+      types: "APD",
+      intensityMin: 0.3,
+      intensityMax: 0.4,
+      azimuthAngle: 30,
+      polarAngle: 55,
+      polarVariance: 0,
+      azimuthVariance: 0.2,
+      radius: 10,
     })
   );
-  background.scale.multiplyScalar(10);
-  const object = new Mesh(
-    geometry.create("sphere"),
-    new MeshStandardMaterial({
-      color: "white",
-      flatShading: true,
-    })
-  );
-  scene.add(background, object);
-  const lights = sceneLights(scene);
+
+  const rand = new Smush32(0x23230);
+
+  const dome = createDomeScene(scene);
+  mf.standardMaterial({ color: "white", flatShading: true });
+  mf.sphere(GeometryAlignment.BOTTOM);
+
+  const geom = [
+    mf.geometryFactory.create("box", GeometryAlignment.BOTTOM),
+    mf.geometryFactory.create("sphere", GeometryAlignment.BOTTOM),
+  ];
+
+  const object = mf.mesh(scene);
+  object.castShadow = true;
+  dome.floor.receiveShadow = true;
+  (object.material as MeshStandardMaterial).metalness = 0;
+  (object.material as MeshStandardMaterial).roughness = 2;
+  (object.material as MeshStandardMaterial).emissiveIntensity = 0.3;
+  (dome.dome.material as MeshStandardMaterial).emissiveIntensity = 0.3;
   return {
     scene,
-    lights,
-    background,
-    object,
+    setColors: (bg, fg) => {
+      // Dome
+      (dome.dome.material as MeshStandardMaterial).color.fromArray(bg);
+      (dome.dome.material as MeshStandardMaterial).emissive.fromArray(bg);
+      // FLoor
+      (dome.floor.material as MeshStandardMaterial).color.fromArray(bg);
+      // Object
+      (object.material as MeshStandardMaterial).color.fromArray(fg);
+      (object.material as MeshStandardMaterial).emissive.fromArray(fg);
+    },
+    setId: (id) => {
+      // rand.seed(id);
+      // object.geometry = geom[Math.floor(geom.length * rand.float())];
+    },
   };
 };
-
-const scenes = {
-  shapes: shapeScene(),
+const scenes: Record<string, RenderScene> = {
+  // shapes: shapeScene(),
+  shapes2: shapesScene2(),
 };
 
 const gui = createGui({
   aspect: ["1:1", "16:9", "4:3"],
   size: [250, 100, 500, 10],
-  scene: ["shapes"],
+  scene: Object.keys(scenes),
   // mode: ["hsl", "hsv", "lab50", "oklab"],
   mode: ["hsl", "hsv"],
-  hueStep: [0.01, 0.01, 0.4, 0.0001],
+  hueStep: [0.08, 0.01, 0.4, 0.0001],
   hueTheme: [
     "monochromatic",
     "complementary",
@@ -105,7 +120,7 @@ const gui = createGui({
     "triad",
     "tetradic",
   ],
-  saturation: [0.5, 0, 1, 0.01],
+  saturation: [0.75, 0, 1, 0.01],
 });
 
 type HueTheme =
@@ -148,6 +163,7 @@ const hueModes: Record<Partial<ColorMode>, any> = {
 
 const mod = (n: number, m: number) => ((n % m) + m) % m;
 const tmpHue: any = [];
+const tmp2Hue: any = [];
 const hueForCell = (
   cell: GridCell,
   hueStep: number,
@@ -173,11 +189,17 @@ const hueForCell = (
   const ahue = hueThemeValues[hueTheme](hue);
   // console.log(span, curr, seq, substep, ahue);
 
-  const currY = mod(cell.cell[1], span1);
+  const currY = Math.abs(mod(cell.cell[1], span1 * 2.0) - span1);
   const valY = currY * hueStep;
 
   // remember to mod the hue
-  return toRgb(tmpHue, [mod(ahue[substep], 1), saturation, valY]);
+  const mHue = mod(ahue[substep], 1);
+  const bg = [mHue, saturation, valY];
+  const fg = [mod(mHue + 0.5, 1), saturation, valY];
+  return [
+    toRgb(tmpHue, bg), // bg
+    toRgb(tmp2Hue, fg),
+  ];
 };
 
 // new Array(100).fill(0).forEach((v, i) => {
@@ -213,7 +235,7 @@ const gridOpts = reactive<GridOpts>({
 // @ts-ignore
 const grid = infiniteGrid(gridPosition, gridOpts);
 
-sketch(({ configure, render, renderer, camera }) => {
+sketch(({ configure, render, renderer, camera, controls }) => {
   configure({
     width: "100%",
     height: "100%",
@@ -243,13 +265,19 @@ sketch(({ configure, render, renderer, camera }) => {
   });
 
   dragGesture2d(gestureStream(renderer.domElement) as any, {
-    friction: 0.07,
+    friction: 0.04,
     maxSpeed: 300,
   }).subscribe({
     next: ({ particle }) => {
       gridPosition.next([particle.position[0], -particle.position[1]]);
     },
   });
+
+  renderer.shadowMap.enabled = true;
+  // renderer.shadowMap.type = ShadowMapType.
+
+  camera.lookAt(0, 1, 0);
+  controls.target.setY(1);
 
   render(() => {
     const { values } = gui.deref();
@@ -279,9 +307,10 @@ sketch(({ configure, render, renderer, camera }) => {
         values.mode,
         values.saturation
       );
-      (scene.background.material as MeshStandardMaterial).color.fromArray(
-        color
-      );
+
+      scene.setColors(color[0], color[1]);
+      scene.setId(cell.id);
+
       renderer.setViewport(rect.x, rect.y, width, height);
       renderer.setScissor(rect.x, rect.y, width, height);
       renderer.render(scene.scene, camera);

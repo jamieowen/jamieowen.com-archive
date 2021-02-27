@@ -147,6 +147,11 @@ export const createLightingRig = (
         lights.types = opts.types;
         // console.log("update lights");
       }
+      lights.lights.forEach((l) => {
+        if (l.type !== "AmbientLight" && l.type !== "HemisphereLight") {
+          l.castShadow = true;
+        }
+      });
       assignIntensity(lights.lights, opts);
       assignAngles(lights.lights, sphHelper, opts);
     },

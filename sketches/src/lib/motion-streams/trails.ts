@@ -40,7 +40,7 @@ export class Trails extends Subscription<
     }
   }
 
-  error(err) {
+  error(err: Error) {
     console.log("Err", err);
   }
 }

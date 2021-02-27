@@ -1,4 +1,8 @@
-import { createGeometryFactory, GeometryFactory } from "@jamieowen/three";
+import {
+  createGeometryFactory,
+  GeometryAlignment,
+  GeometryFactory,
+} from "@jamieowen/three";
 import {
   Mesh,
   BufferGeometry,
@@ -42,16 +46,16 @@ export class MeshFactory {
     this.nextGeometry = geometry;
   }
 
-  plane() {
-    this.setGeometry(this.geometryFactory.create("plane"));
+  plane(align?: GeometryAlignment) {
+    this.setGeometry(this.geometryFactory.create("plane", align));
   }
 
-  sphere() {
-    this.setGeometry(this.geometryFactory.create("sphere"));
+  sphere(align?: GeometryAlignment) {
+    this.setGeometry(this.geometryFactory.create("sphere", align));
   }
 
-  box() {
-    this.setGeometry(this.geometryFactory.create("box"));
+  box(align?: GeometryAlignment) {
+    this.setGeometry(this.geometryFactory.create("box", align));
   }
 
   setMaterial(params: MaterialParamType, cls: MaterialClassType) {
