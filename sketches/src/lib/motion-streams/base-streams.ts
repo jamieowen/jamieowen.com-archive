@@ -12,6 +12,6 @@ export const motionTransform = (tick = DEFAULT_CLOCK()) => {
   const data = createTransform();
   const type = "transform";
   return tick.transform(
-    map<IClock, IMotionEvent>((clock) => ({ clock, data, type }))
+    map<IClock, IMotionEvent<"transform">>((clock) => ({ clock, data, type }))
   );
 };

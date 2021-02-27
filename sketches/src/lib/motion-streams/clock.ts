@@ -8,7 +8,7 @@ const perf = () => {
 export const clock = (opts?: CommonOpts) => {
   let then = perf();
   let start = then;
-  return fromRAF(opts).transform(
+  const raf = fromRAF(opts).transform(
     map((frame) => {
       const now = perf();
       const delta = (now - then) / 1000;
@@ -17,6 +17,8 @@ export const clock = (opts?: CommonOpts) => {
       return { frame, delta, time };
     })
   );
+  raf.next(0); // emit an initial 0, otherwise it waits a frame.
+  return raf;
 };
 
 export const DEFAULT_CLOCK = (() => {

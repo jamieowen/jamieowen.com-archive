@@ -1,4 +1,10 @@
-import { Group, Object3D, BackSide, DoubleSide } from "three";
+import {
+  Group,
+  Object3D,
+  BackSide,
+  DoubleSide,
+  SphereBufferGeometry,
+} from "three";
 import { createMeshFactory } from "./mesh-factory";
 
 const mf = createMeshFactory();
@@ -14,16 +20,18 @@ export const createDomeScene = (parent?: Object3D) => {
   mf.scale.multiplyScalar(30);
 
   // Dome
-  mf.standardMaterial({
+  mf.lambertMaterial({
     color: "crimson",
     side: BackSide,
   });
 
-  mf.sphere();
+  const geom = new SphereBufferGeometry(1, 20, 2);
+  mf.setGeometry(geom);
   const dome = mf.mesh(group);
 
   // Floor
-  mf.standardMaterial({
+  mf.lambertMaterial({
+    // mf.standardMaterial({
     color: "crimson",
     side: DoubleSide,
     emissive: "crimson",

@@ -138,7 +138,7 @@ export const createLightingRig = (
   // As some invalidation system
   // Later...
   // Look at @thi.ng/atom
-  opts.subscribe(debounce(0)).subscribe({
+  opts.subscribe({
     next: (opts) => {
       if (lights.types !== opts.types) {
         lights.lights.forEach((l) => group.remove(l));
@@ -162,7 +162,7 @@ export const createLightingRig = (
   // .subscribe(trace("Update Opts"));
 
   return {
-    lights: [] as any[],
+    lights: lights.lights,
     group,
   };
 };

@@ -20,14 +20,14 @@ import {
 import { Smush32 } from "@thi.ng/random";
 
 import { createGui } from "./lib/gui";
-import { MeshStandardMaterial, Scene } from "three";
+import { Color, MeshStandardMaterial, Scene, Vector3 } from "three";
 import {
   createDomeScene,
   createLightingRig,
   createLightingRigOpts,
   createMeshFactory,
 } from "./lib/three";
-import { smin } from "@thi.ng/math";
+import { motionTransform, mapPosition } from "./lib/motion-streams";
 
 const fromResizeObserver = (target: HTMLElement) =>
   stream<ResizeObserverEntry>(($) => {
@@ -50,6 +50,7 @@ interface RenderScene {
 
 const shapesScene2 = (): RenderScene => {
   const scene = new Scene();
+  scene.background = new Color("blue");
   const lights = createLightingRig(
     scene,
     createLightingRigOpts({
@@ -63,11 +64,13 @@ const shapesScene2 = (): RenderScene => {
       radius: 10,
     })
   );
+  lights.lights[1].castShadow = false;
 
   const rand = new Smush32(0x23230);
 
   const dome = createDomeScene(scene);
-  mf.standardMaterial({ color: "white", flatShading: true });
+  mf.phongMaterial({ color: "white", flatShading: true });
+  // mf.standardMaterial({ color: "white", flatShading: true });
   mf.sphere(GeometryAlignment.BOTTOM);
 
   const geom = [
@@ -100,15 +103,15 @@ const shapesScene2 = (): RenderScene => {
     },
   };
 };
-const scenes: Record<string, RenderScene> = {
+const SCENES: Record<string, RenderScene> = {
   // shapes: shapeScene(),
-  shapes2: shapesScene2(),
+  shapes: shapesScene2(),
 };
 
 const gui = createGui({
   aspect: ["1:1", "16:9", "4:3"],
-  size: [250, 100, 500, 10],
-  scene: Object.keys(scenes),
+  size: [350, 100, 500, 10],
+  scene: Object.keys(SCENES),
   // mode: ["hsl", "hsv", "lab50", "oklab"],
   mode: ["hsl", "hsv"],
   hueStep: [0.08, 0.01, 0.4, 0.0001],
@@ -234,6 +237,9 @@ const gridOpts = reactive<GridOpts>({
 
 // @ts-ignore
 const grid = infiniteGrid(gridPosition, gridOpts);
+const camPos = new Vector3();
+const camVert = new Vector3();
+const camHorz = new Vector3();
 
 sketch(({ configure, render, renderer, camera, controls }) => {
   configure({
@@ -277,29 +283,69 @@ sketch(({ configure, render, renderer, camera, controls }) => {
   // renderer.shadowMap.type = ShadowMapType.
 
   camera.lookAt(0, 1, 0);
+
   controls.target.setY(1);
 
+  mf.sphere();
+  // const track = mf.mesh(SCENES.shapes.scene);
+
+  const camT = motionTransform()
+    .transform(
+      mapPosition((t, pos) => {
+        const D = 6.0;
+        t *= 0.5;
+        pos[0] = Math.sin(t) * ((Math.cos(t) + 2.0) * D);
+        pos[1] = Math.sin(t / 50) + Math.cos(t / 10) + 3.0;
+        pos[2] = Math.cos(t) * ((Math.sin(t) + 2.0) * D);
+      })
+    )
+    .subscribe({
+      next: (ev) => {
+        // track.position.fromArray(ev.data.position);
+        camera.position.fromArray(ev.data.position);
+        camera.lookAt(0, 1, 0);
+      },
+    });
+  controls.enabled = false;
+  // Restore Cam Position
+  // camPos.copy(camera.position);
+  // camPos.copy(controls.object.position);
+
+  let cc = 0;
   render(() => {
     const { values } = gui.deref();
     const gridItems = grid.deref();
-    // return;
-    //@ts-ignore
-    const scene = <typeof scenes.shapes>scenes[values.scene as any];
+
+    const scene = SCENES[values.scene];
 
     renderer.autoClear = false;
     renderer.clear();
 
     const gopts = gridOpts.deref();
     const [width, height] = gopts.dimensions;
+    const [vwidth, vheight] = gopts.viewport;
 
+    // get current cam position before shifting.
+    const camP = camT.deref();
+    if (camP) {
+      camPos.fromArray(camP.data.position);
+    }
+    camVert.set(0, 1, 0).applyEuler(camera.rotation);
+    camHorz.set(1, 0, 0).applyEuler(camera.rotation);
+
+    if (cc % 100 === 0) {
+      // console.log(camVert);
+    }
     renderer.setScissorTest(true);
-    gridItems.forEach((cell, i) => {
-      const rect = {
-        x: cell.local[0],
-        y: cell.local[1],
-        width,
-        height,
-      };
+
+    scene.scene.autoUpdate = false;
+    scene.scene.matrixAutoUpdate = false;
+    scene.scene.updateMatrixWorld();
+
+    gridItems.forEach((cell, _i) => {
+      const x = cell.local[0];
+      const y = cell.local[1];
+
       const color = hueForCell(
         cell,
         values.hueStep,
@@ -308,13 +354,35 @@ sketch(({ configure, render, renderer, camera, controls }) => {
         values.saturation
       );
 
+      // Calc Rect Offsets
+      const cx = ((x + width / 2) / vwidth) * 2.0 - 1.0;
+      const cy = ((y - height / 2) / vheight) * 2.0 - 1.0;
+
+      camera.position.fromArray(camP.data.position);
+
+      // Offset x
+      camPos.copy(camHorz);
+      camPos.multiplyScalar(cx * -1.2);
+      camera.position.add(camPos);
+
+      // Offset y
+      camPos.copy(camVert);
+      camPos.multiplyScalar(cy * -1.2);
+      camera.position.add(camPos);
+
+      camera.updateMatrixWorld();
+
       scene.setColors(color[0], color[1]);
       scene.setId(cell.id);
 
-      renderer.setViewport(rect.x, rect.y, width, height);
-      renderer.setScissor(rect.x, rect.y, width, height);
+      renderer.setViewport(x, y, width, height);
+      renderer.setScissor(x, y, width, height);
       renderer.render(scene.scene, camera);
     });
+
+    cc++;
+    // Restore Cam Position
+    // camera.position.copy(camPos);
     renderer.setScissorTest(false);
 
     return false;

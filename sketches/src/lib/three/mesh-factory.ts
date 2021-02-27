@@ -13,6 +13,10 @@ import {
   SphereBufferGeometry,
   Object3D,
   Vector3,
+  MeshLambertMaterial,
+  MeshPhongMaterial,
+  MeshPhongMaterialParameters,
+  MeshLambertMaterialParameters,
 } from "three";
 
 type MaterialParamType =
@@ -65,6 +69,14 @@ export class MeshFactory {
 
   basicMaterial(params: MeshBasicMaterialParameters) {
     this.setMaterial(params, MeshBasicMaterial);
+  }
+
+  lambertMaterial(params: MeshLambertMaterialParameters) {
+    this.setMaterial(params, MeshLambertMaterial);
+  }
+
+  phongMaterial(params: MeshPhongMaterialParameters) {
+    this.setMaterial(params, MeshPhongMaterial);
   }
 
   standardMaterial(params: MeshStandardMaterialParameters) {
