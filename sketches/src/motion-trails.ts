@@ -114,7 +114,7 @@ const renderTracer = (parent: Object3D) => {
 
 const renderTrails = (count: number, parent: Object3D) => {
   console.log("Render Trails..");
-  const box = new BoxBufferGeometry(2, 1, 1, 1, 1, 1);
+  const box = new BoxBufferGeometry(1, 1, 1, 1, 1, 1);
   const mesh = new Mesh(
     box,
     new MeshStandardMaterial({
@@ -139,20 +139,23 @@ const renderTrails = (count: number, parent: Object3D) => {
       if (targ) {
         mesh.visible = true;
         mesh.position.fromArray(targ.position);
+        mesh.updateMatrixWorld();
 
         // vec1.fromArray(targ.velocity);
         // vec2.fromArray(prev.velocity);
-        vec1.normalize();
-        vec2.normalize();
-        quat.setFromUnitVectors(vec1, vec2);
+        // vec1.normalize();
+        // vec2.normalize();
+        // quat.setFromUnitVectors(vec1, vec2);
 
-        if (c < 15) {
-          console.log(">>>", targ, vec1, vec2);
-        } else {
-          // console.log(c);
-        }
+        // if (c < 15) {
+        //   console.log(">>>", targ, vec1, vec2);
+        // } else {
+        //   // console.log(c);
+        // }
 
-        mesh.applyQuaternion(quat);
+        // mesh.updateMatrix();
+        // mesh.applyQuaternion(quat);
+        mesh.lookAt(prev.position[0], prev.position[1], prev.position[2]);
       } else {
         mesh.visible = false;
       }
@@ -238,6 +241,7 @@ sketch(({ render, scene, controls, renderer }) => {
       motionParticle()
         .transform(
           mapPosition((t, pos) => {
+            // t *= 0.1;
             pos[0] = 0;
             // pos[2] = idx * -1.1 + 1.1 * 13 * 0.5;
             pos[2] = idx * 1.0;
@@ -245,7 +249,7 @@ sketch(({ render, scene, controls, renderer }) => {
             const len = 3.0;
             const T = t + idx * 0.2;
             const tt = 1.0 - Math.abs(((T % len) / len) * 2.0 - 1.0); // + Math.sin(idx + t);
-            pos[1] = easeFn(tt) * 4.0 + 1.0;
+            pos[1] = easeFn(tt) * 10.0 + 1.0;
           })
           // invalidatePosition()
         )
@@ -261,10 +265,10 @@ sketch(({ render, scene, controls, renderer }) => {
           xform: sideEffect((ev) => {
             const pos = ev.data.position;
             const prev = ev.data.previous;
-            sub3(ev.data.velocity, pos, prev);
+            // sub3(ev.data.velocity, pos, prev);
             set3(prev, pos);
 
-            pos[0] += 0.5;
+            pos[0] += 1;
           }),
         })
       )
