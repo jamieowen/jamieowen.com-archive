@@ -2,11 +2,7 @@ import { trace, subscription, State } from "@thi.ng/rstream";
 import { sketch } from "@jamieowen/three";
 import { createGui } from "./lib/gui";
 import {
-  ITransform,
-  motionTransform,
   mapPosition,
-  invalidatePosition,
-  trails,
   EaseTypes,
   IMotionEvent,
   motionParticle,
@@ -16,9 +12,7 @@ import {
 
 import {
   createMeshFactory,
-  createLightingRig,
-  createLightingRigOpts,
-  createDomeScene,
+  createDomeSimpleLight,
   createInstancedMesh,
   instancedMeshIterator,
 } from "./lib/three";
@@ -33,8 +27,6 @@ import {
   BoxBufferGeometry,
   Mesh,
   Object3D,
-  DirectionalLightHelper,
-  DirectionalLight,
   Group,
   Euler,
   Vector3,
@@ -48,43 +40,10 @@ const gui = createGui({
   length: [10, 5, 50, 1],
   shape: ["pyrimidd", "cone", "cylinder"],
   motion: ["sine"],
-  intensityMin: [0.3, 0, 2, 0.1],
-  intensityMax: [1, 0, 2, 0.1],
-  azimuthAngle: [45, 0, 360, 1],
-  azimuthVariance: [1, 0, 1, 0.01],
-  polarAngle: [45, 0, 180, 1],
-  polarVariance: [1, 0, 1, 0.01],
-  radius: [5, 1, 20, 1],
-});
-
-const rigOpts = createLightingRigOpts({
-  types: "ADP",
-  intensityMin: 0.3,
-  intensityMax: 1,
 });
 
 gui.subscribe({
-  next: ({
-    values: {
-      intensityMax,
-      intensityMin,
-      azimuthAngle,
-      azimuthVariance,
-      polarAngle,
-      polarVariance,
-      radius,
-    },
-  }) => {
-    rigOpts.next({
-      intensityMax,
-      intensityMin,
-      azimuthAngle,
-      azimuthVariance,
-      polarAngle,
-      polarVariance,
-      radius,
-    });
-  },
+  next: ({ values: {} }) => {},
 });
 
 /**
@@ -121,6 +80,7 @@ const renderTrails = (count: number, parent: Object3D) => {
       color: "yellow",
     })
   );
+  mesh.castShadow = true;
   parent.add(mesh);
   const vec1 = new Vector3(1, 0, 0);
   const vec2 = new Vector3(0, 0, 1);
@@ -201,31 +161,8 @@ const renderLines = (count: number, parent: Object3D) => {
 };
 
 sketch(({ render, scene, controls, renderer }) => {
-  const rig = createLightingRig(scene, rigOpts);
-  // rig.lights[1].castShadow = true;
-  // const dirLight: DirectionalLight = rig.lights[1] as DirectionalLight;
-  // dirLight.shadow.camera.near = 0.1;
-  // dirLight.shadow.camera.far = 10;
-  // dirLight.shadow.camera.right = 10;
-  // dirLight.shadow.camera.left = -10;
-  // dirLight.shadow.camera.top = 10;
-  // dirLight.shadow.camera.bottom = -10;
-  // rig.lights[1].shadow.mapSize.set(1024, 1024);
-  // rig.lights[2].castShadow = false;
-
-  const dome = createDomeScene(scene);
-  // dome.floor.material.color.set("violet");
-  // dome.floor.receiveShadow = true;
-  // renderer.shadowMap.enabled = true;
-
-  // meshFactory.standardMaterial({
-  //   color: "#efefef",
-  //   emissive: "#efefef",
-  //   emissiveIntensity: 0.5,
-  // });
-
-  // controls.object.position.set(0, 10, 40);
-  // controls.update();
+  createDomeSimpleLight(scene);
+  renderer.shadowMap.enabled = true;
 
   // Trail Types.
 
@@ -235,8 +172,8 @@ sketch(({ render, scene, controls, renderer }) => {
 
   const points$ = Object.entries(EaseTypes)
     .filter(([key]) => key.indexOf("InOut") === -1)
-    .filter(([key]) => key.indexOf("Out") > -1)
-    // .slice(0, 1)
+    .filter(([key]) => key.indexOf("In") > -1)
+    .slice(0, 1)
     .map(([_key, easeFn], idx) =>
       motionParticle()
         .transform(
@@ -244,12 +181,14 @@ sketch(({ render, scene, controls, renderer }) => {
             // t *= 0.1;
             pos[0] = 0;
             // pos[2] = idx * -1.1 + 1.1 * 13 * 0.5;
-            pos[2] = idx * 1.0;
+            pos[2] = idx * 1.0 + Math.sin(t * 8.0) * 2.0;
             // pos[1] = 1 + Math.sin(t * 3.0);
             const len = 3.0;
             const T = t + idx * 0.2;
             const tt = 1.0 - Math.abs(((T % len) / len) * 2.0 - 1.0); // + Math.sin(idx + t);
-            pos[1] = easeFn(tt) * 10.0 + 1.0;
+            // pos[1] = easeFn(tt) * 3.0 + 1.0;
+
+            pos[1] = Math.sin(t * 3 + idx) * 3 + 4 + easeFn(tt) * 3.0;
           })
           // invalidatePosition()
         )
@@ -268,7 +207,7 @@ sketch(({ render, scene, controls, renderer }) => {
             // sub3(ev.data.velocity, pos, prev);
             set3(prev, pos);
 
-            pos[0] += 1;
+            pos[0] += (Math.sin(ev.clock.time) + 1.0) * 0.5 + 0.6;
           }),
         })
       )
@@ -276,7 +215,9 @@ sketch(({ render, scene, controls, renderer }) => {
       .subscribe(renderLines(trailLength, group))
   );
 
-  group.position.set((-trailLength * 0.5) / 2, 0, -points$.length / 2);
+  // group.position.set((-trailLength * 0.5) / 2, 0, -points$.length / 2);
+  group.position.x = -trailLength / 2;
+  group.position.y = -5;
 
   render(() => {});
 });
