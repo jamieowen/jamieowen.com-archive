@@ -5,8 +5,10 @@ export interface ITransform {
   // add more later
 }
 
-export interface IParticle {
+export interface IParticle extends ITransform {
   velocity: Vec;
+  previous: Vec;
+  acceleration: Vec;
 }
 
 export interface IClock {
@@ -15,7 +17,11 @@ export interface IClock {
   frame: number;
 }
 
-export type MotionDataType = "transform" | "particle" | "transform-array";
+export type MotionDataType =
+  | "transform"
+  | "particle"
+  | "transform-array"
+  | "particle-array";
 
 export interface IMotionEvent<T extends MotionDataType> {
   type: T;
@@ -25,7 +31,9 @@ export interface IMotionEvent<T extends MotionDataType> {
     ? ITransform[]
     : T extends "particle"
     ? IParticle
-    : "transform";
+    : T extends "particle-array"
+    ? IParticle[]
+    : null;
 
   clock: IClock;
 }

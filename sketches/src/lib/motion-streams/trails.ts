@@ -1,10 +1,15 @@
 import { subscription, Subscription } from "@thi.ng/rstream";
-import { repeatedly } from "@thi.ng/transducers";
-import { create } from "lodash";
-import { createTransform } from "../motion-streams-rough";
 import { set, set3 } from "@thi.ng/vectors";
 
-import { IMotionEvent, ITransform } from "./api";
+import { IMotionEvent, ITransform, IParticle } from "./api";
+import {
+  comp,
+  map,
+  sideEffect,
+  Transducer,
+  iterator,
+} from "@thi.ng/transducers";
+import { createParticle, createTransform } from "./base-streams";
 
 export class Trails extends Subscription<
   IMotionEvent<"transform">,
@@ -14,7 +19,9 @@ export class Trails extends Subscription<
   emit: boolean = false;
 
   constructor(public length: number, public emitWhenFull: boolean = true) {
-    super();
+    super(undefined, {
+      xform: sideEffect(() => console.log("trail")),
+    });
     this.trails = [];
   }
 
@@ -46,3 +53,44 @@ export class Trails extends Subscription<
 }
 
 export const trails = (length: number) => new Trails(length);
+
+/**
+ *
+ * Trails 2
+ *
+ */
+
+const pushHistory = (length: number) => {
+  const history: IParticle[] = [];
+  return (ev: IMotionEvent<"particle">): IMotionEvent<"particle-array"> => {
+    if (history.length < length) {
+      history.unshift(createParticle());
+    } else {
+      const last = history.pop();
+      history.unshift(last);
+    }
+    const input = ev.data;
+    const transform = history[0];
+
+    set3(transform.position, input.position);
+
+    return {
+      ...ev,
+      type: "particle-array",
+      data: history,
+    };
+  };
+};
+
+export const particleTrails = <I, O>(length: number) => {
+  const xform = map(pushHistory(length));
+  return subscription(
+    {
+      next: () => {},
+      error: (err) => {
+        throw err;
+      },
+    },
+    { xform }
+  );
+};

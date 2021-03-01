@@ -298,6 +298,7 @@ sketch(({ configure, render, renderer, camera, controls }) => {
         }
         const D = 6.0;
         t *= 0.5;
+        // t = 0;
         pos[0] = Math.sin(t) * ((Math.cos(t) + 2.0) * D);
         pos[1] = Math.sin(t / 50) + Math.cos(t / 10) + 3.0;
         pos[2] = Math.cos(t) * ((Math.sin(t) + 2.0) * D);

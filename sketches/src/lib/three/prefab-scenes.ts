@@ -25,7 +25,7 @@ export const createDomeScene = (parent?: Object3D) => {
     side: BackSide,
   });
 
-  const geom = new SphereBufferGeometry(1, 20, 2);
+  const geom = new SphereBufferGeometry(1, 20, 20);
   mf.setGeometry(geom);
   const dome = mf.mesh(group);
 

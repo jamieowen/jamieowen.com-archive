@@ -6,3 +6,4 @@ export * from "./map";
 export * from "./trails";
 export * from "./easing";
 export * from "./ease-types";
+export * from "./array-iterator";
