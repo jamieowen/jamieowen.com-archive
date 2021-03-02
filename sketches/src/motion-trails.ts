@@ -1,5 +1,12 @@
 import { trace, subscription, State, reactive } from "@thi.ng/rstream";
-import { sketch } from "@jamieowen/three";
+import {
+  sketch,
+  createMeshFactory,
+  createDomeSimpleLight,
+  createDomeOpts,
+  createInstancedMesh,
+  instancedMeshIterator,
+} from "@jamieowen/three";
 import { createGui } from "./lib/gui";
 import {
   mapPosition,
@@ -10,15 +17,7 @@ import {
   particleIterator,
 } from "./lib/motion-streams";
 
-import {
-  createMeshFactory,
-  createDomeSimpleLight,
-  createDomeOpts,
-  createInstancedMesh,
-  instancedMeshIterator,
-  trailConeGeometry,
-  trailBoxGeometry,
-} from "./lib/three";
+import { trailConeGeometry, trailBoxGeometry } from "./lib/three";
 
 import {
   BufferAttribute,

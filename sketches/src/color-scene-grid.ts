@@ -1,4 +1,10 @@
-import { sketch, GeometryAlignment } from "@jamieowen/three";
+import {
+  sketch,
+  GeometryAlignment,
+  createDomeSimpleOpts,
+  createDomeSimpleLight,
+  createMeshFactory,
+} from "@jamieowen/three";
 import { infiniteGrid, reactive, GridOpts, GridCell } from "@jamieowen/layout";
 import { gestureStream } from "@jamieowen/browser";
 import { dragGesture2d } from "@jamieowen/motion";
@@ -14,11 +20,6 @@ import {
 
 import { createGui } from "./lib/gui";
 import { Color, MeshStandardMaterial, Scene, Vector3 } from "three";
-import {
-  createDomeSimpleOpts,
-  createDomeSimpleLight,
-  createMeshFactory,
-} from "./lib/three";
 import { motionTransform, mapPosition } from "./lib/motion-streams";
 
 const fromResizeObserver = (target: HTMLElement) =>
