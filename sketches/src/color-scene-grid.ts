@@ -2,29 +2,21 @@ import { sketch, GeometryAlignment } from "@jamieowen/three";
 import { infiniteGrid, reactive, GridOpts, GridCell } from "@jamieowen/layout";
 import { gestureStream } from "@jamieowen/browser";
 import { dragGesture2d } from "@jamieowen/motion";
-import { Stream, stream, sync, debounce } from "@thi.ng/rstream";
+import { stream, sync } from "@thi.ng/rstream";
 import {
-  CONVERSIONS,
   ColorMode,
-  convert,
-  ReadonlyColor,
   hsvRgb,
   hslRgb,
-  rgbHsl,
   oklabRgb,
   labRgb,
-  labRgbD65,
   Color as VecColor,
-  hueRotate,
 } from "@thi.ng/color";
-import { Smush32 } from "@thi.ng/random";
 
 import { createGui } from "./lib/gui";
 import { Color, MeshStandardMaterial, Scene, Vector3 } from "three";
 import {
-  createDomeScene,
-  createLightingRig,
-  createLightingRigOpts,
+  createDomeSimpleOpts,
+  createDomeSimpleLight,
   createMeshFactory,
 } from "./lib/three";
 import { motionTransform, mapPosition } from "./lib/motion-streams";
@@ -46,29 +38,17 @@ interface RenderScene {
   scene: Scene;
   setColors: (bg: VecColor, fg: VecColor) => void;
   setId: (id: number) => void;
+  update: (t: number) => void;
 }
 
 const shapesScene2 = (): RenderScene => {
   const scene = new Scene();
   scene.background = new Color("blue");
-  const lights = createLightingRig(
+  const dome = createDomeSimpleLight(
     scene,
-    createLightingRigOpts({
-      types: "APD",
-      intensityMin: 0.3,
-      intensityMax: 0.4,
-      azimuthAngle: 30,
-      polarAngle: 55,
-      polarVariance: 0,
-      azimuthVariance: 0.2,
-      radius: 10,
-    })
+    createDomeSimpleOpts({ showHelpers: false, intensity: [0.2, 0.4, 0.3] })
   );
-  lights.lights[1].castShadow = false;
 
-  const rand = new Smush32(0x23230);
-
-  const dome = createDomeScene(scene);
   mf.phongMaterial({ color: "white", flatShading: true });
   // mf.standardMaterial({ color: "white", flatShading: true });
   mf.sphere(GeometryAlignment.BOTTOM);
@@ -80,10 +60,9 @@ const shapesScene2 = (): RenderScene => {
 
   const object = mf.mesh(scene);
   object.castShadow = true;
-  dome.floor.receiveShadow = true;
   (object.material as MeshStandardMaterial).metalness = 0;
   (object.material as MeshStandardMaterial).roughness = 2;
-  (object.material as MeshStandardMaterial).emissiveIntensity = 0.3;
+  (object.material as MeshStandardMaterial).emissiveIntensity = 0.1;
   (dome.dome.material as MeshStandardMaterial).emissiveIntensity = 0.3;
   return {
     scene,
@@ -101,6 +80,9 @@ const shapesScene2 = (): RenderScene => {
       // rand.seed(id);
       // object.geometry = geom[Math.floor(geom.length * rand.float())];
     },
+    update() {
+      object.rotation.y += 0.01;
+    },
   };
 };
 const SCENES: Record<string, RenderScene> = {
@@ -114,7 +96,7 @@ const gui = createGui({
   scene: Object.keys(SCENES),
   // mode: ["hsl", "hsv", "lab50", "oklab"],
   mode: ["hsl", "hsv"],
-  hueStep: [0.08, 0.01, 0.4, 0.0001],
+  hueStep: [0.1, 0.01, 0.4, 0.0001],
   hueTheme: [
     "monochromatic",
     "complementary",
@@ -205,21 +187,6 @@ const hueForCell = (
   ];
 };
 
-// new Array(100).fill(0).forEach((v, i) => {
-//   console.log(
-//     hueForCell(
-//       {
-//         cell: [i * 200 - 1000, 0],
-//         id: i,
-//         local: [0, 0],
-//         world: [0, 0],
-//       },
-//       0.014,
-//       "complementary"
-//     )
-//   );
-// });
-
 const aspectLookup = { "1:1": 1, "16:9": 9 / 16, "4:3": 3 / 4 };
 const getFromSizeAspect = (size: number, aspect: keyof typeof aspectLookup) => {
   const ratio = aspectLookup[aspect];
@@ -280,13 +247,8 @@ sketch(({ configure, render, renderer, camera, controls }) => {
   });
 
   renderer.shadowMap.enabled = true;
-
-  camera.lookAt(0, 1, 0);
-
-  controls.target.setY(1);
-
-  // mf.sphere();
-  // // const track = mf.mesh(SCENES.shapes.scene);
+  // camera.lookAt(0, , 0);
+  // controls.target.setY(1);
 
   const ENABLE_ANIM = true;
 
@@ -297,18 +259,22 @@ sketch(({ configure, render, renderer, camera, controls }) => {
           return;
         }
         const D = 6.0;
-        t *= 0.5;
+        // t *= 0.5;
         // t = 0;
-        pos[0] = Math.sin(t) * ((Math.cos(t) + 2.0) * D);
-        pos[1] = Math.sin(t / 50) + Math.cos(t / 10) + 3.0;
-        pos[2] = Math.cos(t) * ((Math.sin(t) + 2.0) * D);
+        // pos[0] = Math.sin(t) * ((Math.cos(t) + 2.0) * D);
+        // pos[1] = Math.sin(t / 50) + Math.cos(t / 10) + 3.0;
+        // pos[2] = Math.cos(t) * ((Math.sin(t) + 2.0) * D);
+
+        pos[0] = D;
+        pos[1] = 0.5;
+        pos[2] = 3;
       })
     )
     .subscribe({
       next: (ev) => {
         // track.position.fromArray(ev.data.position);
         camera.position.fromArray(ev.data.position);
-        camera.lookAt(0, 1, 0);
+        camera.lookAt(0, 0.5, 0);
       },
     });
 
@@ -318,7 +284,7 @@ sketch(({ configure, render, renderer, camera, controls }) => {
   // camPos.copy(controls.object.position);
 
   let cc = 0;
-  render(() => {
+  render(({ time }) => {
     const { values } = gui.deref();
     const gridItems = grid.deref();
 
@@ -326,6 +292,8 @@ sketch(({ configure, render, renderer, camera, controls }) => {
 
     renderer.autoClear = false;
     renderer.clear();
+
+    scene.update(time);
 
     const gopts = gridOpts.deref();
     const [width, height] = gopts.dimensions;
@@ -336,8 +304,8 @@ sketch(({ configure, render, renderer, camera, controls }) => {
     if (camP) {
       camPos.fromArray(camP.data.position);
     }
-    camVert.set(0, 1, 0).applyEuler(camera.rotation);
-    camHorz.set(1, 0, 0).applyEuler(camera.rotation);
+    camVert.set(0, 1, 0).applyEuler(camera.rotation).normalize();
+    camHorz.set(1, 0, 0).applyEuler(camera.rotation).normalize();
 
     if (cc % 100 === 0) {
       // console.log(camVert);
@@ -347,7 +315,7 @@ sketch(({ configure, render, renderer, camera, controls }) => {
     scene.scene.autoUpdate = false;
     scene.scene.matrixAutoUpdate = false;
     scene.scene.updateMatrixWorld();
-    camera.updateMatrixWorld();
+    // camera.updateMatrixWorld();
 
     gridItems.forEach((cell, _i) => {
       const x = cell.local[0];
@@ -369,12 +337,12 @@ sketch(({ configure, render, renderer, camera, controls }) => {
 
         // Offset x
         camPos.copy(camHorz);
-        camPos.multiplyScalar(cx * -1.2);
+        camPos.multiplyScalar(cx * -1.7);
         camera.position.add(camPos);
 
         // Offset y
         camPos.copy(camVert);
-        camPos.multiplyScalar(cy * -1.2);
+        camPos.multiplyScalar(cy * -0.7);
         camera.position.add(camPos);
 
         camera.updateMatrixWorld();

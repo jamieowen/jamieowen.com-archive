@@ -95,29 +95,41 @@ const createFloor = (parent: Object3D, color: string = "crimson") => {
 
 interface DomeSimpleLightOpts {
   color: string | number;
+  intensity: [number, number, number]; // amb/dir/hem
+  showHelpers: boolean;
 }
 
-export const createDomeOpts = reactiveOptsFactory<DomeSimpleLightOpts>({
+export const createDomeSimpleOpts = reactiveOptsFactory<
+  Partial<DomeSimpleLightOpts>
+>({
   color: "crimson",
+  intensity: [0.2, 0.4, 0.3],
+  showHelpers: true,
 });
 
+/**
+ *
+ * A mimimal dome and light setup.
+ * Designed for reuse without major configurations.
+ *
+ * @param parent
+ * @param opts
+ */
 export const createDomeSimpleLight = (
   parent: Object3D,
-  opts: ReturnType<typeof createDomeOpts> = createDomeOpts({
-    color: "green",
-  })
+  opts: ReturnType<typeof createDomeSimpleOpts> = createDomeSimpleOpts({})
 ) => {
   mf.scale.set(1, 1, 1);
   const dome = createDome(parent);
   dome.scale.multiplyScalar(30);
+
   const floor = createFloor(parent);
   floor.scale.multiplyScalar(10);
-  floor.position.y = -5;
   floor.receiveShadow = true;
-  const amb = new AmbientLight("white", 0.4);
-  const dir = new DirectionalLight("white", 0.4);
 
-  const hem = new HemisphereLight(0xffffff, 0x333333, 0.5);
+  const amb = new AmbientLight();
+  const dir = new DirectionalLight();
+  const hem = new HemisphereLight();
   const lights = [amb, dir, hem];
   parent.add(amb, hem, dir);
 
@@ -130,30 +142,34 @@ export const createDomeSimpleLight = (
   dir.shadow.camera.bottom = -10;
 
   const shadowHelper = new CameraHelper(dir.shadow.camera);
-
   parent.add(shadowHelper);
-  // mf.box();
-  // const m = mf.mesh(parent);
-  // m.castShadow = true;
 
   dir.position.set(2, 4, 5).multiplyScalar(4);
-  // dir.
-
-  opts.subscribe({
-    next: ({ color }) => {
-      // Apply color
-      const fm = floor.material as MeshLambertMaterial;
-      const dm = dome.material as MeshLambertMaterial;
-      console.log("Apply Color");
-      fm.color.set(color);
-      fm.emissive.set(color).offsetHSL(0, 0, 0.1);
-      dm.color.set(color).offsetHSL(0, 0.1, 0.1);
-      dm.emissive.set(color).offsetHSL(0, 0, 0.1);
-    },
-  });
 
   const helpers = createLightHelpers(parent);
   parent.add(helpers);
+
+  opts.subscribe({
+    next: ({ color, intensity, showHelpers }) => {
+      // Apply color
+      amb.intensity = intensity[0];
+      dir.intensity = intensity[1];
+      hem.intensity = intensity[2];
+
+      const fm = floor.material as MeshLambertMaterial;
+      const dm = dome.material as MeshLambertMaterial;
+      console.log("Apply Color");
+      // fm.color.set(color);
+      // fm.emissive.set(color).offsetHSL(0, 0, 0.1);
+      // dm.color.set(color).offsetHSL(0, 0.1, 0.1);
+      // dm.emissive.set(color).offsetHSL(0, 0, 0.1);
+
+      helpers.visible = showHelpers;
+      shadowHelper.visible = showHelpers;
+    },
+  });
+
+  opts.next({});
 
   return {
     dome,
