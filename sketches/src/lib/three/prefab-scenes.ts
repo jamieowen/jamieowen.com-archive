@@ -11,9 +11,13 @@ import {
   Matrix4,
   BufferGeometryUtils,
   CameraHelper,
+  MeshLambertMaterialParameters,
+  Color,
+  MeshLambertMaterial,
 } from "three";
 import { createLightHelpers } from "@jamieowen/three";
 import { createMeshFactory } from "./mesh-factory";
+import { reactiveOptsFactory } from "../core";
 
 const mf = createMeshFactory();
 
@@ -75,7 +79,7 @@ const createDome = (parent: Object3D) => {
   return mf.mesh(parent);
 };
 
-const createFloor = (parent: Object3D) => {
+const createFloor = (parent: Object3D, color: string = "crimson") => {
   // Floor
   mf.lambertMaterial({
     color: "crimson",
@@ -93,9 +97,15 @@ interface DomeSimpleLightOpts {
   color: string | number;
 }
 
+export const createDomeOpts = reactiveOptsFactory<DomeSimpleLightOpts>({
+  color: "crimson",
+});
+
 export const createDomeSimpleLight = (
   parent: Object3D,
-  opts?: DomeSimpleLightOpts
+  opts: ReturnType<typeof createDomeOpts> = createDomeOpts({
+    color: "green",
+  })
 ) => {
   mf.scale.set(1, 1, 1);
   const dome = createDome(parent);
@@ -128,6 +138,19 @@ export const createDomeSimpleLight = (
 
   dir.position.set(2, 4, 5).multiplyScalar(4);
   // dir.
+
+  opts.subscribe({
+    next: ({ color }) => {
+      // Apply color
+      const fm = floor.material as MeshLambertMaterial;
+      const dm = dome.material as MeshLambertMaterial;
+      console.log("Apply Color");
+      fm.color.set(color);
+      fm.emissive.set(color).offsetHSL(0, 0, 0.1);
+      dm.color.set(color).offsetHSL(0, 0.1, 0.1);
+      dm.emissive.set(color).offsetHSL(0, 0, 0.1);
+    },
+  });
 
   const helpers = createLightHelpers(parent);
   parent.add(helpers);

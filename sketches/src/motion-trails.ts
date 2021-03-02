@@ -13,6 +13,7 @@ import {
 import {
   createMeshFactory,
   createDomeSimpleLight,
+  createDomeOpts,
   createInstancedMesh,
   instancedMeshIterator,
 } from "./lib/three";
@@ -32,9 +33,11 @@ import {
   Vector3,
   Quaternion,
   Matrix4,
+  ArrowHelper,
+  MeshBasicMaterial,
 } from "three";
 import { map, sideEffect } from "@thi.ng/transducers";
-import { set3, sub3 } from "@thi.ng/vectors";
+import { normalize, set3, sub3, Vec } from "@thi.ng/vectors";
 
 const gui = createGui({
   length: [10, 5, 50, 1],
@@ -71,6 +74,30 @@ const renderTracer = (parent: Object3D) => {
   });
 };
 
+/**
+ * Set direction took from
+ * https://github.com/mrdoob/three.js/blob/master/src/helpers/ArrowHelper.js
+ *
+ * Couldn't seem to get
+ * https://github.com/mrdoob/three.js/blob/master/src/math/Quaternion.js
+ * setFromUnitVectors working in a similar way.
+ */
+const setDirection = (() => {
+  const _axis = new Vector3();
+  return (dir: Vector3, quaternion: Quaternion) => {
+    // dir is assumed to be normalized
+    if (dir.y > 0.99999) {
+      quaternion.set(0, 0, 0, 1);
+    } else if (dir.y < -0.99999) {
+      quaternion.set(1, 0, 0, 0);
+    } else {
+      _axis.set(dir.z, 0, -dir.x).normalize();
+      const radians = Math.acos(dir.y);
+      quaternion.setFromAxisAngle(_axis, radians);
+    }
+  };
+})();
+
 const renderTrails = (count: number, parent: Object3D) => {
   console.log("Render Trails..");
   const box = new BoxBufferGeometry(1, 1, 1, 1, 1, 1);
@@ -80,13 +107,28 @@ const renderTrails = (count: number, parent: Object3D) => {
       color: "yellow",
     })
   );
+  mesh.scale.y = 2;
   mesh.castShadow = true;
-  parent.add(mesh);
-  const vec1 = new Vector3(1, 0, 0);
-  const vec2 = new Vector3(0, 0, 1);
-  const quat = new Quaternion();
-  // const mat = new Matrix4();
 
+  const mesh2 = new Mesh(
+    box,
+    new MeshBasicMaterial({
+      wireframe: true,
+      color: "yellow",
+    })
+  );
+  mesh2.scale.multiplyScalar(1.4);
+  parent.add(mesh);
+  // parent.add(mesh2);
+
+  const vec1 = new Vector3(1, 0, 0);
+  // const vec2 = new Vector3(0, 0, 1);
+  // const quat = new Quaternion();
+  const ah = new ArrowHelper(undefined, undefined, 3);
+  parent.add(ah);
+  const adir = new Vector3();
+  // const mat = new Matrix4();
+  const vel: Vec = [];
   let c = 0;
   return subscription<
     IMotionEvent<"particle-array">,
@@ -95,27 +137,32 @@ const renderTrails = (count: number, parent: Object3D) => {
     next: (ev) => {
       // pick a single point
       const targ = ev.data[10];
-      const prev = ev.data[9];
+      const prev = ev.data[4];
       if (targ) {
         mesh.visible = true;
         mesh.position.fromArray(targ.position);
-        mesh.updateMatrixWorld();
+        // mesh.updateMatrixWorld();
+
+        // Velocity to Mesh
+        normalize(null, sub3(vel, targ.position, prev.position));
+        vec1.fromArray(vel);
+        setDirection(vec1, mesh.quaternion);
+        // Arrow Helper.
+        ah.position.fromArray(targ.position);
+        adir.fromArray(vel);
+        ah.setDirection(adir);
 
         // vec1.fromArray(targ.velocity);
         // vec2.fromArray(prev.velocity);
+
         // vec1.normalize();
         // vec2.normalize();
-        // quat.setFromUnitVectors(vec1, vec2);
+        // quat.setFromUnitVectors(vec2, vec1);
+        // mesh2.position.fromArray(targ.position);
 
-        // if (c < 15) {
-        //   console.log(">>>", targ, vec1, vec2);
-        // } else {
-        //   // console.log(c);
-        // }
-
-        // mesh.updateMatrix();
-        // mesh.applyQuaternion(quat);
-        mesh.lookAt(prev.position[0], prev.position[1], prev.position[2]);
+        // mesh2.quaternion.copy(quat);
+        // mesh2.quaternion.copy(mesh.quaternion);
+        // mesh2.scale.copy(mesh.scale).multiplyScalar(1.5);
       } else {
         mesh.visible = false;
       }
@@ -161,7 +208,12 @@ const renderLines = (count: number, parent: Object3D) => {
 };
 
 sketch(({ render, scene, controls, renderer }) => {
-  createDomeSimpleLight(scene);
+  createDomeSimpleLight(
+    scene,
+    createDomeOpts({
+      color: "darkblue",
+    })
+  );
   renderer.shadowMap.enabled = true;
 
   // Trail Types.
@@ -187,7 +239,6 @@ sketch(({ render, scene, controls, renderer }) => {
             const T = t + idx * 0.2;
             const tt = 1.0 - Math.abs(((T % len) / len) * 2.0 - 1.0); // + Math.sin(idx + t);
             // pos[1] = easeFn(tt) * 3.0 + 1.0;
-
             pos[1] = Math.sin(t * 3 + idx) * 3 + 4 + easeFn(tt) * 3.0;
           })
           // invalidatePosition()
@@ -204,10 +255,11 @@ sketch(({ render, scene, controls, renderer }) => {
           xform: sideEffect((ev) => {
             const pos = ev.data.position;
             const prev = ev.data.previous;
-            // sub3(ev.data.velocity, pos, prev);
+            normalize(undefined, sub3(ev.data.velocity, pos, prev));
             set3(prev, pos);
 
             pos[0] += (Math.sin(ev.clock.time) + 1.0) * 0.5 + 0.6;
+            // pos[0] += 2.0;
           }),
         })
       )
