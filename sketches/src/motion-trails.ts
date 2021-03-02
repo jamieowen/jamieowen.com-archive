@@ -215,7 +215,7 @@ sketch(({ render, scene, controls, renderer }) => {
   const points$ = Object.entries(EaseTypes)
     .filter(([key]) => key.indexOf("InOut") === -1)
     .filter(([key]) => key.indexOf("In") > -1)
-    // .slice(0, 1)
+    .slice(0, 1)
     .map(([_key, easeFn], idx) =>
       motionParticle()
         .transform(
