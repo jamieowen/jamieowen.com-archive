@@ -158,7 +158,7 @@ export const createDomeSimpleLight = (
 
       const fm = floor.material as MeshLambertMaterial;
       const dm = dome.material as MeshLambertMaterial;
-      console.log("Apply Color");
+      // console.log("Apply Color");
       // fm.color.set(color);
       // fm.emissive.set(color).offsetHSL(0, 0, 0.1);
       // dm.color.set(color).offsetHSL(0, 0.1, 0.1);

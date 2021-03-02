@@ -342,7 +342,7 @@ sketch(({ configure, render, renderer, camera, controls }) => {
 
         // Offset y
         camPos.copy(camVert);
-        camPos.multiplyScalar(cy * -0.7);
+        camPos.multiplyScalar(cy * -0.5);
         camera.position.add(camPos);
 
         camera.updateMatrixWorld();
