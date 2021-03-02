@@ -1,1 +1,1 @@
-export * from "./reactive-opts";
+export default {};
