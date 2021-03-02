@@ -1,6 +1,17 @@
+/**
+ *
+ * @description
+ *
+ * Some tests for getting my head around quaternions.
+ * Particularly the setFromUnitVectors() function in three.js
+ * And taking a directional vector and turning that into a rotation quaternion.
+ *
+ * Could not figure out how to do with the setFromUnitVectors() method.
+ * But figured out a method using the setDirection() method of the ArrowHelper class.
+ *
+ */
 import { GeometryAlignment, sketch } from "@jamieowen/three";
 import { set3, sub3, normalize } from "@thi.ng/vectors";
-import { mainModule } from "process";
 import {
   Euler,
   Matrix4,

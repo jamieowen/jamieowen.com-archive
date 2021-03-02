@@ -1,4 +1,4 @@
-import { trace, subscription, State } from "@thi.ng/rstream";
+import { trace, subscription, State, reactive } from "@thi.ng/rstream";
 import { sketch } from "@jamieowen/three";
 import { createGui } from "./lib/gui";
 import {
@@ -16,6 +16,8 @@ import {
   createDomeOpts,
   createInstancedMesh,
   instancedMeshIterator,
+  trailConeGeometry,
+  trailBoxGeometry,
 } from "./lib/three";
 
 import {
@@ -25,28 +27,39 @@ import {
   Line,
   LineBasicMaterial,
   DynamicDrawUsage,
-  BoxBufferGeometry,
   Mesh,
   Object3D,
   Group,
-  Euler,
   Vector3,
   Quaternion,
-  Matrix4,
   ArrowHelper,
-  MeshBasicMaterial,
 } from "three";
 import { map, sideEffect } from "@thi.ng/transducers";
 import { normalize, set3, sub3, Vec } from "@thi.ng/vectors";
+import { memoize1 } from "@thi.ng/memoize";
 
+const TRAIL_GEOMETRIES: Record<string, (x?: any) => BufferGeometry> = {
+  cone: memoize1<any, BufferGeometry>(() => {
+    return trailConeGeometry();
+  }),
+  box: memoize1<any, BufferGeometry>(() => {
+    return trailBoxGeometry();
+  }),
+};
 const gui = createGui({
-  length: [10, 5, 50, 1],
-  shape: ["pyrimidd", "cone", "cylinder"],
-  motion: ["sine"],
+  trail: Object.keys(TRAIL_GEOMETRIES),
+  scale: [2, 1, 5, 0.01],
+  thin: [0.7, 0.2, 2, 0.01],
+  // motion: ["sine"],
 });
 
+const trailGeometry = reactive<BufferGeometry>(null);
+
 gui.subscribe({
-  next: ({ values: {} }) => {},
+  next: ({ values: { trail } }) => {
+    const trailGeom = TRAIL_GEOMETRIES[trail]();
+    trailGeometry.next(trailGeom);
+  },
 });
 
 /**
@@ -99,27 +112,14 @@ const setDirection = (() => {
 })();
 
 const renderTrails = (count: number, parent: Object3D) => {
-  console.log("Render Trails..");
-  const box = new BoxBufferGeometry(1, 1, 1, 1, 1, 1);
   const mesh = new Mesh(
-    box,
+    trailGeometry.deref(),
     new MeshStandardMaterial({
       color: "yellow",
     })
   );
-  mesh.scale.y = 2;
   mesh.castShadow = true;
-
-  const mesh2 = new Mesh(
-    box,
-    new MeshBasicMaterial({
-      wireframe: true,
-      color: "yellow",
-    })
-  );
-  mesh2.scale.multiplyScalar(1.4);
   parent.add(mesh);
-  // parent.add(mesh2);
 
   const vec1 = new Vector3(1, 0, 0);
   // const vec2 = new Vector3(0, 0, 1);
@@ -129,7 +129,7 @@ const renderTrails = (count: number, parent: Object3D) => {
   const adir = new Vector3();
   // const mat = new Matrix4();
   const vel: Vec = [];
-  let c = 0;
+
   return subscription<
     IMotionEvent<"particle-array">,
     IMotionEvent<"particle-array">
@@ -138,10 +138,13 @@ const renderTrails = (count: number, parent: Object3D) => {
       // pick a single point
       const targ = ev.data[10];
       const prev = ev.data[4];
+
       if (targ) {
+        const gval = gui.deref().values;
         mesh.visible = true;
+        mesh.geometry = trailGeometry.deref();
         mesh.position.fromArray(targ.position);
-        // mesh.updateMatrixWorld();
+        mesh.scale.set(gval.thin, gval.scale, gval.thin);
 
         // Velocity to Mesh
         normalize(null, sub3(vel, targ.position, prev.position));
@@ -151,22 +154,9 @@ const renderTrails = (count: number, parent: Object3D) => {
         ah.position.fromArray(targ.position);
         adir.fromArray(vel);
         ah.setDirection(adir);
-
-        // vec1.fromArray(targ.velocity);
-        // vec2.fromArray(prev.velocity);
-
-        // vec1.normalize();
-        // vec2.normalize();
-        // quat.setFromUnitVectors(vec2, vec1);
-        // mesh2.position.fromArray(targ.position);
-
-        // mesh2.quaternion.copy(quat);
-        // mesh2.quaternion.copy(mesh.quaternion);
-        // mesh2.scale.copy(mesh.scale).multiplyScalar(1.5);
       } else {
         mesh.visible = false;
       }
-      c++;
     },
   });
 };
@@ -225,7 +215,7 @@ sketch(({ render, scene, controls, renderer }) => {
   const points$ = Object.entries(EaseTypes)
     .filter(([key]) => key.indexOf("InOut") === -1)
     .filter(([key]) => key.indexOf("In") > -1)
-    .slice(0, 1)
+    // .slice(0, 1)
     .map(([_key, easeFn], idx) =>
       motionParticle()
         .transform(

@@ -2,7 +2,7 @@
   // "extends": "../tsconfig.json",
   // "include": ["./src/*.ts", "./src/*.tsx", "./scripts/*.ts"],
   "include": ["**/*.ts"],
-  // "exclude": ["node_modules"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
