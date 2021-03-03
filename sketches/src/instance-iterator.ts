@@ -6,11 +6,12 @@ import {
   debugShader,
   addForce,
 } from "./lib/particles";
-import { createInstancedMesh, instancedMeshIterator } from "./lib/three";
 import {
   sketch,
   createGeometryFactory,
   GeometryAlignment,
+  createInstancedMesh,
+  instancedMeshIterator,
 } from "@jamieowen/three";
 import {
   RawShaderMaterial,

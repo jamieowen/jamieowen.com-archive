@@ -10,7 +10,13 @@
  * But figured out a method using the setDirection() method of the ArrowHelper class.
  *
  */
-import { GeometryAlignment, sketch } from "@jamieowen/three";
+import {
+  GeometryAlignment,
+  sketch,
+  createMeshFactory,
+  createInstancedMesh,
+  instancedMeshIterator,
+} from "@jamieowen/three";
 import { set3, sub3, normalize } from "@thi.ng/vectors";
 import {
   Euler,
@@ -22,11 +28,6 @@ import {
   Group,
   MeshBasicMaterial,
 } from "three";
-import {
-  createMeshFactory,
-  createInstancedMesh,
-  instancedMeshIterator,
-} from "./lib/three";
 
 const mf = createMeshFactory();
 
