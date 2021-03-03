@@ -7,7 +7,7 @@ import {
 } from "@jamieowen/three";
 import { infiniteGrid, reactive, GridOpts, GridCell } from "@jamieowen/layout";
 import { gestureStream } from "@jamieowen/browser";
-import { dragGesture2d } from "@jamieowen/motion";
+import { dragGesture2d, motionTransform, mapPosition } from "@jamieowen/motion";
 import { stream, sync } from "@thi.ng/rstream";
 import {
   ColorMode,
@@ -20,7 +20,6 @@ import {
 
 import { createGui } from "./lib/gui";
 import { Color, MeshStandardMaterial, Scene, Vector3 } from "three";
-import { motionTransform, mapPosition } from "./lib/motion-streams";
 
 const fromResizeObserver = (target: HTMLElement) =>
   stream<ResizeObserverEntry>(($) => {
@@ -243,7 +242,10 @@ sketch(({ configure, render, renderer, camera, controls }) => {
     maxSpeed: 300,
   }).subscribe({
     next: ({ particle }) => {
-      gridPosition.next([particle.position[0], -particle.position[1]]);
+      gridPosition.next([
+        particle.data.position[0],
+        -particle.data.position[1],
+      ]);
     },
   });
 
