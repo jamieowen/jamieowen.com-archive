@@ -4,7 +4,6 @@ export {
   getStaticProps,
 } from "services/get-packages-static-paths";
 import { Container } from "theme-ui";
-import { GetPackagesStaticPropsType } from "services/get-packages-static-paths";
 import { PackageExample } from "types";
 
 export const PackageExamples: FC<{ packageExample: PackageExample }> = ({

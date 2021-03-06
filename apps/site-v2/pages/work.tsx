@@ -13,7 +13,7 @@ export const RecentWork = ({ projects }) => {
   return (
     <ProjectsContextProvider projects={projects}>
       <Content>
-        <Section maxWidth="small">
+        <Section maxWidth="medium">
           <PageHeaderNavigation />
           <BodyText>
             Some recent work made possible whilst contracting with the very

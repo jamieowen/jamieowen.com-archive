@@ -45,7 +45,7 @@ export const colors: Pick<
     content_text: "#dfdfdf",
     content_background: "#222222",
     footer_background: "#202020",
-    primary: "blue",
+    primary: "hotpink",
 
     modes: {
       dark: {

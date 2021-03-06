@@ -24,33 +24,33 @@ interface MenuData {
 }
 
 export const navigationData: MenuData[] = [
-  { num: "01", label: "Work.", href: "/recent-work" },
+  { num: "01", label: "Work.", href: "/work" },
   { num: "02", label: "About.", href: "/about" },
   { num: "03", label: "Play.", href: "/play" },
 ];
 
-export const navigationData2: MenuData[] = [
-  { num: "01", label: "Intro.", href: "/" },
-  { num: "02", label: "Recent Work.", href: "/recent-work" },
-  { num: "03", label: "Tech Stack.", href: "/tech-stack", break: true },
-  // { label: "Archived.", href: "/archived-work" },
-  { num: "04", label: "Interests.", href: "/interests" },
-  { num: "05", label: "Get In Touch.", href: "/get-in-touch" },
-  {
-    num: "06",
-    label: "Github.",
-    href: "https://github.com/jamieowen",
-    hideNext: true,
-  },
-  {
-    num: "07",
-    label: "Packages.",
-    href: "/packages",
-    // hideNext: true,
-    devOnly: true,
-  },
-  // { label: "LinkedIn.", href: "https://www.linkedin.com/in/jamie-owen" },
-];
+// export const navigationData2: MenuData[] = [
+//   { num: "01", label: "Intro.", href: "/" },
+//   { num: "02", label: "Recent Work.", href: "/recent-work" },
+//   { num: "03", label: "Tech Stack.", href: "/tech-stack", break: true },
+//   // { label: "Archived.", href: "/archived-work" },
+//   { num: "04", label: "Interests.", href: "/interests" },
+//   { num: "05", label: "Get In Touch.", href: "/get-in-touch" },
+//   {
+//     num: "06",
+//     label: "Github.",
+//     href: "https://github.com/jamieowen",
+//     hideNext: true,
+//   },
+//   {
+//     num: "07",
+//     label: "Packages.",
+//     href: "/packages",
+//     // hideNext: true,
+//     devOnly: true,
+//   },
+//   // { label: "LinkedIn.", href: "https://www.linkedin.com/in/jamie-owen" },
+// ];
 
 interface NavigationData {
   items: MenuData[];

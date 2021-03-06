@@ -18,7 +18,7 @@ import {
   Color as VecColor,
 } from "@thi.ng/color";
 
-import { createGui } from "./lib/gui";
+import { createGui } from "@jamieowen/gui";
 import { Color, MeshStandardMaterial, Scene, Vector3 } from "three";
 
 const fromResizeObserver = (target: HTMLElement) =>
@@ -236,6 +236,8 @@ sketch(({ configure, render, renderer, camera, controls }) => {
       });
     },
   });
+
+  renderer.domElement.style.touchAction = "none";
 
   dragGesture2d(gestureStream(renderer.domElement) as any, {
     friction: 0.04,

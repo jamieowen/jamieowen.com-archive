@@ -76,7 +76,7 @@ export const FooterNavigation: FC<{}> = () => {
 
 export const FooterSiteNavigation: FC<{}> = () => {
   const { next, prev, current, items } = useNavigationData();
-  const len = items.length - 1; // not including github
+  const len = items.length;
   const marker = current ? current.num + "/" + ("00" + len).slice(-2) : "";
 
   return (
@@ -119,7 +119,7 @@ export const FooterProjectNavigation: FC<any> = () => {
         </Container>
       </Container>
       <Container sx={backStyle} className="maxw-medium">
-        <LinkWrapper href="/recent-work">
+        <LinkWrapper href="/work">
           <Text as="span" variant="navigation_list">
             {"<< "} Back to Recent Work
           </Text>

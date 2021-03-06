@@ -1,6 +1,9 @@
-import { sketch } from "@jamieowen/three";
+import {
+  sketch,
+  createLightingRig,
+  createLightingRigOpts,
+} from "@jamieowen/three";
 import { createGui } from "./lib/gui";
-import { createLightingRig, createLightingRigOpts } from "./lib/three";
 
 const gui = createGui({
   length: [10, 5, 50, 1],

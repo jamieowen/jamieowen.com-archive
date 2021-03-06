@@ -47,8 +47,9 @@ const Soon = () => {
   );
 };
 
-const DevSwitch = ({ children }) => {
-  const dev = process.env.NODE_ENV === "development";
+const DevSwitch = ({ children, path }) => {
+  // const dev = process.env.NODE_ENV === "development";
+  const dev = path !== "/";
   return <Fragment>{dev ? children : <Soon />}</Fragment>;
 };
 
@@ -66,7 +67,7 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
       </Head>
 
       <Providers>
-        <DevSwitch>
+        <DevSwitch path={router.asPath}>
           <ContentIFrame />
           <Header>
             <Menu />

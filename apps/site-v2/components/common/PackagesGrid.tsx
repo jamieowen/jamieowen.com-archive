@@ -59,9 +59,7 @@ export const PackagesGrid: FC<{ root: PackageDataRoot }> = ({ root }) => {
       {root.packages.map((pkg, i) => {
         return (
           <Fragment key={i}>
-            <BodyTextLarge>
-              <strong>{pkg.title}</strong>
-            </BodyTextLarge>
+            <BodyTextLarge>{pkg.title}</BodyTextLarge>
             <PackageExampleGrid examples={pkg.examples} />
           </Fragment>
         );

@@ -11,7 +11,7 @@ import { Styled } from "theme-ui";
 export const Intro = () => {
   return (
     <Content>
-      <Section maxWidth="small">
+      <Section maxWidth="medium">
         <PageHeaderNavigation />
         <BodyText>
           Hello. My name is Jamie. I'm a freelance Creative Developer & Software
@@ -43,7 +43,7 @@ export const Intro = () => {
           tick otherwise!
         </BodyText>
       </Section>
-      <Section maxWidth="small">
+      <Section maxWidth="medium">
         <PageHeaderNavigation />
         <BodyText>
           Currently focused on all things Typescript/Javascript ES6. But I have
@@ -59,7 +59,7 @@ export const Intro = () => {
           And had and had a long history with various creative coding platforms.
         </BodyText> */}
       </Section>
-      <Section maxWidth="small">
+      <Section maxWidth="medium">
         <TechGridList />
       </Section>
     </Content>

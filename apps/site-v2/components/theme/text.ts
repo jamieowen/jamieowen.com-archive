@@ -14,6 +14,7 @@ export const text: Pick<Theme, "text"> = {
       fontSize: "16px",
       lineHeight: "56px",
       fontWeight: 600,
+      color: "primary",
       // marginBottom: "32px",
     },
     body_header: {
