@@ -2,7 +2,7 @@ import {
   // fromRandomPoints,
   GeometryEvent,
   createRandomPoints,
-} from "./lib";
+} from "./lib/geom-streams";
 // import { map } from "@thi.ng/transducers";
 import { subscription } from "@thi.ng/rstream";
 

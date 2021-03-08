@@ -49,6 +49,6 @@ gui.subscribe({
 });
 
 sketch(({ scene }) => {
-  const rig = createLightingRig(scene); // TODO.
+  const rig = createLightingRig(scene, rigOpts); // TODO.
   console.log("Lighting");
 });

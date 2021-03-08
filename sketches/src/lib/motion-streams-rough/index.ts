@@ -1,4 +1,3 @@
-import { reactive } from "@jamieowen/motion";
 import {
   add3,
   set3,
@@ -15,7 +14,7 @@ import {
   clamp11_3,
   clamp3,
 } from "@thi.ng/vectors";
-import { sync, fromRAF } from "@thi.ng/rstream";
+import { sync, fromRAF, reactive } from "@thi.ng/rstream";
 import { mapcat, map } from "@thi.ng/transducers";
 
 // Source objects would look like:

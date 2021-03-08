@@ -2,8 +2,16 @@ import { Mesh, MeshBasicMaterial } from "three";
 import { sketch, createGeometryFactory } from "@jamieowen/three";
 import { sync, fromRAF } from "@thi.ng/rstream";
 import { map, comp } from "@thi.ng/transducers";
-import { ease, gestureStream3d, threeRaycastPlane } from "./lib";
+import { threeRaycastPlane, gestureStream3d } from "./lib/gestures-fn-style";
+import { ease } from "./lib/easing";
 import { Vec } from "@thi.ng/vectors";
+
+/**
+ * NOTES>..
+ *
+ * this is a reformating of the gesture stream class to modularise the
+ * various steps.
+ */
 
 sketch(({ scene, configure, camera, domElement, resize, render }) => {
   const gest = gestureStream3d(domElement, resize, [threeRaycastPlane(camera)]);

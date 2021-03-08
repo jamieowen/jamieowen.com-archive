@@ -216,7 +216,7 @@ sketch(({ configure, render, renderer, camera, controls }) => {
 
   sync({
     src: {
-      gui,
+      gui: gui as any,
       resize: fromResizeObserver(renderer.domElement), //.subscribe(debounce(1)),
     },
   }).subscribe({

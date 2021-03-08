@@ -6,12 +6,11 @@ import {
   gestureStream3d,
 } from "@jamieowen/three";
 
-import {
-  motionRadialOrbit,
-  motionBlend,
-  motionFigure8Orbit,
-  motionConfig,
-} from "@jamieowen/motion";
+import // motionRadialOrbit,
+// motionBlend,
+// motionFigure8Orbit,
+// motionConfig,
+"@jamieowen/motion";
 
 import { gestureStream } from "@jamieowen/browser";
 
@@ -36,34 +35,34 @@ sketch(({ render, configure, scene, domElement, camera, resize }) => {
   const grid = createGridHelper();
   scene.add(grid);
 
-  motionRadialOrbit(motionConfig({ radius: 4, speed: 0.1 })).subscribe({
-    next: (val) => {
-      mesh1.position.fromArray(val.position);
-    },
-  });
+  // motionRadialOrbit(motionConfig({ radius: 4, speed: 0.1 })).subscribe({
+  //   next: (val) => {
+  //     mesh1.position.fromArray(val.position);
+  //   },
+  // });
 
-  motionFigure8Orbit(motionConfig({ radius: 2, speed: 0.01 })).subscribe({
-    next: (val) => {
-      mesh2.position.fromArray(val.position);
-    },
-  });
+  // motionFigure8Orbit(motionConfig({ radius: 2, speed: 0.01 })).subscribe({
+  //   next: (val) => {
+  //     mesh2.position.fromArray(val.position);
+  //   },
+  // });
 
-  motionBlend(
-    0.5,
-    motionRadialOrbit(motionConfig({ radius: 0.5, speed: 0.01 })),
-    motionFigure8Orbit(motionConfig({ radius: 6, speed: 0.05 }))
-  ).subscribe({
-    next: (val) => {
-      mesh3.position.fromArray(val);
-    },
-  });
+  // motionBlend(
+  //   0.5,
+  //   motionRadialOrbit(motionConfig({ radius: 0.5, speed: 0.01 })),
+  //   motionFigure8Orbit(motionConfig({ radius: 6, speed: 0.05 }))
+  // ).subscribe({
+  //   next: (val) => {
+  //     mesh3.position.fromArray(val);
+  //   },
+  // });
 
   const gesture2d$ = gestureStream(domElement, {});
   const gesture3d$ = gestureStream3d(domElement, camera, resize);
 
   dragGesture3d(gesture3d$).subscribe({
     next: ({ particle }) => {
-      grid.position.fromArray(particle.position);
+      // grid.position.fromArray(particle.position);
     },
   });
 
