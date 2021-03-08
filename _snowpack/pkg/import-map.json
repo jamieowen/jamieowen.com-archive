@@ -1,0 +1,33 @@
+{
+  "imports": {
+    "@jamieowen/browser": "./@jamieowen/browser.js",
+    "@jamieowen/color": "./@jamieowen/color.js",
+    "@jamieowen/gui": "./@jamieowen/gui.js",
+    "@jamieowen/layout": "./@jamieowen/layout.js",
+    "@jamieowen/motion": "./@jamieowen/motion.js",
+    "@jamieowen/three": "./@jamieowen/three.js",
+    "@jamieowen/webgl": "./@jamieowen/webgl.js",
+    "@thi.ng/checks": "./@thi.ng/checks.js",
+    "@thi.ng/color": "./@thi.ng/color.js",
+    "@thi.ng/geom-accel": "./@thi.ng/geom-accel.js",
+    "@thi.ng/geom-subdiv-curve": "./@thi.ng/geom-subdiv-curve.js",
+    "@thi.ng/math": "./@thi.ng/math.js",
+    "@thi.ng/poisson": "./@thi.ng/poisson.js",
+    "@thi.ng/random": "./@thi.ng/random.js",
+    "@thi.ng/rdom": "./@thi.ng/rdom.js",
+    "@thi.ng/rstream": "./@thi.ng/rstream.js",
+    "@thi.ng/shader-ast": "./@thi.ng/shader-ast.js",
+    "@thi.ng/shader-ast-glsl": "./@thi.ng/shader-ast-glsl.js",
+    "@thi.ng/shader-ast-js": "./@thi.ng/shader-ast-js.js",
+    "@thi.ng/shader-ast-stdlib": "./@thi.ng/shader-ast-stdlib.js",
+    "@thi.ng/transducers": "./@thi.ng/transducers.js",
+    "@thi.ng/vectors": "./@thi.ng/vectors.js",
+    "dat.gui": "./dat.gui.js",
+    "lodash": "./lodash.js",
+    "matter-js": "./matter-js.js",
+    "react": "./react.js",
+    "react-dom": "./react-dom.js",
+    "three": "./three.js",
+    "three/examples/jsm/controls/OrbitControls": "./three/examples/jsm/controls/OrbitControls.js"
+  }
+}
