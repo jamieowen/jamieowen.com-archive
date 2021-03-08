@@ -1,9 +1,12 @@
 import { useScrollContext } from "components/context/ScrollContext";
 import { FC, useState } from "react";
-import { Box } from "theme-ui";
+import { Box, Styled } from "theme-ui";
 import { LoaderContainer } from "./LoaderContainer";
 import { headerHeight } from "./containers";
-export const ContentIFrame: FC<any> = () => {
+
+export const ContentIFrame: FC<{ height?: string }> = ({
+  height = headerHeight,
+}) => {
   const [loading, setLoading] = useState(true);
   const scroll = useScrollContext();
   const vis = 1 - scroll.headerVisibility;
@@ -23,20 +26,21 @@ export const ContentIFrame: FC<any> = () => {
         top: 0,
         left: 0,
         width: "100%",
-        height: headerHeight,
+        height: height,
         backgroundColor: "black",
       }}
     >
       <LoaderContainer visible={loading}>
-        <iframe
-          width="100%"
-          height="100%"
-          frameBorder={0}
+        <Box
+          as="iframe"
+          // width="100%"
+          // height="100%"
+          // frameBorder={0}
           sx={{ border: 0, width: "100%", height: "100%" }}
           onLoadStart={() => setLoading(true)}
           onLoad={() => setLoading(false)}
           // src="http://localhost:8081/gpgpu-state.html"
-        ></iframe>
+        ></Box>
       </LoaderContainer>
     </Box>
   );

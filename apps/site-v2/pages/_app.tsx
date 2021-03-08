@@ -23,6 +23,7 @@ import { MDXProvider } from "@mdx-js/react";
 import "styles/globals.css";
 import { useColorMode } from "theme-ui";
 import { ScrollProvider } from "components/context/ScrollContext";
+import { useRouter } from "next/router";
 
 const Fonts = () => {
   return (
@@ -53,8 +54,7 @@ const DevSwitch = ({ children, path }) => {
   return <Fragment>{dev ? children : <Soon />}</Fragment>;
 };
 
-const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
-  const projectsPage = isProjectsPage();
+const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <Fragment>
       <Head>
@@ -65,30 +65,55 @@ const MyApp: FC<AppProps> = ({ Component, router, children, pageProps }) => {
         <meta name="mobile-web-app-capable" content="yes" />
         <Fonts />
       </Head>
-
       <Providers>
-        <DevSwitch path={router.asPath}>
-          <ContentIFrame />
-          <Header>
-            <Menu />
-
-            {/* <SidePanel /> */}
-            {/* <FooterCopyright className="opq5" copyright={false} /> */}
-          </Header>
-          <ContentContainer>
-            <Component {...pageProps} />
-            {!projectsPage && (
-              // See ProjectsMDX Wrapper.
-              <Footer>
-                <FooterNavigation />
-                <FooterCopyright />
-              </Footer>
-            )}
-          </ContentContainer>
-        </DevSwitch>
+        <ContentSwitch>
+          <Component {...pageProps} />
+        </ContentSwitch>
       </Providers>
     </Fragment>
   );
+};
+
+const ContentSwitch: FC<{}> = ({ children }) => {
+  const router = useRouter();
+  return (
+    <DevSwitch path={router.asPath}>
+      {router.asPath.includes("/packages/") ||
+      router.asPath.includes("/play/") ? (
+        <FullScreenContent>{children}</FullScreenContent>
+      ) : (
+        <RegularSiteContent>{children}</RegularSiteContent>
+      )}
+    </DevSwitch>
+  );
+};
+
+const RegularSiteContent: FC<any> = ({ children }) => {
+  const projectsPage = isProjectsPage();
+  return (
+    <Fragment>
+      <ContentIFrame />
+      <Header>
+        <Menu />
+        {/* <SidePanel /> */}
+        {/* <FooterCopyright className="opq5" copyright={false} /> */}
+      </Header>
+      <ContentContainer>
+        {children}
+        {!projectsPage && (
+          // See ProjectsMDX Wrapper.
+          <Footer>
+            <FooterNavigation />
+            <FooterCopyright />
+          </Footer>
+        )}
+      </ContentContainer>
+    </Fragment>
+  );
+};
+
+const FullScreenContent: FC<any> = ({ children }) => {
+  return <Fragment>{children}</Fragment>;
 };
 
 const ColorSwitch: FC<{}> = () => {
