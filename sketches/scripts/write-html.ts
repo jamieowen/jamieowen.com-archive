@@ -25,20 +25,26 @@ const sketchHTML = (file: string) => `
     <title>Starter Snowpack App</title>
   </head>
   <body style="margin:0px">
-    <script type="module" src="/js/${file.replace(/.tsx?/, ".js")}"></script>
+    <script type="module" src="${file}"></script>
   </body>
 </html>
 `;
 
 rimraf.sync(out);
 fs.mkdirSync(out);
+fs.writeFileSync(path.join(out, ".nojekyll"), "");
 
 for (let file of tsFiles) {
-  const rel = path.relative(src, out);
-  console.log(rel, file);
+  // const rel = path.relative(src, out);
+  // console.log(rel, file);
   const outFile = path.join(out, file.replace(/.tsx?/, ".html"));
   fs.ensureFileSync(outFile);
-  fs.writeFileSync(outFile, sketchHTML(file));
+
+  const jsFile = file.replace(/.tsx?/, ".js");
+  const rel2 = path.relative(jsFile, "js").replace("../", ""); // replace one occurence
+
+  const jsRel = rel2 + "/" + jsFile;
+  fs.writeFileSync(outFile, sketchHTML(jsRel));
 }
 
 const indexHTML = (links: string[]) => `
@@ -62,6 +68,6 @@ const indexHTML = (links: string[]) => `
 `;
 
 const links = tsFiles.map(
-  (file: string) => "/" + file.replace(/.tsx?/, ".html")
+  (file: string) => "" + file.replace(/.tsx?/, ".html")
 );
 fs.writeFileSync(path.join(out, "index.html"), indexHTML(links));
