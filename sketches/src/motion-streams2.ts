@@ -19,7 +19,7 @@ import {
   wrapBoundsScalar,
   steerRandomPoint,
   limitVelocity,
-} from "./lib/motion-streams";
+} from "./lib/motion-streams-rough";
 // import { ConsoleLogger, LogLevel } from "@thi.ng/api";
 // setLogger(new ConsoleLogger("rstream", LogLevel.FINE));
 

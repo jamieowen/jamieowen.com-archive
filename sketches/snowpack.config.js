@@ -7,4 +7,7 @@ module.exports = {
     public: "/",
     src: "/js",
   },
+  buildOptions: {
+    baseUrl: "./",
+  },
 };

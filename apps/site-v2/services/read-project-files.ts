@@ -62,7 +62,7 @@ export const readProjectFiles = (
 
       return {
         id: path,
-        url: `/recent-work/${path}`,
+        url: `/work/${path}`,
         images,
         thumbs,
         content,

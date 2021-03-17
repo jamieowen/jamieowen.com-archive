@@ -2,7 +2,6 @@ import {
   Section,
   BodyText,
   Content,
-  NextBackNavigation,
   PageHeaderNavigation,
 } from "components/common";
 import { InterestsGridList } from "components/common/GridList";

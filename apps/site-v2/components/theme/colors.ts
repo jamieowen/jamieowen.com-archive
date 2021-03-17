@@ -41,11 +41,11 @@ export const colors: Pick<
   initialColorModeName: "light",
   colors: {
     text: "#f6f6f6",
-    background: "blue", //"#C0BECC",
+    background: "#C0BECC",
     content_text: "#dfdfdf",
     content_background: "#222222",
     footer_background: "#202020",
-    primary: "blue",
+    primary: "hotpink",
 
     modes: {
       dark: {

@@ -9,9 +9,10 @@ import {
   createContext,
   useContext,
 } from "react";
-import { Container, Heading, Text } from "theme-ui";
+import { Container, Box, Heading, Text } from "theme-ui";
 import { Button } from "./Button";
 import { BodyHeader, BodyLink, MenuLink } from "./typography";
+import { useScrollContext } from "components/context/ScrollContext";
 
 interface MenuData {
   label: string;
@@ -21,28 +22,35 @@ interface MenuData {
   hideNext?: boolean;
   devOnly?: boolean;
 }
+
 export const navigationData: MenuData[] = [
-  { num: "01", label: "Intro.", href: "/" },
-  { num: "02", label: "Recent Work.", href: "/recent-work" },
-  { num: "03", label: "Tech Stack.", href: "/tech-stack", break: true },
-  // { label: "Archived.", href: "/archived-work" },
-  { num: "04", label: "Interests.", href: "/interests" },
-  { num: "05", label: "Get In Touch.", href: "/get-in-touch" },
-  {
-    num: "06",
-    label: "Github.",
-    href: "https://github.com/jamieowen",
-    hideNext: true,
-  },
-  {
-    num: "07",
-    label: "Packages.",
-    href: "/packages",
-    // hideNext: true,
-    devOnly: true,
-  },
-  // { label: "LinkedIn.", href: "https://www.linkedin.com/in/jamie-owen" },
+  { num: "01", label: "Work.", href: "/work" },
+  { num: "02", label: "About.", href: "/about" },
+  { num: "03", label: "Play.", href: "/play" },
 ];
+
+// export const navigationData2: MenuData[] = [
+//   { num: "01", label: "Intro.", href: "/" },
+//   { num: "02", label: "Recent Work.", href: "/recent-work" },
+//   { num: "03", label: "Tech Stack.", href: "/tech-stack", break: true },
+//   // { label: "Archived.", href: "/archived-work" },
+//   { num: "04", label: "Interests.", href: "/interests" },
+//   { num: "05", label: "Get In Touch.", href: "/get-in-touch" },
+//   {
+//     num: "06",
+//     label: "Github.",
+//     href: "https://github.com/jamieowen",
+//     hideNext: true,
+//   },
+//   {
+//     num: "07",
+//     label: "Packages.",
+//     href: "/packages",
+//     // hideNext: true,
+//     devOnly: true,
+//   },
+//   // { label: "LinkedIn.", href: "https://www.linkedin.com/in/jamie-owen" },
+// ];
 
 interface NavigationData {
   items: MenuData[];
@@ -67,8 +75,8 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
       // manual fix for recent-work sub paths
       // TODO: not sure what this is actually for?
 
-      return route.asPath.indexOf("/recent-work") === 0
-        ? d.href === "/recent-work"
+      return route.asPath.indexOf("/work") === 0
+        ? d.href === "/work"
         : route.asPath === d.href;
     });
     let prev: MenuData = null;
@@ -91,6 +99,7 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
       }
     }
 
+    // console.log("NO CURRENT...");
     // spoof a fake one for now.
     if (!current) {
       current = {
@@ -117,11 +126,26 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
 export const Menu: FC<{}> = ({ children }) => {
   const nav = useNavigationData();
   const router = useRouter();
+  const scroll = useScrollContext();
+  const vis = 1 - scroll.headerVisibility;
 
   return (
-    <Container as="nav">
+    <Box
+      as="nav"
+      sx={{
+        pointerEvents: "all",
+        // transition: "transform 0.3s ease-out",
+        // transform: `translate(0px,${-vis * 10}vh)`,
+      }}
+    >
       <BodyHeader>00 / Menu</BodyHeader>
-      <Container>
+      <Box
+        sx={{
+          "span:not(:last-child)": {
+            marginRight: "2rem",
+          },
+        }}
+      >
         {nav.items.map((link, i) => (
           <Fragment key={i}>
             <MenuLink
@@ -134,8 +158,8 @@ export const Menu: FC<{}> = ({ children }) => {
             {link.break ? <br /> : null}
           </Fragment>
         ))}
-      </Container>
-    </Container>
+      </Box>
+    </Box>
   );
 };
 
@@ -163,43 +187,5 @@ export const PageHeaderNavigation: FC<any> = () => {
     <BodyHeader>
       {nav.current && nav.current.num} / {nav.current && nav.current.label}
     </BodyHeader>
-  );
-};
-
-export const NextBackNavigation: FC<{}> = () => {
-  const { next, prev, current } = useNavigationData();
-
-  return (
-    <Container
-      as="nav"
-      sx={{
-        width: "100%",
-        display: "grid",
-        marginTop: "8rem",
-        textAlign: "left",
-        gridTemplateColumns: "1fr",
-        columnGap: "16px",
-      }}
-    >
-      <BodyHeader>{next && next.num + " / Next"}</BodyHeader>
-      <BodyLink href={next ? next.href : ""}>
-        {next && next.label + " >> "}
-      </BodyLink>
-      {/* <Container>
-        {next ? (
-          <Button href={next ? next.href : ""}>
-            <span className="opq3">{next.num}/06</span> <br />
-            <div>Next</div>
-            <Text as="span" variant="navigation_body">
-              <strong>{next.label}</strong>
-            </Text>
-          </Button>
-        ) : (
-          <Text as="span" className="opq3" variant="navigation_body">
-            Done / Thank You.
-          </Text>
-        )}
-      </Container> */}
-    </Container>
   );
 };

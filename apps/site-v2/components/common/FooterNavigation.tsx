@@ -1,5 +1,12 @@
 import { ComponentProps, FC, Fragment } from "react";
-import { Button, Container, Flex, Text, ThemeUIStyleObject } from "theme-ui";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Text,
+  ThemeUIStyleObject,
+} from "theme-ui";
 import { BodyText, LinkWrapper } from "./typography";
 import { useNavigationData } from "components/common";
 import { useProjects } from "components/context/ProjectsContext";
@@ -8,7 +15,7 @@ import { useRouter } from "next/router";
 const navStyle: ThemeUIStyleObject = {
   width: "100%",
   height: ["3rem", "5rem"],
-  backgroundColor: "background",
+  backgroundColor: "primary",
   color: "text",
   display: "grid",
   gridTemplateColumns: ["6rem 1fr 6rem", "8rem 1fr 8rem"],
@@ -30,7 +37,13 @@ const cellStyle: ThemeUIStyleObject = {
   height: "100%",
   fontSize: "8px",
   alignItems: "center",
+  alignContent: "center",
+  margin: "0rem",
   justifyContent: "center",
+};
+
+const markerBoxStyle: ThemeUIStyleObject = {
+  margin: "0rem 3rem",
 };
 
 const buttonStyle: ThemeUIStyleObject = {
@@ -40,6 +53,7 @@ const buttonStyle: ThemeUIStyleObject = {
   color: "content_background",
   alignItems: "center",
   justifyContent: "center",
+  margin: 0,
   userSelect: "none",
   fontSize: "16px",
   ":hover": {
@@ -62,7 +76,7 @@ const FooterButton: FC<ComponentProps<typeof LinkWrapper>> = ({
 export const isProjectsPage = () => {
   const router = useRouter();
   const path = router.asPath.split("/");
-  return path.length > 2 && path[1] === "recent-work";
+  return path.length > 2 && path[1] === "work";
 };
 
 export const FooterNavigation: FC<{}> = () => {
@@ -76,7 +90,7 @@ export const FooterNavigation: FC<{}> = () => {
 
 export const FooterSiteNavigation: FC<{}> = () => {
   const { next, prev, current, items } = useNavigationData();
-  const len = items.length - 1; // not including github
+  const len = items.length;
   const marker = current ? current.num + "/" + ("00" + len).slice(-2) : "";
 
   return (
@@ -84,7 +98,9 @@ export const FooterSiteNavigation: FC<{}> = () => {
       <Container sx={cellStyle}>
         {prev && <FooterButton href={prev.href}>{`<<`}</FooterButton>}
       </Container>
-      <Flex sx={cellStyle}>{marker}</Flex>
+      <Flex sx={cellStyle}>
+        <Box sx={markerBoxStyle}>{marker}</Box>
+      </Flex>
       <Container sx={cellStyle}>
         {next && <FooterButton href={next.href}>{`>>`}</FooterButton>}
       </Container>
@@ -119,7 +135,7 @@ export const FooterProjectNavigation: FC<any> = () => {
         </Container>
       </Container>
       <Container sx={backStyle} className="maxw-medium">
-        <LinkWrapper href="/recent-work">
+        <LinkWrapper href="/work">
           <Text as="span" variant="navigation_list">
             {"<< "} Back to Recent Work
           </Text>

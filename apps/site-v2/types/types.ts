@@ -31,21 +31,26 @@ export interface ProjectContent {
   content: string;
 }
 
+/**
+ * Package data is used as both play / packages section.
+ */
 export interface PackageDataRoot {
   packages: PackageInfo[];
 }
 
 export interface PackageInfo {
-  href: string;
+  href?: string; // a link ( not requiest )
   title: string;
   examples: PackageExample[];
 }
 
 export interface PackageExample {
-  slug: string;
-  href: string;
+  id: string;
   description: string;
   title: string;
-  image: string;
+  href: string; // local relative path
+  iframe: string; // iframe content path
+  image: string; // video thumbnail path
+  video: string; // video path
   visible?: boolean;
 }

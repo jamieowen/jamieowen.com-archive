@@ -35,6 +35,9 @@ export const styles: Pick<Theme, "styles"> = {
       ".opq5": {
         opacity: 0.5,
       },
+      ".opq75": {
+        opacity: 0.75,
+      },
       "em, strong": {
         fontWeight: 600,
       },
@@ -42,7 +45,6 @@ export const styles: Pick<Theme, "styles"> = {
         maxWidth: "50rem",
       },
       ".maxw-medium": {
-        // maxWidth: "50rem", // 1rem - 16
         maxWidth: "60rem",
       },
       ".maxw-full": {

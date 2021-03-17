@@ -2,7 +2,7 @@ import {
   // fromRandomPoints,
   GeometryEvent,
   createRandomPoints,
-} from "./lib";
+} from "./lib/geom-streams";
 // import { map } from "@thi.ng/transducers";
 import { subscription } from "@thi.ng/rstream";
 
@@ -25,7 +25,7 @@ const render = subscription<any, GeometryEvent>({
   },
 });
 
-const [points, pointsInputs] = createRandomPoints();
+const [points, pointsInputs] = createRandomPoints("id");
 
 points.subscribe(render);
 points.subscribe({

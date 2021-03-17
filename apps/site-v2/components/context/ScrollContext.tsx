@@ -10,28 +10,44 @@ import React, {
 import { throttle } from "lodash";
 import { useRouter } from "next/router";
 
-interface IScrollContext {}
+interface IScrollContext {
+  headerVisibility: number; // 0 - 1
+}
+const ScrollContext = createContext<IScrollContext>(null!);
+export const useScrollContext = () => useContext(ScrollContext);
 
-const ScrollContext = createContext({}!);
 export const ScrollProvider: FC<any> = ({ children }) => {
   const contentContainerRef = useRef<HTMLElement>();
   const [contentScrollPos, setContentScroll] = useState(0);
+  const [headerVisibility, setHeaderVisibility] = useState(1);
+
   const router = useRouter();
 
-  // Originally for full screen display of header.
-  // useEffect(() => {
-  //   const container = document.getElementById("content-container");
-  //   contentContainerRef.current = container;
-  //   if (container) {
-  //     window.addEventListener(
-  //       "scroll",
-  //       throttle((ev) => {
-  //         // const bounds = container.getBoundingClientRect();
-  //       }, 20)
-  //     );
-  //   }
-  // }, []);
+  const providerValue = useMemo<IScrollContext>(() => {
+    return {
+      headerVisibility: Math.min(Math.max(0, 1 - contentScrollPos), 1.0),
+    };
+  }, [contentScrollPos]);
 
+  // Originally for full screen display of header.
+  useEffect(() => {
+    const container = document.getElementById("__next");
+    contentContainerRef.current = container;
+    if (container) {
+      container.addEventListener(
+        "scroll",
+        throttle((ev) => {
+          const bounds = container.getBoundingClientRect();
+          // console.log("scroll", container.scrollTop);
+          const norm = container.scrollTop / window.innerHeight;
+          setContentScroll(norm);
+        }, 20)
+      );
+    }
+  }, []);
+  /**
+   * Scroll to top on page load.
+   */
   useEffect(() => {
     const scrollTarget = document.getElementById("__next");
     scrollTarget.scrollTop = 0;
@@ -43,5 +59,9 @@ export const ScrollProvider: FC<any> = ({ children }) => {
     // }
   }, [router.asPath]);
 
-  return <ScrollContext.Provider value={{}}>{children}</ScrollContext.Provider>;
+  return (
+    <ScrollContext.Provider value={providerValue}>
+      {children}
+    </ScrollContext.Provider>
+  );
 };

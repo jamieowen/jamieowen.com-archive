@@ -75,7 +75,8 @@ export const WeatherProvider: FC<{}> = ({ children }) => {
           weather: data.main.temp.toFixed(0) + "°c",
         });
         // setVisible(true);
-      });
+      })
+      .catch(console.warn);
   }, []);
 
   return (

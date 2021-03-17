@@ -13,10 +13,10 @@ export const RecentWork = ({ projects }) => {
   return (
     <ProjectsContextProvider projects={projects}>
       <Content>
-        <Section maxWidth="small">
+        <Section maxWidth="medium">
           <PageHeaderNavigation />
           <BodyText>
-            Some recent work made possible whilst contracting with the very
+            Some recent work made possible while contracting with the very
             talented folk at agencies:{" "}
             <a href="https://allofus.com/" target="_blank">
               AllOfUs

@@ -1,12 +1,12 @@
 import { stream } from "@thi.ng/rstream";
-import { colorsFromRange, RANGES } from "@thi.ng/color";
+import { colorsFromRange, COLOR_RANGES } from "@thi.ng/color";
 import { Vec } from "@thi.ng/vectors";
 import { AttributeEvent } from "./api";
 
 export const fromColorGradient = (count: number) => {
   return stream<AttributeEvent>(($) => {
     const color = new Float32Array(count * 4);
-    const sample = colorsFromRange(RANGES.fresh);
+    const sample = colorsFromRange(COLOR_RANGES.fresh);
     let offset = 0;
     for (let i = 0; i < count; i++) {
       const rgba = sample.next();

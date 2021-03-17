@@ -6,10 +6,10 @@ import {
   closestHue,
   closestPrimaryHue,
   parseCss,
-  rgbaCss,
-  rgbaHsva,
+  rgbCss,
+  rgbHsv,
   ColorMode,
-  namedHueRgba,
+  namedHueRgb,
   luminance,
 } from "@thi.ng/color";
 import { complement, contrastRatio2 } from "@jamieowen/color";
@@ -91,16 +91,16 @@ const colors = Object.keys(CSS_NAMES)
   .map((name) => ({ name, rgba: parseCss(name) }))
   .map(({ rgba, ...rest }) => ({
     ...rest,
-    rgba,
-    hsva: rgbaHsva([], rgba as any),
+    rgba: rgba.deref(),
+    hsva: rgbHsv([], rgba.deref()),
   }))
   .map(({ hsva, rgba, ...rest }) => ({
     ...rest,
-    rgba,
+    rgba: rgba,
     hsva,
-    closestHue: namedHueRgba(null, closestHue(hsva[0] as any)),
-    closestPrimaryHue: namedHueRgba(null, closestPrimaryHue(hsva[0] as any)),
-    luminance: luminance(rgba, "rgb"),
+    closestHue: namedHueRgb(null, closestHue(hsva[0] as any)),
+    closestPrimaryHue: namedHueRgb(null, closestPrimaryHue(hsva[0] as any)),
+    luminance: luminance(rgba),
     complementary: complement(rgba),
   }))
   .map(({ rgba, complementary, ...rest }) => ({
@@ -117,10 +117,10 @@ const colorList = $list(colorStream, "div", {}, (color) => [
     style: { display: "flex", marginBottom: "2px" },
   },
   colorBlock(color.name, color.name),
-  colorBlock(null, rgbaCss(color.closestHue)),
-  colorBlock(null, rgbaCss(color.closestPrimaryHue)),
+  colorBlock(null, rgbCss(color.closestHue)),
+  colorBlock(null, rgbCss(color.closestPrimaryHue)),
   colorBlock(color.luminance.toString(), "white"),
-  colorCombo(color.name, rgbaCss(color.complementary)),
+  colorCombo(color.name, rgbCss(color.complementary)),
   colorBlock(color.complementaryRatio.toString(), "white"),
 ]);
 
