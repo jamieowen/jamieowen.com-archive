@@ -75,8 +75,8 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
       // manual fix for recent-work sub paths
       // TODO: not sure what this is actually for?
 
-      return route.asPath.indexOf("/recent-work") === 0
-        ? d.href === "/recent-work"
+      return route.asPath.indexOf("/work") === 0
+        ? d.href === "/work"
         : route.asPath === d.href;
     });
     let prev: MenuData = null;
@@ -99,6 +99,7 @@ export const NavigationDataProvider: FC<{}> = ({ children }) => {
       }
     }
 
+    // console.log("NO CURRENT...");
     // spoof a fake one for now.
     if (!current) {
       current = {

@@ -2,12 +2,11 @@ import {
   ComponentProps,
   FC,
   useEffect,
+  useMemo,
   useRef,
   useState,
-  forwardRef,
 } from "react";
 import { Box } from "theme-ui";
-import { Loader } from "three";
 import { LoaderContainer } from "./LoaderContainer";
 
 const useAspectRatio = (aspect: "4/3" | "16/9") => {
@@ -39,12 +38,17 @@ export const MediaView: FC<
   const [ref, expectedHeight] = useAspectRatio("16/9");
 
   const onLoad = () => {
+    // console.log("on MEDIA LOAD");
     setLoaded(true);
   };
 
+  // const prefix = useMemo(() => , []);
+
+  // console.log("MEDIA LOADED", loaded);
+
   return (
     <Box
-      onClick={() => setLoaded(!loaded)}
+      // onClick={() => setLoaded(!loaded)}
       ref={ref as any}
       style={{ height: expectedHeight as string }}
       sx={{ width: "100%", overflow: "hidden" }}
@@ -52,7 +56,7 @@ export const MediaView: FC<
     >
       <LoaderContainer visible={!loaded} spinner="small">
         {type === "image" ? (
-          <MediaImage src={src} onLoad={onLoad} />
+          <MediaImage src={src + "?" + Math.random()} onLoad={onLoad} />
         ) : (
           <MediaVideo src={src} onCanPlay={onLoad} />
         )}
@@ -65,16 +69,17 @@ export const MediaVideo: FC<
   ComponentProps<"video"> & { src: string; height?: string }
 > = ({ src, ...props }) => {
   return (
-    <video
+    // @ts-ignore
+    <Box
+      as="video"
       autoPlay={true}
       playsInline={true}
-      sx={{ objectFit: "cover" }}
+      sx={{ objectFit: "cover", width: "100%" }}
       loop={true}
       {...props}
-      width="100%"
     >
-      <source src="/media-test2.mp4" type="video/mp4"></source>
-    </video>
+      <source src={src} type="video/mp4"></source>
+    </Box>
   );
 };
 
@@ -85,7 +90,7 @@ export const MediaImage: FC<ComponentProps<"picture"> & { src: string }> = ({
   return (
     <picture {...props}>
       {/* <source></source> */}
-      <img loading="lazy" src={src} width="100%" />
+      <img loading="lazy" src={src} width="100%" onLoad={props.onLoad} />
     </picture>
   );
 };

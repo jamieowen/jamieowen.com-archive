@@ -2,9 +2,12 @@ import { FC, ComponentProps, Fragment } from "react";
 import { Heading, Text } from "theme-ui";
 import Link from "next/link";
 
-export const BodyText: FC<{}> = ({ children }) => {
+export const BodyText: FC<ComponentProps<typeof Text>> = ({
+  children,
+  ...props
+}) => {
   return (
-    <Text as="p" variant="body_text">
+    <Text as="p" variant="body_text" {...props}>
       {children}
     </Text>
   );

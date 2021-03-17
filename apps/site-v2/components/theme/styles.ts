@@ -35,6 +35,9 @@ export const styles: Pick<Theme, "styles"> = {
       ".opq5": {
         opacity: 0.5,
       },
+      ".opq75": {
+        opacity: 0.75,
+      },
       "em, strong": {
         fontWeight: 600,
       },

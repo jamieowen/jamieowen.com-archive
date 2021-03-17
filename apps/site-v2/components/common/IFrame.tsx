@@ -4,16 +4,20 @@ import { Box, Styled } from "theme-ui";
 import { LoaderContainer } from "./LoaderContainer";
 import { headerHeight } from "./containers";
 
-export const ContentIFrame: FC<{ height?: string }> = ({
-  height = headerHeight,
-}) => {
+export const ContentIFrame: FC<{
+  height?: string;
+  src: string;
+  pointerEvents?: boolean;
+  enabled?: boolean;
+}> = ({ height = headerHeight, src, pointerEvents = true, enabled = true }) => {
   const [loading, setLoading] = useState(true);
+
   const scroll = useScrollContext();
   const vis = 1 - scroll.headerVisibility;
 
   return (
     <Box
-      onClick={() => setLoading(!loading)}
+      // onClick={() => setLoading(!loading)}
       style={{
         transition: "translate 0.3s ease-out",
         transformOrigin: "0% 0%",
@@ -27,21 +31,29 @@ export const ContentIFrame: FC<{ height?: string }> = ({
         left: 0,
         width: "100%",
         height: height,
-        backgroundColor: "black",
+        backgroundColor: "#111111",
       }}
     >
-      <LoaderContainer visible={loading}>
-        <Box
-          as="iframe"
-          // width="100%"
-          // height="100%"
-          // frameBorder={0}
-          sx={{ border: 0, width: "100%", height: "100%" }}
-          onLoadStart={() => setLoading(true)}
-          onLoad={() => setLoading(false)}
-          // src="http://localhost:8081/gpgpu-state.html"
-        ></Box>
-      </LoaderContainer>
+      {enabled && (
+        <LoaderContainer visible={loading}>
+          <Box
+            as="iframe"
+            // width="100%"
+            // height="100%"
+            // frameBorder={0}
+            sx={{
+              border: 0,
+              width: "100%",
+              height: "100%",
+              pointerEvents: pointerEvents ? "all" : "none",
+            }}
+            onLoadStart={() => setLoading(true)}
+            onLoad={() => setLoading(false)}
+            // @ts-ignore
+            src={src}
+          ></Box>
+        </LoaderContainer>
+      )}
     </Box>
   );
 };

@@ -87,7 +87,7 @@ export const _getStaticPaths: GetStaticPaths = async () => {
   );
   const projectPaths = projects.map((project) => ({
     params: {
-      id: ["recent-work", project.id],
+      id: ["work", project.id],
     },
   }));
   return {

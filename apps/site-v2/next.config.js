@@ -30,5 +30,8 @@ const withTM = require("next-transpile-modules")(
 module.exports = withTM(
   withMDX({
     pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+    async redirects() {
+      return [{ source: "/", destination: "/work", permanent: true }];
+    },
   })
 );

@@ -76,7 +76,7 @@ const FooterButton: FC<ComponentProps<typeof LinkWrapper>> = ({
 export const isProjectsPage = () => {
   const router = useRouter();
   const path = router.asPath.split("/");
-  return path.length > 2 && path[1] === "recent-work";
+  return path.length > 2 && path[1] === "work";
 };
 
 export const FooterNavigation: FC<{}> = () => {

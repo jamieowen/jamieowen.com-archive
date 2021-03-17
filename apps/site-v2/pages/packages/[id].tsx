@@ -13,7 +13,7 @@ export const PackageExamples: FC<{ packageExample: PackageExample }> = ({
 }) => {
   return (
     <Fragment>
-      <ContentIFrame height="100%"></ContentIFrame>
+      <ContentIFrame src={packageExample.iframe} height="100%"></ContentIFrame>
     </Fragment>
   );
 };

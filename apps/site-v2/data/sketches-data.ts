@@ -10,22 +10,25 @@ export const sketchesData: PackageDataRoot = {
       title: "Sketches",
       examples: [
         {
-          id: "color-grid",
-          href: "/play/color-grid",
-          iframe: "https://jamieowen.github.io/jamieowen.com/",
-          video: "",
+          id: "color-palette-grid",
+          href: "/play/color-palette-grid",
+          iframe:
+            "https://jamieowen.github.io/jamieowen.com/color-scene-grid.html",
+          video: "/assets/videos/sketches/color-palette-grid.mp4",
           image: "",
-          title: "Color Grid",
-          description: "",
+          title: "Color Palette Grid",
+          description:
+            "Color theory grid, with generative, color wheel based palettes.",
         },
         {
-          id: "particles-1",
-          href: "/play/particles-1",
-          iframe: "https://jamieowen.github.io/jamieowen.com/",
-          video: "",
+          id: "curl-particles",
+          href: "/play/curl-particles",
+          iframe:
+            "https://jamieowen.github.io/jamieowen.com/particles/particles-basics.html",
+          video: "/assets/videos/sketches/particles-basics.mp4",
           image: "",
-          title: "Particles 1",
-          description: "",
+          title: "Curl Particles",
+          description: "Simple curl noise and GPGPU state sim.",
         },
         // {
         //   slug: "/play/color-grid",

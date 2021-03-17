@@ -50,7 +50,7 @@ const Soon = () => {
 
 const DevSwitch = ({ children, path }) => {
   // const dev = process.env.NODE_ENV === "development";
-  const dev = path !== "/";
+  const dev = true; //path !== "/";
   return <Fragment>{dev ? children : <Soon />}</Fragment>;
 };
 
@@ -92,7 +92,7 @@ const RegularSiteContent: FC<any> = ({ children }) => {
   const projectsPage = isProjectsPage();
   return (
     <Fragment>
-      <ContentIFrame />
+      <ContentIFrame src="" enabled={false} pointerEvents={false} />
       <Header>
         <Menu />
         {/* <SidePanel /> */}
