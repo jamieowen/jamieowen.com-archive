@@ -72,6 +72,7 @@ export const MediaVideo: FC<
     // @ts-ignore
     <Box
       as="video"
+      poster={src.replace(".mp4", ".jpg")}
       autoPlay={true}
       playsInline={true}
       sx={{ objectFit: "cover", width: "100%" }}
