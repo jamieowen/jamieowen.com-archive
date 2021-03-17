@@ -14,7 +14,8 @@ export const packagesData: PackageDataRoot = {
           id: "infinite-grid",
           href: "/packages/infinite-grid",
           iframe: "https://jamieowen.github.io/packages/infinite-grid.html",
-          video: "/assets/videos/packages/infinite-grid.mp4",
+          video:
+            "https://fra1.digitaloceanspaces.com/jamieowen/videos/packages/infinite-grid.mp4",
           image: "",
           title: "Infinite Grid Variations",
           description:
@@ -30,7 +31,8 @@ export const packagesData: PackageDataRoot = {
           id: "motion-trails",
           href: "/packages/motion-trails",
           iframe: "https://jamieowen.github.io/packages/motion-trails.html",
-          video: "/assets/videos/packages/motion-trails.mp4",
+          video:
+            "https://fra1.digitaloceanspaces.com/jamieowen/videos/packages/motion-trails.mp4",
           image: "",
           title: "Motion Trails",
           description: "Initial test for a stream based motion library.",
@@ -45,7 +47,8 @@ export const packagesData: PackageDataRoot = {
           id: "gpgpu-state",
           href: "/packages/gpgpu-state",
           iframe: "https://jamieowen.github.io/packages/gpgpu-state.html",
-          video: "/assets/videos/packages/gpgpu-state.mp4",
+          video:
+            "https://fra1.digitaloceanspaces.com/jamieowen/videos/packages/gpgpu-state.mp4",
           image: "",
           title: "GPGPU State",
           description:
