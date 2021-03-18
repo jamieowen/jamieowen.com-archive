@@ -88,18 +88,21 @@ export const MenuLink: FC<ComponentProps<typeof Text> & { href: string }> = ({
  * Use for next / back navigation.
  *
  */
-export const BodyLink: FC<ComponentProps<typeof Text> & { href: string }> = ({
-  children,
-  href,
-  ...props
-}) => {
+export const BodyLink: FC<
+  ComponentProps<typeof Text> & { href: string; target?: string }
+> = ({ children, href, target = undefined, ...props }) => {
   return (
-    <Link href={href}>
-      <Text as="span" variant="navigation_body" {...props}>
-        <a>{children}</a>
+    <Link href={href} passHref>
+      {/* @ts-ignore */}
+      <Text as="a" variant="navigation_body" {...props} target={target}>
+        {children}
       </Text>
     </Link>
   );
+};
+
+export const BodyLinkPrimary: FC<ComponentProps<typeof BodyLink>> = (props) => {
+  return <BodyLink {...props} sx={{ color: "hotpink", fontSize: "16px" }} />;
 };
 
 /**
