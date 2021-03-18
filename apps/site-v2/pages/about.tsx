@@ -1,5 +1,6 @@
 import {
   BodyHeader,
+  BodyLinkPrimary,
   BodyText,
   BodyTextLarge,
   Content,
@@ -7,6 +8,7 @@ import {
   Section,
   TechGridList,
 } from "components/common";
+import { Social } from "components/common/Social";
 import { styles } from "components/theme/styles";
 import { Styled } from "theme-ui";
 
@@ -15,6 +17,7 @@ export const Intro = () => {
     <Content>
       <Section maxWidth="medium">
         {/* <PageHeaderNavigation /> */}
+        {/* <Social /> */}
         <BodyHeader>02 / About</BodyHeader>
         <BodyText>
           Hello. My name is Jamie. I'm a Creative Developer & Software Engineer
@@ -94,7 +97,30 @@ export const Intro = () => {
         </BodyText>
         <br />
         <BodyText>
-          <Styled.a href="mailto:hello@jamieowen.com">Get in Touch</Styled.a>
+          <Styled.div
+            sx={{
+              textAlign: "center",
+              color: "primary",
+              width: "100%",
+              a: { color: "primary" },
+            }}
+          >
+            <BodyLinkPrimary href="mailto:hello@jamieowen.com" target="_blank">
+              Get in Touch
+            </BodyLinkPrimary>{" "}
+            <BodyLinkPrimary
+              href="https://github.com/jamieowen"
+              target="_blank"
+            >
+              Github
+            </BodyLinkPrimary>{" "}
+            <BodyLinkPrimary
+              href="https://www.linkedin.com/in/jamie-owen"
+              target="_blank"
+            >
+              Linked In
+            </BodyLinkPrimary>{" "}
+          </Styled.div>
         </BodyText>
       </Section>
       <Section maxWidth="medium">
