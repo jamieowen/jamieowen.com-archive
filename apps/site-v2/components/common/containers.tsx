@@ -3,7 +3,7 @@ import { Box, useColorMode } from "theme-ui";
 import { Container, Grid as _Grid, ThemeUIStyleObject } from "theme-ui";
 
 // Imported by IFrame
-export const headerHeight = "66vh"; //"calc( 100vh - 30rem )";
+export const headerHeight = "12rem"; //"66vh"; //"calc( 100vh - 30rem )";
 
 const headerStyle: ThemeUIStyleObject = {
   width: "100%",
