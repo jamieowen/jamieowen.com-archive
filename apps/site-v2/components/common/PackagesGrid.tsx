@@ -27,9 +27,9 @@ export const PackageImageLink: FC<{ example: PackageExample }> = ({
   return (
     <Link href={example.href}>
       <Box as="article" sx={{ cursor: "pointer" }} {...props}>
-        <MediaView src={example.video} type="video" />
-        <BodyTextLarge>{example.title}</BodyTextLarge>
+        <BodyText>{example.title}</BodyText>
         <BodyText className="opq75">{example.description}</BodyText>
+        <MediaView src={example.video} type="video" />
       </Box>
     </Link>
   );

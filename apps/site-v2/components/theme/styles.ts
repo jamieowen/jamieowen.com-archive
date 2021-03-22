@@ -41,15 +41,15 @@ export const styles: Pick<Theme, "styles"> = {
       "em, strong": {
         fontWeight: 600,
       },
-      ".maxw-small": {
-        maxWidth: "50rem",
-      },
-      ".maxw-medium": {
-        maxWidth: "60rem",
-      },
-      ".maxw-full": {
-        maxWidth: "100%",
-      },
+      // ".maxw-small": {
+      //   maxWidth: "50rem",
+      // },
+      // ".maxw-medium": {
+      //   maxWidth: "60rem",
+      // },
+      // ".maxw-full": {
+      //   maxWidth: "100%",
+      // },
 
       ".align-left": {
         textAlign: "left",

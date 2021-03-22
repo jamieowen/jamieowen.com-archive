@@ -3,7 +3,7 @@ import { ProjectData } from "types";
 import { Grid } from "./containers";
 import { Container } from "theme-ui";
 import Link from "next/link";
-import { BodyTextLarge } from "./typography";
+import { BodyText, BodyTextLarge } from "./typography";
 import { MediaView } from "./MediaView";
 
 /**
@@ -17,11 +17,12 @@ export const ProjectImageLink: FC<{ project: ProjectData }> = ({
   return (
     <Link href={project.url}>
       <Container sx={{ cursor: "pointer" }} {...props}>
-        <MediaView type="image" src={project.images[0].url} />
-        <BodyTextLarge>
-          <strong>{project.content.client}</strong>
+        <BodyText>
+          <strong>{project.content.client} /</strong>
+          <br />
           <span className="opq5"> {project.content.title}</span>
-        </BodyTextLarge>
+        </BodyText>
+        <MediaView type="image" src={project.images[0].url} />
       </Container>
     </Link>
   );

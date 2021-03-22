@@ -101,10 +101,10 @@ export const ProjectsContent: FC<{}> = ({ children }) => {
             <BodyText>{children}</BodyText>
           </Section>
         </Content>
-        <Footer>
+        {/* <Footer>
           <FooterNavigation />
           <FooterCopyright />
-        </Footer>
+        </Footer> */}
       </Fragment>
     );
   } else {
