@@ -4,18 +4,18 @@ import { Box, Text, Grid } from "theme-ui";
 import Link from "next/link";
 import { MediaView } from "./MediaView";
 
-/**
- * Shift order for items.
- * @param i
- * @returns
- */
-const order = (i: number) => {
-  const r = i % 4;
-  const n = r === 1 ? 2 : r === 2 ? 1 : r;
-  console.log("IN", i, n);
-  return n + i;
+const calcRowCol = (i: number) => {
+  let row = Math.floor(i / 2) + 1;
+  let col = (i % 2) + 1;
+  if (row % 2 === 1 && col === 2) {
+    col = 1;
+    row = row + 1;
+  } else if (row % 2 === 0 && col === 1) {
+    col = 2;
+    row = row - 1;
+  }
+  return [row, col];
 };
-
 /**
  * Take the a project's first image and display along with the title as a clickable link
  * @param param0
@@ -24,18 +24,31 @@ export const PackageExampleItem: FC<{
   example: PackageExample;
   idx: number;
 }> = ({ example, idx, ...props }) => {
-  const row = Math.floor(idx / 2);
-  console.log("IDX:", idx, ">", row);
-
+  const i1 = idx * 2;
+  const i2 = idx * 2 + 1;
+  const [row1, col1] = calcRowCol(i1);
+  const [row2, col2] = calcRowCol(i2);
   return (
     <Fragment>
-      <Text as="h3" variant="body_small" sx={{ order: 1 }}>
+      <Text
+        as="h3"
+        variant="body_small"
+        sx={{ gridRow: [undefined, row1], gridColumn: [undefined, col1] }}
+      >
         <span>{example.title}</span>
         <br />
         <span className="opq75">{example.description}</span>
       </Text>
       <Link href={example.href}>
-        <Box as="article" sx={{ cursor: "pointer", order: 2 }} {...props}>
+        <Box
+          as="article"
+          sx={{
+            cursor: "pointer",
+            gridRow: [undefined, row2],
+            gridColumn: [undefined, col2],
+          }}
+          {...props}
+        >
           <MediaView src={example.video} type="video" />
         </Box>
       </Link>
