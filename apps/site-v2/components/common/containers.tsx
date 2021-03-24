@@ -108,8 +108,3 @@ export const Section: FC<{
     </Box>
   );
 };
-
-/** Grid being used on ProjectThumbs - need to add columns option */
-export const Grid: FC<{}> = ({ children }) => {
-  return <_Grid sx={gridStyle}>{children}</_Grid>;
-};

@@ -1,37 +1,45 @@
 import { FC, Fragment, forwardRef } from "react";
 import { PackageDataRoot, PackageExample } from "types";
-import { Grid } from "./containers";
-import { Image, Container, Box } from "theme-ui";
-import { BodyText } from "components/common";
+import { Box, Text, Grid } from "theme-ui";
 import Link from "next/link";
 import { MediaView } from "./MediaView";
-import { BodyTextLarge } from "./typography";
 
-// export const PackageImageView = forwardRef<
-//   HTMLImageElement,
-//   {
-//     image: string;
-//   }
-// >(({ image }, ref) => {
-//   return <Image ref={ref} src={image}></Image>;
-// });
+/**
+ * Shift order for items.
+ * @param i
+ * @returns
+ */
+const order = (i: number) => {
+  const r = i % 4;
+  const n = r === 1 ? 2 : r === 2 ? 1 : r;
+  console.log("IN", i, n);
+  return n + i;
+};
 
 /**
  * Take the a project's first image and display along with the title as a clickable link
  * @param param0
  */
-export const PackageImageLink: FC<{ example: PackageExample }> = ({
-  example,
-  ...props
-}) => {
+export const PackageExampleItem: FC<{
+  example: PackageExample;
+  idx: number;
+}> = ({ example, idx, ...props }) => {
+  const row = Math.floor(idx / 2);
+  console.log("IDX:", idx, ">", row);
+
   return (
-    <Link href={example.href}>
-      <Box as="article" sx={{ cursor: "pointer" }} {...props}>
-        <BodyText>{example.title}</BodyText>
-        <BodyText className="opq75">{example.description}</BodyText>
-        <MediaView src={example.video} type="video" />
-      </Box>
-    </Link>
+    <Fragment>
+      <Text as="h3" variant="body_small" sx={{ order: 1 }}>
+        <span>{example.title}</span>
+        <br />
+        <span className="opq75">{example.description}</span>
+      </Text>
+      <Link href={example.href}>
+        <Box as="article" sx={{ cursor: "pointer", order: 2 }} {...props}>
+          <MediaView src={example.video} type="video" />
+        </Box>
+      </Link>
+    </Fragment>
   );
 };
 
@@ -44,9 +52,9 @@ export const PackageExampleGrid: FC<{ examples: PackageExample[] }> = ({
 }) => {
   return (
     <Box as="section" sx={{ marginBottom: "6rem" }}>
-      <Grid>
+      <Grid variant="packages_grid">
         {examples.map((ex, i) => (
-          <PackageImageLink key={i} example={ex} />
+          <PackageExampleItem idx={i} key={i} example={ex} />
         ))}
       </Grid>
     </Box>
@@ -59,7 +67,7 @@ export const PackagesGrid: FC<{ root: PackageDataRoot }> = ({ root }) => {
       {root.packages.map((pkg, i) => {
         return (
           <Fragment key={i}>
-            <BodyTextLarge>{pkg.title}</BodyTextLarge>
+            <Text variant="body_small">{pkg.title}</Text>
             <PackageExampleGrid examples={pkg.examples} />
           </Fragment>
         );

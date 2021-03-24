@@ -11,6 +11,17 @@ export const text: Pick<Theme, "text"> = {
       // color: "#aaa",
       // marginBottom: "32px",
     },
+
+    body_small: {
+      fontFamily: "body",
+      fontSize: "24px",
+      lineHeight: "42px",
+      fontWeight: 600,
+      letterSpacing: -1,
+      // color: "#aaa",
+      // marginBottom: "32px",
+    },
+
     body_large: {
       fontFamily: "body",
       fontSize: "16px",

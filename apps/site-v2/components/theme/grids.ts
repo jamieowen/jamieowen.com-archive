@@ -23,13 +23,14 @@ export const grids: Pick<Theme, "grids"> = {
       },
     },
 
-    project_info: {
-      gap: "0px 16px",
+    packages_grid: {
+      gap: "16px",
       gridTemplateColumns: ["1fr", "1fr 1fr"],
     },
 
     grid_2: {
-      gridTemplateColumns: "1fr 1fr",
+      gap: "16px",
+      gridTemplateColumns: ["1fr", "1fr 1fr"],
     },
   },
 };

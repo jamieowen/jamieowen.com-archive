@@ -7,7 +7,13 @@ import {
   ProjectImageLinks,
   Section,
 } from "components/common";
-import { ProjectsContextProvider } from "components/context/ProjectsContext";
+
+export { getStaticProps } from "services/get-static-paths";
+
+import { packagesData } from "data/packages-data";
+import { sketchesData } from "data/sketches-data";
+import { RecentWork } from "components/content/RecentWork";
+
 import { Fragment } from "react";
 import { Styled } from "theme-ui";
 
@@ -91,57 +97,10 @@ export const IntroContent = () => {
   );
 };
 
-export const SocialLinks = () => {};
-
-export { getStaticProps } from "services/get-static-paths";
-
-export const RecentWork = ({ projects }) => {
-  return (
-    <ProjectsContextProvider projects={projects}>
-      <Content>
-        <Section maxWidth="medium">
-          <PageHeaderNavigation />
-          <BodyText>
-            Some recent work made possible while contracting with the very
-            talented folk at agencies:{" "}
-            <a href="https://allofus.com/" target="_blank">
-              AllOfUs
-            </a>
-            ,{" "}
-            <a href="https://www.goodboydigital.com/" target="_blank">
-              Goodboy Digital
-            </a>
-            ,{" "}
-            <a href="https://www.movingbrands.com/" target="_blank">
-              Moving Brands
-            </a>
-            ,{" "}
-            <a href="https://www.rehabagency.ai/" target="_blank">
-              Rehab Agency
-            </a>
-            , and{" "}
-            <a href="https://nexusstudios.com/interactive/" target="_blank">
-              Nexus Studios.
-            </a>
-          </BodyText>
-        </Section>
-        <Section maxWidth="medium">
-          <ProjectImageLinks projects={projects} />
-        </Section>
-      </Content>
-    </ProjectsContextProvider>
-  );
-};
-
-import { packagesData } from "data/packages-data";
-import { sketchesData } from "data/sketches-data";
-
 export const Sketches = () => {
   return (
     <Content>
-      {/** Sketches */}
       <Section maxWidth="medium">
-        <BodyHeader>03 / Play</BodyHeader>
         <PackagesGrid root={sketchesData} />
       </Section>
     </Content>
@@ -151,12 +110,6 @@ export const Sketches = () => {
 export const Packages = () => {
   return (
     <Content>
-      {/** Sketches */}
-      <Section maxWidth="medium">
-        <BodyHeader>03 / Play</BodyHeader>
-        <PackagesGrid root={sketchesData} />
-      </Section>
-      {/** Packages */}
       <Section maxWidth="small">
         <BodyHeader>03 / Packages</BodyHeader>
         <BodyText>
@@ -174,7 +127,7 @@ export const Packages = () => {
 export const Intro = ({ projects }) => {
   return (
     <Fragment>
-      <BodyHeader>01/02</BodyHeader>
+      {/* <BodyHeader>01/02</BodyHeader> */}
       <BodyText>Hello.</BodyText>
       <br />
 

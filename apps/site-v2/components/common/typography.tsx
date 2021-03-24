@@ -21,14 +21,6 @@ export const BodyTextLarge: FC<{}> = ({ children }) => {
   );
 };
 
-export const BodySmallText: FC<{}> = ({ children }) => {
-  return (
-    <Text as="p" variant="body_small">
-      {children}
-    </Text>
-  );
-};
-
 /**
  *
  * Body Header

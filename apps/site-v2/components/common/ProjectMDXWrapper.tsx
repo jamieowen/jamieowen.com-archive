@@ -4,9 +4,6 @@ import {
   BodyText,
   Content,
   ProjectImages,
-  Footer,
-  FooterNavigation,
-  FooterCopyright,
 } from "components/common";
 import { FC, Fragment } from "react";
 import { Container, Grid, Text } from "theme-ui";
@@ -18,8 +15,7 @@ import {
   useProjects,
 } from "components/context/ProjectsContext";
 import { useNavigationData } from "./MenuNavigation";
-import { BodyLink, BodyTextLarge } from "./typography";
-import { FooterProjectNavigation } from "./FooterNavigation";
+import { RecentWork } from "components/content/RecentWork";
 
 export const ProjectMDXWrapper: FC<StaticPropsType> = ({
   children,
@@ -57,6 +53,8 @@ export const ProjectsContent: FC<{}> = ({ children }) => {
   const projects = useProjects();
 
   const navigation = useNavigationData();
+
+  console.log(projects);
 
   const project = projects ? projects.currentProject : null;
   const nextProject = projects ? projects.nextProject : null;
@@ -100,7 +98,11 @@ export const ProjectsContent: FC<{}> = ({ children }) => {
           <Section maxWidth="medium" sx={{ columnCount: 2 }}>
             <BodyText>{children}</BodyText>
           </Section>
+          <Section>
+            <RecentWork projects={projects.projects} />
+          </Section>
         </Content>
+
         {/* <Footer>
           <FooterNavigation />
           <FooterCopyright />

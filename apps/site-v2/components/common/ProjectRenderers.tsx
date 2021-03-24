@@ -1,9 +1,7 @@
 import { FC } from "react";
 import { ProjectData } from "types";
-import { Grid } from "./containers";
-import { Container } from "theme-ui";
+import { Box, Text, Grid } from "theme-ui";
 import Link from "next/link";
-import { BodyText, BodyTextLarge } from "./typography";
 import { MediaView } from "./MediaView";
 
 /**
@@ -16,14 +14,14 @@ export const ProjectImageLink: FC<{ project: ProjectData }> = ({
 }) => {
   return (
     <Link href={project.url}>
-      <Container sx={{ cursor: "pointer" }} {...props}>
-        <BodyText>
+      <Box sx={{ cursor: "pointer" }} {...props}>
+        <Text as="p" variant="body_small">
           <strong>{project.content.client} /</strong>
           <br />
           <span className="opq5"> {project.content.title}</span>
-        </BodyText>
+        </Text>
         <MediaView type="image" src={project.images[0].url} />
-      </Container>
+      </Box>
     </Link>
   );
 };
@@ -36,7 +34,7 @@ export const ProjectImageLinks: FC<{ projects: ProjectData[] }> = ({
   projects,
 }) => {
   return (
-    <Grid>
+    <Grid variant="grid_2">
       {projects.map((p, i) => (
         <ProjectImageLink key={i} project={p} />
       ))}
@@ -50,7 +48,7 @@ export const ProjectImageLinks: FC<{ projects: ProjectData[] }> = ({
  */
 export const ProjectImages: FC<{ project: ProjectData }> = ({ project }) => {
   return (
-    <Grid>
+    <Grid variant="grid_2">
       {project.images.map((image, i) => (
         <MediaView key={i} type="image" src={image.url} />
       ))}
