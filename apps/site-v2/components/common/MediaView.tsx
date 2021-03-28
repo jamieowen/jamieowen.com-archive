@@ -56,7 +56,7 @@ export const MediaView: FC<
     >
       <LoaderContainer visible={!loaded} spinner="small">
         {type === "image" ? (
-          <MediaImage src={src + "?" + Math.random()} onLoad={onLoad} />
+          <MediaImage src={src} onLoad={onLoad} />
         ) : (
           <MediaVideo src={src} onCanPlay={onLoad} />
         )}

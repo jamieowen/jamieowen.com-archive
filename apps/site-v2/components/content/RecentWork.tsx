@@ -8,10 +8,10 @@ export const RecentWork: FC<{ projects: ProjectData[] }> = ({ projects }) => {
   return (
     <ProjectsContextProvider projects={projects}>
       <Content>
-        <Section maxWidth="medium">
+        {/* <Section maxWidth="medium">
           <Text variant="body_text">
             Some recent work made with the very talented folk at agencies{" "}
-            <a href="https://allofus.com/" target="_blank">
+            <Styled.a href="https://allofus.com/" target="_blank">
               AllOfUs
             </a>
             ,{" "}
@@ -31,7 +31,7 @@ export const RecentWork: FC<{ projects: ProjectData[] }> = ({ projects }) => {
               Nexus Studios.
             </a>
           </Text>
-        </Section>
+        </Section> */}
         <Section maxWidth="medium">
           <ProjectImageLinks projects={projects} />
         </Section>

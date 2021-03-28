@@ -8,7 +8,8 @@ export const packagesData: PackageDataRoot = {
   packages: [
     {
       href: "https://www.npmjs.com/package/@jamieowen/layout",
-      title: "@jamieowen/layout",
+      // title: "@jamieowen/layout",
+      title: "",
       examples: [
         {
           id: "infinite-grid",

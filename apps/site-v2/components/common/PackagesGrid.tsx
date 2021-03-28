@@ -35,7 +35,7 @@ export const PackageExampleItem: FC<{
         variant="body_small"
         sx={{ gridRow: [undefined, row1], gridColumn: [undefined, col1] }}
       >
-        <span>{example.title}</span>
+        <strong>{example.title}</strong>
         <br />
         <span className="opq75">{example.description}</span>
       </Text>
@@ -80,7 +80,9 @@ export const PackagesGrid: FC<{ root: PackageDataRoot }> = ({ root }) => {
       {root.packages.map((pkg, i) => {
         return (
           <Fragment key={i}>
-            <Text variant="body_small">{pkg.title}</Text>
+            <Text variant="body_small">
+              <strong>{pkg.title}</strong>
+            </Text>
             <PackageExampleGrid examples={pkg.examples} />
           </Fragment>
         );

@@ -4,19 +4,19 @@ export const text: Pick<Theme, "text"> = {
   text: {
     body_text: {
       fontFamily: "body",
-      fontSize: "42px",
-      lineHeight: "64px",
+      fontSize: ["24px", "42px"],
+      lineHeight: ["42px", "64px"],
       fontWeight: 600,
-      letterSpacing: -2.8,
+      letterSpacing: [-1.8, -2.8],
       // color: "#aaa",
       // marginBottom: "32px",
     },
 
     body_small: {
       fontFamily: "body",
-      fontSize: "24px",
-      lineHeight: "42px",
-      fontWeight: 600,
+      fontSize: ["16px", "24px"],
+      lineHeight: ["32px", "42px"],
+      fontWeight: 500,
       letterSpacing: -1,
       // color: "#aaa",
       // marginBottom: "32px",
@@ -30,10 +30,11 @@ export const text: Pick<Theme, "text"> = {
       // color: "primary",
       // marginBottom: "32px",
     },
+
     body_header: {
       fontFamily: "heading",
       fontSize: "8px",
-      fontWeight: 400,
+      fontWeight: 500,
       lineHeight: "48px",
       opacity: 0.75,
       textTransform: "uppercase",
@@ -84,9 +85,10 @@ export const text: Pick<Theme, "text"> = {
 
     navigation_list: {
       fontFamily: "navigation",
-      fontSize: "12px",
-      fontWeight: 400,
-      lineHeight: "32px",
+      fontSize: ["16px", "24px"],
+      fontWeight: 500,
+      // lineHeight: "32px",
+      lineHeight: ["32px", "42px"],
       textDecoration: "underline",
       cursor: "pointer",
       // marginRight: (v)=>'10px',

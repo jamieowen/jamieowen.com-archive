@@ -3,6 +3,11 @@ import { Theme } from "theme-ui";
 export const layout: Pick<Theme, "layout"> = {
   /** Layout Variants */
   layout: {
+    divider_header: {
+      marginTop: "0rem",
+      marginBottom: "6rem",
+    },
+
     container: {
       // margin: 0,
       // marginLeft: 0,

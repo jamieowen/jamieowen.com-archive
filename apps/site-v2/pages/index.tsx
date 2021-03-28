@@ -3,9 +3,8 @@ import {
   BodyText,
   Content,
   PackagesGrid,
-  PageHeaderNavigation,
-  ProjectImageLinks,
   Section,
+  TechGridList,
 } from "components/common";
 
 export { getStaticProps } from "services/get-static-paths";
@@ -15,7 +14,7 @@ import { sketchesData } from "data/sketches-data";
 import { RecentWork } from "components/content/RecentWork";
 
 import { Fragment } from "react";
-import { Styled } from "theme-ui";
+import { Container, Grid, Styled, Text } from "theme-ui";
 
 export const IntroContent = () => {
   return (
@@ -69,7 +68,7 @@ export const IntroContent = () => {
           personal projects. + details on current technical expertise.
         </BodyText>
         <br />
-        <BodyText>
+        <BodyText as="div">
           <Styled.div
             sx={{
               textAlign: "center",
@@ -97,6 +96,47 @@ export const IntroContent = () => {
   );
 };
 
+export const TechContent = () => {
+  return (
+    <Content>
+      <Section maxWidth="medium">
+        <BodyText>
+          I'm currently focused on all things Typescript/Javascript ES6; and
+          proficient with{" "}
+          <Styled.a href="https://reactjs.org/" target="_blank">
+            React
+          </Styled.a>
+          ,{" "}
+          <Styled.a href="https://threejs.org/" target="_blank">
+            Three.js
+          </Styled.a>
+          ,{" "}
+          <Styled.a href="https://www.pixijs.com/" target="_blank">
+            Pixi.js
+          </Styled.a>{" "}
+          and more recently{" "}
+          <Styled.a href="https://thi.ng/" target="_blank">
+            thi.ng.
+          </Styled.a>{" "}
+          I also have experience working with Python, C++, C#, and previously
+          Adobe Flex {"& "} Flash AS3 (RIP).
+        </BodyText>
+        <br />
+        <BodyText>
+          A less than 😅 exhaustive list of tech that regularly occupies my
+          brain includes:
+        </BodyText>
+      </Section>
+      <Section maxWidth="medium">
+        <TechGridList />
+      </Section>
+      {/* <Section maxWidth="medium">
+        <BodyHeader>02 / Interests</BodyHeader>
+      </Section> */}
+    </Content>
+  );
+};
+
 export const Sketches = () => {
   return (
     <Content>
@@ -111,11 +151,13 @@ export const Packages = () => {
   return (
     <Content>
       <Section maxWidth="small">
-        <BodyHeader>03 / Packages</BodyHeader>
-        <BodyText>
-          Code libraries currently being worked on. Forming the basis of
-          sketches above. Will open source soon.
-        </BodyText>
+        {/* <BodyHeader>03 / Packages</BodyHeader> */}
+        <Grid variant="grid_2">
+          <Text variant="body_small" className="opq75">
+            Some npm package examples from personal libraries being worked on.
+            Will open source soon.
+          </Text>
+        </Grid>
       </Section>
       <Section maxWidth="medium">
         <PackagesGrid root={packagesData} />
@@ -124,30 +166,38 @@ export const Packages = () => {
   );
 };
 
+const HeaderDivider = ({ children }) => {
+  return (
+    <Container variant="divider_header" className="opq5">
+      {children}
+    </Container>
+  );
+};
 export const Intro = ({ projects }) => {
   return (
     <Fragment>
-      {/* <BodyHeader>01/02</BodyHeader> */}
-      <BodyText>Hello.</BodyText>
-      <br />
-
+      <HeaderDivider>
+        <BodyText>Hello.</BodyText>
+      </HeaderDivider>
       <IntroContent />
-      <br />
 
-      <br />
-      <br />
-      <br />
-      <BodyText>Recent Work</BodyText>
+      <HeaderDivider>
+        <BodyText>Recent Work</BodyText>
+      </HeaderDivider>
       <RecentWork projects={projects} />
-      <br />
-      <BodyText>Experimental</BodyText>
+      <HeaderDivider>
+        <BodyText>Tech</BodyText>
+      </HeaderDivider>
+      <TechContent />
+      <HeaderDivider>
+        <BodyText>Experimental</BodyText>
+      </HeaderDivider>
       <Sketches />
-
+      <HeaderDivider>
+        <BodyText>Packages</BodyText>
+      </HeaderDivider>
       <Packages />
     </Fragment>
-    // <Content>
-    //   <Section maxWidth="small"></Section>
-    // </Content>
   );
 };
 
