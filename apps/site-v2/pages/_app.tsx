@@ -28,11 +28,16 @@ import { useRouter } from "next/router";
 const Fonts = () => {
   return (
     <Fragment>
-      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      {/* <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap"
         rel="stylesheet"
-      />
+      /> */}
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500;600&display=swap"
+        rel="stylesheet"
+      ></link>
     </Fragment>
   );
 };
