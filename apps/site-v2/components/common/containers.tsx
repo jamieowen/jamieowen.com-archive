@@ -17,16 +17,16 @@ const headerStyle: ThemeUIStyleObject = {
 
 const contentContainerStyle: ThemeUIStyleObject = {
   position: "relative",
-  marginTop: headerHeight,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "column",
+  // marginTop: headerHeight,
+  // display: "flex",
+  // justifyContent: "center",
+  // alignItems: "center",
+  // flexDirection: "column",
   width: "100%",
   overflow: "hidden",
 
-  minHeight: "calc( 100% - 2rem )",
-  padding: ["2rem", "4rem"],
+  // minHeight: "calc( 100% - 2rem )",
+  padding: ["2rem", "3rem"],
   backgroundColor: "content_background",
   color: "content_text",
 };
@@ -51,7 +51,7 @@ const footerStyle: ThemeUIStyleObject = {
 const sectionStyle: ThemeUIStyleObject = {
   // max widths are defined as classes in root style object.
   // width: "100%",
-  width: "auto !important",
+  // width: "auto !important",
   margin: "0px",
   marginBottom: "4rem",
 };
@@ -107,9 +107,4 @@ export const Section: FC<{
       {children}
     </Box>
   );
-};
-
-/** Grid being used on ProjectThumbs - need to add columns option */
-export const Grid: FC<{}> = ({ children }) => {
-  return <_Grid sx={gridStyle}>{children}</_Grid>;
 };

@@ -21,14 +21,6 @@ export const BodyTextLarge: FC<{}> = ({ children }) => {
   );
 };
 
-export const BodySmallText: FC<{}> = ({ children }) => {
-  return (
-    <Text as="p" variant="body_small">
-      {children}
-    </Text>
-  );
-};
-
 /**
  *
  * Body Header
@@ -102,7 +94,7 @@ export const BodyLink: FC<
 };
 
 export const BodyLinkPrimary: FC<ComponentProps<typeof BodyLink>> = (props) => {
-  return <BodyLink {...props} sx={{ color: "hotpink", fontSize: "16px" }} />;
+  return <BodyLink {...props} variant="body_link" />;
 };
 
 /**

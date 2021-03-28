@@ -4,12 +4,24 @@ export const text: Pick<Theme, "text"> = {
   text: {
     body_text: {
       fontFamily: "body",
-      fontSize: "16px",
-      lineHeight: "32px",
-      fontWeight: 400,
+      fontSize: ["24px", "42px"],
+      lineHeight: ["42px", "64px"],
+      fontWeight: 600,
+      letterSpacing: [-1.8, -2.8],
       // color: "#aaa",
       // marginBottom: "32px",
     },
+
+    body_small: {
+      fontFamily: "body",
+      fontSize: ["16px", "24px"],
+      lineHeight: ["32px", "42px"],
+      fontWeight: 500,
+      letterSpacing: -1,
+      // color: "#aaa",
+      // marginBottom: "32px",
+    },
+
     body_large: {
       fontFamily: "body",
       fontSize: "16px",
@@ -18,15 +30,20 @@ export const text: Pick<Theme, "text"> = {
       // color: "primary",
       // marginBottom: "32px",
     },
+
     body_header: {
       fontFamily: "heading",
       fontSize: "8px",
-      fontWeight: 400,
+      fontWeight: 500,
       lineHeight: "48px",
       opacity: 0.75,
       textTransform: "uppercase",
     },
 
+    body_link: {
+      color: "hotpink",
+      fontSize: "42px",
+    },
     /**
      * Navigation Menu
      *
@@ -68,9 +85,10 @@ export const text: Pick<Theme, "text"> = {
 
     navigation_list: {
       fontFamily: "navigation",
-      fontSize: "12px",
-      fontWeight: 400,
-      lineHeight: "32px",
+      fontSize: ["16px", "24px"],
+      fontWeight: 500,
+      // lineHeight: "32px",
+      lineHeight: ["32px", "42px"],
       textDecoration: "underline",
       cursor: "pointer",
       // marginRight: (v)=>'10px',
@@ -81,105 +99,5 @@ export const text: Pick<Theme, "text"> = {
         color: "content_background",
       },
     },
-
-    // big project links..
-    // project_text: {
-    //   fontFamily: "roboto",
-    //   fontSize: ["32px", "48px"],
-    //   lineHeight: ["56px", "96px"],
-    // },
-
-    // // client / agency links
-    // project_info: {
-    //   fontFamily: "roboto",
-    //   fontSize: "8px",
-    //   lineHeight: "24px",
-    //   margin: "0px",
-    //   padding: "0px",
-    //   textTransform: "uppercase",
-
-    //   h3: {
-    //     display: "inline-block",
-    //     fontWeight: 400,
-    //     fontSize: "8px",
-    //     marginRight: "8px",
-    //     margin: "0px",
-    //     opacity: 0.5,
-    //   },
-    //   span: {
-    //     // opacity
-    //   },
-    // },
-
-    /** Top Navigation Text */
-    // navigation: {
-    //   fontSize: 0,
-    //   letterSpacing: "0.12em",
-    //   opacity: 1,
-    //   fontFamily: "roboto",
-    //   fontWeight: "semibold",
-    //   textTransform: "uppercase",
-    //   // color: "navigation_text",
-    //   color: "#232323",
-    //   "> * + *": {
-    //     marginLeft: "1rem !important",
-    //   },
-    // },
-    // navigation_link: {
-    //   fontWeight: "bold",
-    //   fontFamily: "worksans",
-    //   color: "inherit",
-    //   display: "inline-block",
-    //   "a:hover, a:link, a:visited": {
-    //     color: "inherit",
-    //     textDecoration: "none",
-    //     opacity: 1,
-    //   },
-    //   ":hover": {
-    //     opacity: 0.4,
-    //     cursor: "pointer",
-    //   },
-    // },
-    // /** Typical Heading */
-    // heading: {
-    //   color: "yellow",
-    //   lineHeight: "2rem",
-    // },
-    // /**  Small Sub Heading */
-    // subtitle_heading: {
-    //   fontFamily: "roboto",
-    //   fontSize: 0,
-    //   letterSpacing: "0.2em",
-    //   opacity: 0.45,
-    //   textTransform: "uppercase",
-    //   marginBottom: "3rem",
-    // },
-
-    // mediagrid_title: {
-    //   position: "relative",
-    //   // fontFamily: "roboto",
-    //   fontFamily: "worksans",
-    //   textTransform: "uppercase",
-    //   fontSize: 1,
-    //   lineHeight: "4rem",
-    // },
-
-    // /** Extra large intro paragraph */
-    // body_title: {
-    //   fontFamily: "worksans",
-    //   fontWeight: "regular",
-    //   lineHeight: "3.5rem",
-    //   letterSpacing: 0.82,
-    //   fontSize: 5,
-    // },
-    // /** Extra large intro paragraph */
-    // body_normal: {
-    //   fontFamily: "worksans",
-    //   textTransform: "initial",
-    //   fontWeight: "regular",
-    //   fontSize: 2,
-    //   lineHeight: "2rem",
-    //   letterSpacing: 0.82,
-    // },
   },
 };

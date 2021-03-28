@@ -9,12 +9,18 @@ export const ContentIFrame: FC<{
   src: string;
   pointerEvents?: boolean;
   enabled?: boolean;
-}> = ({ height = headerHeight, src, pointerEvents = true, enabled = true }) => {
+  onLoaded?: () => void;
+}> = ({
+  height = headerHeight,
+  src,
+  pointerEvents = true,
+  enabled = true,
+  onLoaded = () => {},
+}) => {
   const [loading, setLoading] = useState(true);
 
   const scroll = useScrollContext();
   const vis = 1 - scroll.headerVisibility;
-
   return (
     <Box
       // onClick={() => setLoading(!loading)}
@@ -48,7 +54,10 @@ export const ContentIFrame: FC<{
               pointerEvents: pointerEvents ? "all" : "none",
             }}
             onLoadStart={() => setLoading(true)}
-            onLoad={() => setLoading(false)}
+            onLoad={() => {
+              setLoading(false);
+              onLoaded();
+            }}
             // @ts-ignore
             src={src}
           ></Box>

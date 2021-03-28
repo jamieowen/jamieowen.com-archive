@@ -8,7 +8,6 @@ import {
   useMemo,
 } from "react";
 import { Container, ThemeUIStyleObject, Text } from "theme-ui";
-import { Grid } from "./containers";
 
 const footerStyle: ThemeUIStyleObject = {
   // position: "absolute",
