@@ -74,6 +74,7 @@ export const MediaVideo: FC<
       as="video"
       poster={src.replace(".mp4", ".jpg")}
       autoPlay={true}
+      muted={true}
       playsInline={true}
       sx={{ objectFit: "cover", width: "100%" }}
       loop={true}
