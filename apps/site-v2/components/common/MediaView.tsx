@@ -19,7 +19,7 @@ const useAspectRatio = (aspect: "4/3" | "16/9") => {
       const width = bounds.contentRect.width;
       const height = aspect === "4/3" ? width * (3 / 4) : width * (9 / 16);
       if (bounds.contentRect.height !== height) {
-        setExpectedHeight(height + "px");
+        setExpectedHeight(height - 1 + "px");
       }
     });
     observer.observe(ref.current);
@@ -56,7 +56,7 @@ export const MediaView: FC<
     >
       <LoaderContainer visible={!loaded} spinner="small">
         {type === "image" ? (
-          <MediaImage src={src + "?" + Math.random()} onLoad={onLoad} />
+          <MediaImage src={src} onLoad={onLoad} />
         ) : (
           <MediaVideo src={src} onCanPlay={onLoad} />
         )}

@@ -12,7 +12,7 @@ export const LoaderContainer: FC<{
         height: "100%",
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "#111111",
+        backgroundColor: "#ddd",
         ".cover": {
           width: "100%",
           height: "100%",
@@ -20,15 +20,15 @@ export const LoaderContainer: FC<{
           top: 0,
           left: 0,
           position: "absolute",
-          backgroundColor: "#111111",
+          backgroundColor: "#ccc",
           // zIndex: 1,
           transitionDelay: "0.3s",
           transformOrigin: "0% 0%",
-          transform: "scale(2.0,2.0) rotate(0deg)",
+          transform: "scale(1.0,1.0)",
           transition: "transform 1.4s cubic-bezier(0.85, 0, 0.15, 1)",
         },
         ".hidden": {
-          transform: "scale(0.5,2.0) rotate(90deg)",
+          transform: "scale(0,1.0)",
           transformOrigin: "0% 0%",
         },
         ".spin-hide": {

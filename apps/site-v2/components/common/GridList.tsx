@@ -54,10 +54,10 @@ export const TechGridList = () => {
     () => ({
       columns: techListData(),
       names: [
-        `${nav.current.num}.1 / Creative Tech`,
-        `${nav.current.num}.2 / Frontend`,
-        `${nav.current.num}.3 / Backend/Devops`,
-        `${nav.current.num}.4 / Generalist`,
+        `Creative Tech`,
+        `Frontend`,
+        `Backend/Devops`,
+        `Generalist`,
       ] as GridNames,
     }),
     []

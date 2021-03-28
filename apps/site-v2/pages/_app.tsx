@@ -28,11 +28,16 @@ import { useRouter } from "next/router";
 const Fonts = () => {
   return (
     <Fragment>
-      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      {/* <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap"
         rel="stylesheet"
-      />
+      /> */}
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500;600&display=swap"
+        rel="stylesheet"
+      ></link>
     </Fragment>
   );
 };
@@ -92,21 +97,21 @@ const RegularSiteContent: FC<any> = ({ children }) => {
   const projectsPage = isProjectsPage();
   return (
     <Fragment>
-      <ContentIFrame src="" enabled={false} pointerEvents={false} />
-      <Header>
+      {/* <ContentIFrame src="" enabled={false} pointerEvents={false} /> */}
+      {/* <Header>
         <Menu />
         {/* <SidePanel /> */}
-        {/* <FooterCopyright className="opq5" copyright={false} /> */}
-      </Header>
+      {/* <FooterCopyright className="opq5" copyright={false} /> */}
+      {/* </Header> */}
       <ContentContainer>
         {children}
-        {!projectsPage && (
+        {/* {!projectsPage && (
           // See ProjectsMDX Wrapper.
           <Footer>
             <FooterNavigation />
             <FooterCopyright />
           </Footer>
-        )}
+        )} */}
       </ContentContainer>
     </Fragment>
   );

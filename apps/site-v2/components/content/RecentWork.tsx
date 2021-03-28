@@ -1,24 +1,17 @@
-import {
-  Section,
-  Content,
-  ProjectImageLinks,
-  BodyText,
-  PageHeaderNavigation,
-} from "components/common";
+import { FC } from "react";
 import { ProjectsContextProvider } from "components/context/ProjectsContext";
+import { Content, ProjectImageLinks, Section } from "components/common";
+import { Text } from "theme-ui";
+import { ProjectData } from "types";
 
-export { getStaticProps } from "services/get-static-paths";
-
-export const RecentWork = ({ projects }) => {
+export const RecentWork: FC<{ projects: ProjectData[] }> = ({ projects }) => {
   return (
     <ProjectsContextProvider projects={projects}>
       <Content>
-        <Section maxWidth="medium">
-          <PageHeaderNavigation />
-          <BodyText>
-            Some recent work made possible while contracting with the very
-            talented folk at agencies:{" "}
-            <a href="https://allofus.com/" target="_blank">
+        {/* <Section maxWidth="medium">
+          <Text variant="body_text">
+            Some recent work made with the very talented folk at agencies{" "}
+            <Styled.a href="https://allofus.com/" target="_blank">
               AllOfUs
             </a>
             ,{" "}
@@ -37,8 +30,8 @@ export const RecentWork = ({ projects }) => {
             <a href="https://nexusstudios.com/interactive/" target="_blank">
               Nexus Studios.
             </a>
-          </BodyText>
-        </Section>
+          </Text>
+        </Section> */}
         <Section maxWidth="medium">
           <ProjectImageLinks projects={projects} />
         </Section>
@@ -46,5 +39,3 @@ export const RecentWork = ({ projects }) => {
     </ProjectsContextProvider>
   );
 };
-
-export default RecentWork;
