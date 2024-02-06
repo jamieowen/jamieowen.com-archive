@@ -37,6 +37,8 @@ export const MediaView: FC<
   const [loaded, setLoaded] = useState(false);
   const [ref, expectedHeight] = useAspectRatio("16/9");
 
+  console.log("TYPE MEDIA VIEW : ", type, src);
+
   const onLoad = () => {
     // console.log("on MEDIA LOAD");
     setLoaded(true);

@@ -49,7 +49,7 @@ export const PackageExampleItem: FC<{
           }}
           {...props}
         >
-          <MediaView src={example.video} type="video" />
+          <MediaView src={example.image} type="image" />
         </Box>
       </Link>
     </Fragment>

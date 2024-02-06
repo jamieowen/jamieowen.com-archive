@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
     "resize-images": "node --loader ts-node/esm  scripts/resize-images.ts",
     "spritesheets": "node --loader ts-node/esm  scripts/spritesheets.ts"

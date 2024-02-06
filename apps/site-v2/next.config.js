@@ -31,6 +31,8 @@ module.exports = withTM(
   withVideos(
     withMDX({
       pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+      distDir: "build",
+      output: "export",
       // async redirects() {
       //   return [{ source: "/", destination: "/work", permanent: true }];
       // },

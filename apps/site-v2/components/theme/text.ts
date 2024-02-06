@@ -4,10 +4,11 @@ export const text: Pick<Theme, "text"> = {
   text: {
     body_text: {
       fontFamily: "body",
-      fontSize: ["24px", "42px"],
-      lineHeight: ["42px", "64px"],
+      fontSize: ["24px", "32px"],
+      lineHeight: ["42px", "52px"],
       fontWeight: 600,
-      letterSpacing: [-1.8, -2.8],
+      letterSpacing: [-1.4, -2],
+      maxWidth: ["90vw", "65vw"],
       // color: "#aaa",
       // marginBottom: "32px",
     },
