@@ -19,6 +19,7 @@ export const packagesData: PackageDataRoot = {
             "https://fra1.digitaloceanspaces.com/jamieowen/videos/packages/infinite-grid.mp4",
           image: "/assets/videos/packages/infinite-grid.jpg",
           title: "Infinite Grid Variations",
+          code: "https://github.com/jamieowen/packages/blob/develop/examples/src/infinite-grid-example.ts",
           description:
             "Stream based, grid & seeded subgrid iterators. With szudzik pair indices for unique cell ids.",
         },
@@ -30,6 +31,7 @@ export const packagesData: PackageDataRoot = {
             "https://fra1.digitaloceanspaces.com/jamieowen/videos/packages/motion-trails.mp4",
           image: "/assets/videos/packages/motion-trails.jpg",
           title: "Motion Trails",
+          code: "https://github.com/jamieowen/packages/blob/develop/examples/src/motion-trails-example.ts",
           description: "Initial test for a stream based motion library.",
         },
         {
@@ -40,6 +42,7 @@ export const packagesData: PackageDataRoot = {
             "https://fra1.digitaloceanspaces.com/jamieowen/videos/packages/gpgpu-state.mp4",
           image: "/assets/videos/packages/gpgpu-state.jpg",
           title: "GPGPU State",
+          code: "https://github.com/jamieowen/packages/blob/develop/examples/src/gpgpu-state.ts",
           description:
             "State management abstractions for maintaining GPU state.",
         },

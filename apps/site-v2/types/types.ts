@@ -53,4 +53,5 @@ export interface PackageExample {
   image: string; // video thumbnail path
   video: string; // video path
   visible?: boolean;
+  code?: string; // ref to code example.
 }

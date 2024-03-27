@@ -1,11 +1,18 @@
 import {
   BodyHeader,
   BodyText,
+  BodyTextSmall,
   Content,
   PackagesGrid,
   Section,
   TechGridList,
+  Update2024,
+  text2024Style,
+  Footer,
+  Award,
 } from "components/common";
+
+import { FaAward } from "react-icons/fa";
 
 export { getStaticProps } from "services/get-static-paths";
 
@@ -16,29 +23,136 @@ import { RecentWork } from "components/content/RecentWork";
 import { Fragment } from "react";
 import { Container, Grid, Styled, Text } from "theme-ui";
 
+const createKPRAwards = () => (
+  <Award
+    awardUrls={[
+      "https://www.awwwards.com/annual-awards-2022/site-of-the-year",
+      "https://thefwa.com/cases/kpr",
+      "https://www.awwwards.com/sites/kpr",
+    ]}
+  />
+);
+
+const createBowieAwards = () => (
+  <Award
+    awardUrls={["https://thefwa.com/cases/adobe-x-bowie-virtual-dressing-room"]}
+  />
+);
+
+const createGettyAwards = () => (
+  <Award
+    awardUrls={[
+      "https://thefwa.com/cases/sculpting-harmony",
+      "https://www.awwwards.com/sites/sculpting-harmony",
+    ]}
+  />
+);
+
+const createValmontAwards = () => (
+  <Award awardUrls={["https://www.awwwards.com/sites/valmont"]} />
+);
+
+const createApeelAwards = () => (
+  <Award awardUrls={["https://www.awwwards.com/sites/apeel-1"]} />
+);
+
 export const IntroContent = () => {
   return (
     <Content>
       <Section>
         <BodyText>
-          My name is Jamie. I'm a Creative Developer & Software Engineer based
-          in London, UK. I enjoy making things with code and have 18+ years
-          experience using web technologies to build apps, installations &
-          websites.
+          My name is Jamie. I'm a Technical Director, Full Stack Developer &
+          Creative Tech based in Manchester / London, UK. I enjoy making things
+          with code and have 20+ years experience using web technologies to
+          build apps, installations & websites.
         </BodyText>
         <br />
+        <BodyText sx={text2024Style}>
+          As of January 2024, I've just finished up as Technical Director
+          <Styled.a href="https://resn.co.nz/" target="_blank">
+            @Resn.
+          </Styled.a>{" "}
+          During my 2.5 years there, i've been lucky to manage some awesome
+          projects:
+        </BodyText>
         <BodyText>
-          I've worked on various award-winning and happily award-losing projects
-          including an iOS/Android games portal for{" "}
+          <Styled.ul>
+            <li>
+              <Styled.a href="https://kprverse.com" target="_blank">
+                KPR
+              </Styled.a>
+              &nbsp;
+              <span>(Dotcom / NFT Blockchain App)</span>
+              &nbsp;
+              {createKPRAwards()}
+            </li>
+            <li>
+              <Styled.a href="https://www.valmont.com" target="_blank">
+                Valmont
+              </Styled.a>
+              &nbsp;
+              <span>(Dotcom)</span>
+              {createValmontAwards()}
+            </li>
+            <li>
+              <Styled.a href="https://www.apeel.com/" target="_blank">
+                Apeel
+              </Styled.a>
+              &nbsp;
+              <span>(Dotcom)</span>
+              {createApeelAwards()}
+            </li>
+            <li>
+              <Styled.a href="https://www.oxefit.com" target="_blank">
+                OxeFit
+              </Styled.a>
+              &nbsp;
+              <span>(Dotcom / E-commerce)</span>
+            </li>
+            <li>
+              <Styled.a
+                href="https://resn.co.nz/#!/work/adobe-bowie/"
+                target="_blank"
+              >
+                Adobe X Bowie
+              </Styled.a>
+              &nbsp;
+              <span>(Interactive)</span>
+              {createBowieAwards()}
+            </li>
+            <li>
+              <Styled.a href="https://gehry.getty.edu/" target="_blank">
+                Sculpting Harmony
+              </Styled.a>{" "}
+              <span>(Interactive / Editorial)</span>
+              {createGettyAwards()}
+            </li>
+            <li>
+              <Styled.a
+                href="https://resn.co.nz/#!/work/humble-motors/"
+                target="_blank"
+              >
+                Humble Motors
+              </Styled.a>
+              &nbsp;
+              <span>(Dotcom / E-commerce)</span>
+            </li>
+          </Styled.ul>
+        </BodyText>
+        <BodyText />
+
+        <BodyText>
+          Before this time, I've worked on various award-winning and happily
+          award-losing projects. Including an iOS/Android games portal for{" "}
           <Styled.a href="/work/pbs-gamesapp">
-            PBS Kids achieving 10+ million downloads
-          </Styled.a>
-          . Building 25+ touch screen installations for the{" "}
+            PBS Kids achieving 10+ million downloads.
+          </Styled.a>{" "}
+          Building 30+ CMS-driven, touch screen installations for the{" "}
           <Styled.a href="/work/national-museum-of-qatar">
             {" "}
-            National Museum of Qatar
-          </Styled.a>
-          . Developing visualisation & prototyping solutions within{" "}
+            National Museum of Qatar.
+          </Styled.a>{" "}
+          Developing visualisation & prototyping solutions within{" "}
           <Styled.a href="/work/lbg-systems-thinking">
             Systems Thinking at Lloyds Banking Group
           </Styled.a>
@@ -167,17 +281,14 @@ export const Packages = () => {
 };
 
 const HeaderDivider = ({ children }) => {
-  return (
-    <Container variant="divider_header" className="opq5">
-      {children}
-    </Container>
-  );
+  return <Container variant="divider_header">{children}</Container>;
 };
 export const Intro = ({ projects }) => {
   return (
     <Fragment>
       <HeaderDivider>
         <BodyText>Hello.</BodyText>
+        <Update2024 />
       </HeaderDivider>
       <IntroContent />
 

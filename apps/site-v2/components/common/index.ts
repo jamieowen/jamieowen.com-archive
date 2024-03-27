@@ -10,3 +10,5 @@ export * from "./ProjectMDXWrapper";
 export * from "./GridList";
 export * from "./PackagesGrid";
 export * from "./IFrame";
+export * from "./Update2024";
+export * from "./awards";

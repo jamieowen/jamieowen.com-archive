@@ -18,6 +18,7 @@ export const sketchesData: PackageDataRoot = {
           // "https://fra1.digitaloceanspaces.com/jamieowen/videos/sketches/color-palette-grid.mp4",
           image: "/assets/videos/sketches/color-palette-grid.jpg",
           title: "Color Palette Grid",
+          code: "https://github.com/jamieowen/jamieowen.com-archive/blob/master/sketches/src/color-scene-grid.ts",
           description:
             "Color theory grid, with generative, color wheel based palettes.",
         },
@@ -30,6 +31,7 @@ export const sketchesData: PackageDataRoot = {
           //"https://fra1.digitaloceanspaces.com/jamieowen/videos/sketches/particles-basics.mp4",
           image: "/assets/videos/sketches/particles-basics.jpg",
           title: "Curl Particles",
+          code: "https://github.com/jamieowen/jamieowen.com-archive/blob/master/sketches/src/particles/particles-basics.ts",
           description: "Simple curl noise and GPGPU state sim.",
         },
         // {

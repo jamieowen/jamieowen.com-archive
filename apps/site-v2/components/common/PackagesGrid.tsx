@@ -1,6 +1,6 @@
 import { FC, Fragment, forwardRef } from "react";
 import { PackageDataRoot, PackageExample } from "types";
-import { Box, Text, Grid } from "theme-ui";
+import { Box, Text, Grid, Styled } from "theme-ui";
 import Link from "next/link";
 import { MediaView } from "./MediaView";
 
@@ -35,7 +35,15 @@ export const PackageExampleItem: FC<{
         variant="body_small"
         sx={{ gridRow: [undefined, row1], gridColumn: [undefined, col1] }}
       >
-        <strong>{example.title}</strong>
+        <strong>
+          {example.title}
+          <span> &nbsp;&nbsp;</span>
+          {example.code ? (
+            <Styled.a href={example.code}>[View Code]</Styled.a>
+          ) : (
+            ""
+          )}
+        </strong>
         <br />
         <span className="opq75">{example.description}</span>
       </Text>

@@ -70,6 +70,10 @@ export const styles: Pick<Theme, "styles"> = {
         textDecoration: "none",
       },
 
+      ul: {
+        paddingInlineStart: ["20px", "40px"],
+      },
+
       // "*": {
       //   transition: "background-color 1s ease-out, color 1.3s ease-in",
       // },
@@ -88,6 +92,7 @@ export const styles: Pick<Theme, "styles"> = {
     },
     a: {
       textDecoration: "underline",
+      color: "hotpink",
       ":hover": {
         backgroundColor: "content_text",
         color: "content_background",

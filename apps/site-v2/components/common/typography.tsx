@@ -13,6 +13,17 @@ export const BodyText: FC<ComponentProps<typeof Text>> = ({
   );
 };
 
+export const BodyTextSmall: FC<ComponentProps<typeof Text>> = ({
+  children,
+  ...props
+}) => {
+  return (
+    <Text as="p" variant="body_small" {...props}>
+      {children}
+    </Text>
+  );
+};
+
 export const BodyTextLarge: FC<{}> = ({ children }) => {
   return (
     <Text as="h3" variant="body_large">
